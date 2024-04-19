@@ -4,13 +4,15 @@ function preload() {
 }
 function setup() {
   createCanvas(512, 512);
+  // pixelDensity(4)
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
-  player = new Sprite(createVector(width / 2, height / 2), playerImage, createVector(100, 100))
+  player = new Sprite(createVector(width / 2, height / 2), createVector(100, 100), playerImage)
 }
 
 function draw() {
   background(220);
+  drawGridDebug()
   // circle(width / 2, height / 2, 200)
 
   let playerCurrentPos = player.getPos()
@@ -28,4 +30,12 @@ function draw() {
 
   }
   player.draw()
+}
+
+function drawGridDebug() {
+  for (let a = 0; a < 512; a += 512 / 16) {
+    for (let b = 0; b < 512; b += 512 / 16) {
+      rect(b, a, 512/8)
+    }
+  }
 }

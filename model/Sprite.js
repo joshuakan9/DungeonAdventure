@@ -3,7 +3,7 @@ class Sprite {
     myImage;
     mySize;
 
-    constructor(thePos, theImage, theSize) {
+    constructor(thePos, theSize, theImage) {
         this.myPos = thePos;
         this.myImage = theImage;
         this.mySize = theSize;
