@@ -4,17 +4,21 @@ function preload() {
 }
 function setup() {
   createCanvas(512, 512);
+  // frameRate(60)
   // pixelDensity(4)
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
   player = new Sprite(createVector(width / 2, height / 2), createVector(100, 100), playerImage)
+  let gameLoop = new GameLoop(tick, render)
+  gameLoop.start()
 }
 
-function draw() {
-  background(220);
-  drawGridDebug()
-  // circle(width / 2, height / 2, 200)
+// function draw() {
+//   update()
+//   render()
+// }
 
+const tick = () => {
   let playerCurrentPos = player.getPos()
   if (keyIsDown(68)) { //D right
     player.setPos(createVector(playerCurrentPos.x + 5, playerCurrentPos.y));
@@ -27,9 +31,16 @@ function draw() {
   }
   if (keyIsDown(83)) { //S down
     player.setPos(createVector(playerCurrentPos.x, playerCurrentPos.y + 5));
-
   }
+}
+
+const render = () => {
+  background(220);
+  drawGridDebug()
+  // circle(width / 2, height / 2, 200)
   player.draw()
+  textSize(32);
+  text(round(frameRate()), 0, 32)
 }
 
 function drawGridDebug() {
