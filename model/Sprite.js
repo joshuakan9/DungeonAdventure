@@ -14,7 +14,7 @@ class Sprite {
     }
 
     draw() {
-        console.log(this.myPos)
+
         image(this.myImage, this.myPos.x, this.myPos.y, this.mySize.x, this.mySize.y)
     }
 

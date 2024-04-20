@@ -1,9 +1,14 @@
 
 let player
+let font
 function preload() {
+  font = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
 }
 function setup() {
   createCanvas(512, 512);
+
+  textFont(font)
+
   // frameRate(60)
   // pixelDensity(4)
   let playerImage = createGraphics(50, 50)
@@ -14,7 +19,7 @@ function setup() {
 }
 
 // function draw() {
-//   update()
+//   tick()
 //   render()
 // }
 
@@ -39,6 +44,7 @@ const render = () => {
   drawGridDebug()
   // circle(width / 2, height / 2, 200)
   player.draw()
+
   textSize(32);
   text(round(frameRate()), 0, 32)
 }

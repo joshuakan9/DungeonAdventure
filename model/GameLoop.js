@@ -1,49 +1,49 @@
 class GameLoop {
-    constructor(tick, render) {
+    constructor(theTick, theRender) {
   
-      this.lastFrameTime = 0;
-      this.accumulatedTime = 0;
-      this.timeStep = 1000/60; // 60 frames per second
+      this.myLastFrameTime = 0;
+      this.myAccumulatedTime = 0;
+      this.myTimeStep = 1000/60; // 60 frames per second
   
-      this.update = tick;
-      this.render = render;
+      this.myUpdate = theTick;
+      this.myRender = theRender;
   
-      this.rafId = null;
+      this.myFrameId = null;
       this.isRunning = false;
     }
   
     mainLoop = (timestamp) => {
       if (!this.isRunning) return;
   
-      let deltaTime = timestamp - this.lastFrameTime;
-      this.lastFrameTime = timestamp;
+      let deltaTime = timestamp - this.myLastFrameTime;
+      this.myLastFrameTime = timestamp;
   
       // Accumulate all the time since the last frame.
-      this.accumulatedTime += deltaTime;
+      this.myAccumulatedTime += deltaTime;
   
       // Fixed time step updates.
       // If there's enough accumulated time to run one or more fixed updates, run them.
-      while (this.accumulatedTime >= this.timeStep) {
-        this.update(this.timeStep); // Here, we pass the fixed time step size.
-        this.accumulatedTime -= this.timeStep;
+      while (this.myAccumulatedTime >= this.myTimeStep) {
+        this.myUpdate(this.myTimeStep); // Here, we pass the fixed time step size.
+        this.myAccumulatedTime -= this.myTimeStep;
       }
   
       // Render
-      this.render();
+      this.myRender();
   
-      this.rafId = requestAnimationFrame(this.mainLoop);
+      this.myFrameId = requestAnimationFrame(this.mainLoop);
     }
   
     start() {
       if (!this.isRunning) {
         this.isRunning = true;
-        this.rafId = requestAnimationFrame(this.mainLoop);
+        this.myFrameId = requestAnimationFrame(this.mainLoop);
       }
     }
   
     stop() {
-      if (this.rafId) {
-        cancelAnimationFrame(this.rafId);
+      if (this.myFrameId) {
+        cancelAnimationFrame(this.myFrameId);
       }
       this.isRunning = false;
     }
