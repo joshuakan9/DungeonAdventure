@@ -1,19 +1,23 @@
 
 let player
 let font
+let cellSize
+let targetPos
 function preload() {
   font = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
 }
 function setup() {
   createCanvas(512, 512);
 
+  cellSize = width / 16
   textFont(font)
 
   // frameRate(60)
   // pixelDensity(4)
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
-  player = new Sprite(createVector(width / 2, height / 2), createVector(100, 100), playerImage)
+  player = new Sprite(createVector(getCell(8), getCell(8)), createVector(cellSize, cellSize), playerImage)
+  targetPos = player.getPos().copy()
   let gameLoop = new GameLoop(tick, render)
   gameLoop.start()
 }
@@ -24,21 +28,31 @@ function setup() {
 // }
 
 const tick = () => {
-  let playerCurrentPos = player.getPos()
-  if (keyIsDown(68)) { //D right
-    player.setPos(createVector(playerCurrentPos.x + 5, playerCurrentPos.y));
+  let distance = moveTowards(player, targetPos, 2)
+  if (distance <= 1) {
+    tryMove()
   }
-  if (keyIsDown(65)) { //A left
-    player.setPos(createVector(playerCurrentPos.x - 5, playerCurrentPos.y));
-  }
-  if (keyIsDown(87)) { //W up
-    player.setPos(createVector(playerCurrentPos.x, playerCurrentPos.y - 5));
-  }
-  if (keyIsDown(83)) { //S down
-    player.setPos(createVector(playerCurrentPos.x, playerCurrentPos.y + 5));
-  }
+
 }
 
+const tryMove = () => {
+
+  let nextPos = targetPos
+  if (keyIsDown(68)) { //D right
+    nextPos.add(createVector(cellSize, 0));
+  } else if (keyIsDown(65)) { //A left
+    nextPos.add(createVector(-cellSize, 0));
+  } else if (keyIsDown(87)) { //W up
+    nextPos.add(createVector(0, -cellSize));
+  } else if (keyIsDown(83)) { //S down
+    nextPos.add(createVector(0, cellSize));
+  } else {
+    return
+  }
+
+
+  targetPos.set(nextPos)
+}
 const render = () => {
   background(220);
   drawGridDebug()
@@ -50,9 +64,32 @@ const render = () => {
 }
 
 function drawGridDebug() {
-  for (let a = 0; a < 512; a += 512 / 16) {
-    for (let b = 0; b < 512; b += 512 / 16) {
-      rect(b, a, 512/8)
+  for (let a = 0; a < height; a += cellSize) {
+    for (let b = 0; b < width; b += cellSize) {
+      rect(b, a, cellSize)
     }
   }
+}
+
+function getCell(theIndex) {
+  return cellSize * theIndex
+}
+
+function moveTowards(person, destinationPosition, speed) {
+
+  let distance = dist(destinationPosition.x, destinationPosition.y, person.getPos().x, person.getPos().y)
+
+  if (distance <= speed) {
+    // If we're close enough, just move directly to the destination
+    person.getPos().set(destinationPosition)
+  } else {
+    // Otherwise, move by the specified speed in the direction of the destination
+    let normalized = createVector(destinationPosition.x - person.getPos().x, (destinationPosition.y - person.getPos().y)).normalize()
+    person.getPos().add(normalized.x * speed, normalized.y * speed)
+
+    // Recalculate remaining distance after the move
+    distance = dist(destinationPosition.x, destinationPosition.y, person.getPos().x, person.getPos().y)
+  }
+
+  return distance;
 }
