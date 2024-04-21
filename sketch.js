@@ -2,6 +2,7 @@
 let player
 let font
 let cellSize
+let cellNumber = 15
 let targetPos
 function preload() {
   font = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
@@ -9,17 +10,19 @@ function preload() {
 function setup() {
   createCanvas(512, 512);
 
-  cellSize = width / 16
+  cellSize = width / cellNumber
   textFont(font)
 
   // frameRate(60)
   // pixelDensity(4)
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
-  player = new Sprite(createVector(getCell(8), getCell(8)), createVector(cellSize, cellSize), playerImage)
+  player = new Sprite(createVector(getCell(7), getCell(7)), createVector(cellSize, cellSize), playerImage)
   targetPos = player.getPos().copy()
   let gameLoop = new GameLoop(tick, render)
   gameLoop.start()
+  
+
 }
 
 // function draw() {
@@ -27,7 +30,8 @@ function setup() {
 //   render()
 // }
 
-const tick = () => {
+const tick = (time) => {
+  console.log(time)
   let distance = moveTowards(player, targetPos, 2)
   if (distance <= 1) {
     tryMove()
@@ -56,7 +60,7 @@ const render = () => {
   background(220);
   
   push()
-  translate(width / 2 - player.getPos().x, height / 2 - player.getPos().y);
+  translate(width / 2 - player.getPos().x - cellSize / 2, height / 2 - player.getPos().y - cellSize / 2);
   drawGridDebug()
 
   // circle(width / 2, height / 2, 200)
@@ -69,12 +73,29 @@ const render = () => {
   text(round(frameRate()), 0, 32)
 
 
+  if (isPaused) {
+    push()
+    rectMode(CENTER)
+    rect(width/2,height/2,width/2)
+    pop()
+  }
+
+}
+
+let isPaused = false
+function keyPressed() {
+  if (keyCode === 27 || keyCode === 80) { // escape key or p
+    console.log(keyCode)
+    isPaused = !isPaused
+  }
 }
 
 function drawGridDebug() {
-  for (let a = 0; a < height; a += cellSize) {
-    for (let b = 0; b < width; b += cellSize) {
-      rect(b, a, cellSize)
+
+  for (let a = 0; a < cellNumber; a += 1) {
+
+    for (let b = 0; b < cellNumber; b += 1) {
+      rect(b * cellSize, a * cellSize, cellSize)
     }
   }
 }
