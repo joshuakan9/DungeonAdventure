@@ -7,10 +7,27 @@ let targetPos
 function preload() {
   font = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
 }
-function setup() {
-  createCanvas(512, 512);
+let ratio = 1;
+let W, H;
 
-  cellSize = width / cellNumber
+let tick
+let render
+let tryMove
+
+let gameLoop
+
+function setup() {
+  if (gameLoop) {
+    gameLoop.stop()
+  }
+
+  window.innerHeight <= window.innerWidth
+  ? ((W = Math.max(window.innerHeight, 1) * ratio),
+    (H = Math.max(window.innerHeight, 1)))
+  : ((W = Math.max(window.innerWidth, 1)),
+    (H = Math.max(window.innerWidth, 1) / ratio));
+  createCanvas(W, H);
+  cellSize = W / cellNumber
   textFont(font)
 
   // frameRate(60)
@@ -19,7 +36,58 @@ function setup() {
   playerImage.background(255, 0, 0)
   player = new Sprite(createVector(getCell(7), getCell(7)), createVector(cellSize, cellSize), playerImage)
   targetPos = player.getPos().copy()
-  let gameLoop = new GameLoop(tick, render)
+
+  tryMove = () => {
+
+
+    if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
+      targetPos.add(createVector(cellSize, 0));
+    } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
+      targetPos.add(createVector(-cellSize, 0));
+    } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
+      targetPos.add(createVector(0, -cellSize));
+    } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
+      targetPos.add(createVector(0, cellSize));
+    } else {
+      return
+    }
+  
+  
+  }
+  tick = (time) => {
+    // console.log(time)
+    let distance = moveTowards(player, targetPos, cellSize/17)
+    if (distance <= 1) {
+      tryMove()
+    }
+  
+  }
+  render = () => {
+    background(220);
+    
+    push()
+    translate(width / 2 - player.getPos().x - cellSize / 2, height / 2 - player.getPos().y - cellSize / 2);
+    drawGridDebug()
+  
+    // circle(width / 2, height / 2, 200)
+  
+    player.draw()
+    pop()
+  
+  
+    textSize(32);
+    text(round(frameRate()), 0, 32)
+  
+  
+    if (isPaused) {
+      push()
+      rectMode(CENTER)
+      rect(width/2,height/2,width/2)
+      pop()
+    }
+  
+  }
+  gameLoop = new GameLoop(tick, render)
   gameLoop.start()
   
 
@@ -30,56 +98,9 @@ function setup() {
 //   render()
 // }
 
-const tick = (time) => {
-  console.log(time)
-  let distance = moveTowards(player, targetPos, 2)
-  if (distance <= 1) {
-    tryMove()
-  }
+function windowResized() {
 
-}
-
-const tryMove = () => {
-
-
-  if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
-    targetPos.add(createVector(cellSize, 0));
-  } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
-    targetPos.add(createVector(-cellSize, 0));
-  } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
-    targetPos.add(createVector(0, -cellSize));
-  } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
-    targetPos.add(createVector(0, cellSize));
-  } else {
-    return
-  }
-
-
-}
-const render = () => {
-  background(220);
-  
-  push()
-  translate(width / 2 - player.getPos().x - cellSize / 2, height / 2 - player.getPos().y - cellSize / 2);
-  drawGridDebug()
-
-  // circle(width / 2, height / 2, 200)
-
-  player.draw()
-  pop()
-
-
-  textSize(32);
-  text(round(frameRate()), 0, 32)
-
-
-  if (isPaused) {
-    push()
-    rectMode(CENTER)
-    rect(width/2,height/2,width/2)
-    pop()
-  }
-
+  setup()
 }
 
 let isPaused = false
