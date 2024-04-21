@@ -55,12 +55,21 @@ const tryMove = () => {
 }
 const render = () => {
   background(220);
+  
+  push()
+  translate(width / 2 - player.getPos().x, height / 2 - player.getPos().y);
   drawGridDebug()
+
   // circle(width / 2, height / 2, 200)
+
   player.draw()
+  pop()
+
 
   textSize(32);
   text(round(frameRate()), 0, 32)
+
+
 }
 
 function drawGridDebug() {
