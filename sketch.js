@@ -37,21 +37,20 @@ const tick = () => {
 
 const tryMove = () => {
 
-  let nextPos = targetPos
+
   if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
-    nextPos.add(createVector(cellSize, 0));
+    targetPos.add(createVector(cellSize, 0));
   } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
-    nextPos.add(createVector(-cellSize, 0));
+    targetPos.add(createVector(-cellSize, 0));
   } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
-    nextPos.add(createVector(0, -cellSize));
+    targetPos.add(createVector(0, -cellSize));
   } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
-    nextPos.add(createVector(0, cellSize));
+    targetPos.add(createVector(0, cellSize));
   } else {
     return
   }
 
 
-  targetPos.set(nextPos)
 }
 const render = () => {
   background(220);
