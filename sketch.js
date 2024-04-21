@@ -90,7 +90,9 @@ function setup() {
   gameLoop = new GameLoop(tick, render)
   gameLoop.start()
   
-
+  // let textBox = new TextBox()
+  // textBox.loop.start()
+  // textBox.add({text:"HELLO", x:width/2, y:height/2, width:100})
 }
 
 // function draw() {
