@@ -1,0 +1,8 @@
+class GUI {
+    myUI() {
+
+    }
+    myGameGraphics() {
+        
+    }
+}
