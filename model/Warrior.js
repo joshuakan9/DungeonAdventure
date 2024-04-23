@@ -1,10 +1,8 @@
-class Warrior extends Character() {
+class Warrior extends Character {
 
 
 
-    constructor() {
 
-    }
 
     increaseBlockChance() {
         myBlockChance += 0.25;

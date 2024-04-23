@@ -3,7 +3,8 @@ class Entity extends Sprite {
     myHitPoints;
     myDamage;
 
-    constructor(theName, theHitPoints, theDamage) {
+    constructor({thePos, theSize, theImage, theName, theHitPoints, theDamage}) {
+        super({thePos, theSize, theImage})
         this.myName = theName;
         this.myHitPoints = theHitPoints;
         this.myDamage = theDamage;
