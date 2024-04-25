@@ -51,8 +51,8 @@ function setup() {
     } else {
       return
     }
-  
-  
+
+
   }
   tick = (time) => {
     // console.log(time)

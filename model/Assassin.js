@@ -1,14 +1,21 @@
 class Assassin extends Character() {
-
+    myBasicAttack;
+    mySpecialAttack;
+    
     constructor() {
-
+        myBasicAttack = new Attack(50, 100);
+        mySpecialAttack = new Attack(100, 100);
     }
 
-    increaseDamage() {
-        myDamage += 1;
+    basicAttack() {
+        return this.myBasicAttack;
     }
 
-    poisonAttack() {
+    specialAttack() {
+        return this.mySpecialAttack;
+    }
 
+    buff() {
+        myAttack.setDamage(myAttack.getDamage() + 5);
     }
 }

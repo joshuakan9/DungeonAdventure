@@ -1,11 +1,9 @@
 class Gremlin extends Entity {
-    mySpaceChance;
+    myHeal;
 
-    constructor(theSpecialChance) {
-        this.mySpaceChance = theSpecialChance;
+    constructor(theHeal) {
+        this.myHeal = theHeal;
     }
 
-    specialAttack() {
-
-    }
+    
 }

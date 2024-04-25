@@ -1,10 +1,21 @@
 class Priest extends Character {
 
-    constructor() {
+    myHeal;
 
+    constructor(theHeal) {
+        myBasicAttack = new Attack(20, 100);
+        myHeal = theHeal;
     }
 
-    increaseHeal() {
-        myHealAmount += 5;
+    basicAttack() {
+        return this.myBasicAttack;
+    }
+
+    specialAttack() {
+        myHitPoints += this.myHeal.healAmount;
+    }
+
+    buff() {
+        myHeal.setHealAmount(myHeal.getHealAmount() + 25);
     }
 }

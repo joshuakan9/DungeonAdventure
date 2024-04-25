@@ -1,12 +1,11 @@
 class Entity extends Sprite {
     myName;
     myHitPoints;
-    myDamage;
-
-    constructor(theName, theHitPoints, theDamage) {
+    myAttack;
+    constructor(theName, theHitPoints, theAttack) {
         this.myName = theName;
         this.myHitPoints = theHitPoints;
-        this.myDamage = theDamage;
+        this.myAttack = theAttack;
     }
 
     getName() {
@@ -17,10 +16,6 @@ class Entity extends Sprite {
         return this.myHitPoints;
     }
 
-    getDamage() {
-        return this.myDamage;
-    }
-
     setName(theName) {
         this.myName = theName;
     }
@@ -29,15 +24,11 @@ class Entity extends Sprite {
         this.myHitPoints = theHitPoints;
     }
 
-    setDamage(theDamage) {
-        this.myDamage = theDamage;
+    getDamage() {
+        return myAttack.getDamage();
     }
-
-    basicAttack() {
-
-    }
-
-    heal(theHeal) {
-        this.myHitPoints += theHeal;
+    
+    getHitPercentage() {
+        return myAttack.getHitPercentage();
     }
 }

@@ -1,11 +1,7 @@
 class Ogre extends Entity {
-    mySpaceChance;
+    myHealChance;
 
-    constructor(theSpecialChance) {
-        this.mySpaceChance = theSpecialChance;
-    }
-
-    specialAttack() {
-
+    constructor(theHealChance) {
+        this.myHealChance = theHealChance;
     }
 }

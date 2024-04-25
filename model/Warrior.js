@@ -1,16 +1,21 @@
 class Warrior extends Character() {
-
-
-
+    myBasicAttack;
+    mySpecialAttack;
+    
     constructor() {
-
+        myBasicAttack = new Attack(100, 70);
+        mySpecialAttack = new Attack(300, 50);
     }
 
-    increaseBlockChance() {
-        myBlockChance += 0.25;
+    basicAttack() {
+        return this.myBasicAttack;
     }
 
-    heavyAttack() {
+    specialAttack() {
+        return this.mySpecialAttack;
+    }
 
+    buff() {
+        myBlockChance += 5;
     }
 }
