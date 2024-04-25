@@ -83,7 +83,7 @@ function setup() {
   
   }
   render = () => {
-    background(220);
+    background(0);
     
     push()
     translate(width / 2 - player.getPos().x - cellSize / 2, height / 2 - player.getPos().y - cellSize / 2);
@@ -96,8 +96,11 @@ function setup() {
     pop()
   
   
-    textSize(32);
-    text(round(frameRate()), 0, 32)
+    push()
+    fill('red')
+    textSize(width / 10);
+    text(round(frameRate()), 0, width/ 10)
+    pop()
   
   
     if (isPaused) {
@@ -136,12 +139,15 @@ function keyPressed() {
 
 function drawGridDebug() {
 
+  push()
+  strokeWeight(width/500)
   for (let a = 0; a < cellNumber; a += 1) {
 
     for (let b = 0; b < cellNumber; b += 1) {
       rect(b * cellSize, a * cellSize, cellSize)
     }
   }
+  pop()
 }
 
 function getCell(theIndex) {
