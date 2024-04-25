@@ -11,17 +11,18 @@ class Sprite {
         this.myIsCollideable = theIsCollideable
     }
 
-    collide(theSprite) {
+    collide(thePos) {
         if (!this.myIsCollideable) {
             return false;
         }
+        return abs(thePos.x - this.myPos.x) < cellSize / 2 && abs(thePos.y - this.myPos.y) < cellSize / 2
 
-        let theSpriteSize = theSprite.getSize()
-        let theDistance = abs(dist(this.getMiddle().x, this.getMiddle().y, theSprite.getMiddle().x, theSprite.getMiddle().y))
-        if (theDistance > abs(sqrt((this.mySize.x ^ 2) + (theSpriteSize.x ^ 2)))) {
-            return false
-        }
-        return true
+        // let theSpriteSize = theSprite.getSize()
+        // let theDistance = abs(dist(this.getMiddle().x, this.getMiddle().y, theSprite.getMiddle().x, theSprite.getMiddle().y))
+        // if (theDistance > abs(sqrt((this.mySize.x ^ 2) + (theSpriteSize.x ^ 2)))) {
+        //     return false
+        // }
+        // return true
     }
 
     draw() {

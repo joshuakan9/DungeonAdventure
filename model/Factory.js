@@ -6,9 +6,9 @@ class Factory {
     addEntity(theEntity) {
         this.myEntities.push(theEntity)
     }
-    checkCollision(thePlayer, coord) {
+    checkCollision(thePos) {
         for (let a = 0; a < this.myEntities.length; a++) {
-            if (this.myEntities[a].collide(new Sprite({thePos: coord, theSize: thePlayer.getSize()}))) {
+            if (this.myEntities[a].collide(thePos)) {
                 return true
             }
         }

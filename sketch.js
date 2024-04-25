@@ -1,4 +1,4 @@
-
+p5.disableFriendlyErrors = true; // disables FES uncomment to increase performance
 let player
 let font
 let cellSize
@@ -39,6 +39,10 @@ function setup() {
   FactoryInstance = new Factory()
   FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(0), getCell(0)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
   FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(9), getCell(4)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
+  // for (let a = 0; a < 10000; a++) {
+  //   FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(round(random(-100,100))), getCell(4)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
+  // }
+
 
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
@@ -48,23 +52,23 @@ function setup() {
   tryMove = () => {
 
 
-    let currentTargetPos = targetPos.copy()
+    let potentialTargetPos = targetPos.copy()
     if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
-      targetPos.add(createVector(cellSize, 0));
+      potentialTargetPos.add(createVector(cellSize, 0));
     } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
-      targetPos.add(createVector(-cellSize, 0));
+      potentialTargetPos.add(createVector(-cellSize, 0));
     } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
-      targetPos.add(createVector(0, -cellSize));
+      potentialTargetPos.add(createVector(0, -cellSize));
     } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
-      targetPos.add(createVector(0, cellSize));
+      potentialTargetPos.add(createVector(0, cellSize));
     } else {
       return
     }
     
 
-    if (FactoryInstance.checkCollision(player,targetPos)) {
+    if (!FactoryInstance.checkCollision(potentialTargetPos)) {
       console.log('colliding')
-      targetPos = currentTargetPos
+      targetPos = potentialTargetPos
     }
   
   }
