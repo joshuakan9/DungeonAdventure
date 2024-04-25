@@ -15,8 +15,10 @@ let render
 let tryMove
 
 let gameLoop
+let FactoryInstance 
 
 function setup() {
+ 
   if (gameLoop) {
     gameLoop.stop()
   }
@@ -32,14 +34,21 @@ function setup() {
 
   // frameRate(60)
   // pixelDensity(4)
+  let obstacleImage = createGraphics(cellSize, cellSize)
+  obstacleImage.background(0, 0, 0)
+  FactoryInstance = new Factory()
+  FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(0), getCell(0)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
+  FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(9), getCell(4)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
+
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
-  player = new Sprite(createVector(getCell(7), getCell(7)), createVector(cellSize, cellSize), playerImage)
+  player = new Character({thePos: createVector(getCell(7), getCell(7)), theSize: createVector(cellSize, cellSize), theImage: playerImage})
   targetPos = player.getPos().copy()
 
   tryMove = () => {
 
 
+    let currentTargetPos = targetPos.copy()
     if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
       targetPos.add(createVector(cellSize, 0));
     } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
@@ -51,8 +60,13 @@ function setup() {
     } else {
       return
     }
+    
 
-
+    if (FactoryInstance.checkCollision(player,targetPos)) {
+      console.log('colliding')
+      targetPos = currentTargetPos
+    }
+  
   }
   tick = (time) => {
     // console.log(time)
@@ -71,6 +85,7 @@ function setup() {
   
     // circle(width / 2, height / 2, 200)
   
+    FactoryInstance.draw()
     player.draw()
     pop()
   

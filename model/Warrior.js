@@ -1,10 +1,18 @@
-class Warrior extends Character() {
+class Warrior extends Character {
     myBasicAttack;
     mySpecialAttack;
     
     constructor() {
-        myBasicAttack = new Attack(100, 70);
-        mySpecialAttack = new Attack(300, 50);
+        myBasicAttack = new Attack(100, 100);
+        mySpecialAttack = new Attack(100, 100);
+    }
+
+    basicAttack() {
+        return this.myBasicAttack;
+    }
+
+    specialAttack() {
+        return this.mySpecialAttack;
     }
 
     basicAttack() {
