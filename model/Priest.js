@@ -2,7 +2,8 @@ class Priest extends Character {
 
     myHeal;
 
-    constructor(theHeal) {
+    constructor({theStamina, theBag, theBlockChance, theHeal}) {
+        super({theStamina, theBag, theBlockChance});
         myBasicAttack = new Attack(20, 100);
         myHeal = theHeal;
     }

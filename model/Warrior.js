@@ -2,9 +2,10 @@ class Warrior extends Character {
     myBasicAttack;
     mySpecialAttack;
     
-    constructor() {
-        myBasicAttack = new Attack(100, 100);
-        mySpecialAttack = new Attack(100, 100);
+    constructor({myStamina, myBag, myHitChance}) {
+        super({myStamina, myBag, myHitChance})
+        myBasicAttack = new Attack(100, 75);
+        mySpecialAttack = new Attack(200, 50);
     }
 
     basicAttack() {

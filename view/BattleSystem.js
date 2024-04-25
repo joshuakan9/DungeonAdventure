@@ -8,6 +8,7 @@ class BattleSystem {
         this.mob_Move = true;
         this.inCombat;
         this.stamina = 10;
+        this.random = Math.floor(Math.random() * 101);
 
     }
 
@@ -29,13 +30,48 @@ class BattleSystem {
 
     }
 
+    determineClass() {
+        return heroClass = player.constructor.name;
+    }
+
+    basicAttack() {
+        
+    }
+
+    specialAttack() {
+        if (determineClass() === "Priest") {
+            this.player.specialAttackr
+        } else  {
+            this.player.specialAttack().getDamage();
+        }
+
+
+        switch(determineClass()) {
+            case "Priest":
+                this.player.specialAttack();
+                break;
+            case "Assassin":
+                let asssassinDamage = player.specialAttack().getDamage();
+                let assassinHitChance = player.
+                break;
+            case "Warrior":
+                this.player.specialAttack();
+                let warriorAttack = this.player.specialAttack();
+                break;
+            default:
+                throw Error("invalid class");
+        }
+    }
+
     turn(offender, defender, option) {
+
         this.isOutOfBattleCheck();
         if(this.inCombat == true) {
             if (stamina <= 0)
                 if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
                     stamina -= 2;
-                    player.basicAttack();
+                    if (this.random <= offender.myAttack) 
+                    defender.myHitPoints = defender.myHitPoints - player.basicAttack();
                 } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
                     stamina -= 6;
                     player.specialAttack();
@@ -64,6 +100,8 @@ class BattleSystem {
         }
         
     }
+
+    
 
 
 
