@@ -46,7 +46,7 @@ function setup() {
 
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
-  player = new Character({thePos: createVector(getCell(7), getCell(7)), theSize: createVector(cellSize, cellSize), theImage: playerImage})
+  player = new Character({thePos: createVector(getCell(3), getCell(3)), theSize: createVector(cellSize, cellSize), theImage: playerImage})
   targetPos = player.getPos().copy()
 
   tryMove = () => {
@@ -87,12 +87,14 @@ function setup() {
     
     push()
     translate(width / 2 - player.getPos().x - cellSize / 2, height / 2 - player.getPos().y - cellSize / 2);
-    drawGridDebug()
+    // drawGridDebug()
   
     // circle(width / 2, height / 2, 200)
-  
+    FactoryInstance.drawOverworld()
     FactoryInstance.draw()
+
     player.draw()
+
     pop()
   
   
@@ -100,9 +102,10 @@ function setup() {
     fill('red')
     textSize(width / 10);
     text(round(frameRate()), 0, width/ 10)
+
     pop()
   
-  
+
     if (isPaused) {
       push()
       rectMode(CENTER)
