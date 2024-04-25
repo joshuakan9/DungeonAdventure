@@ -67,8 +67,10 @@ function setup() {
     
 
     if (!FactoryInstance.checkCollision(potentialTargetPos)) {
-      console.log('colliding')
+
       targetPos = potentialTargetPos
+    } else {
+      console.log('colliding')
     }
   
   }
