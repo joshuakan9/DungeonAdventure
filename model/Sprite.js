@@ -1,6 +1,4 @@
-
-
-module.export = class Sprite {
+class Sprite {
     myPos;
     myImage;
     mySize;
