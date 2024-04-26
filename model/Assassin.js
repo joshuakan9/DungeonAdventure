@@ -1,15 +1,10 @@
 class Assassin extends Character {
-    myBasicAttack;
+
     mySpecialAttack;
 
-    constructor({ thePos, theSize, theImage, theName, theHitPoints, theDamage, theStamina, theBag, theBlockChance }) {
-        super({ thePos, theSize, theImage, theName, theHitPoints, theDamage, theStamina, theBag, theBlockChance })
-        this.myBasicAttack = new Attack(50, 100);
-        this.mySpecialAttack = new Attack(100, 100);
-    }
-
-    basicAttack() {
-        return this.myBasicAttack;
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockChance, theSpecialAttack }) {
+        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockChance });
+        this.mySpecialAttack = theSpecialAttack;
     }
 
     specialAttack() {
@@ -17,6 +12,7 @@ class Assassin extends Character {
     }
 
     buff() {
-        myAttack.setDamage(myAttack.getDamage() + 5);
+        this.myAttack.setDamage(this.myAttack.getDamage() + 5);
+        this.mySpecialAttack.setDamage(this.myAttack.getDamage() + 10);
     }
 }

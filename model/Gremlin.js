@@ -1,12 +1,13 @@
 class Gremlin extends Entity {
     myHeal;
 
-    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack }) {
-        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theHeal })
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theHeal }) {
+        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack })
+        this.myHeal = theHeal;
     }
 
     theHealChance() {
-        myHitPoints += this.myHeal.healAmount;
+        this.myHitPoints += this.myHeal.getHealAmount();
     }
 
     getHeal() {

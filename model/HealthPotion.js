@@ -1,8 +1,9 @@
-class HealthPotio extends Entity {
+class HealthPotion extends Entity {
     myHealth;
 
-    constructor(theHealth) {
-        myHealth = theHealth;
+    constructor(thePos, theSize, theImage, theName, theHitPoints, theAttack ) {
+        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack });
+        this.myHealth = theHealth;
     }
 
     use() {

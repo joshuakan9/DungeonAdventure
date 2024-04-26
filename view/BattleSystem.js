@@ -1,17 +1,13 @@
 class BattleSystem {
-    constuctor(player, monster) {
-        this.player = player;
-        this.monster = monster;
-        this.turn = 0;
-        this.inCombat;
+    constructor(thePlayer, theMonster) {
+        this.player = thePlayer;
+        this.monster = theMonster;
+        console.log(this.monster);
+        this.turnCounter = 0;
+        this.inCombat = true;
         this.stamina = player.getStamina();
         this.random = Math.floor(Math.random() * 100);
 
-    }
-
-    // Starting the battle
-    startBattle() {
-        this.inCombat = true;
     }
 
     // Method that will check when the battle is over.
@@ -20,7 +16,7 @@ class BattleSystem {
             this.inCombat = false;
             console.log("YOU HAVE DIED");
         }
-        if (this.monster <= 0) {
+        if (this.monster.getHitPoints() <= 0) {
             this.inCombat = false;
             console.log("YOU HAVE WON");
         }
@@ -28,7 +24,7 @@ class BattleSystem {
     }
 
     determineClass() {
-        return heroClass = player.constructor.name;
+        return player.constructor.name;
     }
 
     basicAttack() {
@@ -37,41 +33,42 @@ class BattleSystem {
         let playerRandom = Math.random() * 100; // random int 0 - 99
 
         if (playerHitPercentage - playerRandom <= 0) {
-            monster.setHitPoints(monster.getHitPoints - playerDamage);
+            this.monster.setHitPoints(this.monster.getHitPoints - playerDamage);
 
             let monsterHealPercentage = this.monster.getHeal().getHealPercentage();
             let monsterHealRandom = Math.random() * 100;
 
             if (monsterHealPercentage - monsterHealRandom <= 0) {
-                monster.heal();
+                this.monster.heal();
             }
         }
     }
 
     specialAttack() {
-        if (determineClass() === "Priest") {
-            this.player.specialAttack
+        if (this.determineClass() === "Priest") {
+            this.player.heal();
         } else {
             let playerDamage = this.player.specialAttack().getDamage();
             let playerHitPercentage = this.player.specialAttack().getHitPercentage();
             let playerRandom = Math.random() * 100; // random int 0 - 99
 
             if (playerHitPercentage - playerRandom <= 0) {
-                monster.setHitPoints(monster.getHitPoints - playerDamage);
+                this.monster.setHitPoints(this.monster.getHitPoints - playerDamage);
 
                 let monsterHealPercentage = this.monster.getHeal().getHealPercentage();
                 let monsterHealRandom = Math.random() * 100;
 
                 if (monsterHealPercentage - monsterHealRandom <= 0) {
-                    monster.heal();
+                    this.monster.heal();
                 }
             }
         }
     }
 
     monsterAttack() {
-        let monsterDamage = this.monster.getAttack().getDamage();
-        let monsterHitPercentage = this.monster.getAttack().getHitPercentage();
+        console.log(this.monster);
+        let monsterDamage = this.monster.basicAttack().getDamage();
+        let monsterHitPercentage = this.monster.basicAttack().getHitPercentage();
         let monsterRandom = Math.random() * 100; // random int 0 - 99
 
         if (monsterHitPercentage - monsterRandom <= 0) {
@@ -84,15 +81,15 @@ class BattleSystem {
         while (this.inCombat) {
             if (this.stamina > 0) {
                 if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
-                    stamina -= 2;
+                    this.stamina -= 2;
                     player.basicAttack();
-                    isOutOfBattleCheck();
+                    this.isOutOfBattleCheck();
                 } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
-                    stamina -= 6;
+                    this.stamina -= 6;
                     player.specialAttack();
-                    isOutOfBattleCheck();
+                    this.isOutOfBattleCheck();
                 } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
-                    stamina -= 4;
+                    this.stamina -= 4;
                     player.buff();
                 } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
 
@@ -102,10 +99,10 @@ class BattleSystem {
             }
 
             this.monsterAttack();
-            isOutOfBattleCheck();
+            this.isOutOfBattleCheck();
 
-            stamina = player.getStamina();
-            turn++;
+            this.stamina = player.getStamina();
+            this.turnCounter++;
         }
 
     }

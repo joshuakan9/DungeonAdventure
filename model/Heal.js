@@ -12,11 +12,11 @@ class Heal {
     }
 
     getHealPercentage() {
-        return this.myHitPercentage
+        return this.myHealPercentage;
     }
 
     setHealAmount(theHealAmount) {
-        this.myDamage = theHealAmount;
+        this.myHealAmount = theHealAmount;
     }
 
     setHealPercentage(theHealPercentage) {

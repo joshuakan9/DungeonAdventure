@@ -26,11 +26,7 @@ class Entity extends Sprite {
         this.myHitPoints = theHitPoints;
     }
 
-    getAttack() {
-        return myAttack.getDamage();
-    }
-
-    getHitPercentage() {
-        return myAttack.getHitPercentage();
+    basicAttack() {
+        return this.myAttack;
     }
 }
