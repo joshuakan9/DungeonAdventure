@@ -164,6 +164,24 @@ function keyPressed() {
     console.log(keyCode)
     isPaused = !isPaused
   }
+
+  if (this.stamina > 0) {
+    if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
+        this.stamina -= 2;
+        player.basicAttack();
+        this.isOutOfBattleCheck();
+    } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
+        this.stamina -= 6;
+        player.specialAttack();
+        this.isOutOfBattleCheck();
+    } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
+        this.stamina -= 4;
+        player.buff();
+    } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
+
+    } else {
+        return
+    }
 }
 
 function drawGridDebug() {
