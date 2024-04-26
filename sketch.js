@@ -15,19 +15,19 @@ let render
 let tryMove
 
 let gameLoop
-let FactoryInstance 
+let FactoryInstance
 
 function setup() {
- 
+
   if (gameLoop) {
     gameLoop.stop()
   }
 
   window.innerHeight <= window.innerWidth
-  ? ((W = Math.max(window.innerHeight, 1) * ratio),
-    (H = Math.max(window.innerHeight, 1)))
-  : ((W = Math.max(window.innerWidth, 1)),
-    (H = Math.max(window.innerWidth, 1) / ratio));
+    ? ((W = Math.max(window.innerHeight, 1) * ratio),
+      (H = Math.max(window.innerHeight, 1)))
+    : ((W = Math.max(window.innerWidth, 1)),
+      (H = Math.max(window.innerWidth, 1) / ratio));
   createCanvas(W, H);
   cellSize = W / cellNumber
   textFont(font)
@@ -46,7 +46,7 @@ function setup() {
 
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
-  player = new Character({thePos: createVector(getCell(3), getCell(3)), theSize: createVector(cellSize, cellSize), theImage: playerImage})
+  player = new Character({ thePos: createVector(getCell(3), getCell(3)), theSize: createVector(cellSize, cellSize), theImage: playerImage })
   targetPos = player.getPos().copy()
 
   tryMove = () => {
@@ -64,7 +64,7 @@ function setup() {
     } else {
       return
     }
-    
+
 
     if (!FactoryInstance.checkCollision(potentialTargetPos)) {
 
@@ -72,23 +72,23 @@ function setup() {
     } else {
       console.log('colliding')
     }
-  
+
   }
   tick = (time) => {
     // console.log(time)
-    let distance = moveTowards(player, targetPos, cellSize/17)
+    let distance = moveTowards(player, targetPos, cellSize / 17)
     if (distance <= 1) {
       tryMove()
     }
-  
+
   }
   render = () => {
     background(0);
-    
+
     push()
     translate(width / 2 - player.getPos().x - cellSize / 2, height / 2 - player.getPos().y - cellSize / 2);
     // drawGridDebug()
-  
+
     // circle(width / 2, height / 2, 200)
     FactoryInstance.drawOverworld()
     FactoryInstance.draw()
@@ -96,27 +96,27 @@ function setup() {
     player.draw()
 
     pop()
-  
-  
+
+
     push()
     fill('red')
     textSize(width / 10);
-    text(round(frameRate()), 0, width/ 10)
+    text(round(frameRate()), 0, width / 10)
 
     pop()
-  
+
 
     if (isPaused) {
       push()
       rectMode(CENTER)
-      rect(width/2,height/2,width/2)
+      rect(width / 2, height / 2, width / 2)
       pop()
     }
-  
+
   }
   gameLoop = new GameLoop(tick, render)
   gameLoop.start()
-  
+
   // let textBox = new TextBox()
   // textBox.loop.start()
   // textBox.add({text:"HELLO", x:width/2, y:height/2, width:100})
@@ -143,7 +143,7 @@ function keyPressed() {
 function drawGridDebug() {
 
   push()
-  strokeWeight(width/500)
+  strokeWeight(width / 500)
   for (let a = 0; a < cellNumber; a += 1) {
 
     for (let b = 0; b < cellNumber; b += 1) {
