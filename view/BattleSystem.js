@@ -1,5 +1,5 @@
-const Assassin = require('./Assassin')
-const Character = require('./Character')
+const Assassin = require("../model/Assassin");
+const Character = require("../model/Character");
 
 class BattleSystem {
     constuctor(player, monster) {
@@ -116,5 +116,4 @@ class BattleSystem {
 }
 const player = new Assassin("Test", 100, 10);
 const monster = new Ogre("Brogre", 200, 5);
-const combat = new CombatSy
 

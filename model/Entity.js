@@ -1,6 +1,5 @@
-const Sprite = require('./Sprite');
-
-module.export = class Entity extends Sprite {
+const Sprite = require("./Sprite");
+class Entity extends Sprite {
     myName;
     myHitPoints;
     myAttack;
