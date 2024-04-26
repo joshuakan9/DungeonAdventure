@@ -1,10 +1,12 @@
+
 class BattleSystem {
     constructor(thePlayer, theMonster) {
         this.player = thePlayer;
         this.monster = theMonster;
+        console.log("battle started");
         this.turnCounter = 0;
         this.inCombat = true;
-        this.stamina = player.getStamina();
+        this.stamina = this.player.getStamina();
         this.random = Math.floor(Math.random() * 100);
 
     }
@@ -26,83 +28,100 @@ class BattleSystem {
         return player.constructor.name;
     }
 
-    basicAttack() {
-        let playerDamage = this.player.basicAttack().getDamage();
-        let playerHitPercentage = this.player.basicAttack().getHitPercentage();
-        let playerRandom = Math.random() * 100; // random int 0 - 99
+    playerBasicAttack() {
+        let playerDamage = this.player.getAttack().getDamage();
+        let playerHitPercentage = this.player.getAttack().getHitPercentage();
+        let playerRandom = random(0,100); // random int 0 - 99
 
-        if (playerHitPercentage - playerRandom <= 0) {
-            this.monster.setHitPoints(this.monster.getHitPoints - playerDamage);
+        if (playerRandom < playerHitPercentage) {
+            this.monster.setHitPoints(this.monster.getHitPoints() - playerDamage);
 
             let monsterHealPercentage = this.monster.getHeal().getHealPercentage();
-            let monsterHealRandom = Math.random() * 100;
+            let monsterHealRandom = random(0,100);
 
-            if (monsterHealPercentage - monsterHealRandom <= 0) {
+            if (monsterHealRandom < monsterHealPercentage) {
+                console.log("monster healed")
                 this.monster.heal();
             }
         }
     }
 
-    specialAttack() {
+    playerSpecialAttack() {
         if (this.determineClass() === "Priest") {
             this.player.heal();
         } else {
-            let playerDamage = this.player.specialAttack().getDamage();
-            let playerHitPercentage = this.player.specialAttack().getHitPercentage();
-            let playerRandom = Math.random() * 100; // random int 0 - 99
+            let playerDamage = this.player.getSpecialAttack().getDamage();
+            let playerHitPercentage = this.player.getSpecialAttack().getHitPercentage();
+            let playerRandom = random(0,100);
 
-            if (playerHitPercentage - playerRandom <= 0) {
-                this.monster.setHitPoints(this.monster.getHitPoints - playerDamage);
-
+            if (playerRandom < playerHitPercentage) {
+                this.monster.setHitPoints(this.monster.getHitPoints() - playerDamage);
+                console.log(this.monster.getHitPoints())
                 let monsterHealPercentage = this.monster.getHeal().getHealPercentage();
-                let monsterHealRandom = Math.random() * 100;
+                let monsterHealRandom = random(0,100);
 
-                if (monsterHealPercentage - monsterHealRandom <= 0) {
+                if (monsterHealRandom < monsterHealPercentage) {
+                    console.log("monster healed")
                     this.monster.heal();
                 }
+            } else {
+                console.log("player missed")
             }
         }
     }
 
-    monsterAttack() {
-        let monsterDamage = this.monster.basicAttack().getDamage();
-        let monsterHitPercentage = this.monster.basicAttack().getHitPercentage();
-        let monsterRandom = Math.random() * 100; // random int 0 - 99
+    monsterBasicAttack() {
+        let monsterDamage = this.monster.getAttack().getDamage();
+        let monsterHitPercentage = this.monster.getAttack().getHitPercentage();
+        let monsterRandom = random(0,100); // random int 0 - 99
 
-        if (monsterHitPercentage - monsterRandom <= 0) {
-            player.setHitPoints(player.getHitPoints - monsterDamage);
+        if (monsterRandom < monsterHitPercentage) {
+            this.player.setHitPoints(this.player.getHitPoints() - monsterDamage);
+        } else {
+            console.log("monster missed")
         }
     }
 
-    runBattle() {
-        this.inCombat = true
-        while (this.inCombat) {
+    turn(theMove) {
+        if (this.inCombat) {
+            console.log('stamina = ' + this.stamina);
             if (this.stamina > 0) {
-                if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
-                    this.stamina -= 2;
-                    player.basicAttack();
-                    this.isOutOfBattleCheck();
-                } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
-                    this.stamina -= 6;
-                    player.specialAttack();
-                    this.isOutOfBattleCheck();
-                } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
-                    this.stamina -= 4;
-                    player.buff();
-                } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
 
-                } else {
-                    return
+                if (theMove === 'move_basic' && this.stamina >= 2) {
+                    this.stamina -= 2;
+                    this.playerBasicAttack();
+                    this.isOutOfBattleCheck();
+                    console.log('player used basic attack');
+                    console.log('stamina = ' + this.stamina);
+
+                } else if (theMove === 'move_special' && this.stamina >= 6) {
+                    this.stamina -= 6;
+                    this.playerSpecialAttack();
+                    this.isOutOfBattleCheck();
+                    console.log('player used special attack');
+                    console.log('stamina = ' + this.stamina);
+
+                } else if (theMove === 'move_buff' && this.stamina >= 4) {
+                    this.stamina -= 4;
+                    this.player.buff();
+                    console.log('player used buff');
+                    console.log('stamina = ' + this.stamina);
+
+                } else if (theMove === 'move_bag') {
+                    
                 }
             }
 
-            this.monsterAttack();
-            this.isOutOfBattleCheck();
+            if (this.stamina === 0) {
+                this.monsterBasicAttack();
+                this.isOutOfBattleCheck();
+                this.stamina = this.player.getStamina();
+            }
 
-            this.stamina = player.getStamina();
+            console.log('player health = ' + this.player.getHitPoints())
+            console.log('monster health = ' + this.monster.getHitPoints())
             this.turnCounter++;
         }
-
     }
 
 }

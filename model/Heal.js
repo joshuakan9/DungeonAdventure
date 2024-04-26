@@ -1,9 +1,9 @@
 class Heal {
     myHealAmount;
-    myHealChance;
+    myHealPercentage;
 
-    constructor(theHealAmount, theHealChance) {
-        this.myHealChance = theHealChance;
+    constructor(theHealAmount, theHealPercentage) {
+        this.myHealPercentage = theHealPercentage;
         this.myHealAmount = theHealAmount;
     }
 

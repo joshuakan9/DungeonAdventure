@@ -7,7 +7,7 @@ class Assassin extends Character {
         this.mySpecialAttack = theSpecialAttack;
     }
 
-    specialAttack() {
+    getSpecialAttack() {
         return this.mySpecialAttack;
     }
 
