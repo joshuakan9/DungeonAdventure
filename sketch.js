@@ -37,8 +37,8 @@ function setup() {
   let obstacleImage = createGraphics(cellSize, cellSize)
   obstacleImage.background(0, 0, 0)
   FactoryInstance = new Factory()
-  FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(0), getCell(0)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
-  FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(9), getCell(4)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
+  FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(0), getCell(0)), theSize: createVector(cellSize, cellSize), theImage: obstacleImage, theIsCollideable: true }))
+  FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(9), getCell(4)), theSize: createVector(cellSize, cellSize), theImage: obstacleImage, theIsCollideable: true }))
   // for (let a = 0; a < 10000; a++) {
   //   FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(round(random(-100,100))), getCell(4)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
   // }
