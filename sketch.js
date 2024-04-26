@@ -145,7 +145,7 @@ function setup() {
   });
 
   let battleTest = new BattleSystem( testClasses, testMob );
-  battleTest.turn();
+  battleTest.runBattle();
 }
 
 // function draw() {
