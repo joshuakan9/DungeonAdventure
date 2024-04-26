@@ -1,14 +1,14 @@
+const Assassin = require('./Assassin')
+const Character = require('./Character')
 
 class BattleSystem {
     constuctor(player, monster) {
         this.player = player;
         this.monster = monster;
         this.turn = 0;
-        this.playerMove = true;
-        this.monsterMove = true;
         this.inCombat;
-        this.stamina = 10;
-        this.random = Math.floor(Math.random() * 101);
+        this.stamina = player.getStamina();
+        this.random = Math.floor(Math.random() * 100);
 
     }
 
@@ -72,50 +72,49 @@ class BattleSystem {
         }
     }
 
-    turn(offender, defender, option) {
+    monsterAttack() {
+        let monsterDamage = this.monster.basicAttack().getDamage();
+        let monsterHitPercentage = this.monster.basicAttack().getHitPercentage();
+        let monsterRandom = Math.random() * 100; // random int 0 - 99
 
-        this.isOutOfBattleCheck();
-        if (this.inCombat == true) {
-            if (stamina <= 0)
+        if (monsterHitPercentage - monsterRandom <= 0) {
+            player.setHitPoints(player.getHitPoints - monsterDamage);
+        }
+    }
+
+    turn() {
+        this.inCombat = true
+        while (this.inCombat) {
+            if (stamina > 0) {
                 if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
                     stamina -= 2;
                     player.basicAttack();
+                    isOutOfBattleCheck();
                 } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
                     stamina -= 6;
                     player.specialAttack();
+                    isOutOfBattleCheck();
                 } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
                     stamina -= 4;
                     player.buff();
-                } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag
+                } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
 
                 } else {
                     return
                 }
-
-            // Marks the player/monster that took there turn
-            if (offender == player) {
-                this.playerMove = false;
-            } else {
-                this.monsterMove = false;
             }
 
-            // Checks to see if both player and monster did there turn if so then turn reset moves
-            if (this.playerMove == false && this.monsterMove == false) {
-                this.playerMove, this.monsterMove = true;
-            }
-        } else {
-            console.log("Battle has ended")
+            monsterAttack();
+            isOutOfBattleCheck();
+
+            stamina = player.getStamina();
+            turn++;
         }
 
     }
 
-
-
-
-
-
 }
 const player = new Assassin("Test", 100, 10);
 const monster = new Ogre("Brogre", 200, 5);
-
+const combat = new CombatSy
 

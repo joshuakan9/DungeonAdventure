@@ -18,7 +18,7 @@ class Attack {
     setDamage(theDamage) {
         this.myDamage = theDamage;
     }
-    
+
     setHitPercentage(theHitPercentage) {
         this.myHitPercentage = theHitPercentage;
     }

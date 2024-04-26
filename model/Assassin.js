@@ -1,4 +1,5 @@
-class Assassin extends Character() {
+const Character = require('./Character');
+module.export = class Assassin extends Character() {
     myBasicAttack;
     mySpecialAttack;
 

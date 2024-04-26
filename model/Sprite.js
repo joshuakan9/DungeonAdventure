@@ -1,10 +1,12 @@
-class Sprite {
+
+
+module.export = class Sprite {
     myPos;
     myImage;
     mySize;
     myIsCollideable;
 
-    constructor({thePos, theSize, theImage, theIsCollideable}) {
+    constructor({ thePos, theSize, theImage, theIsCollideable }) {
         this.myPos = thePos;
         this.myImage = theImage;
         this.mySize = theSize;

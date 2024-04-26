@@ -1,10 +1,12 @@
-class Entity extends Sprite {
+const Sprite = require('./Sprite');
+
+module.export = class Entity extends Sprite {
     myName;
     myHitPoints;
     myAttack;
-    
-    constructor({thePos, theSize, theImage, theName, theHitPoints, theAttack}) {
-        super({thePos, theSize, theImage})
+
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack }) {
+        super({ thePos, theSize, theImage })
         this.myName = theName;
         this.myHitPoints = theHitPoints;
         this.myAttack = theAttack;
@@ -29,7 +31,7 @@ class Entity extends Sprite {
     getDamage() {
         return myAttack.getDamage();
     }
-    
+
     getHitPercentage() {
         return myAttack.getHitPercentage();
     }
