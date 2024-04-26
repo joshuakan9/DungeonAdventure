@@ -2,7 +2,6 @@ class BattleSystem {
     constructor(thePlayer, theMonster) {
         this.player = thePlayer;
         this.monster = theMonster;
-        console.log(this.monster);
         this.turnCounter = 0;
         this.inCombat = true;
         this.stamina = player.getStamina();
@@ -66,7 +65,6 @@ class BattleSystem {
     }
 
     monsterAttack() {
-        console.log(this.monster);
         let monsterDamage = this.monster.basicAttack().getDamage();
         let monsterHitPercentage = this.monster.basicAttack().getHitPercentage();
         let monsterRandom = Math.random() * 100; // random int 0 - 99
@@ -76,7 +74,7 @@ class BattleSystem {
         }
     }
 
-    turn() {
+    runBattle() {
         this.inCombat = true
         while (this.inCombat) {
             if (this.stamina > 0) {
