@@ -18,7 +18,7 @@ class Heal {
     setHealAmount(theHealAmount) {
         this.myDamage = theHealAmount;
     }
-    
+
     setHealPercentage(theHealPercentage) {
         this.myHealPercentage = theHealPercentage;
     }

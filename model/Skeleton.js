@@ -1,15 +1,16 @@
 class Skeleton extends Entity {
-    myHealChance;
+    myHeal;
 
-    constructor(theHealChance) {
-        this.myHealChance = theHealChance;
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack }) {
+        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theHeal })
     }
 
     theHealChance() {
         myHitPoints += this.myHeal.healAmount;
     }
 
-    buff() {
-        myHeal.setHealAmount(myHeal.getHealAmount() + 25);
+    getHeal() {
+        return this.myHeal;
     }
+
 }

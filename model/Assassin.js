@@ -1,8 +1,9 @@
 class Assassin extends Character() {
     myBasicAttack;
     mySpecialAttack;
-    
-    constructor() {
+
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theDamage, theStamina, theBag, theBlockChance }) {
+        super({ thePos, theSize, theImage, theName, theHitPoints, theDamage, theStamina, theBag, theBlockChance })
         myBasicAttack = new Attack(50, 100);
         mySpecialAttack = new Attack(100, 100);
     }

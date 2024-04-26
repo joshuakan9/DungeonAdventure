@@ -2,8 +2,8 @@ class Priest extends Character {
 
     myHeal;
 
-    constructor({theStamina, theBag, theBlockChance, theHeal}) {
-        super({theStamina, theBag, theBlockChance});
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theDamage, theStamina, theBag, theBlockChance }) {
+        super({ thePos, theSize, theImage, theName, theHitPoints, theDamage, theStamina, theBag, theBlockChance })
         myBasicAttack = new Attack(20, 100);
         myHeal = theHeal;
     }
@@ -13,7 +13,7 @@ class Priest extends Character {
     }
 
     specialAttack() {
-        myHitPoints += this.myHeal.healAmount;
+        myHitPoints += this.myHeal.getHealAmount();
     }
 
     buff() {

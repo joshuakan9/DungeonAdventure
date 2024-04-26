@@ -1,7 +1,17 @@
 class Ogre extends Entity {
-    myHealChance;
+    myHeal;
 
-    constructor(theHealChance) {
-        this.myHealChance = theHealChance;
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack }) {
+        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theHeal })
+        this.myHeal = theHeal;
     }
+
+    heal() {
+        myHitPoints += this.myHeal.healAmount;
+    }
+
+    getHeal() {
+        return this.myHeal;
+    }
+
 }
