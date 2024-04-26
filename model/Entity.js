@@ -1,4 +1,3 @@
-const Sprite = require("./Sprite");
 class Entity extends Sprite {
     myName;
     myHitPoints;
@@ -27,7 +26,7 @@ class Entity extends Sprite {
         this.myHitPoints = theHitPoints;
     }
 
-    getDamage() {
+    getAttack() {
         return myAttack.getDamage();
     }
 

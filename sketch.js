@@ -1,4 +1,5 @@
 p5.disableFriendlyErrors = true; // disables FES uncomment to increase performance
+let testClasses
 let player
 let font
 let cellSize
@@ -120,6 +121,29 @@ function setup() {
   // let textBox = new TextBox()
   // textBox.loop.start()
   // textBox.add({text:"HELLO", x:width/2, y:height/2, width:100})
+  testClasses = new Assassin({
+  thePos: createVector(getCell(4), getCell(4)), 
+  theSize: createVector(cellSize, cellSize), 
+  theImage: playerImage, 
+  theName: "Tester", 
+  theHitPoints: 100, 
+  theDamage: new Attack(100,100), 
+  theStamina: 10, 
+  theBag: [], 
+  theBlockChance: 70});
+
+  testMob = new Ogre({
+  thePos: createVector(getCell(4), getCell(4)), 
+  theSize: createVector(cellSize, cellSize), 
+  theImage: playerImage, 
+  theName: "TesterMob", 
+  theHitPoints: 100, 
+  theAttack: new Attack(100,100), 
+  theHeal: new Heal(100,100), 
+});
+
+  let battleTest = new BattleSystem({player: testClasses, monster: testMob});
+  battleTest.turn();
 }
 
 // function draw() {

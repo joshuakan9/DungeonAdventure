@@ -1,6 +1,3 @@
-const Assassin = require("../model/Assassin");
-const Character = require("../model/Character");
-
 class BattleSystem {
     constuctor(player, monster) {
         this.player = player;
@@ -73,8 +70,8 @@ class BattleSystem {
     }
 
     monsterAttack() {
-        let monsterDamage = this.monster.basicAttack().getDamage();
-        let monsterHitPercentage = this.monster.basicAttack().getHitPercentage();
+        let monsterDamage = this.monster.getAttack().getDamage();
+        let monsterHitPercentage = this.monster.getAttack().getHitPercentage();
         let monsterRandom = Math.random() * 100; // random int 0 - 99
 
         if (monsterHitPercentage - monsterRandom <= 0) {
@@ -85,7 +82,7 @@ class BattleSystem {
     turn() {
         this.inCombat = true
         while (this.inCombat) {
-            if (stamina > 0) {
+            if (this.stamina > 0) {
                 if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
                     stamina -= 2;
                     player.basicAttack();
@@ -104,7 +101,7 @@ class BattleSystem {
                 }
             }
 
-            monsterAttack();
+            this.monsterAttack();
             isOutOfBattleCheck();
 
             stamina = player.getStamina();
@@ -114,6 +111,4 @@ class BattleSystem {
     }
 
 }
-const player = new Assassin("Test", 100, 10);
-const monster = new Ogre("Brogre", 200, 5);
 
