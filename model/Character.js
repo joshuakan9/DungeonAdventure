@@ -1,13 +1,13 @@
 class Character extends Entity {
     myStamina;
     myBag;
-    myBlockChance;
+    myBlockPercentage;
 
-    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockChance }) {
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage }) {
         super({ thePos, theSize, theImage, theName, theHitPoints, theAttack })
         this.myStamina = theStamina;
         this.myBag = theBag;
-        this.myBlockChance = theBlockChance;
+        this.myBlockPercentage = theBlockPercentage;
     }
 
     getStamina() {
@@ -16,6 +16,10 @@ class Character extends Entity {
 
     getBag() {
         return this.myBag;
+    }
+
+    getBlockPercentage() {
+        return this.myBlockPercentage;
     }
 
     hasPillars() {

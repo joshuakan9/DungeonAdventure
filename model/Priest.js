@@ -1,8 +1,8 @@
 class Priest extends Character {
     myHeal;
 
-    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockChance, theHeal }) {
-        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockChance })
+    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage, theHeal }) {
+        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage })
         this.myHeal = theHeal;
     }
 

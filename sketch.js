@@ -129,10 +129,10 @@ function setup() {
     theName: "Tester",
     theHitPoints: 1000,
     theAttack: new Attack(100, 100),
-    theSpecialAttack: new Attack(200, 100),
     theStamina: 10,
     theBag: [],
-    theBlockChance: 70
+    theBlockPercentage: 100,
+    theSpecialAttack: new Attack(200, 100)
   });
 
   testMob = new Ogre({
@@ -145,7 +145,7 @@ function setup() {
     theHeal: new Heal(50, 100)
   });
 
-  battleTest = new BattleSystem( testClasses, testMob );
+  battleTest = new BattleSystem(testClasses, testMob);
 }
 
 // function draw() {

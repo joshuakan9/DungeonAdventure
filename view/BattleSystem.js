@@ -31,13 +31,13 @@ class BattleSystem {
     playerBasicAttack() {
         let playerDamage = this.player.getAttack().getDamage();
         let playerHitPercentage = this.player.getAttack().getHitPercentage();
-        let playerRandom = random(0,100); // random int 0 - 99
+        let playerRandom = random(0, 100); // random int 0 - 99
 
         if (playerRandom < playerHitPercentage) {
             this.monster.setHitPoints(this.monster.getHitPoints() - playerDamage);
 
             let monsterHealPercentage = this.monster.getHeal().getHealPercentage();
-            let monsterHealRandom = random(0,100);
+            let monsterHealRandom = random(0, 100);
 
             if (monsterHealRandom < monsterHealPercentage) {
                 console.log("monster healed")
@@ -52,13 +52,14 @@ class BattleSystem {
         } else {
             let playerDamage = this.player.getSpecialAttack().getDamage();
             let playerHitPercentage = this.player.getSpecialAttack().getHitPercentage();
-            let playerRandom = random(0,100);
+            let playerRandom = random(0, 100);
 
             if (playerRandom < playerHitPercentage) {
                 this.monster.setHitPoints(this.monster.getHitPoints() - playerDamage);
                 console.log(this.monster.getHitPoints())
+
                 let monsterHealPercentage = this.monster.getHeal().getHealPercentage();
-                let monsterHealRandom = random(0,100);
+                let monsterHealRandom = random(0, 100);
 
                 if (monsterHealRandom < monsterHealPercentage) {
                     console.log("monster healed")
@@ -73,10 +74,20 @@ class BattleSystem {
     monsterBasicAttack() {
         let monsterDamage = this.monster.getAttack().getDamage();
         let monsterHitPercentage = this.monster.getAttack().getHitPercentage();
-        let monsterRandom = random(0,100); // random int 0 - 99
+        let monsterRandom = random(0, 100); // random int 0 - 99
 
         if (monsterRandom < monsterHitPercentage) {
-            this.player.setHitPoints(this.player.getHitPoints() - monsterDamage);
+
+            let playerBlockPercentage = this.player.getBlockPercentage();
+            console.log("block chance = " + playerBlockPercentage);
+            let playerBlockRandom = random(0, 100);
+
+            if (playerBlockRandom < playerBlockPercentage) {
+                console.log("player blocked");
+            } else {
+                this.player.setHitPoints(this.player.getHitPoints() - monsterDamage);
+                console.log("player hit");
+            }
         } else {
             console.log("monster missed")
         }
@@ -108,7 +119,7 @@ class BattleSystem {
                     console.log('stamina = ' + this.stamina);
 
                 } else if (theMove === 'move_bag') {
-                    
+
                 }
             }
 
