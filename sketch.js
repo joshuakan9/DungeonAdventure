@@ -22,7 +22,7 @@ let FactoryInstance
 function setup() {
 
   if (gameLoop) {
-    // gameLoop.stop()
+    gameLoop.stop()
   }
 
   window.innerHeight <= window.innerWidth
@@ -32,6 +32,8 @@ function setup() {
       (H = Math.max(window.innerWidth, 1) / ratio));
   cellSize = floor(W / cellNumber)
   createCanvas(W, H);
+  // might need to use below instead if glitches occur with current way
+  //  createCanvas(cellSize * cellNumber, cellSize * cellNumber);
 
   textFont(font)
 
