@@ -58,22 +58,28 @@ function setup() {
 
 
     let potentialTargetPos = targetPos.copy()
+    let potentialDirection = null;
     if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
       potentialTargetPos.add(createVector(cellSize, 0));
+      potentialDirection = 'east'
     } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
       potentialTargetPos.add(createVector(-cellSize, 0));
+      potentialDirection = 'west'
     } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
       potentialTargetPos.add(createVector(0, -cellSize));
+      potentialDirection = 'north'
     } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
       potentialTargetPos.add(createVector(0, cellSize));
+      potentialDirection = 'south'
     } else {
       return
     }
 
 
     if (!FactoryInstance.checkCollision(potentialTargetPos)) {
-
       targetPos = potentialTargetPos
+      player.setDirection(potentialDirection)
+
     } else {
       console.log('colliding')
     }
