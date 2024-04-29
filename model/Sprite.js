@@ -44,4 +44,8 @@ class Sprite {
     getMiddle() {
         return createVector(this.myPos.x + (this.mySize.x / 2), this.myPos.y + (this.mySize.y / 2))
     }
+
+    interact() {
+        return null;
+    }
 }

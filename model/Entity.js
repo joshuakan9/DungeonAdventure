@@ -33,6 +33,10 @@ class Entity extends Sprite {
         // console.log(this.myDirection)
     }
 
+    getDirection() {
+        return this.myDirection
+    }
+
     getAttack() {
         return this.myAttack;
     }

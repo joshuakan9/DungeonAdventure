@@ -59,19 +59,19 @@ function setup() {
 
 
     let potentialTargetPos = targetPos.copy()
-    let potentialDirection = null;
+    let newDirection = null;
     if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
       potentialTargetPos.add(createVector(cellSize, 0));
-      potentialDirection = 'east'
+      newDirection = 'east'
     } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
       potentialTargetPos.add(createVector(-cellSize, 0));
-      potentialDirection = 'west'
+      newDirection = 'west'
     } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
       potentialTargetPos.add(createVector(0, -cellSize));
-      potentialDirection = 'north'
+      newDirection = 'north'
     } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
       potentialTargetPos.add(createVector(0, cellSize));
-      potentialDirection = 'south'
+      newDirection = 'south'
     } else {
       return
     }
@@ -79,11 +79,11 @@ function setup() {
 
     if (!FactoryInstance.checkCollision(potentialTargetPos)) {
       targetPos = potentialTargetPos
-      player.setDirection(potentialDirection)
 
     } else {
       console.log('colliding')
     }
+    player.setDirection(newDirection)
 
   }
   tick = (time) => {
@@ -174,6 +174,11 @@ function keyPressed() {
     console.log(keyCode)
     isPaused = !isPaused
   }
+
+  if (keyCode === 32) { // space key
+    FactoryInstance.interact(player)
+  }
+
   if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
     battleTest.turn("move_basic");
   } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove

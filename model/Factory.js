@@ -21,7 +21,6 @@ class Factory {
         let thePos = theEntity.getPos()
         let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
         this.myEntities[cell.y][cell.x] = theEntity
-
     }
     checkCollision(thePos) {
         let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
@@ -54,6 +53,29 @@ class Factory {
         // for (let a = 0; a < this.myEntities.length; a++) {
         //     this.myEntities[a].draw()
         // }
+    }
+
+    interact(thePlayer) {
+        let thePos = thePlayer.getPos()
+        let theDirection = thePlayer.getDirection()
+        let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
+
+        if (theDirection == 'north') {
+            cell.add(createVector(0, -1))
+        } else if (theDirection == 'east') {
+            cell.add(createVector(1, 0))
+        } else if (theDirection == 'south') {
+            cell.add(createVector(0, 1))
+        } else if (theDirection == 'west') {
+            cell.add(createVector(-1, 0))
+        }
+
+        console.log('interact ')
+        console.log(theDirection)
+        if (this.myEntities[cell.y][cell.x]) {
+            console.log(this.myEntities[cell.y][cell.x].interact())
+        }
+
     }
 
     drawOverworld() {
