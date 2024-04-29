@@ -47,6 +47,7 @@ function setup() {
   // for (let a = 0; a < 10000; a++) {
   //   FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(round(random(-100,100))), getCell(4)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
   // }
+  FactoryInstance.addEntity(new Ogre({ thePos: createVector(getCell(0), getCell(4)), theSize: createVector(cellSize, cellSize), theImage: obstacleImage, theIsCollideable: true }))
 
 
   let playerImage = createGraphics(50, 50)

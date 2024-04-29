@@ -1,8 +1,8 @@
 class Ogre extends Entity {
     myHeal;
 
-    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theHeal }) {
-        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theHeal }) {
+        super({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack })
         this.myHeal = theHeal;
     }
 

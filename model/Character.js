@@ -3,8 +3,8 @@ class Character extends Entity {
     myBag;
     myBlockPercentage;
 
-    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage }) {
-        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage }) {
+        super({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack })
         this.myStamina = theStamina;
         this.myBag = theBag;
         this.myBlockPercentage = theBlockPercentage;

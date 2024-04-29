@@ -15,6 +15,7 @@ class Sprite {
         if (!this.myIsCollideable) {
             return false;
         }
+
         return abs(thePos.x - this.myPos.x) < cellSize / 2 && abs(thePos.y - this.myPos.y) < cellSize / 2
 
         // let theSpriteSize = theSprite.getSize()

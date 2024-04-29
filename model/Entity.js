@@ -4,8 +4,8 @@ class Entity extends Sprite {
     myAttack;
     myDirection;
 
-    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theDirection = 'north'}) {
-        super({ thePos, theSize, theImage })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theDirection = 'north'}) {
+        super({ thePos, theSize, theImage, theIsCollideable })
         this.myName = theName;
         this.myHitPoints = theHitPoints;
         this.myAttack = theAttack;

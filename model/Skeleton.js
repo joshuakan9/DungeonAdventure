@@ -1,8 +1,8 @@
 class Skeleton extends Entity {
     myHeal;
 
-    constructor({ thePos, theSize, theImage, theName, theHitPoints, theAttack }) {
-        super({ thePos, theSize, theImage, theName, theHitPoints, theAttack, theHeal })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack }) {
+        super({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theHeal })
     }
 
     theHealChance() {
