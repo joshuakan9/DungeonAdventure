@@ -3,7 +3,7 @@ class Factory {
     myOverworld;
     myImage;
     constructor() {
-        this.myEntities = []
+
         this.myImage = createGraphics(cellSize,cellSize)
         this.myOverworld = [
             ['white','white','white','white','white','white','white','wall','wall','wall'],
@@ -12,9 +12,16 @@ class Factory {
             ['white','white','white','white','white','white','white','wall','wall','wall'],
             ['white','white','white','white','white','white','white','wall','wall','wall']
         ]
+        this.myEntities = []
+        for (let a = 0; a < this.myOverworld.length; a++) {
+            this.myEntities.push([])
+        }
     }
     addEntity(theEntity) {
-        this.myEntities.push(theEntity)
+        let thePos = theEntity.getPos()
+        let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
+        this.myEntities[cell.y][cell.x] = theEntity
+
     }
     checkCollision(thePos) {
         let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
@@ -24,17 +31,29 @@ class Factory {
         if (this.myOverworld[cell.y][cell.x] == 'wall') {
             return true
         }
-        for (let a = 0; a < this.myEntities.length; a++) {
-            if (this.myEntities[a].collide(thePos)) {
-                return true
-            }
+
+        if (this.myEntities[cell.y][cell.x]) {
+            return this.myEntities[cell.y][cell.x].collide(thePos)
         }
+        
         return false
     }
-    draw() {
-        for (let a = 0; a < this.myEntities.length; a++) {
-            this.myEntities[a].draw()
+    draw(thePlayer) {
+        let thePos = thePlayer.getPos()
+        let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
+        for (let a = cell.y - 8; a < cell.y + 8; a++) {
+            for (let b = cell.x - 8; b < cell.x + 8; b++) {
+                if (b < 0 || a < 0 || b >= this.myOverworld[0].length || a >= this.myOverworld.length) {
+                    continue
+                }
+                if (this.myEntities[a][b]) {
+                    this.myEntities[a][b].draw()
+                }
+            }
         }
+        // for (let a = 0; a < this.myEntities.length; a++) {
+        //     this.myEntities[a].draw()
+        // }
     }
 
     drawOverworld() {

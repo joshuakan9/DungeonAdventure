@@ -103,7 +103,7 @@ function setup() {
 
     // circle(width / 2, height / 2, 200)
     FactoryInstance.drawOverworld()
-    FactoryInstance.draw()
+    FactoryInstance.draw(player)
 
     player.draw()
 
