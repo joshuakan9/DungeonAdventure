@@ -22,7 +22,7 @@ let FactoryInstance
 function setup() {
 
   if (gameLoop) {
-    gameLoop.stop()
+    // gameLoop.stop()
   }
 
   window.innerHeight <= window.innerWidth
@@ -30,8 +30,9 @@ function setup() {
       (H = Math.max(window.innerHeight, 1)))
     : ((W = Math.max(window.innerWidth, 1)),
       (H = Math.max(window.innerWidth, 1) / ratio));
+  cellSize = floor(W / cellNumber)
   createCanvas(W, H);
-  cellSize = W / cellNumber
+
   textFont(font)
 
   // frameRate(60)
@@ -88,7 +89,7 @@ function setup() {
     background(0);
 
     push()
-    translate(width / 2 - player.getPos().x - cellSize / 2, height / 2 - player.getPos().y - cellSize / 2);
+    translate(round(width / 2 - player.getPos().x - cellSize / 2), round(height / 2 - player.getPos().y - cellSize / 2));
     // drawGridDebug()
 
     // circle(width / 2, height / 2, 200)
