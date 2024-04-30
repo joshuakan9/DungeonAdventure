@@ -18,7 +18,7 @@ class DungeonGenerator {
         }
 
         this.myDungeon[this.myInitialRow][this.myInitialCol] = '□';
-        console.log(this.mythis.myDungeon);
+        console.log(this.myDungeon);
     }
 
     isWithinBounds(theRow, col) {
@@ -26,6 +26,7 @@ class DungeonGenerator {
     }
 
     generate() {
+        this.createInitialDungeon();
         while (this.myDungeon[this.myInitialRow + 1][this.myInitialCol] === '■' ||
             this.myDungeon[this.myInitialRow - 1][this.myInitialCol] === '■' ||
             this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === '■' ||
