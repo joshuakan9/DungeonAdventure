@@ -26,7 +26,6 @@ function generate() {
     while (dungeon[initialRow + 1][initialCol] === '■' || dungeon[initialRow - 1][initialCol] === '■' || dungeon[initialRow][initialCol + 1] === '■' || dungeon[initialRow][initialCol - 1] === '■') {
         console.log('restarting from the intial position');
         let totalRooms = 5;
-        totalRooms -= 1;
         let rowPos = Math.floor(rows / 2);
         let colPos = Math.floor(cols / 2);
 
