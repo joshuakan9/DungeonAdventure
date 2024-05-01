@@ -47,7 +47,7 @@ class DungeonGenerator {
             this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === '■' ||
             this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === '■') {
             console.log('restarting from the intial position');
-            let totalRooms = 5;
+            let totalRooms = 10;
             let rowPos = Math.floor(this.myRows / 2);
             let colPos = Math.floor(this.myCols / 2);
 
@@ -84,6 +84,7 @@ class DungeonGenerator {
                     break;
                 }
             }
+            break
         }
     }
 }
