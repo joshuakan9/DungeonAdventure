@@ -31,9 +31,9 @@ function setup() {
     : ((W = Math.max(window.innerWidth, 1)),
       (H = Math.max(window.innerWidth, 1) / ratio));
   cellSize = floor(W / cellNumber)
-  createCanvas(W, H);
+  // createCanvas(W, H);
   // might need to use below instead if glitches occur with current way
-  //  createCanvas(cellSize * cellNumber, cellSize * cellNumber);
+  createCanvas(cellSize * cellNumber, cellSize * cellNumber);
 
   textFont(font)
 
@@ -52,7 +52,7 @@ function setup() {
 
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
-  player = new Character({ thePos: createVector(getCell(3), getCell(3)), theSize: createVector(cellSize, cellSize), theImage: playerImage })
+  player = new Character({ thePos: createVector(getCell(24), getCell(24)), theSize: createVector(cellSize, cellSize), theImage: playerImage })
   targetPos = player.getPos().copy()
 
   tryMove = () => {
@@ -102,7 +102,7 @@ function setup() {
     // drawGridDebug()
 
     // circle(width / 2, height / 2, 200)
-    FactoryInstance.drawOverworld()
+    FactoryInstance.drawDungeon(player)
     FactoryInstance.draw(player)
 
     player.draw()
