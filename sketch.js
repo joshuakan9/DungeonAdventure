@@ -134,10 +134,10 @@ function setup() {
 
   textBox = new TextBox()
   textBox.loop.start();
-  textBox.add({text:"hello", x:width/2, y:height/2, width:100})
-  textBox.add({text:"good morning", x:width/2, y:height/2, width:100})
-  textBox.add({text:"good afternoon", x:width/2, y:height/2, width:100})
-  textBox.add({text:"good evening", x:width/2, y:height/2, width:100})
+  textBox.add({text:"The game is still in development", x:10, y:window.height-100, width:window.width})
+  textBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
+  textBox.add({text:"Explore the dungeon and find the Keys to OO", x:10, y:window.height-100, width:window.width})
+  textBox.add({text:"Welcome to the Dungeon traveler", x:10, y:window.height-100, width:window.width})
 
   
   testClasses = new Assassin({
@@ -199,6 +199,9 @@ function keyPressed() {
 
   if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
     battleTest.turn("move_basic");
+    textBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
+    console.log("this reaches")
+    console.log(textBox.children)
   } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
     battleTest.turn("move_special");
   } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
