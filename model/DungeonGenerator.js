@@ -26,16 +26,16 @@ class DungeonGenerator {
         console.log(this.myDungeon);
     }
 
-    isWithinBounds(theRow, col) {
-        return theRow >= 0 && theRow < this.myRows && col >= 0 && col < this.myCols;
+    isWithinBounds(theRows, theCols) {
+        return theRows >= 0 && theRows < this.myRows && theCols >= 0 && theCols < this.myCols;
     }
 
-    hasNoValidDirection(row, col) {
+    hasNoValidDirection(theRows, theCols) {
         return (
-            (row - 1 < 0 || this.myDungeon[row - 1][col] !== '■') &&
-            (row + 1 >= this.myRows || this.myDungeon[row + 1][col] !== '■') &&
-            (col - 1 < 0 || this.myDungeon[row][col - 1] !== '■') &&
-            (col + 1 >= this.myCols || this.myDungeon[row][col + 1] !== '■')
+            (theRows - 1 < 0 || this.myDungeon[theRows - 1][theCols] !== '■') &&
+            (theRows + 1 >= this.myRows || this.myDungeon[theRows + 1][theCols] !== '■') &&
+            (theCols - 1 < 0 || this.myDungeon[theRows][theCols - 1] !== '■') &&
+            (theCols + 1 >= this.myCols || this.myDungeon[theRows][theCols + 1] !== '■')
         );
     }
 
