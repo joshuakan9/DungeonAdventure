@@ -1,5 +1,6 @@
 p5.disableFriendlyErrors = true; // disables FES uncomment to increase performance
 let testClasses
+let textBox
 let player
 let font
 let cellSize
@@ -60,20 +61,22 @@ function setup() {
 
     let potentialTargetPos = targetPos.copy()
     let newDirection = null;
-    if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
-      potentialTargetPos.add(createVector(cellSize, 0));
-      newDirection = 'east'
-    } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
-      potentialTargetPos.add(createVector(-cellSize, 0));
-      newDirection = 'west'
-    } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
-      potentialTargetPos.add(createVector(0, -cellSize));
-      newDirection = 'north'
-    } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
-      potentialTargetPos.add(createVector(0, cellSize));
-      newDirection = 'south'
-    } else {
-      return
+    if(!isPaused) {
+      if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
+        potentialTargetPos.add(createVector(cellSize, 0));
+        newDirection = 'east'
+      } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
+        potentialTargetPos.add(createVector(-cellSize, 0));
+        newDirection = 'west'
+      } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
+        potentialTargetPos.add(createVector(0, -cellSize));
+        newDirection = 'north'
+      } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
+        potentialTargetPos.add(createVector(0, cellSize));
+        newDirection = 'south'
+      } else {
+        return
+      }
     }
 
 
@@ -129,9 +132,14 @@ function setup() {
   gameLoop = new GameLoop(tick, render)
   gameLoop.start()
 
-  // let textBox = new TextBox()
-  // textBox.loop.start()
-  // textBox.add({text:"HELLO", x:width/2, y:height/2, width:100})
+  textBox = new TextBox()
+  textBox.loop.start();
+  textBox.add({text:"hello", x:width/2, y:height/2, width:100})
+  textBox.add({text:"good morning", x:width/2, y:height/2, width:100})
+  textBox.add({text:"good afternoon", x:width/2, y:height/2, width:100})
+  textBox.add({text:"good evening", x:width/2, y:height/2, width:100})
+
+  
   testClasses = new Assassin({
     thePos: createVector(getCell(4), getCell(4)),
     theSize: createVector(cellSize, cellSize),
@@ -168,7 +176,17 @@ function windowResized() {
   setup()
 }
 
-let isPaused = false
+let isPaused = false;
+
+if(textBox.inTextDialogue()){
+  isPaused = true;
+}
+
+function mouseClicked() {
+  textBox.nextText();
+  //console.log(textBox);
+}
+
 function keyPressed() {
   if (keyCode === 27 || keyCode === 80) { // escape key or p
     console.log(keyCode)
