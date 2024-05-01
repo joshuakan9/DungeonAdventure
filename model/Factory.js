@@ -104,7 +104,7 @@ class Factory {
                     continue
                 }
                 if (this.myDungeon[a][b] == 'wall') {
-                    this.myImage.background('red')
+                    this.myImage.background('blue')
                     image(this.myImage,getCell(b),getCell(a))
                 } else if (this.myDungeon[a][b] == null) {
                     this.myImage.background('black')

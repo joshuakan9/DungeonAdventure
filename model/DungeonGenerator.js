@@ -4,6 +4,10 @@ class DungeonGenerator {
     myInitialRow;
     myInitialCol;
     myDungeon;
+    myRoomCode;
+    myNoRoomCode;
+    myRoomSize;
+    myDungeonFinal;
 
     constructor() {
         this.myRows = 7;
@@ -14,21 +18,22 @@ class DungeonGenerator {
         this.myRoomCode = '□'
         this.myNoRoomCode = '■'
         this.myRoomSize = 7
+        this.myDungeonFinal = [];
 
         this.createInitialDungeon(this.myRows, this.myCols);
-        this.generate()
-        this.convert()
+        this.generate();
+        this.convert();
 
     }
 
     getDungeon() {
-        return this.myDungeonFinal
+        return this.myDungeonFinal;
     }
 
     convert() {
-        this.myDungeonFinal = []
+        this.myDungeonFinal = [];
         for (let a = 0; a < this.myRows * this.myRoomSize; a++) {
-            this.myDungeonFinal.push([])
+            this.myDungeonFinal.push([]);
         }
         for (let a = 0; a < this.myDungeon.length; a++) {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
@@ -99,11 +104,11 @@ class DungeonGenerator {
             this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === this.myNoRoomCode ||
             this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
             console.log('restarting from the intial position');
-            let totalRooms = 10;
+            let maxRoomsInOneDirection = 10;
             let rowPos = Math.floor(this.myRows / 2);
             let colPos = Math.floor(this.myCols / 2);
 
-            while (totalRooms > 0) {
+            while (maxRoomsInOneDirection > 0) {
                 let direction = Math.floor(Math.random() * 4);
                 let newRowPos = rowPos;
                 let newColPos = colPos;
@@ -127,7 +132,7 @@ class DungeonGenerator {
                     rowPos = newRowPos;
                     colPos = newColPos;
                     this.myDungeon[rowPos][colPos] = this.myRoomCode;
-                    totalRooms--;
+                    maxRoomsInOneDirection--;
                     console.log(this.myDungeon);
                 }
 
@@ -136,14 +141,6 @@ class DungeonGenerator {
                     break;
                 }
             }
-            break
         }
     }
 }
-
-function main() {
-    let dungeon = new DungeonGenerator();
-
-}
-
-main();
