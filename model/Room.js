@@ -8,20 +8,12 @@ class Room {
     myEntityLocations;
     myDoorLocations;
 
-    constructor() {
+    constructor(theTileMap) {
         this.myNorthDoor = false;
         this.mySouthDoor = false;
         this.myRightDoor = false;
         this.myLeftDoor = false;
-        //this.myTileMap = theTileMap;
-
-        this.myTileMap = [
-            ['□', '□', '□', '□', '□'],
-            ['□', '□', '□', '□', '□'],
-            ['□', '□', '□', '□', '□'],
-            ['□', '□', '□', '□', '□'],
-            ['□', '□', '□', '□', '□']
-        ]
+        this.myTileMap = theTileMap;
 
         this.myDoorLocations = [
             [0, Math.floor(this.myTileMap[0].length / 2)], // north

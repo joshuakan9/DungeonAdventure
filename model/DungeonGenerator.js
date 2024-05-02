@@ -24,6 +24,38 @@ class DungeonGenerator {
         this.generate();
         this.convert();
 
+        const roomLayout1 = [
+            ['□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□']
+        ]
+
+        const roomLayout2 = [
+            ['□', '□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□', '□']
+        ]
+
+        const roomLayout3 = [
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□'],
+            ['□', '□', '□']
+        ]
     }
 
     getDungeon() {
@@ -39,33 +71,54 @@ class DungeonGenerator {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
                 let currentRoom = null
                 if (this.myDungeon[a][b] == this.myRoomCode) {
-                    currentRoom = [
-                        ['wall','wall','wall', 'ground','wall','wall','wall'],
-                        ['wall','ground','ground','ground', 'ground', 'ground', 'wall'],
-                        ['wall','ground','ground','ground', 'ground', 'ground', 'wall'],
-                        ['ground','ground','ground','ground', 'ground', 'ground', 'ground'],
-                        ['wall','ground','ground','ground', 'ground', 'ground', 'wall'],
-                        ['wall','ground','ground','ground', 'ground', 'ground', 'wall'],
-                        ['wall','wall','wall', 'ground', 'wall','wall','wall']
-                    ]
+                    let randomRoom = Math.floor(Math.random() * 4);
+                    switch (randomRoom) {
+                        case 1:
+                            currentRoom = new Room(roomLayout1);
+                            break;
+                        case 2:
+                            currentRoom = new Room(roomLayout2);
+                            break;
+                        case 3:
+                            currentRoom = new Room(roomLayout3);
+                            break;
+                        default:
+                            console.log('error, invalid case while assigning currentRoom');
+                    }
                 } else {
-                    currentRoom = [
-                        [null, null, null, null, null, null, null, null],
-                        [null, null, null, null, null, null, null, null],
-                        [null, null, null, null, null, null, null, null],
-                        [null, null, null, null, null, null, null, null],
-                        [null, null, null, null, null, null, null, null],
-                        [null, null, null, null, null, null, null, null],
-                        [null, null, null, null, null, null, null, null]
-                    ]
+                    currentRoom = null;
                 }
+            }
+        }
+        this.generateDoors()
+    }
 
-                for (let c = 0; c < currentRoom.length; c++) {
-                    for (let d = 0; d < currentRoom[0].length; d++) {
-                        this.myDungeonFinal[(a*this.myRoomSize)+c][(b*this.myRoomSize)+d] = currentRoom[c][d]
+    generateDoors() {
+        for (let i = 0; i < this.myDungeonFinal.length; i++) {
+            for (let j = 0; j < this.myDungeonFinal[0].length; j++) {
+                let room = this.myDungeonFinal[i][j];
+
+                if (room instanceof Room) {
+                    if (i > 0 && this.myDungeonFinal[i - 1][j] instanceof Room) {
+                        room.setNorthDoor();
+                        this.myDungeonFinal[i - 1][j].setSouthDoor();
+                    }
+
+                    if (i < this.myDungeonFinal.length - 1 && this.myDungeonFinal[i + 1][j] instanceof Room) {
+                        room.setSouthDoor();
+                        this.myDungeonFinal[i - 1][j].setNorthDoor();
+                    }
+
+                    if (j < this.myDungeonFinal[0].length - 1 && this.myDungeonFinal[i][j + 1] instanceof Room) {
+                        room.setRightDoor();
+                        this.myDungeonFinal[i - 1][j].setLeftDoor();
+                    }
+
+                    if (j > 0 && this.myDungeonFinal[i][j - 1] instanceof Room) {
+                        room.setLeftDoor();
+                        this.myDungeonFinal[i - 1][j].setRightDoor();
                     }
                 }
-
             }
         }
     }
