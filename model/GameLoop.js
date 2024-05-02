@@ -3,7 +3,7 @@ class GameLoop {
 
     this.myLastFrameTime = 0;
     this.myAccumulatedTime = 0;
-    this.myTimeStep = 1000/100; // 10 ms every tick
+    this.myTimeStep = 1000 / 100; // 10 ms every tick
 
     this.myUpdate = theTick;
     this.myRender = theRender;
@@ -51,11 +51,10 @@ class GameLoop {
 }
 
 
-  
-  
-  
-  
-  
-  
-  
-   
+
+
+
+
+
+
+
