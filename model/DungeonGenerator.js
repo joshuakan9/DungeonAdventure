@@ -73,7 +73,6 @@ class DungeonGenerator {
                 let currentRoom = null
                 if (this.myDungeon[a][b] == this.myRoomCode) {
                     let randomRoom = Math.floor(Math.random() * 3);
-                    console.log('random room = ' + randomRoom);
                     switch (randomRoom) {
                         case 0:
                             currentRoom = new Room(roomLayout0);
@@ -237,7 +236,6 @@ class Room {
                 }
             }
         }
-        console.log(this.myEntityLocations);
     }
 
     getNorthTeleportLocation() {
