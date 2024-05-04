@@ -7,17 +7,18 @@ class TextBox {
         this.children = []
         this.backgroundColor = { x: 255, y: 0, z: 0 };
         this.render = () => {
-            let current = this.children.length - 1;
             if (this.children.length > 0) {
                 fill('white')
                 rect(0, window.height - 150, window.width, 150)
                 fill(0, 0, 0)
                 textSize(20)
-                text(this.children[current].text.substring(0, this.currentTextEnd), this.children[current].x, this.children[current].y, this.children[current].width)
+
+
+                text(this.children[0].text.substring(0, this.currentTextEnd), this.children[0].x, this.children[0].y, this.children[0].width)
             }
         }
         this.tick = (delta) => {
-            if (this.timeCurrent >= this.timeTarget) {
+            if (this.timeCurrent >= this.timeTarget && this.currentTextEnd < this.children[0].text.length) {
                 this.currentTextEnd += 1;
                 this.timeCurrent = 0;
             } else {
@@ -36,22 +37,25 @@ class TextBox {
     }
 
     nextText() {
-        if (this.inTextDialogue) {
+        if (this.inTextDialogue && this.children[0].text.length == this.currentTextEnd) {
+
             if (this.children.length > 1) {
                 this.inTextDialogue = true;
-                this.children.pop();
+                this.children.shift();
             } else {
-                this.children.pop();
+                this.children.shift();
                 window.dispatchEvent(new Event("e-player-unfreeze"))
                 console.log("no more dialogue");
                 this.inTextDialogue = false;
-
+ 
                 
             }
+            if (this.currentTextEnd >= 0) {
+                this.currentTextEnd = 0;
+            }
         }
-        if (this.currentTextEnd >= 0) {
-            this.currentTextEnd = 0;
-        }
+
+
     }
 
     add(obj = { text, x, y, width }) {

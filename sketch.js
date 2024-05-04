@@ -145,7 +145,7 @@ function setup() {
       background(0);
   
       push()
-      translate((width / 2 - getCellToPos(InstancePlayer.getPos().x) - CELLSIZE / 2), (height / 2 - getCellToPos(InstancePlayer.getPos().y) - CELLSIZE / 2));
+      translate(round(width / 2 - getCellToPos(InstancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(InstancePlayer.getPos().y) - CELLSIZE / 2));
       // drawGridDebug()
   
       // InstanceFactory.drawDungeon(player)
@@ -181,11 +181,13 @@ function setup() {
   if (!InstanceTextBox) {
     InstanceTextBox = new TextBox()
     InstanceTextBox.loop.start();
-    InstanceTextBox.add({text:"The game is still in development", x:10, y:window.height-100, width:window.width})
-    InstanceTextBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
-    InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:10, y:window.height-100, width:window.width})
+
+
     InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:10, y:window.height-100, width:window.width})
-  
+    InstanceTextBox.add({text:"The game is still in development", x:10, y:window.height-100, width:window.width})
+    InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:10, y:window.height-100, width:window.width})
+    InstanceTextBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
+
   }
 
   
@@ -210,6 +212,7 @@ function mouseClicked() {
 }
 
 function keyPressed() {
+  InstanceTextBox.nextText();
   if (keyCode === 27 || keyCode === 80) { // escape key or p
     console.log(keyCode)
     isPaused = !isPaused
