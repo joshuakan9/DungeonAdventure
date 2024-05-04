@@ -18,7 +18,7 @@ class TextBox {
             }
         }
         this.tick = (delta) => {
-            if (this.timeCurrent >= this.timeTarget && this.currentTextEnd < this.children[0].text.length) {
+            if (this.timeCurrent >= this.timeTarget && this.children[0] && this.currentTextEnd < this.children[0].text.length) {
                 this.currentTextEnd += 1;
                 this.timeCurrent = 0;
             } else {
@@ -37,7 +37,7 @@ class TextBox {
     }
 
     nextText() {
-        if (this.inTextDialogue && this.children[0].text.length == this.currentTextEnd) {
+        if (this.inTextDialogue && this.children[0] && this.children[0].text.length == this.currentTextEnd) {
 
             if (this.children.length > 1) {
                 this.inTextDialogue = true;
