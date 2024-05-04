@@ -53,7 +53,7 @@ function setup() {
 
   let playerImage = createGraphics(50, 50)
   playerImage.background(255, 0, 0)
-  player = new Character({ thePos: createVector(getCell(24), getCell(24)), theSize: createVector(cellSize, cellSize), theImage: playerImage })
+  player = new Character({ thePos: createVector(getCell(0), getCell(0)), theSize: createVector(cellSize, cellSize), theImage: playerImage })
   targetPos = player.getPos().copy()
 
   tryMove = () => {
@@ -91,6 +91,7 @@ function setup() {
   }
   tick = (time) => {
     // console.log(time)
+
     let distance = moveTowards(player, targetPos, cellSize / 17)
     if (distance <= 1) {
       tryMove()
@@ -101,11 +102,12 @@ function setup() {
     background(0);
 
     push()
-    translate(round(width / 2 - player.getPos().x - cellSize / 2), round(height / 2 - player.getPos().y - cellSize / 2));
+    translate((width / 2 - player.getPos().x - cellSize / 2), (height / 2 - player.getPos().y - cellSize / 2));
     // drawGridDebug()
 
-    // circle(width / 2, height / 2, 200)
-    FactoryInstance.drawDungeon(player)
+    // FactoryInstance.drawDungeon(player)
+    FactoryInstance.drawOverworld(player)
+
     FactoryInstance.draw(player)
 
     player.draw()
@@ -132,12 +134,12 @@ function setup() {
   gameLoop = new GameLoop(tick, render)
   gameLoop.start()
 
-  textBox = new TextBox()
-  textBox.loop.start();
-  textBox.add({text:"The game is still in development", x:10, y:window.height-100, width:window.width})
-  textBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
-  textBox.add({text:"Explore the dungeon and find the Keys to OO", x:10, y:window.height-100, width:window.width})
-  textBox.add({text:"Welcome to the Dungeon traveler", x:10, y:window.height-100, width:window.width})
+  // textBox = new TextBox()
+  // textBox.loop.start();
+  // textBox.add({text:"The game is still in development", x:10, y:window.height-100, width:window.width})
+  // textBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
+  // textBox.add({text:"Explore the dungeon and find the Keys to OO", x:10, y:window.height-100, width:window.width})
+  // textBox.add({text:"Welcome to the Dungeon traveler", x:10, y:window.height-100, width:window.width})
 
   
   testClasses = new Assassin({
@@ -178,9 +180,9 @@ function windowResized() {
 
 let isPaused = false;
 
-if(textBox.inTextDialogue()){
-  isPaused = true;
-}
+// if(textBox.inTextDialogue()){
+//   isPaused = true;
+// }
 
 function mouseClicked() {
   textBox.nextText();

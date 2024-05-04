@@ -75,6 +75,7 @@ class Factory {
         console.log('interact ')
         console.log(theDirection)
         if (this.myEntities[cell.y][cell.x]) {
+            console.log(this.myEntities[cell.y][cell.x])
             console.log(this.myEntities[cell.y][cell.x].interact())
         }
 

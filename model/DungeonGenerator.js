@@ -10,21 +10,20 @@ class DungeonGenerator {
     myDungeonFinal;
 
     constructor() {
-        this.myRows = 5;
-        this.myCols = 5;
+        this.myRows = 7;
+        this.myCols = 7;
         this.myInitialRow = Math.floor(this.myRows / 2);
         this.myInitialCol = Math.floor(this.myCols / 2);
         this.myDungeon = [];
         this.myRoomCode = '□'
         this.myNoRoomCode = '■'
+        this.myRoomSize = 7
         this.myDungeonFinal = [];
 
         this.createInitialDungeon(this.myRows, this.myCols);
         this.generate();
         this.convert();
-        console.log(this.myDungeon);
-        console.log('final dungeon:')
-        console.log(this.myDungeonFinal);
+
     }
 
     getDungeon() {
@@ -67,7 +66,7 @@ class DungeonGenerator {
         ]
 
         this.myDungeonFinal = [];
-        for (let a = 0; a < this.myRows; a++) {
+        for (let a = 0; a < this.myRows * this.myRoomSize; a++) {
             this.myDungeonFinal.push([]);
         }
         for (let a = 0; a < this.myDungeon.length; a++) {
@@ -75,6 +74,7 @@ class DungeonGenerator {
                 let currentRoom = null
                 if (this.myDungeon[a][b] == this.myRoomCode) {
                     let randomRoom = Math.floor(Math.random() * 3);
+                    console.log('random room = ' + randomRoom);
                     switch (randomRoom) {
                         case 0:
                             currentRoom = new Room(roomLayout0);
@@ -88,8 +88,9 @@ class DungeonGenerator {
                         default:
                             console.log('error, invalid case while assigning currentRoom');
                     }
+                } else {
+                    currentRoom = null;
                 }
-                this.myDungeonFinal[a][b] = currentRoom;
             }
         }
         this.generateDoors()
@@ -101,25 +102,24 @@ class DungeonGenerator {
                 let room = this.myDungeonFinal[i][j];
 
                 if (room instanceof Room) {
-                    //north
                     if (i > 0 && this.myDungeonFinal[i - 1][j] instanceof Room) {
                         room.setNorthDoor();
                         this.myDungeonFinal[i - 1][j].setSouthDoor();
                     }
-                    //south
+
                     if (i < this.myDungeonFinal.length - 1 && this.myDungeonFinal[i + 1][j] instanceof Room) {
                         room.setSouthDoor();
-                        this.myDungeonFinal[i + 1][j].setNorthDoor();
+                        this.myDungeonFinal[i - 1][j].setNorthDoor();
                     }
-                    //right
+
                     if (j < this.myDungeonFinal[0].length - 1 && this.myDungeonFinal[i][j + 1] instanceof Room) {
                         room.setRightDoor();
-                        this.myDungeonFinal[i][j + 1].setLeftDoor();
+                        this.myDungeonFinal[i - 1][j].setLeftDoor();
                     }
-                    //left
+
                     if (j > 0 && this.myDungeonFinal[i][j - 1] instanceof Room) {
                         room.setLeftDoor();
-                        this.myDungeonFinal[i][j - 1].setRightDoor();
+                        this.myDungeonFinal[i - 1][j].setRightDoor();
                     }
                 }
             }
@@ -160,7 +160,7 @@ class DungeonGenerator {
             this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === this.myNoRoomCode ||
             this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
             console.log('restarting from the intial position');
-            let maxRoomsInOneDirection = 5;
+            let maxRoomsInOneDirection = 10;
             let rowPos = Math.floor(this.myRows / 2);
             let colPos = Math.floor(this.myCols / 2);
 
@@ -238,6 +238,7 @@ class Room {
                 }
             }
         }
+        console.log(this.myEntityLocations);
     }
 
     getNorthTeleportLocation() {
@@ -292,4 +293,4 @@ class Room {
         }
     }
 }
-dungeon = new DungeonGenerator();
+new DungeonGenerator()
