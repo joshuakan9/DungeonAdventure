@@ -1,4 +1,4 @@
-class VisionPotion extends Entity {
+class VisionPotion extends Pickup {
 
     constructor() {
 

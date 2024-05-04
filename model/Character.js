@@ -8,6 +8,7 @@ class Character extends Entity {
         this.myStamina = theStamina;
         this.myBag = theBag;
         this.myBlockPercentage = theBlockPercentage;
+        this.myIsFrozen = false;
     }
 
     getStamina() {
@@ -24,5 +25,13 @@ class Character extends Entity {
 
     hasPillars() {
 
+    }
+
+    setIsFrozen(theBool) {
+        this.myIsFrozen = theBool
+    }
+
+    getIsFrozen() {
+        return this.myIsFrozen
     }
 }

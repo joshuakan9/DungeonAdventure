@@ -18,10 +18,24 @@ let InstanceFactory = null
 let InstanceTargetPos = null
 let InstancePlayer = null
 let InstanceBattle = null
+let InstanceTextBox = null
 
 window.addEventListener("e-start-battle", (E) => {
   InstanceBattle = new BattleSystem(InstancePlayer, E['detail'])
   console.log(E['detail'])
+})
+
+window.addEventListener("e-pickup", (E) => {
+  console.log('add item pickup logic later')
+  console.log(E['detail'])
+})
+
+window.addEventListener("e-player-freeze", (E) => {
+  InstancePlayer.setIsFrozen(true)
+})
+
+window.addEventListener("e-player-unfreeze", (E) => {
+  InstancePlayer.setIsFrozen(false)
 })
 
 function setup() {
@@ -72,6 +86,8 @@ function setup() {
   //   InstanceFactory.addEntity(new Sprite({ thePos: createVector(getCellToPos(round(random(-100,100))), getCellToPos(4)), theSize: createVector(CELLSIZE,CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
   // }
   InstanceFactory.addEntity(new Ogre({ thePos: createVector((0), (4)), theSize: createVector(CELLSIZE, CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
+  InstanceFactory.addEntity(new HealthPotion({ thePos: createVector((2), (4)), theSize: createVector(CELLSIZE, CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
+
 
 
 
@@ -116,11 +132,12 @@ function setup() {
     (time) => {
       // console.log(time)
   
-      let distance = moveTowards(InstancePlayer, InstanceTargetPos, 1/25)
-      if (distance <= 0) {
-        tryMove()
+      if (!InstancePlayer.getIsFrozen()) {
+        let distance = moveTowards(InstancePlayer, InstanceTargetPos, 1/25)
+        if (distance <= 0) {
+          tryMove()
+        }
       }
-  
     }
   )
   InstanceGameLoop.setRenderFunction(
@@ -160,16 +177,18 @@ function setup() {
   )
   InstanceGameLoop.start()
 
-  // textBox = new TextBox()
-  // textBox.loop.start();
-  // textBox.add({text:"The game is still in development", x:10, y:window.height-100, width:window.width})
-  // textBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
-  // textBox.add({text:"Explore the dungeon and find the Keys to OO", x:10, y:window.height-100, width:window.width})
-  // textBox.add({text:"Welcome to the Dungeon traveler", x:10, y:window.height-100, width:window.width})
+
+  if (!InstanceTextBox) {
+    InstanceTextBox = new TextBox()
+    InstanceTextBox.loop.start();
+    InstanceTextBox.add({text:"The game is still in development", x:10, y:window.height-100, width:window.width})
+    InstanceTextBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
+    InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:10, y:window.height-100, width:window.width})
+    InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:10, y:window.height-100, width:window.width})
+  
+  }
 
   
-
-
 
 }
 
@@ -185,12 +204,8 @@ function windowResized() {
 
 let isPaused = false;
 
-// if(textBox.inTextDialogue()){
-//   isPaused = true;
-// }
-
 function mouseClicked() {
-  textBox.nextText();
+  InstanceTextBox.nextText();
   //console.log(textBox);
 }
 
@@ -206,9 +221,9 @@ function keyPressed() {
 
   if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
     InstanceBattle.turn("move_basic");
-    textBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
+    InstanceTextBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
     console.log("this reaches")
-    console.log(textBox.children)
+    console.log(InstanceTextBox.children)
   } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
     InstanceBattle.turn("move_special");
   } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal

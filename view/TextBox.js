@@ -24,8 +24,11 @@ class TextBox {
                 this.timeCurrent += delta
             }
 
+
         }
-        this.loop = new GameLoop(this.tick, this.render)
+        this.loop = new GameLoop()
+        this.loop.setTickFunction(this.tick)
+        this.loop.setRenderFunction(this.render)
     }
 
     inTextDialogue() {
@@ -34,15 +37,18 @@ class TextBox {
 
     nextText() {
         if (this.inTextDialogue) {
-            if (this.children.length > 0) {
+            if (this.children.length > 1) {
                 this.inTextDialogue = true;
                 this.children.pop();
             } else {
+                this.children.pop();
+                window.dispatchEvent(new Event("e-player-unfreeze"))
                 console.log("no more dialogue");
                 this.inTextDialogue = false;
+
+                
             }
         }
-
         if (this.currentTextEnd >= 0) {
             this.currentTextEnd = 0;
         }
@@ -50,5 +56,6 @@ class TextBox {
 
     add(obj = { text, x, y, width }) {
         this.children.push(obj)
+        window.dispatchEvent(new Event("e-player-freeze"))
     }
 }
