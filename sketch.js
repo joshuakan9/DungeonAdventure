@@ -21,7 +21,8 @@ let InstanceBattle = null
 let InstanceTextBox = null
 
 window.addEventListener("e-battle-start", (E) => {
-  window.dispatchEvent(new Event('e-player-freeze'))
+
+  InstanceTextBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
   InstanceBattle = new BattleSystem(InstancePlayer, E['detail'])
   console.log(E['detail'])
 })
@@ -31,9 +32,15 @@ window.addEventListener("e-battle-end", (E) => {
   console.log('battle end')
 })
 
+window.addEventListener("e-textbox-add", (E) => {
+  // InstanceTextBox.add()
+
+})
+
 window.addEventListener("e-pickup", (E) => {
   console.log('add item pickup logic later')
-  console.log(E['detail'])
+  console.log("Found a " + E['detail'].getName() + "!")
+  // console.log(E['detail'])
 })
 
 window.addEventListener("e-player-freeze", (E) => {
@@ -151,6 +158,9 @@ function setup() {
       // console.log(time)
   
       if (!InstancePlayer.getIsFrozen()) {
+        if (InstanceBattle && InstanceBattle.inCombat) {
+          return
+        }
         let distance = moveTowards(InstancePlayer, InstanceTargetPos, 1/25)
         if (distance <= 0) {
           tryMove()
@@ -226,11 +236,12 @@ let isPaused = false;
 
 function mouseClicked() {
   InstanceTextBox.nextText();
+  console.log(InstanceTextBox)
   //console.log(textBox);
 }
 
 function keyPressed() {
-  InstanceTextBox.nextText();
+
   if (keyCode === 27 || keyCode === 80) { // escape key or p
     console.log(keyCode)
     isPaused = !isPaused

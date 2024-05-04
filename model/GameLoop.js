@@ -21,6 +21,7 @@ class GameLoop {
     this.myRender = theFunction
     this.setup()
   }
+  
 
   setup() {
     this.mainLoop = (timestamp) => {

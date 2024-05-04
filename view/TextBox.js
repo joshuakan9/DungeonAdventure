@@ -60,6 +60,7 @@ class TextBox {
 
     add(obj = { text, x, y, width }) {
         this.children.push(obj)
+        this.inTextDialogue = true
         window.dispatchEvent(new Event("e-player-freeze"))
     }
 }

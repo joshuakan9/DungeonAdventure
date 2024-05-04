@@ -1,6 +1,7 @@
 
 class BattleSystem {
     constructor(thePlayer, theMonster) {
+
         this.player = thePlayer;
         this.monster = theMonster;
         console.log("battle started");
