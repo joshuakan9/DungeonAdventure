@@ -4,7 +4,7 @@ class Factory {
     myImage;
     constructor() {
 
-        this.myImage = createGraphics(cellSize,cellSize)
+        this.myImage = createGraphics(CELLSIZE,CELLSIZE)
         this.myOverworld = [
             ['white','white','white','white','white','white','white','wall','wall','wall'],
             ['white','white','white','white','white','white','white','wall','wall','wall'],
@@ -21,11 +21,11 @@ class Factory {
     }
     addEntity(theEntity) {
         let thePos = theEntity.getPos()
-        let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
+        let cell = createVector(thePos.x, thePos.y)
         this.myEntities[cell.y][cell.x] = theEntity
     }
     checkCollision(thePos) {
-        let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
+        let cell = createVector(round(thePos.x / CELLSIZE), round(thePos.y / CELLSIZE))
         // if (cell.x < 0 || cell.y < 0 || cell.x >= this.myOverworld[0].length || cell.y >= this.myOverworld.length) {
         //     return true
         // }
@@ -41,7 +41,7 @@ class Factory {
     }
     draw(thePlayer) {
         let thePos = thePlayer.getPos()
-        let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
+        let cell = createVector(round(thePos.x / CELLSIZE), round(thePos.y / CELLSIZE))
         for (let a = cell.y - 9; a < cell.y + 9; a++) {
             for (let b = cell.x - 9; b < cell.x + 9; b++) {
                 if (b < 0 || a < 0 || b >= this.myOverworld[0].length || a >= this.myOverworld.length) {
@@ -59,26 +59,28 @@ class Factory {
 
     interact(thePlayer) {
         let thePos = thePlayer.getPos()
-        let theDirection = thePlayer.getDirection()
-        let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
+        if (Number.isInteger(thePos.x + thePos.y)) {
+            let theDirection = thePlayer.getDirection()
+            let cell = createVector(thePos.x, thePos.y)
 
-        if (theDirection == 'north') {
-            cell.add(createVector(0, -1))
-        } else if (theDirection == 'east') {
-            cell.add(createVector(1, 0))
-        } else if (theDirection == 'south') {
-            cell.add(createVector(0, 1))
-        } else if (theDirection == 'west') {
-            cell.add(createVector(-1, 0))
+
+            if (theDirection == 'north') {
+                cell.add(createVector(0, -1))
+            } else if (theDirection == 'east') {
+                cell.add(createVector(1, 0))
+            } else if (theDirection == 'south') {
+                cell.add(createVector(0, 1))
+            } else if (theDirection == 'west') {
+                cell.add(createVector(-1, 0))
+            }
+
+            console.log('interact ')
+            console.log(theDirection)
+            if (this.myEntities[cell.y][cell.x]) {
+                console.log(this.myEntities[cell.y][cell.x])
+                console.log(this.myEntities[cell.y][cell.x].interact())
+            }
         }
-
-        console.log('interact ')
-        console.log(theDirection)
-        if (this.myEntities[cell.y][cell.x]) {
-            console.log(this.myEntities[cell.y][cell.x])
-            console.log(this.myEntities[cell.y][cell.x].interact())
-        }
-
     }
 
     drawOverworld() {
@@ -87,7 +89,7 @@ class Factory {
             for (let b = 0; b < this.myOverworld[a].length; b++) {
                 if (this.myOverworld[a][b] != 'wall') {
                     this.myImage.background(this.myOverworld[a][b])
-                    image(this.myImage,getCell(b),getCell(a))
+                    image(this.myImage,getCellToPos(b),getCellToPos(a), CELLSIZE, CELLSIZE)
                 }
 
             }
@@ -97,7 +99,7 @@ class Factory {
 
     drawDungeon(thePlayer) {
         let thePos = thePlayer.getPos()
-        let cell = createVector(round(thePos.x / cellSize), round(thePos.y / cellSize))
+        let cell = createVector(round(thePos.x / CELLSIZE), round(thePos.y / CELLSIZE))
         push()
         for (let a = cell.y-9; a < cell.y+9; a++) {
             for (let b = cell.x-9; b < cell.x + 9; b++) {

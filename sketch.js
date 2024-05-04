@@ -1,11 +1,8 @@
 p5.disableFriendlyErrors = true; // disables FES uncomment to increase performance
-let testClasses
 let textBox
-let player
 let font
-let cellSize
+let CELLSIZE
 let cellNumber = 15
-let targetPos
 function preload() {
   font = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
 }
@@ -16,63 +13,87 @@ let tick
 let render
 let tryMove
 
-let battleTest
-let gameLoop
-let FactoryInstance
+let InstanceGameLoop = null
+let InstanceFactory = null
+let InstanceTargetPos = null
+let InstancePlayer = null
+let InstanceBattle = null
+
+window.addEventListener("e-start-battle", (E) => {
+  InstanceBattle = new BattleSystem(InstancePlayer, E['detail'])
+  console.log(E['detail'])
+})
 
 function setup() {
-
-  if (gameLoop) {
-    gameLoop.stop()
-  }
-
   window.innerHeight <= window.innerWidth
     ? ((W = Math.max(window.innerHeight, 1) * ratio),
       (H = Math.max(window.innerHeight, 1)))
     : ((W = Math.max(window.innerWidth, 1)),
       (H = Math.max(window.innerWidth, 1) / ratio));
-  cellSize = floor(W / cellNumber)
-  // createCanvas(W, H);
-  // might need to use below instead if glitches occur with current way
-  createCanvas(cellSize * cellNumber, cellSize * cellNumber);
-
+  CELLSIZE = floor(W / cellNumber)
+  createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
   textFont(font)
+
+  if (!InstanceGameLoop) {
+    InstanceGameLoop = new GameLoop();
+  }
+  if (InstanceGameLoop) {
+    InstanceGameLoop.stop()
+  }
+  if (!InstanceFactory) {
+    InstanceFactory = new Factory()
+  }
+  if (!InstancePlayer) {
+    let playerImage = createGraphics(50, 50)
+    playerImage.background(255, 0, 0)
+    InstancePlayer = new Assassin({
+      thePos: createVector((4), (4)),
+      theSize: createVector(CELLSIZE, CELLSIZE),
+      theImage: playerImage,
+      theName: "Tester",
+      theHitPoints: 1000,
+      theAttack: new Attack(100, 100),
+      theStamina: 10,
+      theBag: [],
+      theBlockPercentage: 100,
+      theSpecialAttack: new Attack(200, 100)
+    });
+    InstanceTargetPos = InstancePlayer.getPos().copy()
+  }
+  InstancePlayer.setSize(createVector(CELLSIZE, CELLSIZE))
+
+
 
   // frameRate(60)
   // pixelDensity(4)
-  let obstacleImage = createGraphics(cellSize, cellSize)
+  let obstacleImage = createGraphics(CELLSIZE, CELLSIZE)
   obstacleImage.background(0, 0, 0)
-  FactoryInstance = new Factory()
-  FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(0), getCell(0)), theSize: createVector(cellSize, cellSize), theImage: obstacleImage, theIsCollideable: true }))
-  FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(9), getCell(4)), theSize: createVector(cellSize, cellSize), theImage: obstacleImage, theIsCollideable: true }))
   // for (let a = 0; a < 10000; a++) {
-  //   FactoryInstance.addEntity(new Sprite({ thePos: createVector(getCell(round(random(-100,100))), getCell(4)), theSize: createVector(cellSize,cellSize), theImage: obstacleImage, theIsCollideable: true }))
+  //   InstanceFactory.addEntity(new Sprite({ thePos: createVector(getCellToPos(round(random(-100,100))), getCellToPos(4)), theSize: createVector(CELLSIZE,CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
   // }
-  FactoryInstance.addEntity(new Ogre({ thePos: createVector(getCell(0), getCell(4)), theSize: createVector(cellSize, cellSize), theImage: obstacleImage, theIsCollideable: true }))
+  InstanceFactory.addEntity(new Ogre({ thePos: createVector((0), (4)), theSize: createVector(CELLSIZE, CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
 
 
-  let playerImage = createGraphics(50, 50)
-  playerImage.background(255, 0, 0)
-  player = new Character({ thePos: createVector(getCell(0), getCell(0)), theSize: createVector(cellSize, cellSize), theImage: playerImage })
-  targetPos = player.getPos().copy()
+
+
 
   tryMove = () => {
 
 
-    let potentialTargetPos = targetPos.copy()
+    let potentialTargetPos = InstanceTargetPos.copy()
     let newDirection = null;
     if(!isPaused) {
       if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
-        potentialTargetPos.add(createVector(cellSize, 0));
+        potentialTargetPos.add(createVector(1, 0));
         newDirection = 'east'
       } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
-        potentialTargetPos.add(createVector(-cellSize, 0));
+        potentialTargetPos.add(createVector(-1, 0));
         newDirection = 'west'
       } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
-        potentialTargetPos.add(createVector(0, -cellSize));
+        potentialTargetPos.add(createVector(0, -1));
         newDirection = 'north'
       } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
-        potentialTargetPos.add(createVector(0, cellSize));
+        potentialTargetPos.add(createVector(0, 1));
         newDirection = 'south'
       } else {
         return
@@ -80,59 +101,64 @@ function setup() {
     }
 
 
-    if (!FactoryInstance.checkCollision(potentialTargetPos)) {
-      targetPos = potentialTargetPos
+    if (!InstanceFactory.checkCollision(potentialTargetPos)) {
+      InstanceTargetPos = potentialTargetPos
 
     } else {
       console.log('colliding')
     }
-    player.setDirection(newDirection)
+    InstancePlayer.setDirection(newDirection)
 
   }
-  tick = (time) => {
-    // console.log(time)
 
-    let distance = moveTowards(player, targetPos, cellSize / 17)
-    if (distance <= 1) {
-      tryMove()
+
+  InstanceGameLoop.setTickFunction(
+    (time) => {
+      // console.log(time)
+  
+      let distance = moveTowards(InstancePlayer, InstanceTargetPos, 1/25)
+      if (distance <= 0) {
+        tryMove()
+      }
+  
     }
-
-  }
-  render = () => {
-    background(0);
-
-    push()
-    translate((width / 2 - player.getPos().x - cellSize / 2), (height / 2 - player.getPos().y - cellSize / 2));
-    // drawGridDebug()
-
-    // FactoryInstance.drawDungeon(player)
-    FactoryInstance.drawOverworld(player)
-
-    FactoryInstance.draw(player)
-
-    player.draw()
-
-    pop()
-
-
-    push()
-    fill('red')
-    textSize(width / 10);
-    text(round(frameRate()), 0, width / 10)
-
-    pop()
-
-
-    if (isPaused) {
+  )
+  InstanceGameLoop.setRenderFunction(
+    () => {
+      background(0);
+  
       push()
-      rectMode(CENTER)
-      rect(width / 2, height / 2, width / 2)
+      translate((width / 2 - getCellToPos(InstancePlayer.getPos().x) - CELLSIZE / 2), (height / 2 - getCellToPos(InstancePlayer.getPos().y) - CELLSIZE / 2));
+      // drawGridDebug()
+  
+      // InstanceFactory.drawDungeon(player)
+      InstanceFactory.drawOverworld(InstancePlayer)
+  
+      InstanceFactory.draw(InstancePlayer)
+  
+      InstancePlayer.draw()
+  
       pop()
+  
+  
+      push()
+      fill('red')
+      textSize(width / 10);
+      text(round(frameRate()), 0, width / 10)
+  
+      pop()
+  
+  
+      if (isPaused) {
+        push()
+        rectMode(CENTER)
+        rect(width / 2, height / 2, width / 2)
+        pop()
+      }
+  
     }
-
-  }
-  gameLoop = new GameLoop(tick, render)
-  gameLoop.start()
+  )
+  InstanceGameLoop.start()
 
   // textBox = new TextBox()
   // textBox.loop.start();
@@ -142,30 +168,9 @@ function setup() {
   // textBox.add({text:"Welcome to the Dungeon traveler", x:10, y:window.height-100, width:window.width})
 
   
-  testClasses = new Assassin({
-    thePos: createVector(getCell(4), getCell(4)),
-    theSize: createVector(cellSize, cellSize),
-    theImage: playerImage,
-    theName: "Tester",
-    theHitPoints: 1000,
-    theAttack: new Attack(100, 100),
-    theStamina: 10,
-    theBag: [],
-    theBlockPercentage: 100,
-    theSpecialAttack: new Attack(200, 100)
-  });
 
-  testMob = new Ogre({
-    thePos: createVector(getCell(4), getCell(4)),
-    theSize: createVector(cellSize, cellSize),
-    theImage: playerImage,
-    theName: "TesterMob",
-    theHitPoints: 1000,
-    theAttack: new Attack(100, 100),
-    theHeal: new Heal(50, 100)
-  });
 
-  battleTest = new BattleSystem(testClasses, testMob);
+
 }
 
 // function draw() {
@@ -196,20 +201,20 @@ function keyPressed() {
   }
 
   if (keyCode === 32) { // space key
-    FactoryInstance.interact(player)
+    InstanceFactory.interact(InstancePlayer)
   }
 
   if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
-    battleTest.turn("move_basic");
+    InstanceBattle.turn("move_basic");
     textBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
     console.log("this reaches")
     console.log(textBox.children)
   } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
-    battleTest.turn("move_special");
+    InstanceBattle.turn("move_special");
   } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
-    battleTest.turn("move_buff");
+    InstanceBattle.turn("move_buff");
   } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
-    battleTest.turn("move_bag");
+    InstanceBattle.turn("move_bag");
   } else {
     return
   }
@@ -222,14 +227,14 @@ function drawGridDebug() {
   for (let a = 0; a < cellNumber; a += 1) {
 
     for (let b = 0; b < cellNumber; b += 1) {
-      rect(b * cellSize, a * cellSize, cellSize)
+      rect(b * CELLSIZE, a * CELLSIZE, CELLSIZE)
     }
   }
   pop()
 }
 
-function getCell(theIndex) {
-  return cellSize * theIndex
+function getCellToPos(theIndex) {
+  return CELLSIZE * theIndex
 }
 
 function moveTowards(person, destinationPosition, speed) {

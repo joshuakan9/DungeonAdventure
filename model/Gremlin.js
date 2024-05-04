@@ -1,4 +1,4 @@
-class Gremlin extends Entity {
+class Gremlin extends Mob {
     myHeal;
 
     constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theHeal }) {

@@ -1,4 +1,4 @@
-class Skeleton extends Entity {
+class Skeleton extends Mob {
     myHeal;
 
     constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack }) {

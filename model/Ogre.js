@@ -1,8 +1,8 @@
-class Ogre extends Entity {
+class Ogre extends Mob {
     myHeal;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theHeal }) {
-        super({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHitPoints, theAttack, theHeal }) {
+        super({ thePos, theSize, theImage, theIsCollideable, theName: "Ogre", theHitPoints, theAttack })
         this.myHeal = theHeal;
     }
 

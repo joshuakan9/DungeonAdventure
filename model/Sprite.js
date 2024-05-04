@@ -27,7 +27,7 @@ class Sprite {
     }
 
     draw() {
-        image(this.myImage, this.myPos.x, this.myPos.y, this.mySize.x, this.mySize.y)
+        image(this.myImage, this.myPos.x * CELLSIZE, this.myPos.y * CELLSIZE, this.mySize.x, this.mySize.y)
     }
 
     setPos(theVector) {
@@ -41,11 +41,12 @@ class Sprite {
         return this.mySize
     }
 
+    setSize(theSize) {
+        this.mySize = theSize;
+    }
+
     getMiddle() {
         return createVector(this.myPos.x + (this.mySize.x / 2), this.myPos.y + (this.mySize.y / 2))
     }
 
-    interact() {
-        return null;
-    }
 }
