@@ -175,7 +175,7 @@ function setup() {
       translate(round(width / 2 - getCellToPos(InstancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(InstancePlayer.getPos().y) - CELLSIZE / 2));
       // drawGridDebug()
   
-      // InstanceFactory.drawDungeon(player)
+      // InstanceFactory.drawDungeon(InstancePlayer)
       InstanceFactory.drawOverworld(InstancePlayer)
   
       InstanceFactory.draw(InstancePlayer)
@@ -277,11 +277,12 @@ function keyPressed() {
 function drawGridDebug() {
 
   push()
+  fill(255)
   strokeWeight(width / 500)
   for (let a = 0; a < cellNumber; a += 1) {
 
     for (let b = 0; b < cellNumber; b += 1) {
-      rect(b * CELLSIZE, a * CELLSIZE, CELLSIZE)
+      rect(getCellToPos(b), getCellToPos(a), CELLSIZE)
     }
   }
   pop()

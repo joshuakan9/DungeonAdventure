@@ -25,7 +25,7 @@ class Factory {
         this.myEntities[cell.y][cell.x] = theEntity
     }
     checkCollision(thePos) {
-        let cell = createVector(round(thePos.x / CELLSIZE), round(thePos.y / CELLSIZE))
+        let cell = createVector((thePos.x), (thePos.y))
         // if (cell.x < 0 || cell.y < 0 || cell.x >= this.myOverworld[0].length || cell.y >= this.myOverworld.length) {
         //     return true
         // }
@@ -41,10 +41,13 @@ class Factory {
     }
     draw(thePlayer) {
         let thePos = thePlayer.getPos()
-        let cell = createVector(round(thePos.x / CELLSIZE), round(thePos.y / CELLSIZE))
-        for (let a = cell.y - 9; a < cell.y + 9; a++) {
-            for (let b = cell.x - 9; b < cell.x + 9; b++) {
-                if (b < 0 || a < 0 || b >= this.myOverworld[0].length || a >= this.myOverworld.length) {
+        let cell = createVector(round(thePos.x), round(thePos.y))
+        for (let a = cell.y - 8; a < cell.y + 9; a++) {
+            if (a < 0 || a >= this.myOverworld.length) {
+                continue
+            }
+            for (let b = cell.x - 8; b < cell.x + 9; b++) {
+                if (b < 0 || b >= this.myOverworld[0].length) {
                     continue
                 }
                 if (this.myEntities[a][b]) {
@@ -83,10 +86,18 @@ class Factory {
         }
     }
 
-    drawOverworld() {
+    drawOverworld(thePlayer) {
+        let thePos = thePlayer.getPos()
+        let cell = createVector(round(thePos.x), round(thePos.y))
         push()
-        for (let a = 0; a < this.myOverworld.length; a++) {
-            for (let b = 0; b < this.myOverworld[a].length; b++) {
+        for (let a = cell.y-8; a < cell.y + 9; a++) {
+            if (a < 0 || a >= this.myOverworld.length) {
+                continue
+            }
+            for (let b = cell.x - 8; b < cell.x + 9; b++) {
+                if (b < 0 || b >= this.myOverworld[0].length) {
+                    continue
+                }
                 if (this.myOverworld[a][b] != 'wall') {
                     this.myImage.background(this.myOverworld[a][b])
                     image(this.myImage,getCellToPos(b),getCellToPos(a), CELLSIZE, CELLSIZE)
