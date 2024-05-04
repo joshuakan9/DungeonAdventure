@@ -22,7 +22,8 @@ let InstanceTextBox = null
 
 window.addEventListener("e-battle-start", (E) => {
 
-  InstanceTextBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
+  InstanceTextBox.add({text:E['detail'].getName()+" battle", x:10, y:window.height-100, width:window.width})
+
   InstanceBattle = new BattleSystem(InstancePlayer, E['detail'])
   console.log(E['detail'])
 })
@@ -44,11 +45,11 @@ window.addEventListener("e-pickup", (E) => {
 })
 
 window.addEventListener("e-player-freeze", (E) => {
-  InstancePlayer.setIsFrozen(true)
+  InstancePlayer.setIsFrozen(1)
 })
 
 window.addEventListener("e-player-unfreeze", (E) => {
-  InstancePlayer.setIsFrozen(false)
+  InstancePlayer.setIsFrozen(-1)
 })
 
 function setup() {
@@ -158,9 +159,7 @@ function setup() {
       // console.log(time)
   
       if (!InstancePlayer.getIsFrozen()) {
-        if (InstanceBattle && InstanceBattle.inCombat) {
-          return
-        }
+
         let distance = moveTowards(InstancePlayer, InstanceTargetPos, 1/25)
         if (distance <= 0) {
           tryMove()
@@ -241,7 +240,19 @@ function mouseClicked() {
 }
 
 function keyPressed() {
+  if (!InstancePlayer.getIsFrozen()) {
 
+  
+    if (keyCode === 27 || keyCode === 80) { // escape key or p
+      console.log(keyCode)
+      isPaused = !isPaused
+    }
+    if (keyCode === 32) { // space key
+      InstanceFactory.interact(InstancePlayer)
+    }
+
+  }
+ 
   if (InstanceBattle && InstanceBattle.inCombat) {
     if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
       InstanceBattle.turn("move_basic");
@@ -256,14 +267,6 @@ function keyPressed() {
       InstanceBattle.turn("move_bag");
     } else {
       return
-    }
-  } else {
-    if (keyCode === 27 || keyCode === 80) { // escape key or p
-      console.log(keyCode)
-      isPaused = !isPaused
-    }
-    if (keyCode === 32) { // space key
-      InstanceFactory.interact(InstancePlayer)
     }
   }
 

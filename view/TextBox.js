@@ -44,12 +44,13 @@ class TextBox {
                 this.children.shift();
             } else {
                 this.children.shift();
-                window.dispatchEvent(new Event("e-player-unfreeze"))
+                
                 console.log("no more dialogue");
                 this.inTextDialogue = false;
  
                 
             }
+            window.dispatchEvent(new Event("e-player-unfreeze"))
             if (this.currentTextEnd >= 0) {
                 this.currentTextEnd = 0;
             }

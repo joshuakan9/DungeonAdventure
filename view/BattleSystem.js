@@ -9,7 +9,7 @@ class BattleSystem {
         this.inCombat = true;
         this.stamina = this.player.getStamina();
         this.random = Math.floor(Math.random() * 100);
-
+        window.dispatchEvent(new Event("e-player-freeze"))
     }
 
     // Method that will check when the battle is over.
@@ -17,12 +17,14 @@ class BattleSystem {
         if (this.player.getHitPoints() <= 0) { //player health
             this.inCombat = false;
             console.log("YOU HAVE DIED");
+            window.dispatchEvent(new Event("e-battle-end"))
         }
         if (this.monster.getHitPoints() <= 0) {
             this.inCombat = false;
             console.log("YOU HAVE WON");
+            window.dispatchEvent(new Event("e-battle-end"))
         }
-        window.dispatchEvent(new Event("e-battle-end"))
+
     }
 
     determineClass() {
