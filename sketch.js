@@ -20,9 +20,15 @@ let InstancePlayer = null
 let InstanceBattle = null
 let InstanceTextBox = null
 
-window.addEventListener("e-start-battle", (E) => {
+window.addEventListener("e-battle-start", (E) => {
+  window.dispatchEvent(new Event('e-player-freeze'))
   InstanceBattle = new BattleSystem(InstancePlayer, E['detail'])
   console.log(E['detail'])
+})
+
+window.addEventListener("e-battle-end", (E) => {
+  window.dispatchEvent(new Event('e-player-unfreeze'))
+  console.log('battle end')
 })
 
 window.addEventListener("e-pickup", (E) => {
@@ -85,7 +91,19 @@ function setup() {
   // for (let a = 0; a < 10000; a++) {
   //   InstanceFactory.addEntity(new Sprite({ thePos: createVector(getCellToPos(round(random(-100,100))), getCellToPos(4)), theSize: createVector(CELLSIZE,CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
   // }
-  InstanceFactory.addEntity(new Ogre({ thePos: createVector((0), (4)), theSize: createVector(CELLSIZE, CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
+  InstanceFactory.addEntity(new Ogre({
+    thePos: createVector((0), (4)),
+    theSize: createVector(CELLSIZE, CELLSIZE),
+    theImage: obstacleImage,
+    theName: "Ogre",
+    theHitPoints: 100,
+    theAttack: new Attack(100, 100),
+    theStamina: 10,
+    theBag: [],
+    theBlockPercentage: 100,
+    theSpecialAttack: new Attack(200, 100),
+    theHeal: new Heal(10,100)
+  }))
   InstanceFactory.addEntity(new HealthPotion({ thePos: createVector((2), (4)), theSize: createVector(CELLSIZE, CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
 
 
@@ -224,7 +242,7 @@ function keyPressed() {
 
   if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
     InstanceBattle.turn("move_basic");
-    InstanceTextBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
+    // InstanceTextBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
     console.log("this reaches")
     console.log(InstanceTextBox.children)
   } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove

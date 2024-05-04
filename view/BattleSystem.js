@@ -21,7 +21,7 @@ class BattleSystem {
             this.inCombat = false;
             console.log("YOU HAVE WON");
         }
-
+        window.dispatchEvent(new Event("e-battle-end"))
     }
 
     determineClass() {
