@@ -242,29 +242,33 @@ function mouseClicked() {
 
 function keyPressed() {
 
-  if (keyCode === 27 || keyCode === 80) { // escape key or p
-    console.log(keyCode)
-    isPaused = !isPaused
-  }
-
-  if (keyCode === 32) { // space key
-    InstanceFactory.interact(InstancePlayer)
-  }
-
-  if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
-    InstanceBattle.turn("move_basic");
-    // InstanceTextBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
-    console.log("this reaches")
-    console.log(InstanceTextBox.children)
-  } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
-    InstanceBattle.turn("move_special");
-  } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
-    InstanceBattle.turn("move_buff");
-  } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
-    InstanceBattle.turn("move_bag");
+  if (InstanceBattle && InstanceBattle.inCombat) {
+    if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
+      InstanceBattle.turn("move_basic");
+      // InstanceTextBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
+      console.log("this reaches")
+      console.log(InstanceTextBox.children)
+    } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
+      InstanceBattle.turn("move_special");
+    } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
+      InstanceBattle.turn("move_buff");
+    } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
+      InstanceBattle.turn("move_bag");
+    } else {
+      return
+    }
   } else {
-    return
+    if (keyCode === 27 || keyCode === 80) { // escape key or p
+      console.log(keyCode)
+      isPaused = !isPaused
+    }
+    if (keyCode === 32) { // space key
+      InstanceFactory.interact(InstancePlayer)
+    }
   }
+
+
+
 }
 
 function drawGridDebug() {
