@@ -10,14 +10,13 @@ class DungeonGenerator {
     myDungeonFinal;
 
     constructor() {
-        this.myRows = 7;
-        this.myCols = 7;
+        this.myRows = 5;
+        this.myCols = 5;
         this.myInitialRow = Math.floor(this.myRows / 2);
         this.myInitialCol = Math.floor(this.myCols / 2);
         this.myDungeon = [];
         this.myRoomCode = '□'
         this.myNoRoomCode = '■'
-        this.myRoomSize = 7
         this.myDungeonFinal = [];
 
         this.createInitialDungeon(this.myRows, this.myCols);
@@ -64,17 +63,13 @@ class DungeonGenerator {
             ['□', '□', '□'],
             ['□', '□', '□']
         ]
-
-        this.myDungeonFinal = [];
-        for (let a = 0; a < this.myRows * this.myRoomSize; a++) {
-            this.myDungeonFinal.push([]);
-        }
+        
         for (let a = 0; a < this.myDungeon.length; a++) {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
-                let currentRoom = null
+                this.myDungeonFinal[a][b] = null;
+                let currentRoom = null;
                 if (this.myDungeon[a][b] == this.myRoomCode) {
                     let randomRoom = Math.floor(Math.random() * 3);
-                    console.log('random room = ' + randomRoom);
                     switch (randomRoom) {
                         case 0:
                             currentRoom = new Room(roomLayout0);
@@ -91,35 +86,43 @@ class DungeonGenerator {
                 } else {
                     currentRoom = null;
                 }
+                this.myDungeonFinal[a][b] = currentRoom;
             }
         }
-        this.generateDoors()
+        this.generateDoors();
+        for (let a = 0; a < this.myDungeonFinal.length; a++) {
+            for (let b = 0; b < this.myDungeonFinal[0].length; b++) {
+                if (this.myDungeonFinal[a][b] instanceof Room) {
+                    this.myDungeonFinal[a][b].createDoors();
+                    console.log(this.myDungeonFinal[a][b]);
+                }
+            }
+        }
     }
-
     generateDoors() {
         for (let i = 0; i < this.myDungeonFinal.length; i++) {
             for (let j = 0; j < this.myDungeonFinal[0].length; j++) {
                 let room = this.myDungeonFinal[i][j];
-
+    
                 if (room instanceof Room) {
                     if (i > 0 && this.myDungeonFinal[i - 1][j] instanceof Room) {
                         room.setNorthDoor();
                         this.myDungeonFinal[i - 1][j].setSouthDoor();
                     }
-
+    
                     if (i < this.myDungeonFinal.length - 1 && this.myDungeonFinal[i + 1][j] instanceof Room) {
                         room.setSouthDoor();
-                        this.myDungeonFinal[i - 1][j].setNorthDoor();
+                        this.myDungeonFinal[i + 1][j].setNorthDoor();
                     }
-
+    
                     if (j < this.myDungeonFinal[0].length - 1 && this.myDungeonFinal[i][j + 1] instanceof Room) {
                         room.setRightDoor();
-                        this.myDungeonFinal[i - 1][j].setLeftDoor();
+                        this.myDungeonFinal[i][j + 1].setLeftDoor();
                     }
-
+    
                     if (j > 0 && this.myDungeonFinal[i][j - 1] instanceof Room) {
                         room.setLeftDoor();
-                        this.myDungeonFinal[i - 1][j].setRightDoor();
+                        this.myDungeonFinal[i][j - 1].setRightDoor();
                     }
                 }
             }
@@ -129,14 +132,18 @@ class DungeonGenerator {
     createInitialDungeon(theRows, theCols) {
         for (let i = 0; i < theRows; i++) {
             let row = [];
+            let rowFinal = [];
             for (let j = 0; j < theCols; j++) {
                 row.push(this.myNoRoomCode);
+                rowFinal.push(null);
             }
             this.myDungeon.push(row);
+            this.myDungeonFinal.push(rowFinal);
         }
 
         this.myDungeon[this.myInitialRow][this.myInitialCol] = this.myRoomCode;
         console.log(this.myDungeon);
+        console.log(this.myDungeonFinal);
     }
 
     isWithinBounds(theRow, col) {
@@ -160,8 +167,8 @@ class DungeonGenerator {
             this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === this.myNoRoomCode ||
             this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
             console.log('restarting from the intial position');
-            let maxRoomsInOneDirection = 10;
-            let rowPos = Math.floor(this.myRows / 2);
+            let maxRoomsInOneDirection = 5;
+            let rowPos = Math.floor(this.myRows / 2);   
             let colPos = Math.floor(this.myCols / 2);
 
             while (maxRoomsInOneDirection > 0) {
@@ -203,7 +210,6 @@ class DungeonGenerator {
 }
 
 class Room {
-
     myNorthDoor;
     mySouthDoor;
     myRightDoor;
@@ -226,7 +232,7 @@ class Room {
             [Math.floor(this.myTileMap.length / 2), 0] // left
         ];
 
-        this.myEntityLocations = []
+        this.myEntityLocations = [];
         for (let i = 1; i < this.myTileMap.length - 1; i++) {
             for (let j = 1; j < this.myTileMap[0].length - 1; j++) {
                 let doorAdjacent = false;
@@ -238,7 +244,11 @@ class Room {
                 }
             }
         }
-        console.log(this.myEntityLocations);
+        this.createBottomWall();
+        this.createTopWall();
+        this.createLeftWall();
+        this.createRightWall();
+        this.createCorners();
     }
 
     getNorthTeleportLocation() {
@@ -270,27 +280,51 @@ class Room {
         this.myLeftDoor = true;
     }
 
-    createDoor() {
+    createDoors() {
         if (this.myNorthDoor) {
-            console.log(this.myDoorLocations[0])
-            this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = 'X';
-            console.log(this.myTileMap);
+            this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '▲';
         }
         if (this.mySouthDoor) {
-            console.log(this.myDoorLocations[1])
-            this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = 'X';
-            console.log(this.myTileMap);
+            this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '▼';
         }
         if (this.myRightDoor) {
-            console.log(this.myDoorLocations[2])
-            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = 'X';
-            console.log(this.myTileMap);
+            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '▶';
         }
         if (this.myLeftDoor) {
-            console.log(this.myDoorLocations[3])
-            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = 'X';
-            console.log(this.myTileMap);
+            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '◀';
+        }
+    }
+
+    createCorners() {
+        this.myTileMap[0][0] = '⌜';
+        this.myTileMap[0][this.myTileMap[0].length - 1] = '⌝';
+        this.myTileMap[this.myTileMap.length - 1][0] = '⌞';
+        this.myTileMap[this.myTileMap.length - 1][this.myTileMap[0].length - 1] = '⌟';
+    }
+
+    createTopWall() {
+        for (let j = 0; j < this.myTileMap[0].length - 1; j++) {
+            this.myTileMap[0][j] = '‾';
+        }
+    }
+
+    createBottomWall() {
+        for (let j = 0; j < this.myTileMap[0].length - 1; j++) {
+            this.myTileMap[this.myTileMap.length - 1][j] = '_';
+        }
+    }
+
+    createLeftWall() {
+        for (let i = 0; i < this.myTileMap.length; i++) {
+            this.myTileMap[i][0] = '|';
+        }
+    }
+
+    createRightWall() {
+        for (let i = 0; i < this.myTileMap.length; i++) {
+            this.myTileMap[i][this.myTileMap[0].length - 1] = '|';
         }
     }
 }
-new DungeonGenerator()
+
+d = new DungeonGenerator();
