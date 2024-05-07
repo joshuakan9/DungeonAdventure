@@ -210,11 +210,10 @@ function setup() {
     InstanceTextBox.loop.start();
 
 
-    InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:10, y:window.height-100, width:window.width})
-    InstanceTextBox.add({text:"The game is still in development", x:10, y:window.height-100, width:window.width})
-    InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:10, y:window.height-100, width:window.width})
-    InstanceTextBox.add({text:"Good Luck and Have fun", x:10, y:window.height-100, width:window.width})
-
+    InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null})
+    InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null})
+    InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null})
+    InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null})
   }
 
   

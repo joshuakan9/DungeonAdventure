@@ -1,17 +1,24 @@
-class TextBox {
+const TEXT_SPEED = 10;
+const TEXT_BOX_Y = window.innerHeight - (window.innerHeight/cellNumber) * 12;
+const TEXT_BOX_LENGTH = Math.floor(innerHeight/cellNumber) * 3;
+const TEXT_BOX_WIDTH = window.innerWidth;
 
+const TEXT_SIZE = .4 * innerHeight/cellNumber;
+const TEXT_Y = window.innerHeight - TEXT_BOX_Y
+class TextBox {
+    
+// set default
     constructor() {
         this.timeCurrent = 0
-        this.timeTarget = 10;
+        this.timeTarget = TEXT_SPEED;
         this.currentTextEnd = 0;
         this.children = []
-        this.backgroundColor = { x: 255, y: 0, z: 0 };
         this.render = () => {
             if (this.children.length > 0) {
                 fill('white')
-                rect(0, window.height - 150, window.width, 150)
-                fill(0, 0, 0)
-                textSize(20)
+                rect(0, this.children[0].y - TEXT_SIZE , this.children[0].width, this.children[0].y)
+                fill('black')
+                textSize(TEXT_SIZE)
 
 
                 text(this.children[0].text.substring(0, this.currentTextEnd), this.children[0].x, this.children[0].y, this.children[0].width)
@@ -59,7 +66,16 @@ class TextBox {
 
     }
 
-    add(obj = { text, x, y, width }) {
+
+
+    add(obj = {text, x, y, width}) {
+        if (obj.width == null && obj.x == null && obj.y == null) {
+            //Spacing for the Text (NOT TEXT_BOX)
+            obj.x = TEXT_SIZE;
+            obj.y = TEXT_Y + TEXT_SIZE;
+            obj.width = TEXT_BOX_WIDTH;
+        }
+        console.log(obj)
         this.children.push(obj)
         this.inTextDialogue = true
         window.dispatchEvent(new Event("e-player-freeze"))
