@@ -205,6 +205,15 @@ function setup() {
   InstanceGameLoop.start()
 
 
+  if (InstanceTextBox) {
+    InstanceTextBox.loop.stop()
+    let newTextBox = new TextBox()
+    newTextBox.timeCurrent = InstanceTextBox.timeCurrent
+    newTextBox.currentTextEnd = InstanceTextBox.currentTextEnd
+    newTextBox.children = InstanceTextBox.children
+    InstanceTextBox = newTextBox
+    InstanceTextBox.loop.start()
+  }
   if (!InstanceTextBox) {
     InstanceTextBox = new TextBox()
     InstanceTextBox.loop.start();
@@ -215,7 +224,7 @@ function setup() {
     InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null})
     InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null})
   }
-
+  console.log(InstanceTextBox.children)
   
 
 }
