@@ -222,6 +222,7 @@ class Room {
     myTileMap;
     myEntityLocations;
     myDoorLocations;
+    myEntityMap;
 
     constructor(theTileMap) {
         this.myNorthDoor = false;
@@ -230,24 +231,10 @@ class Room {
         this.myLeftDoor = false;
         this.myTileMap = theTileMap;
 
-        this.myDoorLocations = [
-            [0, Math.floor(this.myTileMap[0].length / 2)], // north
-            [this.myTileMap.length - 1, Math.floor(this.myTileMap[0].length / 2)], // south
-            [Math.floor(this.myTileMap.length / 2), this.myTileMap[0].length - 1], // right
-            [Math.floor(this.myTileMap.length / 2), 0] // left
-        ];
+        this.createDoorLocations();
+        this.createEntityLocations();
+        this.createEntityMap();
 
-        this.myEntityLocations = [];
-        for (let i = 1; i < this.myTileMap.length - 1; i++) {
-            for (let j = 1; j < this.myTileMap[0].length - 1; j++) {
-                if (!(i === this.getNorthTeleportLocation()[0] && j === this.getNorthTeleportLocation()[1] ||
-                    i === this.getSouthTeleportLocation()[0] && j === this.getSouthTeleportLocation()[1] ||
-                    i === this.getRightTeleportLocation()[0] && j === this.getRightTeleportLocation()[1] ||
-                    i === this.getLeftTeleportLocation()[0] && j === this.getLeftTeleportLocation()[1])) {
-                    this.myEntityLocations.push([i, j]);
-                }
-            }
-        }
         this.createBottomWall();
         this.createTopWall();
         this.createLeftWall();
@@ -344,6 +331,55 @@ class Room {
     createRightWall() {
         for (let i = 0; i < this.myTileMap.length; i++) {
             this.myTileMap[i][this.myTileMap[0].length - 1] = '|';
+        }
+    }
+
+    createDoorLocations() {
+        this.myDoorLocations = [
+            [0, Math.floor(this.myTileMap[0].length / 2)], // north
+            [this.myTileMap.length - 1, Math.floor(this.myTileMap[0].length / 2)], // south
+            [Math.floor(this.myTileMap.length / 2), this.myTileMap[0].length - 1], // right
+            [Math.floor(this.myTileMap.length / 2), 0] // left
+        ];
+    }
+
+    createEntityMap() {
+        this.myEntityMap = [];
+        for (let i = 0; i < this.myTileMap.length; i++) {
+            let row = [];
+            for (let j = 0; j < this.myTileMap[0].length; j++) {
+                let isEntity = false;
+                for (let k = 0; k < this.myEntityLocations.length; k++) {
+                    const [x, y] = this.myEntityLocations[k];
+                    if (x === i && y === j) {
+                        isEntity = true;
+                        break;
+                    }
+                }
+
+                if (isEntity) {
+                    // If any coordinate pair matches, mark 'X'
+                    row.push('X');
+                } else {
+                    // If no match found, mark '□'
+                    row.push('□');
+                }
+            }
+            this.myEntityMap.push(row);
+        }
+    }
+
+    createEntityLocations() {
+        this.myEntityLocations = [];
+        for (let i = 1; i < this.myTileMap.length - 1; i++) {
+            for (let j = 1; j < this.myTileMap[0].length - 1; j++) {
+                if (!(i === this.getNorthTeleportLocation()[0] && j === this.getNorthTeleportLocation()[1] ||
+                    i === this.getSouthTeleportLocation()[0] && j === this.getSouthTeleportLocation()[1] ||
+                    i === this.getRightTeleportLocation()[0] && j === this.getRightTeleportLocation()[1] ||
+                    i === this.getLeftTeleportLocation()[0] && j === this.getLeftTeleportLocation()[1])) {
+                    this.myEntityLocations.push([i, j]);
+                }
+            }
         }
     }
 }
