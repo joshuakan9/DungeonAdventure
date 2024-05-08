@@ -6,7 +6,6 @@ class DungeonGenerator {
     myDungeon;
     myRoomCode;
     myNoRoomCode;
-    myRoomSize;
     myDungeonFinal;
 
     constructor() {
@@ -66,7 +65,7 @@ class DungeonGenerator {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
                 this.myDungeonFinal[a][b] = null;
                 let currentRoom = null;
-                if (this.myDungeon[a][b] == this.myRoomCode) {
+                if (this.myDungeon[a][b] === this.myRoomCode) {
                     let randomRoom = Math.floor(Math.random() * 3);
                     switch (randomRoom) {
                         case 0:
@@ -88,11 +87,20 @@ class DungeonGenerator {
             }
         }
         this.generateDoors();
+        console.log('DOORS ARE GENERATED HERE, NOW PRINTING ROOMS WITH DOORS')
+        console.log('======================================================');
+        console.log('======================================================');
+        console.log('======================================================');
+        console.log('======================================================');
+        console.log('======================================================');
+        console.log('======================================================');
+        console.log('======================================================');
+        console.log('======================================================');
         for (let a = 0; a < this.myDungeonFinal.length; a++) {
             for (let b = 0; b < this.myDungeonFinal[0].length; b++) {
                 if (this.myDungeonFinal[a][b] instanceof Room) {
                     this.myDungeonFinal[a][b].createDoors();
-                    console.log(this.myDungeonFinal[a][b]);
+                    console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
                 }
             }
         }
@@ -101,31 +109,30 @@ class DungeonGenerator {
         for (let i = 0; i < this.myDungeonFinal.length; i++) {
             for (let j = 0; j < this.myDungeonFinal[0].length; j++) {
                 let room = this.myDungeonFinal[i][j];
-    
+
                 if (room instanceof Room) {
-                    if (i > 0 && this.myDungeonFinal[i - 1][j] instanceof Room) {
+                    // Check if there is a room to the north
+                    if (i > 0 && this.myDungeonFinal[i - 1][j] !== null && this.myDungeonFinal[i - 1][j] instanceof Room) {
                         room.setNorthDoor();
-                        this.myDungeonFinal[i - 1][j].setSouthDoor();
                     }
-    
-                    if (i < this.myDungeonFinal.length - 1 && this.myDungeonFinal[i + 1][j] instanceof Room) {
+                    // Check if there is a room to the south
+                    if (i < this.myDungeonFinal.length - 1 && this.myDungeonFinal[i + 1][j] !== null && this.myDungeonFinal[i + 1][j] instanceof Room) {
                         room.setSouthDoor();
-                        this.myDungeonFinal[i + 1][j].setNorthDoor();
                     }
-    
-                    if (j < this.myDungeonFinal[0].length - 1 && this.myDungeonFinal[i][j + 1] instanceof Room) {
+                    // Check if there is a room to the east
+                    if (j < this.myDungeonFinal[0].length - 1 && this.myDungeonFinal[i][j + 1] !== null && this.myDungeonFinal[i][j + 1] instanceof Room) {
                         room.setRightDoor();
-                        this.myDungeonFinal[i][j + 1].setLeftDoor();
                     }
-    
-                    if (j > 0 && this.myDungeonFinal[i][j - 1] instanceof Room) {
+                    // Check if there is a room to the west
+                    if (j > 0 && this.myDungeonFinal[i][j - 1] !== null && this.myDungeonFinal[i][j - 1] instanceof Room) {
                         room.setLeftDoor();
-                        this.myDungeonFinal[i][j - 1].setRightDoor();
                     }
                 }
             }
         }
     }
+
+
 
     createInitialDungeon(theRows, theCols) {
         for (let i = 0; i < theRows; i++) {
@@ -164,7 +171,7 @@ class DungeonGenerator {
             this.myDungeon[this.myInitialRow - 1][this.myInitialCol] === this.myNoRoomCode ||
             this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === this.myNoRoomCode ||
             this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
-            console.log('restarting from the intial position');
+            console.log('restarting from the initial position');
             let maxRoomsInOneDirection = 5;
             let rowPos = Math.floor(this.myRows / 2);   
             let colPos = Math.floor(this.myCols / 2);
@@ -233,7 +240,6 @@ class Room {
         this.myEntityLocations = [];
         for (let i = 1; i < this.myTileMap.length - 1; i++) {
             for (let j = 1; j < this.myTileMap[0].length - 1; j++) {
-                let doorAdjacent = false;
                 if (!(i === this.getNorthTeleportLocation()[0] && j === this.getNorthTeleportLocation()[1] ||
                     i === this.getSouthTeleportLocation()[0] && j === this.getSouthTeleportLocation()[1] ||
                     i === this.getRightTeleportLocation()[0] && j === this.getRightTeleportLocation()[1] ||
@@ -278,20 +284,37 @@ class Room {
         this.myLeftDoor = true;
     }
 
+    //TODO - I think the else statements are a band-aid fix for something wrong wherever createDoors() is called.
     createDoors() {
+        // North door
         if (this.myNorthDoor) {
             this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '▲';
+        } else {
+            this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '‾';
         }
+
+        // South door
         if (this.mySouthDoor) {
             this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '▼';
+        } else {
+            this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '_';
         }
+
+        // Right door
         if (this.myRightDoor) {
             this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '▶';
+        } else {
+            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '|';
         }
+
+        // Left door
         if (this.myLeftDoor) {
             this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '◀';
+        } else {
+            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '|';
         }
     }
+
 
     createCorners() {
         this.myTileMap[0][0] = '⌜';
