@@ -1,10 +1,7 @@
 const TEXT_SPEED = 10;
-const TEXT_BOX_Y = window.innerHeight - (window.innerHeight/cellNumber) * 12;
-const TEXT_BOX_LENGTH = Math.floor(innerHeight/cellNumber) * 3;
-const TEXT_BOX_WIDTH = window.innerWidth;
+const TEXT_SIZE = .4;
+const TEXT_Y = 12
 
-const TEXT_SIZE = .4 * innerHeight/cellNumber;
-const TEXT_Y = window.innerHeight - TEXT_BOX_Y
 class TextBox {
     
 // set default
@@ -16,9 +13,9 @@ class TextBox {
         this.render = () => {
             if (this.children.length > 0) {
                 fill('white')
-                rect(0, this.children[0].y - TEXT_SIZE , this.children[0].width, this.children[0].y)
+                rect(0, this.children[0].y - TEXT_SIZE * height/cellNumber , this.children[0].width, this.children[0].y)
                 fill('black')
-                textSize(TEXT_SIZE)
+                textSize(TEXT_SIZE * height/cellNumber)
 
 
                 text(this.children[0].text.substring(0, this.currentTextEnd), this.children[0].x, this.children[0].y, this.children[0].width)
@@ -71,9 +68,9 @@ class TextBox {
     add(obj = {text, x, y, width}) {
         if (obj.width == null && obj.x == null && obj.y == null) {
             //Spacing for the Text (NOT TEXT_BOX)
-            obj.x = TEXT_SIZE;
-            obj.y = TEXT_Y + TEXT_SIZE;
-            obj.width = TEXT_BOX_WIDTH;
+            obj.x = TEXT_SIZE * height/cellNumber;
+            obj.y = height - (height - (height/cellNumber) * TEXT_Y) + TEXT_SIZE * height/cellNumber;
+            obj.width = width;
         }
         console.log(obj)
         this.children.push(obj)
