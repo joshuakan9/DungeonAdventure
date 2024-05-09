@@ -149,13 +149,16 @@ function setup() {
     }
 
 
-    if (!InstanceFactory.checkCollision(potentialTargetPos)) {
+    if (!InstanceFactory.checkCollision(InstancePlayer, potentialTargetPos)) {
       InstanceTargetPos = potentialTargetPos
-
     } else {
       console.log('colliding')
     }
     InstancePlayer.setDirection(newDirection)
+    if (InstanceFactory.checkDoor(InstancePlayer, potentialTargetPos)) {
+      InstanceTargetPos = InstancePlayer.getPos()
+    }
+
 
   }
 
@@ -225,10 +228,10 @@ function setup() {
     InstanceTextBox.loop.start();
 
 
-    InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null})
-    InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null})
-    InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null})
-    InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null})
+    // InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null})
+    // InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null})
+    // InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null})
+    // InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null})
   }
   console.log(InstanceTextBox.children)
 

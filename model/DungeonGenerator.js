@@ -223,6 +223,35 @@ class Room {
         this.createCorners();
     }
 
+    getIsCollideDoor(thePlayerPos) {
+        let bool = [this.myNorthDoor,this.mySouthDoor,this.myRightDoor,this.myLeftDoor]
+        let tile = this.myTileMap[thePlayerPos[1]][thePlayerPos[0]]
+        if (tile == '▲') {
+            return 'north'
+        }
+        // South door
+        if (tile == '▼') {
+            return 'south'
+        }
+
+        // Right door
+        if (tile == '▶') {
+            return 'east'
+        }
+
+        // Left door
+        if (tile == '◀') {
+            return 'west'
+        }
+        // for (let a = 0; a < this.myDoorLocations.length; a++) {
+        //     console.log(bool[a])
+        //     if (thePlayerPos[1] == this.myDoorLocations[a][0] && thePlayerPos[0] == this.myDoorLocations[a][1] && bool[a]) {
+        //         return true
+        //     }
+        // }
+        return null
+    }
+
     getNorthTeleportLocation() {
         return [this.myDoorLocations[0][0] + 1, this.myDoorLocations[0][1]];
     }
@@ -231,11 +260,11 @@ class Room {
         return [this.myDoorLocations[1][0] - 1, this.myDoorLocations[1][1]];
     }
 
-    getRightTeleportLocation() {
+    getEastTeleportLocation() {
         return [this.myDoorLocations[2][0], this.myDoorLocations[2][1] - 1];
     }
 
-    getLeftTeleportLocation() {
+    getWestTeleportLocation() {
         return [this.myDoorLocations[3][0], this.myDoorLocations[3][1] + 1];
     }
 
@@ -355,8 +384,8 @@ class Room {
             for (let j = 1; j < this.myTileMap[0].length - 1; j++) {
                 if (!(i === this.getNorthTeleportLocation()[0] && j === this.getNorthTeleportLocation()[1] ||
                     i === this.getSouthTeleportLocation()[0] && j === this.getSouthTeleportLocation()[1] ||
-                    i === this.getRightTeleportLocation()[0] && j === this.getRightTeleportLocation()[1] ||
-                    i === this.getLeftTeleportLocation()[0] && j === this.getLeftTeleportLocation()[1])) {
+                    i === this.getEastTeleportLocation()[0] && j === this.getEastTeleportLocation()[1] ||
+                    i === this.getWestTeleportLocation()[0] && j === this.getWestTeleportLocation()[1])) {
                     this.myEntityLocations.push([i, j]);
                 }
             }

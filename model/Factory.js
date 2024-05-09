@@ -26,10 +26,10 @@ class Factory {
         let cell = createVector(thePos.x, thePos.y)
         this.myEntities[cell.y][cell.x] = theEntity
     }
-    checkCollision(thePos) {
+    checkCollision(thePlayer, thePos) {
         let cell = createVector((thePos.x), (thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
-        console.log(room)
+
         let tilemap = room.getTileMap()
         if (cell.x < 0 || cell.y < 0 || cell.x >= tilemap[0].length || cell.y >= tilemap.length) {
             return true
@@ -42,10 +42,41 @@ class Factory {
             return true
         }
 
+
         // if (this.myEntities[cell.y][cell.x]) {
         //     return this.myEntities[cell.y][cell.x].collide(thePos)
         // }
         
+        return false
+    }
+    checkDoor(thePlayer, thePos) {
+        let cell = createVector((thePos.x), (thePos.y))
+        let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
+
+        if (room.getIsCollideDoor([cell.x,cell.y])) {
+            console.log('collide with door!')
+            console.log( this.myDungeonIndex)
+            let direction = room.getIsCollideDoor([cell.x,cell.y])
+            if (direction == 'north') {
+                this.myDungeonIndex.add(createVector(0,-1))
+                thePlayer.setPos(createVector(this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x].getSouthTeleportLocation()[1], this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x].getSouthTeleportLocation()[0])) 
+            } else if (direction == 'south') {
+                this.myDungeonIndex.add(createVector(0,1))
+                thePlayer.setPos(createVector(this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x].getNorthTeleportLocation()[1], this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x].getNorthTeleportLocation()[0])) 
+
+            } else if (direction == 'east') {
+                this.myDungeonIndex.add(createVector(1,0))
+                thePlayer.setPos(createVector(this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x].getWestTeleportLocation()[1], this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x].getWestTeleportLocation()[0])) 
+
+            } else if (direction == 'west') {
+                this.myDungeonIndex.add(createVector(-1,0))
+                thePlayer.setPos(createVector(this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x].getEastTeleportLocation()[1], this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x].getEastTeleportLocation()[0])) 
+
+            }
+            thePlayer.setDirection(null)
+
+            return true
+        }
         return false
     }
     draw(thePlayer) {
