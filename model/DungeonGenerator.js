@@ -87,15 +87,6 @@ class DungeonGenerator {
             }
         }
         this.generateDoors();
-        console.log('DOORS ARE GENERATED HERE, NOW PRINTING ROOMS WITH DOORS')
-        console.log('======================================================');
-        console.log('======================================================');
-        console.log('======================================================');
-        console.log('======================================================');
-        console.log('======================================================');
-        console.log('======================================================');
-        console.log('======================================================');
-        console.log('======================================================');
         for (let a = 0; a < this.myDungeonFinal.length; a++) {
             for (let b = 0; b < this.myDungeonFinal[0].length; b++) {
                 if (this.myDungeonFinal[a][b] instanceof Room) {
@@ -356,7 +347,6 @@ class Room {
                         break;
                     }
                 }
-
                 if (isEntity) {
                     // If any coordinate pair matches, mark 'X'
                     row.push('X');
