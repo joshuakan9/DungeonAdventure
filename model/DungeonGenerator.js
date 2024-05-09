@@ -29,59 +29,46 @@ class DungeonGenerator {
     }
 
     convert() {
+        let roomTemplates = [
+            [
+                ['□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□']
+            ],
 
-        const roomLayout0 = [
-            ['□', '□', '□', '□', '□'],
-            ['□', '□', '□', '□', '□'],
-            ['□', '□', '□', '□', '□'],
-            ['□', '□', '□', '□', '□'],
-            ['□', '□', '□', '□', '□']
-        ]
+            [
+                ['□', '□','□','□','□','□', '□'],
+                ['□', '□','□','□','□','□', '□'],
+                ['□', '□','□','□','□','□', '□'],
+                ['□', '□','□','□','□','□', '□'],
+                ['□', '□','□','□','□','□', '□'],
+                ['□', '□','□','□','□','□', '□'],
+                ['□', '□','□','□','□','□', '□']
+            ],
 
-        const roomLayout1 = [
-            ['□', '□','□','□','□','□', '□'],
-            ['□', '□','□','□','□','□', '□'],
-            ['□', '□','□','□','□','□', '□'],
-            ['□', '□','□','□','□','□', '□'],
-            ['□', '□','□','□','□','□', '□'],
-            ['□', '□','□','□','□','□', '□'],
-            ['□', '□','□','□','□','□', '□']
+            [
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□'],
+                ['□', '□','□','□', '□']
+            ]
         ]
-
-        const roomLayout2 = [
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□'],
-            ['□', '□','□','□', '□']
-        ]
-        
         for (let a = 0; a < this.myDungeon.length; a++) {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
                 this.myDungeonFinal[a][b] = null;
                 let currentRoom = null;
                 if (this.myDungeon[a][b] === this.myRoomCode) {
-                    let randomRoom = Math.floor(Math.random() * 3);
-                    switch (randomRoom) {
-                        case 0:
-                            currentRoom = new Room(roomLayout0);
-                            break;
-                        case 1:
-                            currentRoom = new Room(roomLayout1);
-                            break;
-                        case 2:
-                            currentRoom = new Room(roomLayout2);
-                            break;
-                        default:
-                            console.log('error, invalid case while assigning currentRoom');
-                    }
+                    currentRoom = new Room(random(roomTemplates));
                 } else {
                     currentRoom = null;
                 }
@@ -170,7 +157,7 @@ class DungeonGenerator {
             let colPos = Math.floor(this.myCols / 2);
 
             while (maxRoomsInOneDirection > 0) {
-                let direction = Math.floor(Math.random() * 4);
+                let direction = Math.floor(random(0,4));
                 let newRowPos = rowPos;
                 let newColPos = colPos;
 
