@@ -1,6 +1,12 @@
+//These coordinates, parameters size, and text size are based on canvas size.
+const TEXT_BOX_X = 1;
+const TEXT_BOX_Y = .2;
+const TEXT_BOX_SIZE_X = 1;
+const TEXT_BOX_SIZE_Y = .2;
+
+const TEXT_SIZE = .02;
+
 const TEXT_SPEED = 10;
-const TEXT_SIZE = .4;
-const TEXT_Y = 12
 
 class TextBox {
     
@@ -13,12 +19,19 @@ class TextBox {
         this.render = () => {
             if (this.children.length > 0) {
                 fill('white')
-                rect(0, this.children[0].y - TEXT_SIZE * height/cellNumber , this.children[0].width, this.children[0].y)
+                rect(width - width * this.children[0].x, 
+                    height - height * this.children[0].y, 
+                    width * this.children[0].width, 
+                    height * this.children[0].height)
                 fill('black')
-                textSize(TEXT_SIZE * height/cellNumber)
+                textSize(height * this.children[0].textSize)
 
 
-                text(this.children[0].text.substring(0, this.currentTextEnd), this.children[0].x, this.children[0].y, this.children[0].width)
+                text(
+                    this.children[0].text.substring(0, this.currentTextEnd), 
+                    (width - width * this.children[0].x) + width * this.children[0].textSize, 
+                    (height - height * this.children[0].y) + height * this.children[0].textSize,
+                    width)
             }
         }
         this.tick = (delta) => {
@@ -65,12 +78,14 @@ class TextBox {
 
 
 
-    add(obj = {text, x, y, width}) {
-        if (obj.width == null && obj.x == null && obj.y == null) {
-            //Spacing for the Text (NOT TEXT_BOX)
-            obj.x = TEXT_SIZE * height/cellNumber;
-            obj.y = height - (height - (height/cellNumber) * TEXT_Y) + TEXT_SIZE * height/cellNumber;
-            obj.width = width;
+    add(obj = {text, x, y, width, height, textSize}) {
+        if (obj.x == null || obj.y == null || obj.width == null || obj.height == null || obj.textSizing == null) {
+            //console.log("This is a default text");
+            obj.x = TEXT_BOX_X;
+            obj.y = TEXT_BOX_Y;
+            obj.width = TEXT_BOX_SIZE_X;
+            obj.height = TEXT_BOX_SIZE_Y;
+            obj.textSize = TEXT_SIZE;
         }
         console.log(obj)
         this.children.push(obj)
