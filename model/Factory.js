@@ -13,6 +13,7 @@ class Factory {
             ['white','white','white','white','white','white','white','wall','wall','wall']
         ]
         this.myDungeon = new DungeonGenerator().getDungeon()
+        this.myDungeonIndex = createVector(floor(this.myDungeon[0].length / 2), floor(this.myDungeon.length / 2))
         this.myDungeonImage = null
         this.myEntities = []
         for (let a = 0; a < this.myOverworld.length; a++) {
@@ -26,12 +27,19 @@ class Factory {
     }
     checkCollision(thePos) {
         let cell = createVector((thePos.x), (thePos.y))
-        // if (cell.x < 0 || cell.y < 0 || cell.x >= this.myOverworld[0].length || cell.y >= this.myOverworld.length) {
-        //     return true
-        // }
-        // if (this.myOverworld[cell.y][cell.x] == 'wall') {
-        //     return true
-        // }
+        let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
+        console.log(room)
+        let tilemap = room.getTileMap()
+        if (cell.x < 0 || cell.y < 0 || cell.x >= tilemap[0].length || cell.y >= tilemap.length) {
+            return true
+        }
+        if (tilemap[cell.y][cell.x] == WORLD.WALL_BOTTOM ||
+            tilemap[cell.y][cell.x] == WORLD.WALL_LEFT ||
+            tilemap[cell.y][cell.x] == WORLD.WALL_RIGHT ||
+            tilemap[cell.y][cell.x] == WORLD.WALL_TOP
+        ) {
+            return true
+        }
 
         // if (this.myEntities[cell.y][cell.x]) {
         //     return this.myEntities[cell.y][cell.x].collide(thePos)
@@ -110,26 +118,47 @@ class Factory {
 
     drawDungeon(thePlayer) {
         let thePos = thePlayer.getPos()
-        let cell = createVector(round(thePos.x / CELLSIZE), round(thePos.y / CELLSIZE))
+        let cell = createVector(round(thePos.x), round(thePos.y))
+        let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
+        let tilemap = room.getTileMap()
+
         push()
-        for (let a = cell.y-9; a < cell.y+9; a++) {
-            for (let b = cell.x-9; b < cell.x + 9; b++) {
-                if (b < 0 || a < 0 || b >= this.myDungeon[0].length || a >= this.myDungeon.length) {
+        for (let a = cell.y-8; a < cell.y+9; a++) {
+            for (let b = cell.x-8; b < cell.x + 9; b++) {
+                if (b < 0 || a < 0 || b >= tilemap[0].length || a >= tilemap.length) {
                     continue
                 }
-                if (this.myDungeon[a][b] == 'wall') {
+
+                if (tilemap[a][b] == '|') {
                     this.myImage.background('blue')
-                    image(this.myImage,getCell(b),getCell(a))
-                } else if (this.myDungeon[a][b] == null) {
-                    this.myImage.background('black')
-                    image(this.myImage,getCell(b),getCell(a))
-                } else if (this.myDungeon[a][b] == 'ground') {
+                    image(this.myImage,getCellToPos(b),getCellToPos(a))
+                } else if (tilemap[a][b] == '_') {
+                    this.myImage.background('blue')
+                    image(this.myImage,getCellToPos(b),getCellToPos(a))
+                } else if (tilemap[a][b] == '‾') {
+                    this.myImage.background('blue')
+                    image(this.myImage,getCellToPos(b),getCellToPos(a))
+                } else if (tilemap[a][b] == '⌜') {
+                    this.myImage.background('blue')
+                    image(this.myImage,getCellToPos(b),getCellToPos(a))
+                } else if (tilemap[a][b] == '⌝') {
+                    this.myImage.background('blue')
+                    image(this.myImage,getCellToPos(b),getCellToPos(a))
+                } else if (tilemap[a][b] == '⌟') {
+                    this.myImage.background('blue')
+                    image(this.myImage,getCellToPos(b),getCellToPos(a))
+                } else if (tilemap[a][b] == '⌞') {
+                    this.myImage.background('blue')
+                    image(this.myImage,getCellToPos(b),getCellToPos(a))
+                } else if (tilemap[a][b] == '□') {
                     this.myImage.background('white')
-                    image(this.myImage,getCell(b),getCell(a))
+                    image(this.myImage,getCellToPos(b),getCellToPos(a))
                 }
 
             }
         }
         pop()
     }
+
+
 }

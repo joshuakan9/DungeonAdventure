@@ -20,6 +20,7 @@ let InstancePlayer = null
 let InstanceBattle = null
 let InstanceTextBox = null
 
+
 window.addEventListener("e-battle-start", (E) => {
 
   InstanceTextBox.add({text:E['detail'].getName()+" battle", x:10, y:window.height-100, width:window.width})
@@ -53,6 +54,7 @@ window.addEventListener("e-player-unfreeze", (E) => {
 })
 
 function setup() {
+
   window.innerHeight <= window.innerWidth
     ? ((W = Math.max(window.innerHeight, 1) * ratio),
       (H = Math.max(window.innerHeight, 1)))
@@ -75,7 +77,7 @@ function setup() {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
     InstancePlayer = new Assassin({
-      thePos: createVector((4), (4)),
+      thePos: createVector((1), (1)),
       theSize: createVector(CELLSIZE, CELLSIZE),
       theImage: playerImage,
       theName: "Tester",
@@ -176,10 +178,10 @@ function setup() {
       // drawGridDebug()
   
       // InstanceFactory.drawDungeon(InstancePlayer)
-      InstanceFactory.drawOverworld(InstancePlayer)
+      // InstanceFactory.drawOverworld(InstancePlayer)
   
       InstanceFactory.draw(InstancePlayer)
-  
+      InstanceFactory.drawDungeon(InstancePlayer)
       InstancePlayer.draw()
   
       pop()
