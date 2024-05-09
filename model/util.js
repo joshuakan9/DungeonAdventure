@@ -1,5 +1,5 @@
 const WORLD = {
-    WALL_LEFT: '|',
+    WALL_LEFT: '||',
     WALL_RIGHT: '|',
     WALL_TOP: '‾',
     WALL_BOTTOM: '_',

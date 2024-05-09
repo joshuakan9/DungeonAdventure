@@ -205,6 +205,7 @@ class Room {
     myEntityMap;
 
     constructor(theTileMap) {
+        this.seed = random(-8192,8192)
         this.myNorthDoor = false;
         this.mySouthDoor = false;
         this.myRightDoor = false;
@@ -271,14 +272,14 @@ class Room {
         if (this.myRightDoor) {
             this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '▶';
         } else {
-            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '|';
+            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = WORLD.WALL_RIGHT;
         }
 
         // Left door
         if (this.myLeftDoor) {
             this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '◀';
         } else {
-            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '|';
+            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = WORLD.WALL_LEFT;
         }
     }
 
@@ -304,13 +305,13 @@ class Room {
 
     createLeftWall() {
         for (let i = 0; i < this.myTileMap.length; i++) {
-            this.myTileMap[i][0] = '|';
+            this.myTileMap[i][0] = WORLD.WALL_LEFT;
         }
     }
 
     createRightWall() {
         for (let i = 0; i < this.myTileMap.length; i++) {
-            this.myTileMap[i][this.myTileMap[0].length - 1] = '|';
+            this.myTileMap[i][this.myTileMap[0].length - 1] = WORLD.WALL_RIGHT;
         }
     }
 

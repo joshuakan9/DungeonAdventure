@@ -2,9 +2,11 @@ p5.disableFriendlyErrors = true; // disables FES uncomment to increase performan
 let textBox
 let font
 let CELLSIZE
+let TILEMAP
 let cellNumber = 15
 function preload() {
   font = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
+  TILEMAP = loadImage('./assets/images/tilemap.png')
 }
 let ratio = 1;
 let W, H;
@@ -12,6 +14,7 @@ let W, H;
 let tick
 let render
 let tryMove
+let M
 
 let InstanceGameLoop = null
 let InstanceFactory = null
@@ -54,7 +57,7 @@ window.addEventListener("e-player-unfreeze", (E) => {
 })
 
 function setup() {
-
+  // randomSeed(0)
   window.innerHeight <= window.innerWidth
     ? ((W = Math.max(window.innerHeight, 1) * ratio),
       (H = Math.max(window.innerHeight, 1)))
@@ -62,6 +65,7 @@ function setup() {
       (H = Math.max(window.innerWidth, 1) / ratio));
   CELLSIZE = floor(W / cellNumber)
   createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
+  M = CELLSIZE / 16
   textFont(font)
 
   if (!InstanceGameLoop) {
@@ -183,7 +187,7 @@ function setup() {
       InstanceFactory.draw(InstancePlayer)
       InstanceFactory.drawDungeon(InstancePlayer)
       InstancePlayer.draw()
-  
+
       pop()
   
   
@@ -227,7 +231,6 @@ function setup() {
     InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null})
   }
   console.log(InstanceTextBox.children)
-  
 
 }
 

@@ -16,6 +16,7 @@ class Factory {
         this.myDungeonIndex = createVector(floor(this.myDungeon[0].length / 2), floor(this.myDungeon.length / 2))
         this.myDungeonImage = null
         this.myEntities = []
+
         for (let a = 0; a < this.myOverworld.length; a++) {
             this.myEntities.push([])
         }
@@ -121,38 +122,86 @@ class Factory {
         let cell = createVector(round(thePos.x), round(thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         let tilemap = room.getTileMap()
+        randomSeed(room.seed)
 
         push()
+
         for (let a = cell.y-8; a < cell.y+9; a++) {
             for (let b = cell.x-8; b < cell.x + 9; b++) {
                 if (b < 0 || a < 0 || b >= tilemap[0].length || a >= tilemap.length) {
                     continue
                 }
 
-                if (tilemap[a][b] == '|') {
-                    this.myImage.background('blue')
-                    image(this.myImage,getCellToPos(b),getCellToPos(a))
-                } else if (tilemap[a][b] == '_') {
-                    this.myImage.background('blue')
-                    image(this.myImage,getCellToPos(b),getCellToPos(a))
-                } else if (tilemap[a][b] == '‾') {
-                    this.myImage.background('blue')
-                    image(this.myImage,getCellToPos(b),getCellToPos(a))
-                } else if (tilemap[a][b] == '⌜') {
-                    this.myImage.background('blue')
-                    image(this.myImage,getCellToPos(b),getCellToPos(a))
-                } else if (tilemap[a][b] == '⌝') {
-                    this.myImage.background('blue')
-                    image(this.myImage,getCellToPos(b),getCellToPos(a))
-                } else if (tilemap[a][b] == '⌟') {
-                    this.myImage.background('blue')
-                    image(this.myImage,getCellToPos(b),getCellToPos(a))
-                } else if (tilemap[a][b] == '⌞') {
-                    this.myImage.background('blue')
-                    image(this.myImage,getCellToPos(b),getCellToPos(a))
-                } else if (tilemap[a][b] == '□') {
-                    this.myImage.background('white')
-                    image(this.myImage,getCellToPos(b),getCellToPos(a))
+                if (tilemap[a][b] == WORLD.WALL_LEFT) {
+                    if (!this.myWallLeftImages) {
+                        this.myWallLeftImages = [
+                            TILEMAP.get(0*16,13*16,16,16),
+                        ]
+                    }
+                    image(random(this.myWallLeftImages),getCellToPos(b),getCellToPos(a), CELLSIZE, CELLSIZE)
+                } else if (tilemap[a][b] == WORLD.WALL_RIGHT) {
+                    if (!this.myWallRightImages) {
+                        this.myWallRightImages = [
+                            TILEMAP.get(1*16,13*16,16,16),
+                        ]
+                    }
+                    image(random(this.myWallRightImages),getCellToPos(b),getCellToPos(a), CELLSIZE, CELLSIZE)
+                } else if (tilemap[a][b] == WORLD.WALL_BOTTOM) {
+                    if (!this.myWallBottomImages) {
+                        this.myWallBottomImages = [
+                            TILEMAP.get(1*16,0,16,32),
+                        ]
+                    }
+                    image(random(this.myWallBottomImages),getCellToPos(b),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
+                } else if (tilemap[a][b] == WORLD.WALL_TOP) {
+                    if (!this.myWallBottomImages) {
+                        this.myWallBottomImages = [
+                            TILEMAP.get(1*16,0,16,32),
+                        ]
+                    }
+                    image(random(this.myWallBottomImages),getCellToPos(b),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
+                } else if (tilemap[a][b] == WORLD.WALL_TOPLEFTCORNER) {
+                    if (!this.myWallTopLeftImages) {
+                        this.myWallTopLeftImages = [
+                            TILEMAP.get(2*16,12*16,16,32),
+                        ]
+                    }
+                    image(random(this.myWallTopLeftImages),getCellToPos(b) + CELLSIZE -(5*M),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
+                } else if (tilemap[a][b] == WORLD.WALL_TOPRIGHTCORNER) {
+                    if (!this.myWallTopRightImages) {
+                        this.myWallTopRightImages = [
+                            TILEMAP.get(3*16,12*16,16,32),
+                        ]
+                    }
+                    image(random(this.myWallTopRightImages),getCellToPos(b) - CELLSIZE + (5*M),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
+                } else if (tilemap[a][b] == WORLD.WALL_BOTTOMRIGHTCORNER) {
+                    if (!this.myWallBottomRightImages) {
+                        this.myWallBottomRightImages = [
+                            TILEMAP.get(3*16,14*16,16,32),
+                        ]
+                    }
+                    image(random(this.myWallBottomRightImages),getCellToPos(b) - CELLSIZE + (5*M),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
+                } else if (tilemap[a][b] == WORLD.WALL_BOTTOMLEFTCORNER) {
+                    if (!this.myWallBottomLeftImages) {
+                        this.myWallBottomLeftImages = [
+                            TILEMAP.get(2*16,14*16,16,32),
+                        ]
+                    }
+                    image(random(this.myWallBottomLeftImages),getCellToPos(b) + CELLSIZE - (5*M),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
+                } else if (tilemap[a][b] == WORLD.GROUND) {
+                    if (!this.myGroundImages) {
+                        this.myGroundImages = [
+                            TILEMAP.get(1*16,4*16,16,16),
+                            TILEMAP.get(2*16,4*16,16,16),
+                            TILEMAP.get(3*16,4*16,16,16),
+                            TILEMAP.get(1*16,5*16,16,16),
+                            TILEMAP.get(2*16,5*16,16,16),
+                            TILEMAP.get(3*16,5*16,16,16),
+                            TILEMAP.get(1*16,6*16,16,16),
+                            TILEMAP.get(2*16,6*16,16,16)
+                        ]
+                    }
+                    image(random(this.myGroundImages),getCellToPos(b),getCellToPos(a), CELLSIZE, CELLSIZE)
                 }
 
             }
