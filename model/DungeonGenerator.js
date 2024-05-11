@@ -9,8 +9,8 @@ class DungeonGenerator {
     myDungeonFinal;
 
     constructor() {
-        this.myRows = 5;
-        this.myCols = 5;
+        this.myRows = 3;
+        this.myCols = 3;
         this.myInitialRow = Math.floor(this.myRows / 2);
         this.myInitialCol = Math.floor(this.myCols / 2);
         this.myDungeon = [];
@@ -30,49 +30,60 @@ class DungeonGenerator {
 
     convert() {
         let roomTemplates = [
-            [
-                ['□', '□', '□', '□', '□'],
-                ['□', '□', '□', '□', '□'],
-                ['□', '□', '□', '□', '□'],
-                ['□', '□', '□', '□', '□'],
-                ['□', '□', '□', '□', '□']
-            ],
 
             [
-                ['□', '□','□','□','□','□', '□'],
-                ['□', '□','□','□','□','□', '□'],
-                ['□', '□','□','□','□','□', '□'],
-                ['□', '□','□','□','□','□', '□'],
-                ['□', '□','□','□','□','□', '□'],
-                ['□', '□','□','□','□','□', '□'],
-                ['□', '□','□','□','□','□', '□']
+                ['□', '□', '□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□', '□', '□'],
+                ['□', '□', '□', '□', '□', '□', '□']
             ],
 
-            [
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□'],
-                ['□', '□','□','□', '□']
-            ]
+            // [
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□']
+            // ],
+            // [
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□']
+            // ],
+            // [
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+            //     ['□', '□', '□', '□', '□', '□', '□', '□', '□']
+            // ]
         ]
+
         for (let a = 0; a < this.myDungeon.length; a++) {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
-                this.myDungeonFinal[a][b] = null;
                 let currentRoom = null;
                 if (this.myDungeon[a][b] === this.myRoomCode) {
                     currentRoom = new Room(random(roomTemplates));
-                } else {
-                    currentRoom = null;
+                    this.myDungeonFinal[a][b] = currentRoom;
+
                 }
-                this.myDungeonFinal[a][b] = currentRoom;
             }
         }
         this.generateDoors();
@@ -153,11 +164,11 @@ class DungeonGenerator {
             this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
             console.log('restarting from the initial position');
             let maxRoomsInOneDirection = 5;
-            let rowPos = Math.floor(this.myRows / 2);   
+            let rowPos = Math.floor(this.myRows / 2);
             let colPos = Math.floor(this.myCols / 2);
 
             while (maxRoomsInOneDirection > 0) {
-                let direction = Math.floor(random(0,4));
+                let direction = Math.floor(random(0, 4));
                 let newRowPos = rowPos;
                 let newColPos = colPos;
 
@@ -205,7 +216,7 @@ class Room {
     myEntityMap;
 
     constructor(theTileMap) {
-        this.seed = random(-8192,8192)
+        this.seed = random(-8192, 8192)
         this.myNorthDoor = false;
         this.mySouthDoor = false;
         this.myRightDoor = false;
@@ -224,23 +235,23 @@ class Room {
     }
 
     getIsCollideDoor(thePlayerPos) {
-        let bool = [this.myNorthDoor,this.mySouthDoor,this.myRightDoor,this.myLeftDoor]
+        let bool = [this.myNorthDoor, this.mySouthDoor, this.myRightDoor, this.myLeftDoor]
         let tile = this.myTileMap[thePlayerPos[1]][thePlayerPos[0]]
-        if (tile == '▲') {
+        if (tile === '▲') {
             return 'north'
         }
         // South door
-        if (tile == '▼') {
+        if (tile === '▼') {
             return 'south'
         }
 
         // Right door
-        if (tile == '▶') {
+        if (tile === '▶') {
             return 'east'
         }
 
         // Left door
-        if (tile == '◀') {
+        if (tile === '◀') {
             return 'west'
         }
         // for (let a = 0; a < this.myDoorLocations.length; a++) {
@@ -286,29 +297,29 @@ class Room {
         // North door
         if (this.myNorthDoor) {
             this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '▲';
-        } else {
-            this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '‾';
+        // } else {
+        //      this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '‾';
         }
 
         // South door
         if (this.mySouthDoor) {
             this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '▼';
-        } else {
-            this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '_';
+        // } else {
+        //     this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '_';
         }
 
         // Right door
         if (this.myRightDoor) {
             this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '▶';
-        } else {
-            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = WORLD.WALL_RIGHT;
+        // } else {
+        //     this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = WORLD.WALL_RIGHT;
         }
 
         // Left door
         if (this.myLeftDoor) {
             this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '◀';
-        } else {
-            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = WORLD.WALL_LEFT;
+        // } else {
+        //     this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = WORLD.WALL_LEFT;
         }
     }
 
@@ -392,7 +403,7 @@ class Room {
         }
     }
 
-    getTileMap(){
+    getTileMap() {
         return this.myTileMap
     }
 }
