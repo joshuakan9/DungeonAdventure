@@ -103,7 +103,7 @@ class DungeonGenerator {
 
                 if (room instanceof Room) {
                     // Check if there is a room to the north
-                    if (i > 0 && this.myDungeonFinal[i - 1][j] !== null && this.myDungeonFinal[i - 1][j] instanceof Room) {
+                    if (i - 1 > 0 && this.myDungeonFinal[i - 1][j] !== null && this.myDungeonFinal[i - 1][j] instanceof Room) {
                         room.setNorthDoor();
                     }
                     // Check if there is a room to the south
