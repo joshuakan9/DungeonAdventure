@@ -297,29 +297,29 @@ class Room {
         // North door
         if (this.myNorthDoor) {
             this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '▲';
-        // } else {
-        //      this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '‾';
+        } else {
+             this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '‾';
         }
 
         // South door
         if (this.mySouthDoor) {
             this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '▼';
-        // } else {
-        //     this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '_';
+        } else {
+            this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '_';
         }
 
         // Right door
         if (this.myRightDoor) {
             this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '▶';
-        // } else {
-        //     this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = WORLD.WALL_RIGHT;
+        } else {
+            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = WORLD.WALL_RIGHT;
         }
 
         // Left door
         if (this.myLeftDoor) {
             this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '◀';
-        // } else {
-        //     this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = WORLD.WALL_LEFT;
+        } else {
+            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = WORLD.WALL_LEFT;
         }
     }
 
