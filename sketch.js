@@ -1,3 +1,4 @@
+
 p5.disableFriendlyErrors = true; // disables FES uncomment to increase performance
 let textBox
 let font
@@ -89,15 +90,20 @@ function setup() {
       theVFrames: 1,
       theFrame: 0,
       theFrameSize: createVector(16,32),
-      theOffset: createVector(0, -CELLSIZE),
+      theOffset: createVector(0, -CELLSIZE * 1.2),
       theName: "Tester",
       theHitPoints: 1000,
       theAttack: new Attack(100, 100),
       theStamina: 10,
       theBag: [],
       theBlockPercentage: 100,
-      theSpecialAttack: new Attack(200, 100)
+      theSpecialAttack: new Attack(200, 100),
+      theAnimation: new Animations({
+        stand: new FrameIndexPattern(ANIM_HERO_STAND),
+        walk: new FrameIndexPattern(ANIM_HERO_WALK)
+      }),
     });
+    
     InstanceTargetPos = InstancePlayer.getPos().copy()
   }
   InstancePlayer.setSize(createVector(CELLSIZE, CELLSIZE * 2))
@@ -140,16 +146,21 @@ function setup() {
       if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
         potentialTargetPos.add(createVector(1, 0));
         newDirection = 'east'
+        InstancePlayer.playAnimation('walk')
       } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
         potentialTargetPos.add(createVector(-1, 0));
         newDirection = 'west'
+        InstancePlayer.playAnimation('walk')
       } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
         potentialTargetPos.add(createVector(0, -1));
         newDirection = 'north'
+        InstancePlayer.playAnimation('walk')
       } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
         potentialTargetPos.add(createVector(0, 1));
         newDirection = 'south'
+        InstancePlayer.playAnimation('walk')
       } else {
+        InstancePlayer.playAnimation('stand')
         return
       }
     }
@@ -160,6 +171,7 @@ function setup() {
     } else {
       console.log('colliding')
     }
+
     InstancePlayer.setDirection(newDirection)
     if (InstanceFactory.checkDoor(InstancePlayer, potentialTargetPos)) {
       InstanceTargetPos = InstancePlayer.getPos()
@@ -176,9 +188,10 @@ function setup() {
       if (!InstancePlayer.getIsFrozen()) {
 
         let distance = moveTowards(InstancePlayer, InstanceTargetPos, 1/25)
-        if (distance <= 0) {
+        if (distance <= 0.01) {
           tryMove()
         }
+        InstancePlayer.step(time)
       }
     }
   )

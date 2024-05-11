@@ -4,7 +4,7 @@ class Sprite {
     mySize;
     myIsCollideable;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset }) {
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation }) {
         this.myPos = thePos;
         this.myImage = theImage;
         this.mySize = theSize;
@@ -15,6 +15,7 @@ class Sprite {
         this.myFrameMap = new Map()
         this.myFrameSize = theFrameSize ?? createVector(16,16)
         this.myOffset = theOffset ?? createVector(0,0)
+        this.myAnimation = theAnimation ?? null
         this.makeFrameMap()
     }
 
@@ -49,6 +50,20 @@ class Sprite {
     draw() {
         let frame = this.myFrameMap.get(this.myFrame)
         image(this.myImage, this.myPos.x * CELLSIZE + this.myOffset.x, this.myPos.y * CELLSIZE + this.myOffset.y, this.mySize.x, this.mySize.y, frame.x, frame.y, this.myFrameSize.x, this.myFrameSize.y)
+    }
+
+    step(theDelta) {
+        if (!this.myAnimation) {
+            return
+        }
+        this.myAnimation.step(theDelta)
+        this.myFrame = this.myAnimation.getFrame()
+    }
+
+    playAnimation(theAnimation) {
+        if (this.myAnimation) {
+            this.myAnimation.play(theAnimation)
+        }
     }
 
     setPos(theVector) {

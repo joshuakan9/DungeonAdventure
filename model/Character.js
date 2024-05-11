@@ -3,8 +3,8 @@ class Character extends Entity {
     myBag;
     myBlockPercentage;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage }) {
-        super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theName, theHitPoints, theAttack })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset,theAnimation, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage }) {
+        super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset,theAnimation, theName, theHitPoints, theAttack })
         this.myStamina = theStamina;
         this.myBag = theBag;
         this.myBlockPercentage = theBlockPercentage;
@@ -34,6 +34,18 @@ class Character extends Entity {
     getIsFrozen() {
         return this.myIsFrozen > 0
     }
+
+    // draw() {
+    //     push()
+    //     let frame = this.myFrameMap.get(this.myFrame)
+    //     translate(this.myPos.x * CELLSIZE + this.myOffset.x, this.myPos.y * CELLSIZE + this.myOffset.y)
+    //     if (this.myDirection == 'west') {
+    //         scale(-1,1)
+    //         translate(-CELLSIZE,0)
+    //     }
+    //     image(this.myImage, 0, 0, this.mySize.x, this.mySize.y, frame.x, frame.y, this.myFrameSize.x, this.myFrameSize.y)
+    //     pop()
+    // }
 
 
 }
