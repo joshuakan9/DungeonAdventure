@@ -55,8 +55,9 @@ window.addEventListener("e-player-freeze", (E) => {
 window.addEventListener("e-player-unfreeze", (E) => {
   InstancePlayer.setIsFrozen(-1)
 })
-
+let TILEMAP_ASSASSIN
 function setup() {
+  TILEMAP_ASSASSIN = TILEMAP.get(32*16, 2 * 16, 9* 16, 2 * 16)
   // randomSeed(0)
   window.innerHeight <= window.innerWidth
     ? ((W = Math.max(window.innerHeight, 1) * ratio),
@@ -82,8 +83,13 @@ function setup() {
     playerImage.background(255, 0, 0)
     InstancePlayer = new Assassin({
       thePos: createVector((1), (1)),
-      theSize: createVector(CELLSIZE, CELLSIZE),
-      theImage: playerImage,
+      theSize: createVector(CELLSIZE, CELLSIZE * 2),
+      theImage: TILEMAP_ASSASSIN,
+      theHFrames: 9,
+      theVFrames: 1,
+      theFrame: 0,
+      theFrameSize: createVector(16,32),
+      theOffset: createVector(0, -CELLSIZE),
       theName: "Tester",
       theHitPoints: 1000,
       theAttack: new Attack(100, 100),
@@ -94,7 +100,7 @@ function setup() {
     });
     InstanceTargetPos = InstancePlayer.getPos().copy()
   }
-  InstancePlayer.setSize(createVector(CELLSIZE, CELLSIZE))
+  InstancePlayer.setSize(createVector(CELLSIZE, CELLSIZE * 2))
 
 
 
@@ -208,7 +214,7 @@ function setup() {
         rect(width / 2, height / 2, width / 2)
         pop()
       }
-  
+      // image(TILEMAP_PLAYER,0,0)
     }
   )
   InstanceGameLoop.start()
