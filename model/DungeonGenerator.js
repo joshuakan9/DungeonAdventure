@@ -9,8 +9,8 @@ class DungeonGenerator {
     myDungeonFinal;
 
     constructor() {
-        this.myRows = 3;
-        this.myCols = 3;
+        this.myRows = 7;
+        this.myCols = 7;
         this.myInitialRow = Math.floor(this.myRows / 2);
         this.myInitialCol = Math.floor(this.myCols / 2);
         this.myDungeon = [];
@@ -45,39 +45,39 @@ class DungeonGenerator {
                         ['□', '□', '□', '□', '□', '□', '□']
                     ],
         
-                    // [
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□']
-                    // ],
-                    // [
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□']
-                    // ],
-                    // [
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□']
-                    // ]
+                    [
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□']
+                    ],
+                    [
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□']
+                    ],
+                    [
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□']
+                    ]
                 ]
                 let currentRoom = null;
                 if (this.myDungeon[a][b] === this.myRoomCode) {
@@ -92,6 +92,7 @@ class DungeonGenerator {
             for (let b = 0; b < this.myDungeonFinal[0].length; b++) {
                 if (this.myDungeonFinal[a][b] instanceof Room) {
                     this.myDungeonFinal[a][b].createDoors();
+                    this.myDungeonFinal[a][b].populateEntityMap();
                     console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
                 }
             }
@@ -215,6 +216,7 @@ class Room {
     myEntityLocations;
     myDoorLocations;
     myEntityMap;
+    myPossibleEntityCount;
 
     constructor(theTileMap) {
         this.seed = random(-8192, 8192)
@@ -223,6 +225,7 @@ class Room {
         this.myRightDoor = false;
         this.myLeftDoor = false;
         this.myTileMap = theTileMap;
+        this.myPossibleEntityCount = 0;
 
         this.createDoorLocations();
         this.createEntityLocations();
@@ -293,34 +296,25 @@ class Room {
         this.myLeftDoor = true;
     }
 
-    //TODO - I think the else statements are a band-aid fix for something wrong wherever createDoors() is called.
     createDoors() {
         // North door
         if (this.myNorthDoor) {
             this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '▲';
-        } else {
-             this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '‾';
         }
 
         // South door
         if (this.mySouthDoor) {
             this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '▼';
-        } else {
-            this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '_';
         }
 
         // Right door
         if (this.myRightDoor) {
             this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '▶';
-        } else {
-            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = WORLD.WALL_RIGHT;
         }
 
         // Left door
         if (this.myLeftDoor) {
             this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '◀';
-        } else {
-            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = WORLD.WALL_LEFT;
         }
     }
 
@@ -381,6 +375,7 @@ class Room {
                 if (isEntity) {
                     // If any coordinate pair matches, mark 'X'
                     row.push('X');
+                    this.myPossibleEntityCount++;
                 } else {
                     // If no match found, mark '□'
                     row.push('□');
@@ -399,6 +394,21 @@ class Room {
                     i === this.getEastTeleportLocation()[0] && j === this.getEastTeleportLocation()[1] ||
                     i === this.getWestTeleportLocation()[0] && j === this.getWestTeleportLocation()[1])) {
                     this.myEntityLocations.push([i, j]);
+                }
+            }
+        }
+    }
+
+    populateEntityMap() {
+        let maxEntities = Math.floor(Math.cbrt(this.myPossibleEntityCount));
+        let entityCount =  0;
+        let entityChance = 10;
+        for (let i = 0; i < this.myEntityMap.length; i++) {
+            for (let j = 0; j < this.myEntityMap[0].length; j++) {
+                if (this.myEntityMap[i][j] === 'X' && random(0,100) < entityChance && entityCount < maxEntities) {
+                    this.myEntityMap[i][j] = 'E'; // TODO place random entity based off random number here ig
+                    console.log(`Entity at (${i}, ${j})`);
+                    entityCount++;
                 }
             }
         }
