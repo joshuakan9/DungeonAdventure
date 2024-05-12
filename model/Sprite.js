@@ -4,11 +4,32 @@ class Sprite {
     mySize;
     myIsCollideable;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable }) {
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation }) {
         this.myPos = thePos;
         this.myImage = theImage;
         this.mySize = theSize;
         this.myIsCollideable = theIsCollideable
+        this.myHFrames = theHFrames ?? 1
+        this.myVFrames = theVFrames ?? 1
+        this.myFrame = theFrame ?? 0
+        this.myFrameMap = new Map()
+        this.myFrameSize = theFrameSize ?? createVector(16,16)
+        this.myOffset = theOffset ?? ((theCellSize) => createVector(0,0))
+        this.myAnimation = theAnimation ?? null
+        this.makeFrameMap()
+    }
+
+    makeFrameMap() {
+        let counter = 0
+        for (let a = 0; a < this.myVFrames; a++) {
+            for (let b = 0; b < this.myHFrames; b++) {
+                this.myFrameMap.set(
+                    counter,
+                    createVector(b * this.myFrameSize.x, a * this.myFrameSize.y)
+                )
+                counter++
+            }
+        }
     }
 
     collide(thePos) {
@@ -27,7 +48,22 @@ class Sprite {
     }
 
     draw() {
-        image(this.myImage, this.myPos.x * CELLSIZE, this.myPos.y * CELLSIZE, this.mySize.x, this.mySize.y)
+        let frame = this.myFrameMap.get(this.myFrame)
+        image(this.myImage, this.myPos.x * CELLSIZE + this.myOffset(CELLSIZE).x, this.myPos.y * CELLSIZE + this.myOffset(CELLSIZE).y, this.mySize.x, this.mySize.y, frame.x, frame.y, this.myFrameSize.x, this.myFrameSize.y)
+    }
+
+    step(theDelta) {
+        if (!this.myAnimation) {
+            return
+        }
+        this.myAnimation.step(theDelta)
+        this.myFrame = this.myAnimation.getFrame()
+    }
+
+    playAnimation(theAnimation) {
+        if (this.myAnimation) {
+            this.myAnimation.play(theAnimation)
+        }
     }
 
     setPos(theVector) {

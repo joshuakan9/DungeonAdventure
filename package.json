@@ -1,0 +1,25 @@
+{
+  "name": "dungeon-adventure-game",
+  "version": "1.0.0",
+  "description": "https://kimjonauw.github.io/dungeon-adventure-game/",
+  "main": "p5.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimjonauw/dungeon-adventure-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimjonauw/dungeon-adventure-game/issues"
+  },
+  "homepage": "https://github.com/kimjonauw/dungeon-adventure-game#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "dependencies": {
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
