@@ -1,6 +1,7 @@
 {
   "name": "dungeon-adventure-game",
   "version": "1.0.0",
+  "type": "module",
   "description": "https://kimjonauw.github.io/dungeon-adventure-game/",
   "main": "p5.js",
   "scripts": {

@@ -59,6 +59,7 @@ window.addEventListener("e-player-unfreeze", (E) => {
 })
 let TILEMAP_ASSASSIN
 function setup() {
+
   TILEMAP_ASSASSIN = TILEMAP.get(32*16, 2 * 16, 9* 16, 2 * 16)
   // randomSeed(0)
   window.innerHeight <= window.innerWidth
@@ -68,6 +69,7 @@ function setup() {
       (H = Math.max(window.innerWidth, 1) / ratio));
   CELLSIZE = floor(W / cellNumber)
   createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
+
   M = CELLSIZE / 16
   textFont(font)
 
