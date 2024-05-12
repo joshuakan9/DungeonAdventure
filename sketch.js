@@ -16,6 +16,7 @@ let render
 let tryMove
 let M
 
+let InstanceTransition = null
 let InstanceGameLoop = null
 let InstanceFactory = null
 let InstanceTargetPos = null
@@ -28,7 +29,7 @@ window.addEventListener("e-battle-start", (E) => {
 
   InstanceTextBox.add({text:E['detail'].getName()+" battle", x:10, y:window.height-100, width:window.width})
 
-  InstanceBattle = new BattleSystem(InstancePlayer, E['detail'])
+  
   console.log(E['detail'])
 })
 
@@ -68,6 +69,7 @@ function setup() {
   M = CELLSIZE / 16
   textFont(font)
 
+  InstanceTransition  = new TransitionEffect();
   if (!InstanceGameLoop) {
     InstanceGameLoop = new GameLoop();
   }
@@ -228,10 +230,10 @@ function setup() {
     InstanceTextBox.loop.start();
 
 
-    // InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null})
-    // InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null})
-    // InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null})
-    // InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null})
+    //InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null, height:null, textSize: null})
+    //InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null, height:null, textSize: null})
+    //InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null, height:null, textSize: null})
+    //InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
   }
   console.log(InstanceTextBox.children)
 
@@ -268,6 +270,11 @@ function keyPressed() {
     }
 
   }
+  // Key for testing transitions
+  if (keyIsDown(48)) {
+    console.log("this works")
+    InstanceTransition.transition();
+  } 
  
   if (InstanceBattle && InstanceBattle.inCombat) {
     if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
