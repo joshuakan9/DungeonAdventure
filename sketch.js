@@ -90,7 +90,7 @@ function setup() {
       theVFrames: 1,
       theFrame: 0,
       theFrameSize: createVector(16,32),
-      theOffset: createVector(0, -CELLSIZE * 1.2),
+      theOffset: (theCellSize) => createVector(0, -theCellSize * 1.2),
       theName: "Tester",
       theHitPoints: 1000,
       theAttack: new Attack(100, 100),

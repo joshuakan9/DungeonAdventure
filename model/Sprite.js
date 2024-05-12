@@ -14,7 +14,7 @@ class Sprite {
         this.myFrame = theFrame ?? 0
         this.myFrameMap = new Map()
         this.myFrameSize = theFrameSize ?? createVector(16,16)
-        this.myOffset = theOffset ?? createVector(0,0)
+        this.myOffset = theOffset ?? ((theCellSize) => createVector(0,0))
         this.myAnimation = theAnimation ?? null
         this.makeFrameMap()
     }
@@ -49,7 +49,7 @@ class Sprite {
 
     draw() {
         let frame = this.myFrameMap.get(this.myFrame)
-        image(this.myImage, this.myPos.x * CELLSIZE + this.myOffset.x, this.myPos.y * CELLSIZE + this.myOffset.y, this.mySize.x, this.mySize.y, frame.x, frame.y, this.myFrameSize.x, this.myFrameSize.y)
+        image(this.myImage, this.myPos.x * CELLSIZE + this.myOffset(CELLSIZE).x, this.myPos.y * CELLSIZE + this.myOffset(CELLSIZE).y, this.mySize.x, this.mySize.y, frame.x, frame.y, this.myFrameSize.x, this.myFrameSize.y)
     }
 
     step(theDelta) {
