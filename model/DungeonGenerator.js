@@ -392,12 +392,17 @@ class Room {
                 if (!(i === this.getNorthTeleportLocation()[0] && j === this.getNorthTeleportLocation()[1] ||
                     i === this.getSouthTeleportLocation()[0] && j === this.getSouthTeleportLocation()[1] ||
                     i === this.getEastTeleportLocation()[0] && j === this.getEastTeleportLocation()[1] ||
-                    i === this.getWestTeleportLocation()[0] && j === this.getWestTeleportLocation()[1])) {
+                    i === this.getWestTeleportLocation()[0] && j === this.getWestTeleportLocation()[1] ||
+                    (i === this.getNorthTeleportLocation()[0] + 1 && j === this.getNorthTeleportLocation()[1]) ||
+                    (i === this.getSouthTeleportLocation()[0] - 1 && j === this.getSouthTeleportLocation()[1]) ||
+                    (i === this.getEastTeleportLocation()[0] && j === this.getEastTeleportLocation()[1] - 1) ||
+                    (i === this.getWestTeleportLocation()[0] && j === this.getWestTeleportLocation()[1] + 1))) {
                     this.myEntityLocations.push([i, j]);
                 }
             }
         }
     }
+
 
     populateEntityMap() {
         let maxEntities = Math.floor(Math.cbrt(this.myPossibleEntityCount));
