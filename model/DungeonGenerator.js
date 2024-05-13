@@ -441,6 +441,10 @@ class Room {
     }
 
     getTileMap() {
-        return this.myTileMap
+        return this.myTileMap;
+    }
+
+    getEntityMap() {
+        return this.myEntityMap;
     }
 }
