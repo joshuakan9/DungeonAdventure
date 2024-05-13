@@ -29,7 +29,7 @@ class DungeonGenerator {
     }
 
     convert() {
-       
+
 
         for (let a = 0; a < this.myDungeon.length; a++) {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
@@ -44,7 +44,7 @@ class DungeonGenerator {
                         ['□', '□', '□', '□', '□', '□', '□'],
                         ['□', '□', '□', '□', '□', '□', '□']
                     ],
-        
+
                     [
                         ['□', '□', '□', '□', '□'],
                         ['□', '□', '□', '□', '□'],
@@ -415,7 +415,24 @@ class Room {
         for (let i = 0; i < this.myEntityMap.length; i++) {
             for (let j = 0; j < this.myEntityMap[0].length; j++) {
                 if (this.myEntityMap[i][j] === 'X' && random(0,100) < entityChance && entityCount < maxEntities) {
-                    this.myEntityMap[i][j] = 'E'; // TODO place random entity based off random number here ig
+                    let randomEntity = random(0,4)
+                    let entity = null;
+                    switch (randomEntity) {
+                        case 0:
+                            entity = EntityFactory.createEntity('ogre', createVector(i,j));
+                            break;
+                        case 1:
+                            entity = EntityFactory.createEntity('skeleton', createVector(i,j));
+                            break;
+                        case 2:
+                            entity = EntityFactory.createEntity('gremlin', createVector(i,j));
+                            break;
+                        case 3:
+                            entity = EntityFactory.createEntity('heath potion', createVector(i,j));
+                            break;
+                        default:
+                            console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
+                    }
                     console.log(`Entity at (${i}, ${j})`);
                     entityCount++;
                 }
