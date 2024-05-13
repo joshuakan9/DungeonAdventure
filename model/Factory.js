@@ -153,7 +153,7 @@ class Factory {
         let cell = createVector(round(thePos.x), round(thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         let tilemap = room.getTileMap()
-        randomSeed(room.seed)
+        randomSeed(room.getSeed())
 
         push()
 

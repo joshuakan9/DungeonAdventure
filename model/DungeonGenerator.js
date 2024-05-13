@@ -219,7 +219,7 @@ class Room {
     myPossibleEntityCount;
 
     constructor(theTileMap) {
-        this.seed = random(-8192, 8192)
+        this.mySeed = random(-8192, 8192)
         this.myNorthDoor = false;
         this.mySouthDoor = false;
         this.myRightDoor = false;
@@ -236,6 +236,10 @@ class Room {
         this.createLeftWall();
         this.createRightWall();
         this.createCorners();
+    }
+
+    getSeed() {
+        return this.mySeed
     }
 
     getIsCollideDoor(thePlayerPos) {
