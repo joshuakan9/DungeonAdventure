@@ -414,28 +414,31 @@ class Room {
         let entityChance = 10;
         for (let i = 0; i < this.myEntityMap.length; i++) {
             for (let j = 0; j < this.myEntityMap[0].length; j++) {
+                let entity = null;
                 if (this.myEntityMap[i][j] === 'X' && random(0,100) < entityChance && entityCount < maxEntities) {
-                    let randomEntity = random(0,4)
-                    let entity = null;
+                    let randomEntity = floor(random(0,4))
+                    randomEntity = 0
                     switch (randomEntity) {
                         case 0:
-                            entity = EntityFactory.createEntity('ogre', createVector(i,j));
+                            entity = EntityFactory.createEntity('ogre', createVector(j,i));
                             break;
                         case 1:
-                            entity = EntityFactory.createEntity('skeleton', createVector(i,j));
+                            entity = EntityFactory.createEntity('skeleton', createVector(j,i));
                             break;
                         case 2:
-                            entity = EntityFactory.createEntity('gremlin', createVector(i,j));
+                            entity = EntityFactory.createEntity('gremlin', createVector(j,i));
                             break;
                         case 3:
-                            entity = EntityFactory.createEntity('heath potion', createVector(i,j));
+                            entity = EntityFactory.createEntity('heath potion', createVector(j,i));
                             break;
                         default:
                             console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
                     }
                     console.log(`Entity at (${i}, ${j})`);
+
                     entityCount++;
                 }
+                this.myEntityMap[i][j] = entity
             }
         }
     }

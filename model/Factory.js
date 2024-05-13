@@ -82,19 +82,36 @@ class Factory {
     draw(thePlayer) {
         let thePos = thePlayer.getPos()
         let cell = createVector(round(thePos.x), round(thePos.y))
-        for (let a = cell.y - 8; a < cell.y + 9; a++) {
-            if (a < 0 || a >= this.myOverworld.length) {
-                continue
-            }
-            for (let b = cell.x - 8; b < cell.x + 9; b++) {
-                if (b < 0 || b >= this.myOverworld[0].length) {
-                    continue
-                }
-                if (this.myEntities[a][b]) {
-                    this.myEntities[a][b].draw()
+        let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
+        let entitymap = room.getEntityMap()
+        // for (let a = cell.y - 8; a < cell.y + 9; a++) {
+        //     if (a < 0 || a >= this.myOverworld.length) {
+        //         continue
+        //     }
+        //     for (let b = cell.x - 8; b < cell.x + 9; b++) {
+        //         if (b < 0 || b >= this.myOverworld[0].length) {
+        //             continue
+        //         }
+        //         if (this.myEntities[a][b]) {
+        //             this.myEntities[a][b].draw()
+        //         }
+        //     }
+        // }
+
+        for (let a = 0; a < entitymap.length; a++) {
+
+            for (let b = 0; b < entitymap[0].length; b++) {
+
+
+                if (entitymap[a][b]) {
+                    console.log(entitymap[a][b])
+                    entitymap[a][b].draw()
+  
+                    // this.myEntities[a][b].step()
                 }
             }
         }
+
         // for (let a = 0; a < this.myEntities.length; a++) {
         //     this.myEntities[a].draw()
         // }
