@@ -180,14 +180,14 @@ class Factory {
                 } else if (tilemap[a][b] == WORLD.WALL_BOTTOM) {
                     if (!this.myWallBottomImages) {
                         this.myWallBottomImages = [
-                            TILEMAP.get(1*16,0,16,32),
+                            TILEMAP.get(2*16,0,16,32),
                         ]
                     }
                     image(random(this.myWallBottomImages),getCellToPos(b),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
                 } else if (tilemap[a][b] == WORLD.WALL_TOP) {
                     if (!this.myWallBottomImages) {
                         this.myWallBottomImages = [
-                            TILEMAP.get(1*16,0,16,32),
+                            TILEMAP.get(2*16,0,16,32),
                         ]
                     }
                     image(random(this.myWallBottomImages),getCellToPos(b),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
