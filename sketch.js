@@ -83,6 +83,7 @@ function setup() {
     instanceFactory = new Factory()
   }
 
+
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
@@ -103,8 +104,8 @@ function setup() {
       theBlockPercentage: 100,
       theSpecialAttack: new Attack(200, 100),
       theAnimation: new Animations({
-        stand: new FrameIndexPattern(ANIM_HERO_STAND),
-        walk: new FrameIndexPattern(ANIM_HERO_WALK)
+        stand: new FramePattern(ANIM_HERO_STAND),
+        walk: new FramePattern(ANIM_HERO_WALK)
       }),
     });
     
