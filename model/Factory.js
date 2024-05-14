@@ -31,6 +31,7 @@ class Factory {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
 
         let tilemap = room.getTileMap()
+        let entityMap = room.getEntityMap()
         if (cell.x < 0 || cell.y < 0 || cell.x >= tilemap[0].length || cell.y >= tilemap.length) {
             return true
         }
@@ -43,9 +44,9 @@ class Factory {
         }
 
 
-        // if (this.myEntities[cell.y][cell.x]) {
-        //     return this.myEntities[cell.y][cell.x].collide(thePos)
-        // }
+        if (entityMap[cell.y][cell.x]) {
+            return entityMap[cell.y][cell.x].collide(thePos)
+        }
         
         return false
     }
@@ -82,19 +83,36 @@ class Factory {
     draw(thePlayer) {
         let thePos = thePlayer.getPos()
         let cell = createVector(round(thePos.x), round(thePos.y))
-        for (let a = cell.y - 8; a < cell.y + 9; a++) {
-            if (a < 0 || a >= this.myOverworld.length) {
-                continue
-            }
-            for (let b = cell.x - 8; b < cell.x + 9; b++) {
-                if (b < 0 || b >= this.myOverworld[0].length) {
-                    continue
-                }
-                if (this.myEntities[a][b]) {
-                    this.myEntities[a][b].draw()
+        let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
+        let entityMap = room.getEntityMap()
+        // for (let a = cell.y - 8; a < cell.y + 9; a++) {
+        //     if (a < 0 || a >= this.myOverworld.length) {
+        //         continue
+        //     }
+        //     for (let b = cell.x - 8; b < cell.x + 9; b++) {
+        //         if (b < 0 || b >= this.myOverworld[0].length) {
+        //             continue
+        //         }
+        //         if (this.myEntities[a][b]) {
+        //             this.myEntities[a][b].draw()
+        //         }
+        //     }
+        // }
+
+        for (let a = 0; a < entityMap.length; a++) {
+
+            for (let b = 0; b < entityMap[0].length; b++) {
+
+
+                if (entityMap[a][b]) {
+                    // console.log(entitymap[a][b])
+                    entityMap[a][b].draw()
+  
+                    // this.myEntities[a][b].step()
                 }
             }
         }
+
         // for (let a = 0; a < this.myEntities.length; a++) {
         //     this.myEntities[a].draw()
         // }
@@ -153,7 +171,7 @@ class Factory {
         let cell = createVector(round(thePos.x), round(thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         let tilemap = room.getTileMap()
-        randomSeed(room.seed)
+        randomSeed(room.getSeed())
 
         push()
 
@@ -180,14 +198,14 @@ class Factory {
                 } else if (tilemap[a][b] == WORLD.WALL_BOTTOM) {
                     if (!this.myWallBottomImages) {
                         this.myWallBottomImages = [
-                            TILEMAP.get(1*16,0,16,32),
+                            TILEMAP.get(2*16,0,16,32),
                         ]
                     }
                     image(random(this.myWallBottomImages),getCellToPos(b),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)
                 } else if (tilemap[a][b] == WORLD.WALL_TOP) {
                     if (!this.myWallBottomImages) {
                         this.myWallBottomImages = [
-                            TILEMAP.get(1*16,0,16,32),
+                            TILEMAP.get(2*16,0,16,32),
                         ]
                     }
                     image(random(this.myWallBottomImages),getCellToPos(b),getCellToPos(a) - CELLSIZE, CELLSIZE, CELLSIZE * 2)

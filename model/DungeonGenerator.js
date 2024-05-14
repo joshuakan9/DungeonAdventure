@@ -9,8 +9,8 @@ class DungeonGenerator {
     myDungeonFinal;
 
     constructor() {
-        this.myRows = 3;
-        this.myCols = 3;
+        this.myRows = 7;
+        this.myCols = 7;
         this.myInitialRow = Math.floor(this.myRows / 2);
         this.myInitialCol = Math.floor(this.myCols / 2);
         this.myDungeon = [];
@@ -29,7 +29,7 @@ class DungeonGenerator {
     }
 
     convert() {
-       
+
 
         for (let a = 0; a < this.myDungeon.length; a++) {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
@@ -44,40 +44,40 @@ class DungeonGenerator {
                         ['□', '□', '□', '□', '□', '□', '□'],
                         ['□', '□', '□', '□', '□', '□', '□']
                     ],
-        
-                    // [
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□']
-                    // ],
-                    // [
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□']
-                    // ],
-                    // [
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
-                    //     ['□', '□', '□', '□', '□', '□', '□', '□', '□']
-                    // ]
+
+                    [
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□']
+                    ],
+                    [
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□', '□']
+                    ],
+                    [
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□'],
+                        ['□', '□', '□', '□', '□', '□', '□', '□', '□']
+                    ]
                 ]
                 let currentRoom = null;
                 if (this.myDungeon[a][b] === this.myRoomCode) {
@@ -92,6 +92,7 @@ class DungeonGenerator {
             for (let b = 0; b < this.myDungeonFinal[0].length; b++) {
                 if (this.myDungeonFinal[a][b] instanceof Room) {
                     this.myDungeonFinal[a][b].createDoors();
+                    this.myDungeonFinal[a][b].populateEntityMap();
                     console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
                 }
             }
@@ -215,14 +216,16 @@ class Room {
     myEntityLocations;
     myDoorLocations;
     myEntityMap;
+    myPossibleEntityCount;
 
     constructor(theTileMap) {
-        this.seed = random(-8192, 8192)
+        this.mySeed = random(-8192, 8192)
         this.myNorthDoor = false;
         this.mySouthDoor = false;
         this.myRightDoor = false;
         this.myLeftDoor = false;
         this.myTileMap = theTileMap;
+        this.myPossibleEntityCount = 0;
 
         this.createDoorLocations();
         this.createEntityLocations();
@@ -233,6 +236,10 @@ class Room {
         this.createLeftWall();
         this.createRightWall();
         this.createCorners();
+    }
+
+    getSeed() {
+        return this.mySeed
     }
 
     getIsCollideDoor(thePlayerPos) {
@@ -293,34 +300,25 @@ class Room {
         this.myLeftDoor = true;
     }
 
-    //TODO - I think the else statements are a band-aid fix for something wrong wherever createDoors() is called.
     createDoors() {
         // North door
         if (this.myNorthDoor) {
             this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '▲';
-        } else {
-             this.myTileMap[this.myDoorLocations[0][0]][this.myDoorLocations[0][1]] = '‾';
         }
 
         // South door
         if (this.mySouthDoor) {
             this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '▼';
-        } else {
-            this.myTileMap[this.myDoorLocations[1][0]][this.myDoorLocations[1][1]] = '_';
         }
 
         // Right door
         if (this.myRightDoor) {
             this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = '▶';
-        } else {
-            this.myTileMap[this.myDoorLocations[2][0]][this.myDoorLocations[2][1]] = WORLD.WALL_RIGHT;
         }
 
         // Left door
         if (this.myLeftDoor) {
             this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = '◀';
-        } else {
-            this.myTileMap[this.myDoorLocations[3][0]][this.myDoorLocations[3][1]] = WORLD.WALL_LEFT;
         }
     }
 
@@ -381,6 +379,7 @@ class Room {
                 if (isEntity) {
                     // If any coordinate pair matches, mark 'X'
                     row.push('X');
+                    this.myPossibleEntityCount++;
                 } else {
                     // If no match found, mark '□'
                     row.push('□');
@@ -397,14 +396,58 @@ class Room {
                 if (!(i === this.getNorthTeleportLocation()[0] && j === this.getNorthTeleportLocation()[1] ||
                     i === this.getSouthTeleportLocation()[0] && j === this.getSouthTeleportLocation()[1] ||
                     i === this.getEastTeleportLocation()[0] && j === this.getEastTeleportLocation()[1] ||
-                    i === this.getWestTeleportLocation()[0] && j === this.getWestTeleportLocation()[1])) {
+                    i === this.getWestTeleportLocation()[0] && j === this.getWestTeleportLocation()[1] ||
+                    (i === this.getNorthTeleportLocation()[0] + 1 && j === this.getNorthTeleportLocation()[1]) ||
+                    (i === this.getSouthTeleportLocation()[0] - 1 && j === this.getSouthTeleportLocation()[1]) ||
+                    (i === this.getEastTeleportLocation()[0] && j === this.getEastTeleportLocation()[1] - 1) ||
+                    (i === this.getWestTeleportLocation()[0] && j === this.getWestTeleportLocation()[1] + 1))) {
                     this.myEntityLocations.push([i, j]);
                 }
             }
         }
     }
 
+
+    populateEntityMap() {
+        let maxEntities = Math.floor(Math.cbrt(this.myPossibleEntityCount));
+        let entityCount =  0;
+        let entityChance = 10;
+        for (let i = 0; i < this.myEntityMap.length; i++) {
+            for (let j = 0; j < this.myEntityMap[0].length; j++) {
+                let entity = null;
+                if (this.myEntityMap[i][j] === 'X' && random(0,100) < entityChance && entityCount < maxEntities) {
+                    let randomEntity = floor(random(0,4))
+                    randomEntity = 0
+                    switch (randomEntity) {
+                        case 0:
+                            entity = EntityFactory.createEntity('ogre', createVector(j,i));
+                            break;
+                        case 1:
+                            entity = EntityFactory.createEntity('skeleton', createVector(j,i));
+                            break;
+                        case 2:
+                            entity = EntityFactory.createEntity('gremlin', createVector(j,i));
+                            break;
+                        case 3:
+                            entity = EntityFactory.createEntity('heath potion', createVector(j,i));
+                            break;
+                        default:
+                            console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
+                    }
+                    console.log(`Entity at (${i}, ${j})`);
+
+                    entityCount++;
+                }
+                this.myEntityMap[i][j] = entity
+            }
+        }
+    }
+
     getTileMap() {
-        return this.myTileMap
+        return this.myTileMap;
+    }
+
+    getEntityMap() {
+        return this.myEntityMap;
     }
 }

@@ -1,4 +1,4 @@
-class FrameIndexPattern {
+class FramePattern {
   constructor(theAnimationConfig) {
     this.myCurrentTime = 0;
     this.myAnimationConfig = theAnimationConfig;

@@ -37,7 +37,7 @@ class Sprite {
             return false;
         }
 
-        return abs(thePos.x - this.myPos.x) < cellSize / 2 && abs(thePos.y - this.myPos.y) < cellSize / 2
+        return abs(thePos.x - this.myPos.x) < CELLSIZE / 2 && abs(thePos.y - this.myPos.y) < CELLSIZE / 2
 
         // let theSpriteSize = theSprite.getSize()
         // let theDistance = abs(dist(this.getMiddle().x, this.getMiddle().y, theSprite.getMiddle().x, theSprite.getMiddle().y))
