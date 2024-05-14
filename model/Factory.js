@@ -31,6 +31,7 @@ class Factory {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
 
         let tilemap = room.getTileMap()
+        let entityMap = room.getEntityMap()
         if (cell.x < 0 || cell.y < 0 || cell.x >= tilemap[0].length || cell.y >= tilemap.length) {
             return true
         }
@@ -43,9 +44,9 @@ class Factory {
         }
 
 
-        // if (this.myEntities[cell.y][cell.x]) {
-        //     return this.myEntities[cell.y][cell.x].collide(thePos)
-        // }
+        if (entityMap[cell.y][cell.x]) {
+            return entityMap[cell.y][cell.x].collide(thePos)
+        }
         
         return false
     }
@@ -83,7 +84,7 @@ class Factory {
         let thePos = thePlayer.getPos()
         let cell = createVector(round(thePos.x), round(thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
-        let entitymap = room.getEntityMap()
+        let entityMap = room.getEntityMap()
         // for (let a = cell.y - 8; a < cell.y + 9; a++) {
         //     if (a < 0 || a >= this.myOverworld.length) {
         //         continue
@@ -98,14 +99,14 @@ class Factory {
         //     }
         // }
 
-        for (let a = 0; a < entitymap.length; a++) {
+        for (let a = 0; a < entityMap.length; a++) {
 
-            for (let b = 0; b < entitymap[0].length; b++) {
+            for (let b = 0; b < entityMap[0].length; b++) {
 
 
-                if (entitymap[a][b]) {
-                    console.log(entitymap[a][b])
-                    entitymap[a][b].draw()
+                if (entityMap[a][b]) {
+                    // console.log(entitymap[a][b])
+                    entityMap[a][b].draw()
   
                     // this.myEntities[a][b].step()
                 }

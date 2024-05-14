@@ -7,6 +7,7 @@ class EntityFactory {
                 entity = new Assassin({
                     thePos: entityPos,
                     theSize: createVector(CELLSIZE, CELLSIZE * 2),
+                    theIsCollideable: true,
                     theImage: TILEMAP_ASSASSIN,
                     theHFrames: 9,
                     theVFrames: 1,
