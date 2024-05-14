@@ -52,8 +52,8 @@ class Factory {
     checkDoor(thePlayer, thePos) {
         let cell = createVector((thePos.x), (thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
-
         if (room.getIsCollideDoor([cell.x,cell.y])) {
+            window.dispatchEvent(new CustomEvent("e-transition"));
             console.log('collide with door!')
             console.log( this.myDungeonIndex)
             let direction = room.getIsCollideDoor([cell.x,cell.y])

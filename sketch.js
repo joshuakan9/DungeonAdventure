@@ -1,6 +1,5 @@
 
 p5.disableFriendlyErrors = true; // disables FES uncomment to increase performance
-let textBox
 let font
 let CELLSIZE
 let TILEMAP
@@ -17,18 +16,18 @@ let render
 let tryMove
 let M
 
-let InstanceTransition = null
-let InstanceGameLoop = null
-let InstanceFactory = null
-let InstanceTargetPos = null
-let InstancePlayer = null
-let InstanceBattle = null
-let InstanceTextBox = null
+let instanceTransition = new TransitionEffect()
+let instanceGameLoop = null
+let instanceFactory = null
+let instanceTargetPos = null
+let instancePlayer = null
+let instanceBattle = null
+let instanceTextBox = null
 
 
 window.addEventListener("e-battle-start", (E) => {
 
-  InstanceTextBox.add({text:E['detail'].getName()+" battle", x:10, y:window.height-100, width:window.width})
+  instanceTextBox.add({text:E['detail'].getName()+" battle", x:10, y:window.height-100, width:window.width})
 
   
   console.log(E['detail'])
@@ -40,8 +39,12 @@ window.addEventListener("e-battle-end", (E) => {
 })
 
 window.addEventListener("e-textbox-add", (E) => {
-  // InstanceTextBox.add()
+  // instanceTextBox.add()
+})
 
+window.addEventListener('e-transition', (E) => {
+  instanceTransition.transition();
+  console.log("here")
 })
 
 window.addEventListener("e-pickup", (E) => {
@@ -51,11 +54,11 @@ window.addEventListener("e-pickup", (E) => {
 })
 
 window.addEventListener("e-player-freeze", (E) => {
-  InstancePlayer.setIsFrozen(1)
+  instancePlayer.setIsFrozen(1)
 })
 
 window.addEventListener("e-player-unfreeze", (E) => {
-  InstancePlayer.setIsFrozen(-1)
+  instancePlayer.setIsFrozen(-1)
 })
 let TILEMAP_ASSASSIN
 function setup() {
@@ -70,21 +73,20 @@ function setup() {
   createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
   M = CELLSIZE / 16
   textFont(font)
+  if (!instanceGameLoop) {
+    instanceGameLoop = new GameLoop();
+  }
+  if (instanceGameLoop) {
+    instanceGameLoop.stop()
+  }
+  if (!instanceFactory) {
+    instanceFactory = new Factory()
+  }
 
-  InstanceTransition  = new TransitionEffect();
-  if (!InstanceGameLoop) {
-    InstanceGameLoop = new GameLoop();
-  }
-  if (InstanceGameLoop) {
-    InstanceGameLoop.stop()
-  }
-  if (!InstanceFactory) {
-    InstanceFactory = new Factory()
-  }
-  if (!InstancePlayer) {
+  if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
-    InstancePlayer = new Assassin({
+    instancePlayer = new Assassin({
       thePos: createVector((1), (1)),
       theSize: createVector(CELLSIZE, CELLSIZE * 2),
       theImage: TILEMAP_ASSASSIN,
@@ -106,9 +108,9 @@ function setup() {
       }),
     });
     
-    InstanceTargetPos = InstancePlayer.getPos().copy()
+    instanceTargetPos = instancePlayer.getPos().copy()
   }
-  InstancePlayer.setSize(createVector(CELLSIZE, CELLSIZE * 2))
+  instancePlayer.setSize(createVector(CELLSIZE, CELLSIZE * 2))
 
 
 
@@ -117,9 +119,9 @@ function setup() {
   let obstacleImage = createGraphics(CELLSIZE, CELLSIZE)
   obstacleImage.background(0, 0, 0)
   // for (let a = 0; a < 10000; a++) {
-  //   InstanceFactory.addEntity(new Sprite({ thePos: createVector(getCellToPos(round(random(-100,100))), getCellToPos(4)), theSize: createVector(CELLSIZE,CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
+  //   instanceFactory.addEntity(new Sprite({ thePos: createVector(getCellToPos(round(random(-100,100))), getCellToPos(4)), theSize: createVector(CELLSIZE,CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
   // }
-  InstanceFactory.addEntity(new Ogre({
+  instanceFactory.addEntity(new Ogre({
     thePos: createVector((0), (4)),
     theSize: createVector(CELLSIZE, CELLSIZE),
     theImage: obstacleImage,
@@ -132,7 +134,7 @@ function setup() {
     theSpecialAttack: new Attack(200, 100),
     theHeal: new Heal(10,100)
   }))
-  InstanceFactory.addEntity(new HealthPotion({ thePos: createVector((2), (4)), theSize: createVector(CELLSIZE, CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
+  instanceFactory.addEntity(new HealthPotion({ thePos: createVector((2), (4)), theSize: createVector(CELLSIZE, CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
 
 
 
@@ -142,75 +144,75 @@ function setup() {
   tryMove = () => {
 
 
-    let potentialTargetPos = InstanceTargetPos.copy()
+    let potentialTargetPos = instanceTargetPos.copy()
     let newDirection = null;
     if(!isPaused) {
       if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
         potentialTargetPos.add(createVector(1, 0));
         newDirection = 'east'
-        InstancePlayer.playAnimation('walk')
+        instancePlayer.playAnimation('walk')
       } else if (keyIsDown(65) || keyIsDown(LEFT_ARROW)) { //A left
         potentialTargetPos.add(createVector(-1, 0));
         newDirection = 'west'
-        InstancePlayer.playAnimation('walk')
+        instancePlayer.playAnimation('walk')
       } else if (keyIsDown(87) || keyIsDown(UP_ARROW)) { //W up
         potentialTargetPos.add(createVector(0, -1));
         newDirection = 'north'
-        InstancePlayer.playAnimation('walk')
+        instancePlayer.playAnimation('walk')
       } else if (keyIsDown(83) || keyIsDown(DOWN_ARROW)) { //S down
         potentialTargetPos.add(createVector(0, 1));
         newDirection = 'south'
-        InstancePlayer.playAnimation('walk')
+        instancePlayer.playAnimation('walk')
       } else {
-        InstancePlayer.playAnimation('stand')
+        instancePlayer.playAnimation('stand')
         return
       }
     }
 
 
-    if (!InstanceFactory.checkCollision(InstancePlayer, potentialTargetPos)) {
-      InstanceTargetPos = potentialTargetPos
+    if (!instanceFactory.checkCollision(instancePlayer, potentialTargetPos)) {
+      instanceTargetPos = potentialTargetPos
     } else {
       console.log('colliding')
     }
 
-    InstancePlayer.setDirection(newDirection)
-    if (InstanceFactory.checkDoor(InstancePlayer, potentialTargetPos)) {
-      InstanceTargetPos = InstancePlayer.getPos()
+    instancePlayer.setDirection(newDirection)
+    if (instanceFactory.checkDoor(instancePlayer, potentialTargetPos)) {
+      instanceTargetPos = instancePlayer.getPos()
     }
 
 
   }
 
 
-  InstanceGameLoop.setTickFunction(
+  instanceGameLoop.setTickFunction(
     (time) => {
       // console.log(time)
   
-      if (!InstancePlayer.getIsFrozen()) {
+      if (!instancePlayer.getIsFrozen()) {
 
-        let distance = moveTowards(InstancePlayer, InstanceTargetPos, 1/25)
+        let distance = moveTowards(instancePlayer, instanceTargetPos, 1/25)
         if (distance <= 0.01) {
           tryMove()
         }
-        InstancePlayer.step(time)
+        instancePlayer.step(time)
       }
     }
   )
-  InstanceGameLoop.setRenderFunction(
+  instanceGameLoop.setRenderFunction(
     () => {
       background(0);
   
       push()
-      translate(round(width / 2 - getCellToPos(InstancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(InstancePlayer.getPos().y) - CELLSIZE / 2));
+      translate(round(width / 2 - getCellToPos(instancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(instancePlayer.getPos().y) - CELLSIZE / 2));
       // drawGridDebug()
   
-      // InstanceFactory.drawDungeon(InstancePlayer)
-      // InstanceFactory.drawOverworld(InstancePlayer)
+      // instanceFactory.drawDungeon(instancePlayer)
+      // instanceFactory.drawOverworld(instancePlayer)
   
-      InstanceFactory.draw(InstancePlayer)
-      InstanceFactory.drawDungeon(InstancePlayer)
-      InstancePlayer.draw()
+      instanceFactory.draw(instancePlayer)
+      instanceFactory.drawDungeon(instancePlayer)
+      instancePlayer.draw()
 
       pop()
   
@@ -230,31 +232,32 @@ function setup() {
         pop()
       }
       // image(TILEMAP_PLAYER,0,0)
+      if(instanceTransition.drawerStatus()) instanceTransition.drawer();
     }
   )
-  InstanceGameLoop.start()
+  instanceGameLoop.start()
 
 
-  if (InstanceTextBox) {
-    InstanceTextBox.loop.stop()
+  if (instanceTextBox) {
+    instanceTextBox.loop.stop()
     let newTextBox = new TextBox()
-    newTextBox.timeCurrent = InstanceTextBox.timeCurrent
-    newTextBox.currentTextEnd = InstanceTextBox.currentTextEnd
-    newTextBox.children = InstanceTextBox.children
-    InstanceTextBox = newTextBox
-    InstanceTextBox.loop.start()
+    newTextBox.timeCurrent = instanceTextBox.timeCurrent
+    newTextBox.currentTextEnd = instanceTextBox.currentTextEnd
+    newTextBox.children = instanceTextBox.children
+    instanceTextBox = newTextBox
+    instanceTextBox.loop.start()
   }
-  if (!InstanceTextBox) {
-    InstanceTextBox = new TextBox()
-    InstanceTextBox.loop.start();
+  if (!instanceTextBox) {
+    instanceTextBox = new TextBox()
+    instanceTextBox.loop.start();
+  
 
-
-    //InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null, height:null, textSize: null})
-    //InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null, height:null, textSize: null})
-    //InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null, height:null, textSize: null})
-    //InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
+    //instanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null, height:null, textSize: null})
+    //instanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null, height:null, textSize: null})
+    //instanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null, height:null, textSize: null})
+    //instanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
   }
-  console.log(InstanceTextBox.children)
+  console.log(instanceTextBox.children)
 
 }
 
@@ -271,13 +274,13 @@ function windowResized() {
 let isPaused = false;
 
 function mouseClicked() {
-  InstanceTextBox.nextText();
-  console.log(InstanceTextBox)
+  instanceTextBox.nextText();
+  console.log(instanceTextBox)
   //console.log(textBox);
 }
 
 function keyPressed() {
-  if (!InstancePlayer.getIsFrozen()) {
+  if (!instancePlayer.getIsFrozen()) {
 
   
     if (keyCode === 27 || keyCode === 80) { // escape key or p
@@ -285,28 +288,24 @@ function keyPressed() {
       isPaused = !isPaused
     }
     if (keyCode === 32) { // space key
-      InstanceFactory.interact(InstancePlayer)
+      instanceFactory.interact(instancePlayer)
+      instanceTransition.transition();
     }
 
   }
-  // Key for testing transitions
-  if (keyIsDown(48)) {
-    console.log("this works")
-    InstanceTransition.transition();
-  } 
  
-  if (InstanceBattle && InstanceBattle.inCombat) {
+  if (instanceBattle && instanceBattle.inCombat) {
     if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
-      InstanceBattle.turn("move_basic");
-      // InstanceTextBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
+      instanceBattle.turn("move_basic");
+      // instanceTextBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
       console.log("this reaches")
-      console.log(InstanceTextBox.children)
+      console.log(instanceTextBox.children)
     } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
-      InstanceBattle.turn("move_special");
+      instanceBattle.turn("move_special");
     } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
-      InstanceBattle.turn("move_buff");
+      instanceBattle.turn("move_buff");
     } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
-      InstanceBattle.turn("move_bag");
+      instanceBattle.turn("move_bag");
     } else {
       return
     }

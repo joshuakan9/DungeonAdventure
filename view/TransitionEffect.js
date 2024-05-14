@@ -1,33 +1,32 @@
 class TransitionEffect {
 
-    constructor() {
-        this.loopBackground = new GameLoop();
+    clear() {
+        // clears setinterval
+        clearInterval(this.interval);
+        // sketch line 235 (might change) if statement for transition is done
+        this.drawer = null;
     }
 
     transition() {
-        this.timeCurrent = 0;
-        this.timeTarget = 1;
-        this.backgroundColor = 255;
-        this.renderBackground = () => {
-            if(this.backgroundColor < 1) {
-                this.loopBackground.stop();
-                return
+        let backgroundColor = 255;
+        const rate = 50; // how fast the rendering is (based off of background color number line 22)
+        this.clear();
+        const handler = () => { // anonymous function that is put into the setInterval
+            if (backgroundColor < 0) { // the break out case
+                this.clear();
+                return;
             }
-            fill(this.backgroundColor, this.backgroundColor, this.backgroundColor);
-            rect(0, 0, width, height);
-        }
-        this.tickBackground = (delta) => {
-            if (this.timeCurrent >= this.timeTarget && this.backgroundColor > 0) {
-                this.backgroundColor -= 2;
-                this.timeCurrent = 0;
-            } else {
-                this.timeCurrent += delta;
+            this.drawer = () => { // draws function draws effect
+                fill(backgroundColor, backgroundColor, backgroundColor);
+                rect(0, 0, width, height);
             }
+            backgroundColor -= rate;
         }
-        this.loopBackground.setTickFunction(this.tickBackground);
-        this.loopBackground.setRenderFunction(this.renderBackground);
-        this.loopBackground.start();
+        handler();
+        this.interval = setInterval(handler, 100); // handler function and the time it takes for handler to be finished
     }
-    
-        
+
+    drawerStatus() {
+        return this.drawer != null
+    }
 }
