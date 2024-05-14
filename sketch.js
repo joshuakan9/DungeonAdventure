@@ -62,7 +62,6 @@ window.addEventListener("e-player-unfreeze", (E) => {
 })
 let TILEMAP_ASSASSIN
 function setup() {
-
   TILEMAP_ASSASSIN = TILEMAP.get(32*16, 2 * 16, 9* 16, 2 * 16)
   // randomSeed(0)
   window.innerHeight <= window.innerWidth
@@ -72,7 +71,6 @@ function setup() {
       (H = Math.max(window.innerWidth, 1) / ratio));
   CELLSIZE = floor(W / cellNumber)
   createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
-
   M = CELLSIZE / 16
   textFont(font)
   if (!instanceGameLoop) {
@@ -105,8 +103,8 @@ function setup() {
       theBlockPercentage: 100,
       theSpecialAttack: new Attack(200, 100),
       theAnimation: new Animations({
-        stand: new FramePattern(ANIM_HERO_STAND),
-        walk: new FramePattern(ANIM_HERO_WALK)
+        stand: new FrameIndexPattern(ANIM_HERO_STAND),
+        walk: new FrameIndexPattern(ANIM_HERO_WALK)
       }),
     });
     
@@ -197,13 +195,8 @@ function setup() {
         if (distance <= 0.01) {
           tryMove()
         }
-<<<<<<< HEAD
         instancePlayer.step(time)
-=======
-
->>>>>>> e99a3c840b417f9eb08534054bb1810adb65d20f
       }
-      InstancePlayer.step(time)
     }
   )
   instanceGameLoop.setRenderFunction(
@@ -217,16 +210,9 @@ function setup() {
       // instanceFactory.drawDungeon(instancePlayer)
       // instanceFactory.drawOverworld(instancePlayer)
   
-<<<<<<< HEAD
       instanceFactory.draw(instancePlayer)
       instanceFactory.drawDungeon(instancePlayer)
       instancePlayer.draw()
-=======
-
-      InstanceFactory.drawDungeon(InstancePlayer)
-      InstanceFactory.draw(InstancePlayer)
-      InstancePlayer.draw()
->>>>>>> e99a3c840b417f9eb08534054bb1810adb65d20f
 
       pop()
   
@@ -246,7 +232,7 @@ function setup() {
         pop()
       }
       // image(TILEMAP_PLAYER,0,0)
-      if(instanceTransition.drawerStatus()) instanceTransition.drawer();
+      if(instanceTransition.drawer) instanceTransition.drawer();
     }
   )
   instanceGameLoop.start()
@@ -266,18 +252,10 @@ function setup() {
     instanceTextBox.loop.start();
   
 
-<<<<<<< HEAD
     //instanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null, height:null, textSize: null})
     //instanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null, height:null, textSize: null})
     //instanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null, height:null, textSize: null})
     //instanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
-=======
-
-    //InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null, height:null, textSize: null})
-    InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null, height:null, textSize: null})
-    //InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null, height:null, textSize: null})
-    // InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
->>>>>>> e99a3c840b417f9eb08534054bb1810adb65d20f
   }
   console.log(instanceTextBox.children)
 
