@@ -14,7 +14,7 @@ class Sprite {
         this.myFrame = theFrame ?? 0
         this.myFrameMap = new Map()
         this.myFrameSize = theFrameSize ?? createVector(16,16)
-        this.myOffset = theOffset ?? ((theCellSize) => createVector(0,0))
+        this.myOffset = theOffset ?? createVector(0,0)
         this.myAnimation = theAnimation ?? null
         this.makeFrameMap()
     }
@@ -49,7 +49,7 @@ class Sprite {
 
     draw() {
         let frame = this.myFrameMap.get(this.myFrame)
-        image(this.myImage, this.myPos.x * CELLSIZE + this.myOffset(CELLSIZE).x, this.myPos.y * CELLSIZE + this.myOffset(CELLSIZE).y, this.mySize.x, this.mySize.y, frame.x, frame.y, this.myFrameSize.x, this.myFrameSize.y)
+        image(this.myImage, this.myPos.x * CELLSIZE + this.myOffset.x * CELLSIZE, this.myPos.y * CELLSIZE + this.myOffset.y * CELLSIZE, this.mySize.x * CELLSIZE, this.mySize.y * CELLSIZE, frame.x, frame.y, this.myFrameSize.x, this.myFrameSize.y)
     }
 
     step(theDelta) {
@@ -60,9 +60,9 @@ class Sprite {
         this.myFrame = this.myAnimation.getFrame()
     }
 
-    playAnimation(theAnimation) {
+    playAnimation(theAnimation, theTime) {
         if (this.myAnimation) {
-            this.myAnimation.play(theAnimation)
+            this.myAnimation.play(theAnimation, theTime)
         }
     }
 
@@ -82,7 +82,7 @@ class Sprite {
     }
 
     getMiddle() {
-        return createVector(this.myPos.x + (this.mySize.x / 2), this.myPos.y + (this.mySize.y / 2))
+        return createVector(this.myPos.x + ((this.mySize.x * CELLSIZE)/ 2), this.myPos.y + ((this.mySize.y * CELLSIZE) / 2))
     }
 
 }

@@ -1,8 +1,8 @@
 class Ogre extends Mob {
     myHeal;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable, theHitPoints, theAttack, theHeal }) {
-        super({ thePos, theSize, theImage, theIsCollideable, theName: "Ogre", theHitPoints, theAttack })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theHitPoints, theAttack, theHeal }) {
+        super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theName: "Ogre", theHitPoints, theAttack })
         this.myHeal = theHeal;
     }
 

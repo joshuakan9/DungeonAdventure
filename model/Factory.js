@@ -80,6 +80,25 @@ class Factory {
         }
         return false
     }
+
+    step(theDelta) {
+        // let thePos = thePlayer.getPos()
+        // let cell = createVector(round(thePos.x), round(thePos.y))
+        let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
+        let entityMap = room.getEntityMap()
+        for (let a = 0; a < entityMap.length; a++) {
+
+            for (let b = 0; b < entityMap[0].length; b++) {
+
+
+                if (entityMap[a][b]) {
+                    // console.log(entitymap[a][b])
+                    entityMap[a][b].step(theDelta)
+                    // this.myEntities[a][b].step()
+                }
+            }
+        }
+    }
     draw(thePlayer) {
         let thePos = thePlayer.getPos()
         let cell = createVector(round(thePos.x), round(thePos.y))
@@ -107,8 +126,7 @@ class Factory {
                 if (entityMap[a][b]) {
                     // console.log(entitymap[a][b])
                     entityMap[a][b].draw()
-  
-                    // this.myEntities[a][b].step()
+
                 }
             }
         }
@@ -120,6 +138,8 @@ class Factory {
 
     interact(thePlayer) {
         let thePos = thePlayer.getPos()
+        let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
+        let entityMap = room.getEntityMap()
         if (Number.isInteger(thePos.x + thePos.y)) {
             let theDirection = thePlayer.getDirection()
             let cell = createVector(thePos.x, thePos.y)
@@ -137,9 +157,9 @@ class Factory {
 
             console.log('interact ')
             console.log(theDirection)
-            if (this.myEntities[cell.y][cell.x]) {
-                console.log(this.myEntities[cell.y][cell.x])
-                console.log(this.myEntities[cell.y][cell.x].interact())
+            if (entityMap[cell.y][cell.x]) {
+                console.log(entityMap[cell.y][cell.x])
+                console.log(entityMap[cell.y][cell.x].interact())
             }
         }
     }

@@ -4,16 +4,16 @@ class EntityFactory {
         let entity = null;
         switch(entityType) {
             case 'ogre':
-                entity = new Assassin({
+                entity = new Mob({
                     thePos: entityPos,
-                    theSize: createVector(CELLSIZE, CELLSIZE * 2),
+                    theSize: createVector(1, 2),
                     theIsCollideable: true,
-                    theImage: TILEMAP_ASSASSIN,
+                    theImage: TILEMAP_OGRE,
                     theHFrames: 9,
                     theVFrames: 1,
                     theFrame: 0,
                     theFrameSize: createVector(16,32),
-                    theOffset: (theCellSize) => createVector(0, -theCellSize * 1.2),
+                    theOffset: createVector(0, -1.2),
                     theName: "Tester",
                     theHitPoints: 1000,
                     theAttack: new Attack(100, 100),
@@ -23,7 +23,6 @@ class EntityFactory {
                     theSpecialAttack: new Attack(200, 100),
                     theAnimation: new Animations({
                       stand: new FramePattern(ANIM_HERO_STAND),
-                      walk: new FramePattern(ANIM_HERO_WALK)
                     }),
                 })
                 break;
@@ -60,6 +59,7 @@ class EntityFactory {
             default:
                 console.log('unexpected value for monsterType in EntityFactory.createEntity()' + entityType);
         }
+
         return entity;
     }
 }
