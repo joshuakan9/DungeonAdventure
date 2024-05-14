@@ -211,8 +211,9 @@ function setup() {
       // instanceFactory.drawDungeon(instancePlayer)
       // instanceFactory.drawOverworld(instancePlayer)
   
-      instanceFactory.draw(instancePlayer)
+
       instanceFactory.drawDungeon(instancePlayer)
+      instanceFactory.draw(instancePlayer)
       instancePlayer.draw()
 
       pop()
