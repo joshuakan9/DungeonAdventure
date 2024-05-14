@@ -416,7 +416,8 @@ class Room {
             for (let j = 0; j < this.myEntityMap[0].length; j++) {
                 let entity = null;
                 if (this.myEntityMap[i][j] === 'X' && random(0,100) < entityChance && entityCount < maxEntities) {
-                    let randomEntity = floor(random(0,3))
+                    let randomEntity = floor(random(0,4))
+
                     switch (randomEntity) {
                         case 0:
                             entity = EntityFactory.createEntity('ogre', createVector(j,i));
@@ -428,7 +429,7 @@ class Room {
                             entity = EntityFactory.createEntity('gremlin', createVector(j,i));
                             break;
                         case 3:
-                            entity = EntityFactory.createEntity('heath potion', createVector(j,i));
+                            entity = EntityFactory.createEntity('health potion', createVector(j,i));
                             break;
                         default:
                             console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);

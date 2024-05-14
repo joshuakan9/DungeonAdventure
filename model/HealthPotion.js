@@ -1,8 +1,8 @@
 class HealthPotion extends Pickup {
     myHealth;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable, theHitPoints, theAttack, theDirection, theHealth}) {
-        super({ thePos, theSize, theImage, theIsCollideable, theName: "Health Potion", theHitPoints, theAttack, theDirection });
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theHealth}) {
+        super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theName: "Health Potion" });
         this.myHealth = theHealth;
     }
 

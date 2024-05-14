@@ -75,10 +75,14 @@ class EntityFactory {
             case 'health potion':
                 entity = new HealthPotion({
                     thePos: entityPos,
-                    theSize: createVector(CELLSIZE, CELLSIZE * 2),
-                    theImage: TILEMAP_ASSASSIN,
-                    theIsCollideable: true
-                });
+                    theSize: createVector(1, 1),
+                    theIsCollideable: true,
+                    theImage: TILEMAP_POTION_HEALTH,
+
+
+                    theOffset: createVector(0, -0.1),
+                    theName: "Tester",
+                })
                 break;
             default:
                 console.log('unexpected value for monsterType in EntityFactory.createEntity()' + entityType);
