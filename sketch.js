@@ -195,8 +195,9 @@ function setup() {
         if (distance <= 0.01) {
           tryMove()
         }
-        InstancePlayer.step(time)
+
       }
+      InstancePlayer.step(time)
     }
   )
   InstanceGameLoop.setRenderFunction(
@@ -253,9 +254,9 @@ function setup() {
 
 
     //InstanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null, height:null, textSize: null})
-    //InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null, height:null, textSize: null})
+    InstanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null, height:null, textSize: null})
     //InstanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null, height:null, textSize: null})
-    //InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
+    // InstanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
   }
   console.log(InstanceTextBox.children)
 
