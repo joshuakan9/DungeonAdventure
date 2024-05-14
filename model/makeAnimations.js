@@ -45,9 +45,9 @@ const makeWalkingFrames = (rootFrame=0) => {
   }
 }
 
-const ANIM_HERO_STAND = makeStandingFrames(0);
+const ANIM_STAND = makeStandingFrames(0);
 
-const ANIM_HERO_WALK = makeWalkingFrames(0);
+const ANIM_WALK = makeWalkingFrames(0);
 
 // const PICK_UP_DOWN = {
 //   duration: 400,

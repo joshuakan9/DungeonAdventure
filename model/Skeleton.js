@@ -1,12 +1,14 @@
 class Skeleton extends Mob {
     myHeal;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack }) {
-        super({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theHeal })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theHitPoints, theAttack, theHeal }) {
+        super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theName: "Skeleton", theHitPoints, theAttack })
+        this.myHeal = theHeal;
     }
 
-    theHealChance() {
-        myHitPoints += this.myHeal.healAmount;
+
+    heal() {
+        this.myHitPoints += this.myHeal.getHealAmount();
     }
 
     getHeal() {

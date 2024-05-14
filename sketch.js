@@ -62,9 +62,14 @@ window.addEventListener("e-player-unfreeze", (E) => {
 })
 let TILEMAP_ASSASSIN
 let TILEMAP_OGRE
+let TILEMAP_SKELETON
+let TILEMAP_GREMLIN
+
 function setup() {
   TILEMAP_ASSASSIN = TILEMAP.get(32*16, 2 * 16, 9* 16, 2 * 16)
   TILEMAP_OGRE = TILEMAP.get(23*16, 10 * 16, 9* 16, 2 * 16)
+  TILEMAP_SKELETON = TILEMAP.get(23*16, 4 * 16, 9* 16, 2 * 16)
+  TILEMAP_GREMLIN = TILEMAP.get(23*16, 20 * 16, 9* 16, 2 * 16)
 
   // randomSeed(0)
   window.innerHeight <= window.innerWidth
@@ -107,8 +112,8 @@ function setup() {
       theBlockPercentage: 100,
       theSpecialAttack: new Attack(200, 100),
       theAnimation: new Animations({
-        stand: new FramePattern(ANIM_HERO_STAND),
-        walk: new FramePattern(ANIM_HERO_WALK)
+        stand: new FramePattern(ANIM_STAND),
+        walk: new FramePattern(ANIM_WALK)
       }),
     });
     

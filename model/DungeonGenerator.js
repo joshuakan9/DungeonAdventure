@@ -416,8 +416,7 @@ class Room {
             for (let j = 0; j < this.myEntityMap[0].length; j++) {
                 let entity = null;
                 if (this.myEntityMap[i][j] === 'X' && random(0,100) < entityChance && entityCount < maxEntities) {
-                    let randomEntity = floor(random(0,4))
-                    randomEntity = 0
+                    let randomEntity = floor(random(0,3))
                     switch (randomEntity) {
                         case 0:
                             entity = EntityFactory.createEntity('ogre', createVector(j,i));
