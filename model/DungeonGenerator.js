@@ -30,7 +30,6 @@ class DungeonGenerator {
 
     convert() {
 
-
         for (let a = 0; a < this.myDungeon.length; a++) {
             for (let b = 0; b < this.myDungeon[0].length; b++) {
                 let roomTemplates = [
@@ -87,12 +86,26 @@ class DungeonGenerator {
                 }
             }
         }
+
+        let emptyRoom = [];
+        let emptyEntityMap = [];
+        for (let i = 0; i < 13; i++) {
+            emptyRoom.push(Array(13).fill('□'));
+            emptyEntityMap.push(Array(13).fill(null));
+        }
+        this.myDungeonFinal[Math.floor(this.myDungeonFinal.length / 2)][Math.floor(this.myDungeonFinal[0].length / 2)] = new Room(emptyRoom);
+
         this.generateDoors();
         for (let a = 0; a < this.myDungeonFinal.length; a++) {
             for (let b = 0; b < this.myDungeonFinal[0].length; b++) {
                 if (this.myDungeonFinal[a][b] instanceof Room) {
-                    this.myDungeonFinal[a][b].createDoors();
-                    this.myDungeonFinal[a][b].populateEntityMap();
+                    this.myDungeonFinal[a][b].createDoors();d
+
+                    if (a !== Math.floor(this.myDungeonFinal.length / 2) && b !== Math.floor(this.myDungeonFinal[0].length / 2)) {
+                        this.myDungeonFinal[a][b].populateEntityMap();
+                    } else {
+                        this.myDungeonFinal[a][b].myEntityMap = emptyEntityMap;
+                    }
                     console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
                 }
             }
@@ -410,32 +423,30 @@ class Room {
 
     populateEntityMap() {
         let maxEntities = Math.floor(Math.cbrt(this.myPossibleEntityCount));
-        let entityCount =  0;
+        let entityCount = 0;
         let entityChance = 10;
         for (let i = 0; i < this.myEntityMap.length; i++) {
             for (let j = 0; j < this.myEntityMap[0].length; j++) {
                 let entity = null;
-                if (this.myEntityMap[i][j] === 'X' && random(0,100) < entityChance && entityCount < maxEntities) {
-                    let randomEntity = floor(random(0,4))
+                if (this.myEntityMap[i][j] === 'X' && random(0, 100) < entityChance && entityCount < maxEntities) {
+                    let randomEntity = floor(random(0, 4))
 
                     switch (randomEntity) {
                         case 0:
-                            entity = EntityFactory.createEntity('ogre', createVector(j,i));
+                            entity = EntityFactory.createEntity('ogre', createVector(j, i));
                             break;
                         case 1:
-                            entity = EntityFactory.createEntity('skeleton', createVector(j,i));
+                            entity = EntityFactory.createEntity('skeleton', createVector(j, i));
                             break;
                         case 2:
-                            entity = EntityFactory.createEntity('gremlin', createVector(j,i));
+                            entity = EntityFactory.createEntity('gremlin', createVector(j, i));
                             break;
                         case 3:
-                            entity = EntityFactory.createEntity('health potion', createVector(j,i));
+                            entity = EntityFactory.createEntity('health potion', createVector(j, i));
                             break;
                         default:
                             console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
                     }
-                    console.log(`Entity at (${i}, ${j})`);
-
                     entityCount++;
                 }
                 this.myEntityMap[i][j] = entity
