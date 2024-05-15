@@ -87,24 +87,30 @@ class DungeonGenerator {
             }
         }
 
-        let emptyRoom = [];
-        let emptyEntityMap = [];
+        let startingRoom = [];
+        let startingEntityMap = [];
         for (let i = 0; i < 13; i++) {
-            emptyRoom.push(Array(13).fill('□'));
-            emptyEntityMap.push(Array(13).fill(null));
+            startingRoom.push(Array(13).fill('□'));
+            startingEntityMap.push(Array(13).fill(null));
         }
-        this.myDungeonFinal[Math.floor(this.myDungeonFinal.length / 2)][Math.floor(this.myDungeonFinal[0].length / 2)] = new Room(emptyRoom);
+        startingEntityMap[3][3] = EntityFactory.createEntity('health potion', createVector(3, 3));
+        startingEntityMap[3][9] = EntityFactory.createEntity('health potion', createVector(3, 9));
+        startingEntityMap[9][3] = EntityFactory.createEntity('health potion', createVector(9, 3));
+        startingEntityMap[9][9] = EntityFactory.createEntity('health potion', createVector(9, 9));
+
+
+        this.myDungeonFinal[Math.floor(this.myDungeonFinal.length / 2)][Math.floor(this.myDungeonFinal[0].length / 2)] = new Room(startingRoom);
 
         this.generateDoors();
         for (let a = 0; a < this.myDungeonFinal.length; a++) {
             for (let b = 0; b < this.myDungeonFinal[0].length; b++) {
                 if (this.myDungeonFinal[a][b] instanceof Room) {
-                    this.myDungeonFinal[a][b].createDoors();d
+                    this.myDungeonFinal[a][b].createDoors();
 
                     if (a !== Math.floor(this.myDungeonFinal.length / 2) && b !== Math.floor(this.myDungeonFinal[0].length / 2)) {
                         this.myDungeonFinal[a][b].populateEntityMap();
                     } else {
-                        this.myDungeonFinal[a][b].myEntityMap = emptyEntityMap;
+                        this.myDungeonFinal[a][b].myEntityMap = startingEntityMap;
                     }
                     console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
                 }
