@@ -93,11 +93,6 @@ class DungeonGenerator {
             startingRoom.push(Array(13).fill('□'));
             startingEntityMap.push(Array(13).fill(null));
         }
-        startingEntityMap[3][3] = EntityFactory.createEntity('health potion', createVector(3, 3));
-        startingEntityMap[3][9] = EntityFactory.createEntity('health potion', createVector(3, 9));
-        startingEntityMap[9][3] = EntityFactory.createEntity('health potion', createVector(9, 3));
-        startingEntityMap[9][9] = EntityFactory.createEntity('health potion', createVector(9, 9));
-
 
         this.myDungeonFinal[Math.floor(this.myDungeonFinal.length / 2)][Math.floor(this.myDungeonFinal[0].length / 2)] = new Room(startingRoom);
 

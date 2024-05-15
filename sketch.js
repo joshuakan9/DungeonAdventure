@@ -97,7 +97,7 @@ function setup() {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
     instancePlayer = new Assassin({
-      thePos: createVector((1), (1)),
+      thePos: createVector((6), (6)),
       theSize: createVector(1, 2),
       theImage: TILEMAP_ASSASSIN,
       theHFrames: 9,
