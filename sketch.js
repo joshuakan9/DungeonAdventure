@@ -279,25 +279,25 @@ function mouseClicked() {
   //console.log(textBox);
 
   if (instanceBattle && instanceBattle.inCombat) {
-    // First Rectangle (Top Left)
+    // basic attack button
     let rect1X = width/2 + 5;
     let rect1Y = height - height/5 + 5;
     let rect1Width = width/4 - 5;
     let rect1Height = height/10 - 5;
 
-// Second Rectangle (Bottom Left)
+// special attack button
     let rect2X = width/2 + 5;
     let rect2Y = height - height/10 + 5;
     let rect2Width = width/4 - 5;
     let rect2Height = height/10 - 10;
 
-// Third Rectangle (Top Right)
+// buff button
     let rect3X = width - width/4 + 5;
     let rect3Y = height - height/5 + 5;
     let rect3Width = width/4 - 10;
     let rect3Height = height/10 - 5;
 
-// Fourth Rectangle (Bottom Right)
+// bag button
     let rect4X = width - width/4 + 5;
     let rect4Y = height - height/10 + 5;
     let rect4Width = width/4 - 10;
