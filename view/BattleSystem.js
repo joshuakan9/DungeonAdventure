@@ -22,6 +22,9 @@ class BattleSystem {
     battleDisplay() {
         console.log(this.mob)
         this.clear();
+
+        const playerInitialHealth = this.player.myHitPoints;
+        const mobInitialHealth = this.mob.myHitPoints;
         const handler = () => { // anonymous function that is put into the setInterval
             if (!this.inCombat) { // the break out case
                 console.log("out of combat")
@@ -35,15 +38,70 @@ class BattleSystem {
                 fill(92, 64, 51);
                 rect(0, (height * 2)/3, width, height/3);
 
+                //background of textbox and buttons
                 fill('white');
                 rect(0, height - height/5, width, height - height/5);
+                //buttons
+                rect(width/2 + 5, height - height/5 + 5, width/4 - 5, height/10 - 5, 10);
+                rect(width/2 + 5, height - height/10 + 5, width/4 - 5, height/10 - 10, 10);
+                rect(width - width/4 + 5, height - height/5 + 5, width/4 - 10, height/10 - 5, 10);
+                rect(width - width/4 + 5, height - height/10 + 5, width/4 - 10, height/10 - 10, 10);
 
-                //player spot
+                fill('black');
+                let textWidth1 = textWidth("Basic Attack"); // Get width of text
+                text("Basic Attack", width/2 + width/8 - textWidth1/2, height - height/5 + height/20 + 10);
+
+                let textWidth2 = textWidth("Special Attack");
+                text("Special Attack", width/2 + width/8 - textWidth2/2, height - height/10 + height/20 + 10);
+
+                let textWidth3 = textWidth("Buff");
+                text("Buff", width - width/4 + width/8 - textWidth3/2, height - height/5 + height/20 + 10);
+
+                let textWidth4 = textWidth("Bag");
+                text("Bag", width - width/4 + width/8 - textWidth4/2, height - height/10 + height/20 + 10);
+
+                //player spota
                 fill(240, 248, 255);
                 rect(width/5 - 50, height - height/3 - 50, 50, 50);
                 //monster spot
                 fill(75, 0, 130);
                 rect(width - width/5, height - height/3 - 50, 50, 50);
+
+                // Health bar
+                let barWidth = 200; // Width of the health bar
+                let barHeight = 40; // Height of the health bar
+
+                let playerHealthPercentage = this.player.myHitPoints / playerInitialHealth;
+                let playerBarWidth = barWidth * playerHealthPercentage;
+                let mobHealthPercentage = this.mob.myHitPoints / mobInitialHealth;
+                let mobBarWidth = barWidth * mobHealthPercentage;
+
+                // Draw player's health bar
+                fill('red');
+                rect(width / 5 - barWidth/2 - 100, height / 2, barWidth, barHeight); // Draw the background of the health bar
+                fill('green');
+                rect(width / 5 - barWidth/2 - 100, height / 2, playerBarWidth, barHeight); // Draw the actual health bar
+
+                // Draw mob's health bar
+                fill('red');
+                rect(width - width / 5 - barWidth/2 - barWidth + 300, height / 2, barWidth, barHeight); // Draw the background of the health bar
+                fill('green');
+                rect(width - width / 5 - barWidth/2 - mobBarWidth + 300, height / 2, mobBarWidth, barHeight); // Draw the actual health bar
+
+                // Health numbers
+                fill('black');
+
+                // Player's health
+                let playerTextWidth = textWidth(this.player.myHitPoints + ' / ' + playerInitialHealth);
+                let playerTextX = width / 5 - barWidth + barWidth - 35 - playerTextWidth; // Right-align the text
+                text(this.player.myHitPoints + ' / ' + playerInitialHealth, playerTextX, height / 2 + 30);
+
+                // Mob's health
+                let mobTextWidth = textWidth(this.mob.myHitPoints + ' / ' + mobInitialHealth);
+                let mobTextX = width - width / 5 + barWidth - 35 - mobTextWidth; // Right-align the text
+                text(this.mob.myHitPoints + ' / ' + mobInitialHealth, mobTextX, height / 2 + 30);
+
+
 
             }
         }
