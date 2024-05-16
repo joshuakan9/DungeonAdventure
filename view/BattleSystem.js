@@ -23,7 +23,7 @@ class BattleSystem {
         console.log(this.mob)
         this.clear();
 
-        const playerInitialHealth = this.player.myHitPoints;
+        const playerInitialHealth = 1000;
         const mobInitialHealth = this.mob.myHitPoints;
         const playerInitialStamina = this.player.myStamina;
         const handler = () => { // anonymous function that is put into the setInterval
