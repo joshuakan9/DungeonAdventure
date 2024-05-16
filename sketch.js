@@ -303,31 +303,23 @@ function mouseClicked() {
     let rect4Width = width/4 - 10;
     let rect4Height = height/10 - 10;
 
-// Check if mouse is clicked inside each rectangle     // Check for Rectangle 1
       if (mouseX > rect1X && mouseX < rect1X + rect1Width && mouseY > rect1Y && mouseY < rect1Y + rect1Height) {
-        // Rectangle 1 clicked
         instanceBattle.turn("move_basic");
         instanceTextBox.add({text:"basic"});
         console.log("this reaches")
         console.log(instanceTextBox.children)      }
 
-      // Check for Rectangle 2
       if (mouseX > rect2X && mouseX < rect2X + rect2Width && mouseY > rect2Y && mouseY < rect2Y + rect2Height) {
-        // Rectangle 2 clicked
         instanceBattle.turn("move_special");
         instanceTextBox.add({text:"special"});
       }
 
-      // Check for Rectangle 3
       if (mouseX > rect3X && mouseX < rect3X + rect3Width && mouseY > rect3Y && mouseY < rect3Y + rect3Height) {
-        // Rectangle 3 clicked
         instanceBattle.turn("move_buff");
         instanceTextBox.add({text:"buff"});
       }
 
-      // Check for Rectangle 4
       if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
-        // Rectangle 4 clicked
         instanceBattle.turn("move_bag");
         instanceTextBox.add({text:"bag"});
       }
