@@ -97,10 +97,6 @@ class BattleSystem {
                 fill('yellow');
                 rect(width / 5 - barWidth/2 - 100 + (barWidth - playerStaminaBarWidth), height - height / 3 + 75, playerStaminaBarWidth, barHeight); // Draw the actual stamina bar
 
-
-
-
-
                 // Health numbers
                 fill('black');
                 // Player's health
