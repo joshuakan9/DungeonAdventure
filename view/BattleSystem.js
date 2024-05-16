@@ -83,7 +83,7 @@ class BattleSystem {
                 fill('red');
                 rect(width / 5 - barWidth/2 - 100, height - height / 3 + 25, barWidth, barHeight); // Draw the background of the health bar
                 fill('green');
-                rect(width / 5 - barWidth/2 - 100, height - height / 3 + 25, playerHealthBarWidth, barHeight); // Draw the actual health bar
+                rect(width / 5 - barWidth/2 -  playerHealthBarWidth + 100, height - height / 3 + 25, playerHealthBarWidth, barHeight); // Draw the actual health bar
 
                 // Draw mob's health bar
                 fill('red');

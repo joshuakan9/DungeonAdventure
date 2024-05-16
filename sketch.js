@@ -110,7 +110,7 @@ function setup() {
       theAttack: new Attack(100, 100),
       theStamina: 10,
       theBag: [],
-      theBlockPercentage: 100,
+      theBlockPercentage: 0,
       theSpecialAttack: new Attack(200, 100),
       theAnimation: new Animations({
         stand: new FramePattern(ANIM_STAND),
