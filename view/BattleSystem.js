@@ -25,6 +25,7 @@ class BattleSystem {
 
         const playerInitialHealth = this.player.myHitPoints;
         const mobInitialHealth = this.mob.myHitPoints;
+        const playerInitialStamina = this.player.myStamina;
         const handler = () => { // anonymous function that is put into the setInterval
             if (!this.inCombat) { // the break out case
                 console.log("out of combat")
@@ -68,41 +69,54 @@ class BattleSystem {
                 rect(width - width/5, height - height/3 - 50, 50, 50);
 
                 // Health bar
-                let barWidth = 200; // Width of the health bar
-                let barHeight = 40; // Height of the health bar
+                let barWidth = 200; // Width of the bars
+                let barHeight = 40; // Height of the bars
 
                 let playerHealthPercentage = this.player.myHitPoints / playerInitialHealth;
-                let playerBarWidth = barWidth * playerHealthPercentage;
+                let playerHealthBarWidth = barWidth * playerHealthPercentage;
                 let mobHealthPercentage = this.mob.myHitPoints / mobInitialHealth;
-                let mobBarWidth = barWidth * mobHealthPercentage;
+                let mobHealthBarWidth = barWidth * mobHealthPercentage;
+                let playerStaminaPercentage = this.stamina / playerInitialStamina;
+                let playerStaminaBarWidth = barWidth * playerStaminaPercentage;
 
                 // Draw player's health bar
                 fill('red');
-                rect(width / 5 - barWidth/2 - 100, height / 2, barWidth, barHeight); // Draw the background of the health bar
+                rect(width / 5 - barWidth/2 - 100, height - height / 3 + 25, barWidth, barHeight); // Draw the background of the health bar
                 fill('green');
-                rect(width / 5 - barWidth/2 - 100, height / 2, playerBarWidth, barHeight); // Draw the actual health bar
+                rect(width / 5 - barWidth/2 - 100, height - height / 3 + 25, playerHealthBarWidth, barHeight); // Draw the actual health bar
 
                 // Draw mob's health bar
                 fill('red');
-                rect(width - width / 5 - barWidth/2 - barWidth + 300, height / 2, barWidth, barHeight); // Draw the background of the health bar
+                rect(width - width / 5 - barWidth/2 - barWidth + 300, height - height / 3 + 25, barWidth, barHeight); // Draw the background of the health bar
                 fill('green');
-                rect(width - width / 5 - barWidth/2 - mobBarWidth + 300, height / 2, mobBarWidth, barHeight); // Draw the actual health bar
+                rect(width - width / 5 - barWidth/2 - mobHealthBarWidth + 300, height - height / 3 + 25, mobHealthBarWidth, barHeight); // Draw the actual health bar
+
+                // Stamina bar
+                fill('red');
+                rect(width / 5 - barWidth/2 - 100, height - height / 3 + 75, barWidth, barHeight); // Draw the background of the stamina bar
+                fill('yellow');
+                rect(width / 5 - barWidth/2 - 100 + (barWidth - playerStaminaBarWidth), height - height / 3 + 75, playerStaminaBarWidth, barHeight); // Draw the actual stamina bar
+
+
+
+
 
                 // Health numbers
                 fill('black');
-
                 // Player's health
                 let playerTextWidth = textWidth(this.player.myHitPoints + ' / ' + playerInitialHealth);
                 let playerTextX = width / 5 - barWidth + barWidth - 35 - playerTextWidth; // Right-align the text
-                text(this.player.myHitPoints + ' / ' + playerInitialHealth, playerTextX, height / 2 + 30);
+                text(this.player.myHitPoints + ' / ' + playerInitialHealth, playerTextX, height - height / 3 + 25 + 30);
 
                 // Mob's health
                 let mobTextWidth = textWidth(this.mob.myHitPoints + ' / ' + mobInitialHealth);
                 let mobTextX = width - width / 5 + barWidth - 35 - mobTextWidth; // Right-align the text
-                text(this.mob.myHitPoints + ' / ' + mobInitialHealth, mobTextX, height / 2 + 30);
+                text(this.mob.myHitPoints + ' / ' + mobInitialHealth, mobTextX, height - height / 3 + 25 + 30);
 
-
-
+                // Stamina numbers
+                let staminaTextWidth = textWidth(this.stamina + ' / ' + playerInitialStamina);
+                let staminaTextX = width / 5 - barWidth + barWidth - 65 - staminaTextWidth; // Right-align the text
+                text(this.stamina + ' / ' + playerInitialStamina, staminaTextX, height - height / 3 + 75 + 30);
             }
         }
         handler();
