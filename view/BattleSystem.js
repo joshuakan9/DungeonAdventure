@@ -129,11 +129,13 @@ class BattleSystem {
             this.inCombat = false;
             console.log("YOU HAVE DIED");
             window.dispatchEvent(new Event("e-battle-end"))
+            window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
         }
         if (this.mob.getHitPoints() <= 0) {
             this.inCombat = false;
             console.log("YOU HAVE WON");
             window.dispatchEvent(new Event("e-battle-end"))
+            window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
         }
 
     }

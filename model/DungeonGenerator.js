@@ -260,6 +260,10 @@ class Room {
         this.createCorners();
     }
 
+    removeEntity(theIndex) {
+        this.myEntityMap[theIndex.y][theIndex.x] = null
+    }
+
     getSeed() {
         return this.mySeed
     }

@@ -26,6 +26,10 @@ class Factory {
         let cell = createVector(thePos.x, thePos.y)
         this.myEntities[cell.y][cell.x] = theEntity
     }
+    removeEntity(theEntity) {
+        let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
+        room.removeEntity(theEntity.getPos())
+    }
     checkCollision(thePlayer, thePos) {
         let cell = createVector((thePos.x), (thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]

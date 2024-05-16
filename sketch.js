@@ -48,9 +48,13 @@ window.addEventListener('e-transition', (E) => {
 })
 
 window.addEventListener("e-pickup", (E) => {
-  console.log('add item pickup logic later')
-  console.log("Found a " + E['detail'].getName() + "!")
-  // console.log(E['detail'])
+  instanceTextBox.add({text:"Found a " + E['detail'].getName() + "!"})
+  window.dispatchEvent(new CustomEvent("e-entity-remove", E))
+  // instanceFactory.removeEntity(E['detail'])
+})
+
+window.addEventListener("e-entity-remove", (E) => {
+  instanceFactory.removeEntity(E['detail'])
 })
 
 window.addEventListener("e-player-freeze", (E) => {
