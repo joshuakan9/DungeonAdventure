@@ -8,8 +8,8 @@ class TransitionEffect {
     }
 
     transition() {
-        let backgroundColor = 255;
-        const rate = 50; // how fast the rendering is (based off of background color number line 22)
+        let backgroundColor = 150;
+        const rate = 25; // how fast the rendering is (based off of background color number line 22)
         this.clear();
         const handler = () => { // anonymous function that is put into the setInterval
             if (backgroundColor < 0) { // the break out case

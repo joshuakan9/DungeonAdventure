@@ -115,7 +115,7 @@ class DungeonGenerator {
                     } else {
                         this.myDungeonFinal[a][b].populateEntityMap();
                     }
-                    console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
+                    //console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
                 }
             }
         }
@@ -162,8 +162,8 @@ class DungeonGenerator {
         }
 
         this.myDungeon[this.myInitialRow][this.myInitialCol] = this.myRoomCode;
-        console.log(this.myDungeon);
-        console.log(this.myDungeonFinal);
+        //console.log(this.myDungeon);
+        //console.log(this.myDungeonFinal);
     }
 
     isWithinBounds(theRow, col) {
@@ -186,7 +186,7 @@ class DungeonGenerator {
             this.myDungeon[this.myInitialRow - 1][this.myInitialCol] === this.myNoRoomCode ||
             this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === this.myNoRoomCode ||
             this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
-            console.log('restarting from the initial position');
+            //console.log('restarting from the initial position');
             let maxRoomsInOneDirection = 5;
             let rowPos = Math.floor(this.myRows / 2);
             let colPos = Math.floor(this.myCols / 2);
@@ -198,16 +198,16 @@ class DungeonGenerator {
 
                 if (direction === 0) {
                     newRowPos = rowPos - 1;
-                    console.log('up');
+                    //console.log('up');
                 } else if (direction === 1) {
                     newRowPos = rowPos + 1;
-                    console.log('down');
+                    //console.log('down');
                 } else if (direction === 2) {
                     newColPos = colPos + 1;
-                    console.log('right');
+                    //console.log('right');
                 } else if (direction === 3) {
                     newColPos = colPos - 1;
-                    console.log('left');
+                    //console.log('left');
                 }
 
                 // check that the new room location is within bounds, and that it is not already a room
@@ -216,11 +216,11 @@ class DungeonGenerator {
                     colPos = newColPos;
                     this.myDungeon[rowPos][colPos] = this.myRoomCode;
                     maxRoomsInOneDirection--;
-                    console.log(this.myDungeon);
+                    //console.log(this.myDungeon);
                 }
 
                 if (this.hasNoValidDirection(rowPos, colPos)) {
-                    console.log('no valid direction, break')
+                    //console.log('no valid direction, break')
                     break;
                 }
             }
@@ -285,7 +285,7 @@ class Room {
             return 'west'
         }
         // for (let a = 0; a < this.myDoorLocations.length; a++) {
-        //     console.log(bool[a])
+        //     //console.log(bool[a])
         //     if (thePlayerPos[1] == this.myDoorLocations[a][0] && thePlayerPos[0] == this.myDoorLocations[a][1] && bool[a]) {
         //         return true
         //     }
@@ -454,7 +454,7 @@ class Room {
                             entity = EntityFactory.createEntity('health potion', createVector(j, i));
                             break;
                         default:
-                            console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
+                            //console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
                     }
                     entityCount++;
                 }

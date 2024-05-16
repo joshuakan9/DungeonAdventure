@@ -27,9 +27,9 @@ let instanceTextBox = null
 
 window.addEventListener("e-battle-start", (E) => {
 
-  instanceTextBox.add({text:E['detail'].getName()+" battle", x:10, y:window.height-100, width:window.width})
-
-  
+  instanceTextBox.add({text:E['detail'].getName()+" battle"})
+  instanceBattle = new BattleSystem(instancePlayer, E['detail'])
+  instanceBattle.battleDisplay();
   console.log(E['detail'])
 })
 
@@ -131,20 +131,6 @@ function setup() {
   // for (let a = 0; a < 10000; a++) {
   //   instanceFactory.addEntity(new Sprite({ thePos: createVector(getCellToPos(round(random(-100,100))), getCellToPos(4)), theSize: createVector(CELLSIZE,CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
   // }
-  instanceFactory.addEntity(new Ogre({
-    thePos: createVector((0), (4)),
-    theSize: createVector(CELLSIZE, CELLSIZE),
-    theImage: obstacleImage,
-    theName: "Ogre",
-    theHitPoints: 100,
-    theAttack: new Attack(100, 100),
-    theStamina: 10,
-    theBag: [],
-    theBlockPercentage: 100,
-    theSpecialAttack: new Attack(200, 100),
-    theHeal: new Heal(10,100)
-  }))
-  instanceFactory.addEntity(new HealthPotion({ thePos: createVector((2), (4)), theSize: createVector(CELLSIZE, CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
 
 
 
@@ -245,7 +231,8 @@ function setup() {
         pop()
       }
       // image(TILEMAP_PLAYER,0,0)
-      if(instanceTransition.drawer) instanceTransition.drawer();
+      if(instanceTransition.drawerStatus()) instanceTransition.drawer();
+      if(instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
     }
   )
   instanceGameLoop.start()
@@ -310,15 +297,18 @@ function keyPressed() {
   if (instanceBattle && instanceBattle.inCombat) {
     if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
       instanceBattle.turn("move_basic");
-      // instanceTextBox.add({test:"reaction text", x:width/2, y:height/2, width:100});
+      instanceTextBox.add({text:"basic"});
       console.log("this reaches")
       console.log(instanceTextBox.children)
     } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
       instanceBattle.turn("move_special");
+      instanceTextBox.add({text:"special"});
     } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
       instanceBattle.turn("move_buff");
+      instanceTextBox.add({text:"buff"});
     } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
       instanceBattle.turn("move_bag");
+      instanceTextBox.add({text:"bag"});
     } else {
       return
     }

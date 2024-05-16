@@ -14,4 +14,8 @@ class Warrior extends Character {
     buff() {
         this.myBlockChance += 5;
     }
+
+    getClass() {
+        return "Warrior";
+    }
 }

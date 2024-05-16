@@ -1,8 +1,8 @@
 
 class BattleSystem {
-    constructor(thePlayer, theMonster) {
+    constructor(thePlayer, theMob) {
         this.player = thePlayer;
-        this.monster = theMonster;
+        this.mob = theMob;
         console.log("battle started");
         this.turnCounter = 0;
         this.inCombat = true;
@@ -12,6 +12,48 @@ class BattleSystem {
 
     }
 
+    clear() {
+        // clears setinterval
+        clearInterval(this.interval);
+        // sketch line 235 (might change) if statement for transition is done
+        this.drawer = null;
+    }
+
+    battleDisplay() {
+        console.log(this.mob)
+        this.clear();
+        const handler = () => { // anonymous function that is put into the setInterval
+            if (!this.inCombat) { // the break out case
+                console.log("out of combat")
+                this.clear();
+                return;
+            }
+            this.drawer = () => { // draws function draws effect
+                //console.log("drawing combat")
+                fill('black');
+                rect(0, 0, width, height);
+                fill(92, 64, 51);
+                rect(0, (height * 2)/3, width, height/3);
+
+                fill('white');
+                rect(0, height - height/5, width, height - height/5);
+
+                //player spot
+                fill(240, 248, 255);
+                rect(width/5 - 50, height - height/3 - 50, 50, 50);
+                //monster spot
+                fill(75, 0, 130);
+                rect(width - width/5, height - height/3 - 50, 50, 50);
+
+            }
+        }
+        handler();
+        this.interval = setInterval(handler, 100); // handler function and the time it takes for handler to be finished
+    }
+
+    drawerStatus() {
+        return this.drawer != null
+    }
 
     // Method that will check when the battle is over.
     isOutOfBattleCheck() {
@@ -20,7 +62,7 @@ class BattleSystem {
             console.log("YOU HAVE DIED");
             window.dispatchEvent(new Event("e-battle-end"))
         }
-        if (this.monster.getHitPoints() <= 0) {
+        if (this.mob.getHitPoints() <= 0) {
             this.inCombat = false;
             console.log("YOU HAVE WON");
             window.dispatchEvent(new Event("e-battle-end"))
@@ -28,30 +70,26 @@ class BattleSystem {
 
     }
 
-    determineClass() {
-        return player.constructor.name;
-    }
-
     playerBasicAttack() {
         let playerDamage = this.player.getAttack().getDamage();
         let playerHitPercentage = this.player.getAttack().getHitPercentage();
-        let playerRandom = random(0, 100); // random int 0 - 99
+        let playerRandom = random(0, 100);
 
         if (playerRandom < playerHitPercentage) {
-            this.monster.setHitPoints(this.monster.getHitPoints() - playerDamage);
+            this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
 
-            let monsterHealPercentage = this.monster.getHeal().getHealPercentage();
-            let monsterHealRandom = random(0, 100);
+            let mobHealPercentage = this.mob.getHeal().getHealPercentage();
+            let mobHealRandom = random(0, 100);
 
-            if (monsterHealRandom < monsterHealPercentage) {
-                console.log("monster healed")
-                this.monster.heal();
+            if (mobHealRandom < mobHealPercentage) {
+                console.log("mob healed")
+                this.mob.heal();
             }
         }
     }
 
     playerSpecialAttack() {
-        if (this.determineClass() === "Priest") {
+        if (this.player.getClass() === "Priest") {
             this.player.heal();
         } else {
             let playerDamage = this.player.getSpecialAttack().getDamage();
@@ -59,15 +97,15 @@ class BattleSystem {
             let playerRandom = random(0, 100);
 
             if (playerRandom < playerHitPercentage) {
-                this.monster.setHitPoints(this.monster.getHitPoints() - playerDamage);
-                console.log(this.monster.getHitPoints())
+                this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
+                console.log(this.mob.getHitPoints())
 
-                let monsterHealPercentage = this.monster.getHeal().getHealPercentage();
-                let monsterHealRandom = random(0, 100);
+                let mobHealPercentage = this.mob.getHeal().getHealPercentage();
+                let mobHealRandom = random(0, 100);
 
-                if (monsterHealRandom < monsterHealPercentage) {
-                    console.log("monster healed")
-                    this.monster.heal();
+                if (mobHealRandom < mobHealPercentage) {
+                    console.log("mob healed")
+                    this.mob.heal();
                 }
             } else {
                 console.log("player missed")
@@ -75,12 +113,12 @@ class BattleSystem {
         }
     }
 
-    monsterBasicAttack() {
-        let monsterDamage = this.monster.getAttack().getDamage();
-        let monsterHitPercentage = this.monster.getAttack().getHitPercentage();
-        let monsterRandom = random(0, 100); // random int 0 - 99
+    mobBasicAttack() {
+        let mobDamage = this.mob.getAttack().getDamage();
+        let mobHitPercentage = this.mob.getAttack().getHitPercentage();
+        let mobRandom = random(0, 100); // random int 0 - 99
 
-        if (monsterRandom < monsterHitPercentage) {
+        if (mobRandom < mobHitPercentage) {
 
             let playerBlockPercentage = this.player.getBlockPercentage();
             console.log("block chance = " + playerBlockPercentage);
@@ -89,11 +127,11 @@ class BattleSystem {
             if (playerBlockRandom < playerBlockPercentage) {
                 console.log("player blocked");
             } else {
-                this.player.setHitPoints(this.player.getHitPoints() - monsterDamage);
+                this.player.setHitPoints(this.player.getHitPoints() - mobDamage);
                 console.log("player hit");
             }
         } else {
-            console.log("monster missed")
+            console.log("mob missed")
         }
     }
 
@@ -128,13 +166,13 @@ class BattleSystem {
             }
 
             if (this.stamina === 0) {
-                this.monsterBasicAttack();
+                this.mobBasicAttack();
                 this.isOutOfBattleCheck();
                 this.stamina = this.player.getStamina();
             }
 
             console.log('player health = ' + this.player.getHitPoints())
-            console.log('monster health = ' + this.monster.getHitPoints())
+            console.log('mob health = ' + this.mob.getHitPoints())
             this.turnCounter++;
         }
     }

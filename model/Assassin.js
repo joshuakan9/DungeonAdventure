@@ -16,4 +16,8 @@ class Assassin extends Character {
         this.myAttack.setDamage(this.myAttack.getDamage() + 5);
         this.mySpecialAttack.setDamage(this.myAttack.getDamage() + 10);
     }
+
+    getClass() {
+        return "Assassin";
+    }
 }

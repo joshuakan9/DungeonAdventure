@@ -13,4 +13,8 @@ class Priest extends Character {
     buff() {
         this.myHeal.setHealAmount(this.myHeal.getHealAmount() + 25);
     }
+
+    getClass() {
+        return "Priest";
+    }
 }

@@ -4,7 +4,7 @@ class EntityFactory {
         let entity = null;
         switch(entityType) {
             case 'ogre':
-                entity = new Mob({
+                entity = new Ogre({
                     thePos: entityPos,
                     theSize: createVector(1, 2),
                     theIsCollideable: true,
@@ -14,9 +14,10 @@ class EntityFactory {
                     theFrame: 0,
                     theFrameSize: createVector(16,32),
                     theOffset: createVector(0, -1.2),
-                    theName: "Tester",
+                    theName: "ogre",
                     theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
+                    theAttack: new Attack(100, 10),
+                    theHeal: new Heal(10,100),
                     theStamina: 10,
                     theBag: [],
                     theBlockPercentage: 100,
@@ -37,9 +38,10 @@ class EntityFactory {
                     theFrame: 0,
                     theFrameSize: createVector(16,32),
                     theOffset: createVector(0, -1.2),
-                    theName: "Tester",
+                    theName: "skeleton",
                     theHitPoints: 1000,
                     theAttack: new Attack(100, 100),
+                    theHeal: new Heal(10,100),
                     theStamina: 10,
                     theBag: [],
                     theBlockPercentage: 100,
@@ -60,9 +62,10 @@ class EntityFactory {
                     theFrame: 0,
                     theFrameSize: createVector(16,32),
                     theOffset: createVector(0, -1.2),
-                    theName: "Tester",
+                    theName: "gremlin",
                     theHitPoints: 1000,
                     theAttack: new Attack(100, 100),
+                    theHeal: new Heal(10,100),
                     theStamina: 10,
                     theBag: [],
                     theBlockPercentage: 100,

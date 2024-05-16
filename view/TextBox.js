@@ -21,7 +21,7 @@ class TextBox {
                 fill('white')
                 rect(width - width * this.children[0].x, 
                     height - height * this.children[0].y, 
-                    width * this.children[0].width, 
+                    width * this.children[0].width/2, 
                     height * this.children[0].height)
                 fill('black')
                 textSize(height * this.children[0].textSize)
