@@ -196,14 +196,29 @@ class Factory {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         let tilemap = room.getTileMap()
         randomSeed(room.getSeed())
+        let tileSeed = []
+        for (let a = 0; a < tilemap.length; a++) {
+            tileSeed.push([])
+            for (let b = 0; b < tilemap[0].length; b++) {
+                tileSeed[a][b] = random(-8192,8192)
+            }
+        }
+
 
         push()
 
         for (let a = cell.y-8; a < cell.y+9; a++) {
+
+            if ( a < 0 || a >= tilemap.length) {
+
+                continue
+            }
             for (let b = cell.x-8; b < cell.x + 9; b++) {
-                if (b < 0 || a < 0 || b >= tilemap[0].length || a >= tilemap.length) {
+
+                if (b < 0 || b >= tilemap[0].length) {
                     continue
                 }
+                randomSeed(tileSeed[a][b])
 
                 if (tilemap[a][b] == WORLD.WALL_LEFT) {
                     if (!this.myWallLeftImages) {
@@ -277,9 +292,11 @@ class Factory {
                     image(random(this.myGroundImages),getCellToPos(b),getCellToPos(a), CELLSIZE, CELLSIZE)
                 }
 
+
             }
         }
         pop()
+        randomSeed(room.getSeed())
     }
 
 
