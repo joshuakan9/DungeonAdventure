@@ -153,6 +153,7 @@ class BattleSystem {
 
             if (mobHealRandom < mobHealPercentage) {
                 console.log("mob healed")
+                window.dispatchEvent(new Event("e-mob-heal"));
                 this.mob.heal();
             }
         }
@@ -161,6 +162,7 @@ class BattleSystem {
     playerSpecialAttack() {
         if (this.player.getClass() === "Priest") {
             this.player.heal();
+            window.dispatchEvent(new Event("e-player-heal"));
         } else {
             let playerDamage = this.player.getSpecialAttack().getDamage();
             let playerHitPercentage = this.player.getSpecialAttack().getHitPercentage();
@@ -175,10 +177,12 @@ class BattleSystem {
 
                 if (mobHealRandom < mobHealPercentage) {
                     console.log("mob healed")
+                    window.dispatchEvent(new Event("e-mob-heal"));
                     this.mob.heal();
                 }
             } else {
                 console.log("player missed")
+                window.dispatchEvent(new Event("e-player-miss"));
             }
         }
     }
@@ -196,12 +200,15 @@ class BattleSystem {
 
             if (playerBlockRandom < playerBlockPercentage) {
                 console.log("player blocked");
+                window.dispatchEvent(new Event("e-player-block"));
             } else {
                 this.player.setHitPoints(this.player.getHitPoints() - mobDamage);
                 console.log("player hit");
+                window.dispatchEvent(new Event("e-player-hit"));
             }
         } else {
             console.log("mob missed")
+            window.dispatchEvent(new Event("e-mob-miss"));
         }
     }
 

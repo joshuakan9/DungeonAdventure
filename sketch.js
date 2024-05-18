@@ -64,6 +64,33 @@ window.addEventListener("e-player-freeze", (E) => {
 window.addEventListener("e-player-unfreeze", (E) => {
   instancePlayer.setIsFrozen(-1)
 })
+
+window.addEventListener("e-player-die", (E) => {
+    instanceTextBox.add({text:"You died!"})
+});
+
+window.addEventListener("e-player-win", (E) => {
+    instanceTextBox.add({text:"You win!"})
+});
+
+window.addEventListener("e-player-block", (E) => {
+    instanceTextBox.add({text:instancePlayer.getName() + " has blocked!"});
+});
+window.addEventListener("e-player-heal", (E) => {
+    instanceTextBox.add({text:instancePlayer.getName() + " has healed!"});
+});
+
+window.addEventListener("e-player-miss", (E) => {
+    instanceTextBox.add({text:instancePlayer.getName() + " has missed!"});
+});
+window.addEventListener("e-monster-attack", (E) => {
+    instanceTextBox.add({text:E['detail'].getName() + " has attacked!"});
+});
+
+window.addEventListener("e-monster-miss", (E) => {
+    instanceTextBox.add({text:E['detail'].getName() + " has missed!"});
+})
+
 let TILEMAP_ASSASSIN
 let TILEMAP_OGRE
 let TILEMAP_SKELETON
@@ -146,7 +173,7 @@ function setup() {
 
     let potentialTargetPos = instanceTargetPos.copy()
     let newDirection = null;
-    if(!isPaused) {
+    if(!IS_PAUSED) {
       if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
         potentialTargetPos.add(createVector(1, 0));
         newDirection = 'east'
@@ -228,10 +255,12 @@ function setup() {
       pop()
   
   
-      if (isPaused) {
+      if (IS_PAUSED) {
         push()
-        rectMode(CENTER)
-        rect(width / 2, height / 2, width / 2)
+        rect(width / 2 - width / 4, height / 2 - width / 4, width / 2)
+
+        fill('red')
+        rect(width / 2 - width / 4, height / 2 - width / 4, width / 2, width / 6)
         pop()
       }
       // image(TILEMAP_PLAYER,0,0)
@@ -275,7 +304,7 @@ function windowResized() {
   setup()
 }
 
-let isPaused = false;
+let IS_PAUSED = false;
 
 function mouseClicked() {
   instanceTextBox.nextText();
@@ -309,18 +338,17 @@ function mouseClicked() {
 
       if (mouseX > rect1X && mouseX < rect1X + rect1Width && mouseY > rect1Y && mouseY < rect1Y + rect1Height) {
         instanceBattle.turn("move_basic");
-        instanceTextBox.add({text:"basic"});
-        console.log("this reaches")
+        instanceTextBox.add({text:instancePlayer.getName()+" used basic attack!"});
         console.log(instanceTextBox.children)      }
 
       if (mouseX > rect2X && mouseX < rect2X + rect2Width && mouseY > rect2Y && mouseY < rect2Y + rect2Height) {
         instanceBattle.turn("move_special");
-        instanceTextBox.add({text:"special"});
+        instanceTextBox.add({text:instancePlayer.getName()+" used special attack!"});
       }
 
       if (mouseX > rect3X && mouseX < rect3X + rect3Width && mouseY > rect3Y && mouseY < rect3Y + rect3Height) {
         instanceBattle.turn("move_buff");
-        instanceTextBox.add({text:"buff"});
+        instanceTextBox.add({text:instancePlayer.getName()+" used buff!"});
       }
 
       if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
@@ -337,7 +365,7 @@ function keyPressed() {
   
     if (keyCode === 27 || keyCode === 80) { // escape key or p
       console.log(keyCode)
-      isPaused = !isPaused
+      IS_PAUSED = !IS_PAUSED
     }
     if (keyCode === 32) { // space key
       instanceFactory.interact(instancePlayer)
