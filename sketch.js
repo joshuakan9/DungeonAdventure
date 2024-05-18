@@ -345,29 +345,6 @@ function keyPressed() {
     }
 
   }
- 
-  if (instanceBattle && instanceBattle.inCombat) {
-    if (keyIsDown(49)) { //1 button temporary subsitiution key 1 attack
-      instanceBattle.turn("move_basic");
-      instanceTextBox.add({text:"basic"});
-      console.log("this reaches")
-      console.log(instanceTextBox.children)
-    } else if (keyIsDown(50)) { //2 button temporary subsitiution key 2 supermove
-      instanceBattle.turn("move_special");
-      instanceTextBox.add({text:"special"});
-    } else if (keyIsDown(51)) { //3 button temporary subsitiution key 3 heal
-      instanceBattle.turn("move_buff");
-      instanceTextBox.add({text:"buff"});
-    } else if (keyIsDown(52)) { //4 button temporary subsitiution key 4 open bag /use potion
-      instanceBattle.turn("move_bag");
-      instanceTextBox.add({text:"bag"});
-    } else {
-      return
-    }
-  }
-
-
-
 }
 
 function drawGridDebug() {
