@@ -146,7 +146,7 @@ function setup() {
 
     let potentialTargetPos = instanceTargetPos.copy()
     let newDirection = null;
-    if(!isPaused) {
+    if(!IS_PAUSED) {
       if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
         potentialTargetPos.add(createVector(1, 0));
         newDirection = 'east'
@@ -228,10 +228,12 @@ function setup() {
       pop()
   
   
-      if (isPaused) {
+      if (IS_PAUSED) {
         push()
-        rectMode(CENTER)
-        rect(width / 2, height / 2, width / 2)
+        rect(width / 2 - width / 4, height / 2 - width / 4, width / 2)
+
+        fill('red')
+        rect(width / 2 - width / 4, height / 2 - width / 4, width / 2, width / 6)
         pop()
       }
       // image(TILEMAP_PLAYER,0,0)
@@ -275,7 +277,7 @@ function windowResized() {
   setup()
 }
 
-let isPaused = false;
+let IS_PAUSED = false;
 
 function mouseClicked() {
   instanceTextBox.nextText();
@@ -337,7 +339,7 @@ function keyPressed() {
   
     if (keyCode === 27 || keyCode === 80) { // escape key or p
       console.log(keyCode)
-      isPaused = !isPaused
+      IS_PAUSED = !IS_PAUSED
     }
     if (keyCode === 32) { // space key
       instanceFactory.interact(instancePlayer)
