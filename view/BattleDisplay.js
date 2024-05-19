@@ -242,13 +242,7 @@ class BattleDisplay {
 
         }
         this.tick = (delta) => {
-            if (this.timeCurrent >= this.timeTarget) {
-                this.timeCurrent = 0;
-            } else {
-                this.timeCurrent += delta
-            }
-
-
+            this.myBattleSystem.player.step(delta);
         }
         this.loop.setTickFunction(this.tick)
         this.loop.setRenderFunction(this.render)
