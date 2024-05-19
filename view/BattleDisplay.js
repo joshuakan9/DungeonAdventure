@@ -145,7 +145,7 @@ class BattleDisplay {
     displayBattle() {
         const originalPos = this.myBattleSystem.player.getPos();
         const mobOriginalPos = this.myBattleSystem.mob.getPos();
-        const playerInitialHealth = 1000;
+        const playerMaxHealth = this.myBattleSystem.player.getMaxHitPoints();
         const mobInitialHealth = this.myBattleSystem.mob.myHitPoints;
         const playerInitialStamina = this.myBattleSystem.player.myStamina;
         this.render = () => {
@@ -195,7 +195,7 @@ class BattleDisplay {
             let barWidth = 200; // Width of the bars
             let barHeight = 40; // Height of the bars
 
-            let playerHealthPercentage = this.myBattleSystem.player.myHitPoints / playerInitialHealth;
+            let playerHealthPercentage = this.myBattleSystem.player.myHitPoints / playerMaxHealth;
             let playerHealthBarWidth = barWidth * playerHealthPercentage;
             let mobHealthPercentage = this.myBattleSystem.mob.myHitPoints / mobInitialHealth;
             let mobHealthBarWidth = barWidth * mobHealthPercentage;
@@ -223,9 +223,9 @@ class BattleDisplay {
             // Health numbers
             fill('black');
             // Player's health
-            let playerTextWidth = textWidth(this.myBattleSystem.player.myHitPoints + ' / ' + playerInitialHealth);
+            let playerTextWidth = textWidth(this.myBattleSystem.player.myHitPoints + ' / ' + playerMaxHealth);
             let playerTextX = width / 5 - barWidth + barWidth - 35 - playerTextWidth; // Right-align the text
-            text(this.myBattleSystem.player.myHitPoints + ' / ' + playerInitialHealth, playerTextX, height - height / 3 + 25 + 30);
+            text(this.myBattleSystem.player.myHitPoints + ' / ' + playerMaxHealth, playerTextX, height - height / 3 + 25 + 30);
 
             // Mob's health
             let mobTextWidth = textWidth(this.myBattleSystem.mob.myHitPoints + ' / ' + mobInitialHealth);
