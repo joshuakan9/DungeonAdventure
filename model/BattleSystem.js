@@ -36,14 +36,19 @@ class BattleSystem {
 
         if (playerRandom < playerHitPercentage) {
             this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
+            window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.player, attack: "basic" }}))
 
             let mobHealPercentage = this.mob.getHeal().getHealPercentage();
             let mobHealRandom = random(0, 100);
 
             if (mobHealRandom < mobHealPercentage) {
                 console.log("mob healed")
+                window.dispatchEvent(new CustomEvent("e-mob-heal", {detail: this.mob}))
                 this.mob.heal();
             }
+        } else {
+            console.log("player missed")
+            window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.player}))
         }
     }
 
@@ -57,17 +62,20 @@ class BattleSystem {
 
             if (playerRandom < playerHitPercentage) {
                 this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
+                window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.player, attack: "special" }}))
 
                 let mobHealPercentage = this.mob.getHeal().getHealPercentage();
                 let mobHealRandom = random(0, 100);
 
                 if (mobHealRandom < mobHealPercentage) {
                     console.log("mob healed")
+                    window.dispatchEvent(new CustomEvent("e-mob-heal", {detail: this.mob}))
                     this.mob.heal();
+
                 }
             } else {
                 console.log("player missed")
-                window.dispatchEvent(new Event("e-player-miss"))
+                window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.player}))
             }
         }
     }
@@ -78,6 +86,7 @@ class BattleSystem {
         // console.log("max health = " + this.player.getMaxHitPoints());
         if (this.player.getHitPoints() === this.player.getMaxHitPoints()) {
             console.log("player is already at full health");
+            window.dispatchEvent(new Event("e-player-already-full-health"));
             return;
         } else if (this.player.getHitPoints() + healAmount > this.player.getMaxHitPoints()) {
             this.player.setHitPoints(this.player.getMaxHitPoints());
@@ -101,15 +110,15 @@ class BattleSystem {
 
             if (playerBlockRandom < playerBlockPercentage) {
                 console.log("player blocked");
-                window.dispatchEvent(new Event("e-player-block"));
+                window.dispatchEvent(new CustomEvent("e-player-block", {detail: this.mob}));
             } else {
                 this.player.setHitPoints(this.player.getHitPoints() - mobDamage);
                 console.log("player hit");
-                window.dispatchEvent(new Event("e-mob-attack"))
+                window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "basic" }}))
             }
         } else {
             console.log("mob missed")
-            window.dispatchEvent(new Event("e-mob-miss"))
+            window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.mob}))
         }
     }
 
@@ -144,6 +153,7 @@ class BattleSystem {
                         console.log('player used health potion');
                     } else {
                         console.log("no health potions");
+                        window.dispatchEvent(new Event("e-no-health-potions"));
 
                     }
                 }

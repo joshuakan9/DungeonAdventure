@@ -79,27 +79,39 @@ window.addEventListener("e-player-die", (E) => {
 window.addEventListener("e-player-battle-win", (E) => {
   instanceTextBox.add({ text: "You win!" })
 });
-
 window.addEventListener("e-player-block", (E) => {
-  instanceTextBox.add({ text: instancePlayer.getName() + " has blocked!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: instancePlayer.getName() + " has blocked " + E['detail'].getName() + "'s attack for " + E['detail'].getAttack().getDamage() + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
 window.addEventListener("e-player-use-health-potion", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion and has healed for "+ E.detail + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
 
-window.addEventListener("e-player-miss", (E) => {
-  instanceTextBox.add({ text: instancePlayer.getName() + " has missed!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-});
-window.addEventListener("e-mob-attack", (E) => {
-  instanceTextBox.add({ text: E['detail'].getName() + " has attacked!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-});
-
-window.addEventListener("e-mob-miss", (E) => {
+window.addEventListener("e-miss-attack", (E) => {
   instanceTextBox.add({ text: E['detail'].getName() + " has missed!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+});
+window.addEventListener("e-attack", (E) => {
+        let damage = 0;
+        if (E.detail.attack === "basic") {
+          damage = E.detail.entity.getAttack().getDamage()
+        } else {
+          damage = E.detail.entity.getSpecialAttack().getDamage()
+        }
+        instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+
+  });
+
+window.addEventListener("e-mob-heal", (E) => {
+  console.log("mob heal event")
+    instanceTextBox.add({ text: E['detail'].getName() + " has healed for " + E.detail.getHeal().getHealAmount() + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 })
 
+window.addEventListener("e-player-already-full-health", (E) => {
+    instanceTextBox.add({ text: "You are already at full health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+})
 
-
+window.addEventListener("e-no-health-potions", (E) => {
+    instanceTextBox.add({ text: "You have no health potions!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+})
 
 let TILEMAP_ASSASSIN
 let TILEMAP_OGRE
@@ -150,10 +162,10 @@ function setup() {
       theFrameSize: createVector(16, 32),
       theOffset: createVector(0, -1.2),
       theName: "Tester",
-      theHitPoints: 500,
+      theHitPoints: 1000,
       theAttack: new Attack(100, 100),
       theStamina: 10,
-      theBlockPercentage: 100,
+      theBlockPercentage: 0,
       theMaxHitPoints: 1000,
       theSpecialAttack: new Attack(200, 100),
       theAnimation: new Animations({
@@ -375,18 +387,24 @@ function mouseClicked() {
     let rect4Height = height / 10 - 10;
 
     if (mouseX > rect1X && mouseX < rect1X + rect1Width && mouseY > rect1Y && mouseY < rect1Y + rect1Height) {
-      instanceTextBox.add({ text: instancePlayer.getName() + " used basic attack!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
       instanceBattle.turn("move_basic");
       console.log(instanceTextBox.children)
     }
 
     if (mouseX > rect2X && mouseX < rect2X + rect2Width && mouseY > rect2Y && mouseY < rect2Y + rect2Height) {
-      instanceTextBox.add({ text: instancePlayer.getName() + " used special attack!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
       instanceBattle.turn("move_special");
     }
 
     if (mouseX > rect3X && mouseX < rect3X + rect3Width && mouseY > rect3Y && mouseY < rect3Y + rect3Height) {
-      instanceTextBox.add({ text: instancePlayer.getName() + " used buff!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+      if (instancePlayer.getClass() === "Assassin") {
+        instanceTextBox.add({ text: instancePlayer.getName() + " used buff! and increased their basic attack damage by 5 and their special attack damage by 10", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+      } else if (instancePlayer.getClass() === "Warrior") {
+        instanceTextBox.add({ text: instancePlayer.getName() + " used buff! and increased their block chance by 5%", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+      } else if (instancePlayer.getClass() === "Priest") {
+        instanceTextBox.add({ text: instancePlayer.getName() + " used buff! and increased their heal amount by 25", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+      } else {
+        console.log("invalid class at sketch line 396" + instancePlayer.getClass());
+      }
       instanceBattle.turn("move_buff");
     }
 
