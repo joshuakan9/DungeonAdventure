@@ -7,22 +7,28 @@ class DungeonGenerator {
     myRoomCode;
     myNoRoomCode;
     myDungeonFinal;
+    myTotalMobCount;
 
     constructor() {
-        this.myRows = 7;
-        this.myCols = 7;
+        this.myRows = 3;
+        this.myCols = 3;
         this.myInitialRow = Math.floor(this.myRows / 2);
         this.myInitialCol = Math.floor(this.myCols / 2);
         this.myDungeon = [];
         this.myRoomCode = '□'
         this.myNoRoomCode = '■'
         this.myDungeonFinal = [];
-        this.myTotalEntityCount = 0;
+        this.myTotalMobCount = 0;
 
         this.createInitialDungeon(this.myRows, this.myCols);
         this.generate();
         this.convert();
+        console.log(this.myDungeonFinal)
 
+    }
+
+    getTotalEntityCount() {
+        return this.myTotalEntityCount;
     }
 
     getDungeon() {
@@ -113,15 +119,18 @@ class DungeonGenerator {
 
                     if (a === Math.floor(this.myDungeonFinal.length / 2) && b === Math.floor(this.myDungeonFinal[0].length / 2)) {
                         this.myDungeonFinal[a][b].myEntityMap = startingEntityMap;
+
                     } else {
                         this.myDungeonFinal[a][b].populateEntityMap();
-                        this.myTotalEntityCount += this.myDungeonFinal[a][b].getEntityCount();
+                        this.myTotalMobCount += this.myDungeonFinal[a][b].getMobCount();
                     }
                     //console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
                 }
             }
         }
+        console.log('total mob count = ' + this.myTotalMobCount)
     }
+
     generateDoors() {
         for (let i = 0; i < this.myDungeonFinal.length; i++) {
             for (let j = 0; j < this.myDungeonFinal[0].length; j++) {
@@ -129,25 +138,26 @@ class DungeonGenerator {
 
                 if (room instanceof Room) {
                     // Check if there is a room to the north
-                    if (i - 1 > 0 && this.myDungeonFinal[i - 1][j] !== null && this.myDungeonFinal[i - 1][j] instanceof Room) {
+                    if (i - 1 >= 0 && this.myDungeonFinal[i - 1][j] instanceof Room) {
                         room.setNorthDoor();
                     }
                     // Check if there is a room to the south
-                    if (i < this.myDungeonFinal.length - 1 && this.myDungeonFinal[i + 1][j] !== null && this.myDungeonFinal[i + 1][j] instanceof Room) {
+                    if (i + 1 < this.myDungeonFinal.length && this.myDungeonFinal[i + 1][j] instanceof Room) {
                         room.setSouthDoor();
                     }
                     // Check if there is a room to the east
-                    if (j < this.myDungeonFinal[0].length - 1 && this.myDungeonFinal[i][j + 1] !== null && this.myDungeonFinal[i][j + 1] instanceof Room) {
+                    if (j + 1 < this.myDungeonFinal[0].length && this.myDungeonFinal[i][j + 1] instanceof Room) {
                         room.setRightDoor();
                     }
                     // Check if there is a room to the west
-                    if (j > 0 && this.myDungeonFinal[i][j - 1] !== null && this.myDungeonFinal[i][j - 1] instanceof Room) {
+                    if (j - 1 >= 0 && this.myDungeonFinal[i][j - 1] instanceof Room) {
                         room.setLeftDoor();
                     }
                 }
             }
         }
     }
+
 
 
 
@@ -240,6 +250,7 @@ class Room {
     myDoorLocations;
     myEntityMap;
     myPossibleEntityCount;
+    myMobCount
 
     constructor(theTileMap) {
         this.mySeed = random(-8192, 8192)
@@ -249,6 +260,7 @@ class Room {
         this.myLeftDoor = false;
         this.myTileMap = theTileMap;
         this.myPossibleEntityCount = 0;
+        this.myMobCount = 0;
 
         this.createDoorLocations();
         this.createEntityLocations();
@@ -436,6 +448,7 @@ class Room {
 
 
     populateEntityMap() {
+        let entityCount = 0;
         let maxEntities = Math.floor(Math.cbrt(this.myPossibleEntityCount));
         let entityChance = 10;
         for (let i = 0; i < this.myEntityMap.length; i++) {
@@ -443,28 +456,37 @@ class Room {
                 let entity = null;
                 if (this.myEntityMap[i][j] === 'X' && random(0, 100) < entityChance && entityCount < maxEntities) {
                     let randomEntity = floor(random(0, 4))
-
+                    console.log(`Placing entity at (${i}, ${j}), randomEntity = ${randomEntity}`);
                     switch (randomEntity) {
                         case 0:
                             entity = EntityFactory.createEntity('ogre', createVector(j, i));
+                            console.log('ogre created')
                             break;
                         case 1:
                             entity = EntityFactory.createEntity('skeleton', createVector(j, i));
+                            console.log('skeleton created')
                             break;
                         case 2:
                             entity = EntityFactory.createEntity('gremlin', createVector(j, i));
+                            console.log('gremlin created')
                             break;
                         case 3:
                             entity = EntityFactory.createEntity('health potion', createVector(j, i));
+                            console.log('health potion created')
                             break;
                         default:
-                            //console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
+                            console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
                     }
-                    this.myEntityCount++;
+                    entityCount++;
+
+                    if (randomEntity === 0 || randomEntity === 1 || randomEntity === 2) {
+                        this.myMobCount++;
+                    }
                 }
                 this.myEntityMap[i][j] = entity
             }
         }
+        console.log('mob count in this room = ' + this.myMobCount)
     }
 
     getTileMap() {
@@ -473,5 +495,9 @@ class Room {
 
     getEntityMap() {
         return this.myEntityMap;
+    }
+
+    getMobCount() {
+        return this.myMobCount;
     }
 }
