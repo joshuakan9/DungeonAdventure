@@ -390,6 +390,8 @@ function mouseClicked() {
     if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
       instanceTextBox.add({ text: "bag", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
       instanceBattle.turn("move_bag");
+    }
+  }
 
   VPauseMenu.mouseClicked()
 }
