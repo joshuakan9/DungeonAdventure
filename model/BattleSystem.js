@@ -139,26 +139,46 @@ class BattleSystem {
         if (this.inCombat) {
             console.log('stamina = ' + this.stamina);
             if (this.stamina > 0) {
-                if (theMove === 'move_basic' && this.stamina >= 2) {
-                    this.stamina -= 2;
-                    this.playerBasicAttack();
-                    this.isOutOfBattleCheck();
-                    console.log('player used basic attack');
-                    console.log('stamina = ' + this.stamina);
+                if (theMove === 'move_basic') {
+                    if (this.stamina >= 2) {
+                        this.stamina -= 2;
+                        this.playerBasicAttack();
+                        this.isOutOfBattleCheck();
+                        console.log('player used basic attack');
+                        console.log('stamina = ' + this.stamina);
+                    } else {
+                        console.log("not enough stamina");
+                        window.dispatchEvent(new Event("e-not-enough-stamina"));
+                    }
 
-                } else if (theMove === 'move_special' && this.stamina >= 6) {
-                    this.stamina -= 6;
-                    this.playerSpecialAttack();
-                    this.isOutOfBattleCheck();
-                    console.log('player used special attack');
-                    console.log('stamina = ' + this.stamina);
-
-                } else if (theMove === 'move_buff' && this.stamina >= 4) {
-                    this.stamina -= 4;
-                    this.player.buff();
-                    console.log('player used buff');
-                    console.log('stamina = ' + this.stamina);
-
+                } else if (theMove === 'move_special') {
+                    if (this.stamina >= 6) {
+                        this.stamina -= 6;
+                        this.playerSpecialAttack();
+                        this.isOutOfBattleCheck();
+                        console.log('player used special attack');
+                        console.log('stamina = ' + this.stamina);
+                    } else {
+                        console.log("not enough stamina");
+                        window.dispatchEvent(new Event("e-not-enough-stamina"));
+                    }
+                } else if (theMove === 'move_buff') {
+                    if (this.stamina >= 4) {
+                        this.stamina -= 4;
+                        this.player.buff();
+                        if (instancePlayer.getClass() === "Assassin") {
+                            window.dispatchEvent(new Event("e-assassin-buff"))
+                        } else if (instancePlayer.getClass() === "Warrior") {
+                            window.dispatchEvent(new Event("e-warrior-buff"))
+                        } else if (instancePlayer.getClass() === "Priest") {
+                            window.dispatchEvent(new Event("e-priest-buff"))
+                        } else {
+                            console.log("invalid class at buff");
+                        }
+                    } else {
+                        console.log("not enough stamina");
+                        window.dispatchEvent(new Event("e-not-enough-stamina"));
+                    }
                 } else if (theMove === 'move_bag') {
                     console.log(this.player.getBag());
                     if (this.player.getBag().get("Health Potion") > 0) {

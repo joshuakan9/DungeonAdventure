@@ -71,7 +71,7 @@ class EntityFactory {
                     theBlockPercentage: 100,
                     theSpecialAttack: new Attack(200, 100),
                     theAnimation: new Animations({
-                      stand: new FramePattern(ANIM_STAND),
+                        stand: new FramePattern(ANIM_STAND),
                     }),
                 })
                 break;

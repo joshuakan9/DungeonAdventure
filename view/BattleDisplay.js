@@ -12,11 +12,9 @@ class BattleDisplay {
         console.log(this.playerClone)
     }
     displayBattle(){
-
-
         if (!this.myBattleSystem.inCombat) {
-            playerClone = null;
-            mobClone = null;
+            this.playerClone = null;
+            this.mobClone = null;
             this.battleloop.stop();
         }
         push()
