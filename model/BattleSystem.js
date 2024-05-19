@@ -98,7 +98,8 @@ class BattleSystem {
     }
 
     mobBasicAttack() {
-        let mobDamage = this.mob.getAttack().getDamage();
+        let mobBasicDamage = this.mob.getAttack().getDamage();
+        let mobSpecialDamage = this.mob.getSpecialAttack().getDamage();
         let mobHitPercentage = this.mob.getAttack().getHitPercentage();
         let mobRandom = random(0, 100); // random int 0 - 99
 
@@ -112,9 +113,17 @@ class BattleSystem {
                 console.log("player blocked");
                 window.dispatchEvent(new CustomEvent("e-player-block", {detail: this.mob}));
             } else {
-                this.player.setHitPoints(this.player.getHitPoints() - mobDamage);
-                console.log("player hit");
-                window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "basic" }}))
+
+                let basicOrSpecial = random(0, 100);
+                if (basicOrSpecial < 75) {
+                    this.player.setHitPoints(this.player.getHitPoints() - mobBasicDamage);
+                    console.log("player hit by basic");
+                    window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "basic" }}))
+                } else {
+                    this.player.setHitPoints(this.player.getHitPoints() - mobSpecialDamage);
+                    console.log("player hit by special");
+                    window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "special" }}))
+                }
             }
         } else {
             console.log("mob missed")
