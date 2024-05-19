@@ -85,7 +85,7 @@ class BattleSystem {
             this.player.setHitPoints(this.player.getHitPoints() + healAmount);
         }
         this.player.removeBag("Health Potion");
-        window.dispatchEvent(new CustomEvent("e-player-use-health-potion"));
+        window.dispatchEvent(new CustomEvent("e-player-use-health-potion", {detail: healAmount}));
     }
 
     mobBasicAttack() {
