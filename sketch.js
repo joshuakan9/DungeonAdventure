@@ -36,8 +36,6 @@ window.addEventListener("e-battle-start", (E) => {
   instanceTextBox.add({ text: E['detail'].getName() + " battle" })
   instanceBattle = new BattleSystem(instancePlayer, E['detail'])
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
-  instanceBattleDisplay.displayBattle();
-
   console.log(E['detail'])
 })
 
@@ -240,6 +238,10 @@ function setup() {
     (time) => {
       // console.log(time)
 
+      //if (instanceBattle && instanceBattle.inCombat) {
+      //  instanceBattleDisplay.displayBattle()
+      //}
+
       if (!instancePlayer.getIsFrozen()) {
 
         let distance = moveTowards(instancePlayer, instanceTargetPos, 1 / 25)
@@ -316,15 +318,16 @@ function setup() {
         text("Save", menuWidth / 2, menuHeight * 0.875)
         pop()
       }
-      // image(TILEMAP_PLAYER,0,0)wif (instanceTransition.drawerStatus()) instanceTransition.drawer();
+//=======================================================================================================================
+      if (instanceBattle && instanceBattle.inCombat) {
+        instanceBattleDisplay.displayBattle()
+      }
       //if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
+//=======================================================================================================================
+      if (instanceTransition.drawerStatus()) instanceTransition.drawer();
     }
   )
   instanceGameLoop.start()
-  if(instanceBattleDisplay && instanceBattle.inCombat) {
-    instanceBattleDisplay.displayBattle();
-    console.log("im here")
-  }
 
   if (instanceTextBox) {
     instanceTextBox.loop.stop()

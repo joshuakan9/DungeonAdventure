@@ -40,4 +40,8 @@ class Entity extends Sprite {
     getAttack() {
         return this.myAttack;
     }
+
+    getMaxHitPoints() {
+        return this.myMaxHitPoints;
+    }
 }
