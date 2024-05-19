@@ -17,7 +17,6 @@ class Factory {
         this.myDungeonIndex = createVector(floor(this.myDungeon[0].length / 2), floor(this.myDungeon.length / 2))
         this.myDungeonImage = null
         this.myEntities = []
-        this.myEntityCount = 0;
 
         for (let a = 0; a < this.myOverworld.length; a++) {
             this.myEntities.push([])
@@ -28,24 +27,12 @@ class Factory {
         let thePos = theEntity.getPos()
         let cell = createVector(thePos.x, thePos.y)
         this.myEntities[cell.y][cell.x] = theEntity
-
-        if (theEntity.getName() !== 'health potion') {
-            this.myEntityCount++;
-        }
-        console.log('e count = ' + this.myEntityCount)
     }
     removeEntity(theEntity) {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         room.removeEntity(theEntity.getPos())
-
-        if (theEntity.getName() !== 'health potion') {
-            this.myEntityCount--;
-        }
     }
 
-    getEntityCount() {
-        return this.myEntityCount;
-    }
     checkCollision(thePlayer, thePos) {
         let cell = createVector((thePos.x), (thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
