@@ -4,12 +4,14 @@ class BattleDisplay {
         this.playerMaxHealth = this.myBattleSystem.player.getMaxHitPoints();
         this.mobInitialHealth = this.myBattleSystem.mob.myHitPoints;
         this.playerInitialStamina = this.myBattleSystem.player.myStamina;
+        this.playerClone = this.myBattleSystem.player;
+        this.mobClone = this.myBattleSystem.mob;
+        this.playerClone.setPos(createVector(5,10))
+        this.mobClone.setPos(createVector(10,10))
+        console.log(this.myBattleSystem.player)
+        console.log(this.playerClone)
     }
     displayBattle(){
-        let playerClone = this.myBattleSystem.player;
-        let mobClone = this.myBattleSystem.mob;
-        playerClone.setPos(createVector(5, 10))
-        mobClone.setPos(createVector(10, 10))
 
 
         if (!this.myBattleSystem.inCombat) {
@@ -46,10 +48,10 @@ class BattleDisplay {
         text("Bag", width - width/4 + width/8 - textWidth4/2, height - height/10 + height/20 + 10);
 
         //player spot
-        playerClone.draw()
+        this.playerClone.draw()
 
         //monster spot
-        mobClone.draw()
+        this.mobClone.draw()
 
         // Health bar
         let barWidth = 200; // Width of the bars
