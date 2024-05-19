@@ -36,7 +36,10 @@ class TextBox {
         }
         this.tick = (delta) => {
             if (this.timeCurrent >= this.timeTarget && this.children[0] && this.currentTextEnd < this.children[0].text.length) {
-                this.currentTextEnd += 1;
+                if (this.children.length % 2 !== 0) {
+                    this.children[0].text = this.children[0].text + " ";
+                }
+                this.currentTextEnd += 2;
                 this.timeCurrent = 0;
             } else {
                 this.timeCurrent += delta
