@@ -138,17 +138,22 @@ constructor(thePlayer, theMob) {
 class BattleDisplay {
     constructor(theBattleSystem) {
         this.myBattleSystem = theBattleSystem;
-        this.timeCurrent = 0;
-        this.timeTarget = 10;
-        this.loop = new GameLoop()
     }
 
 
     
     displayBattle() {
+        const originalPos = this.myBattleSystem.player.getPos();
+        const mobOriginalPos = this.myBattleSystem.mob.getPos();
+        const playerInitialHealth = 1000;
+        const mobInitialHealth = this.myBattleSystem.mob.myHitPoints;
+        const playerInitialStamina = this.myBattleSystem.player.myStamina;
         this.render = () => {
             if (!this.myBattleSystem.inCombat) {
-                this.loop.stop();
+                this.battleloop.stop();
+                this.myBattleSystem.player.setPos(originalPos);
+                this.myBattleSystem.mob.setPos(mobOriginalPos);
+                window.dispatchEvent(new Event("e-battle-end"))
             }
             push()
             fill('black');
@@ -178,19 +183,13 @@ class BattleDisplay {
             let textWidth4 = textWidth("Bag");
             text("Bag", width - width/4 + width/8 - textWidth4/2, height - height/10 + height/20 + 10);
 
-            //player spota
-            fill(240, 248, 255);
-            //rect(width/5 - 50, height - height/3 - 50, 50, 50);
-            this.myBattleSystem.player.setPos(createVector(5, 5))
+            //player spot
+            this.myBattleSystem.player.setPos(createVector(5, 10))
             this.myBattleSystem.player.draw()
 
-            this.myBattleSystem.player.setPos(createVector(5, 5))
-            this.myBattleSystem.player.draw()
-
-            image(this.myBattleSystem.player.myImage,width/5 - 50, height - height/3 - 50, 50, 50)
             //monster spot
-            fill(75, 0, 130);
-            rect(width - width/5, height - height/3 - 50, 50, 50);
+            this.myBattleSystem.mob.setPos(createVector(10, 10))
+            this.myBattleSystem.mob.draw()
 
             // Health bar
             let barWidth = 200; // Width of the bars
@@ -198,9 +197,9 @@ class BattleDisplay {
 
             let playerHealthPercentage = this.myBattleSystem.player.myHitPoints / playerInitialHealth;
             let playerHealthBarWidth = barWidth * playerHealthPercentage;
-            let mobHealthPercentage = this.mob.myHitPoints / mobInitialHealth;
+            let mobHealthPercentage = this.myBattleSystem.mob.myHitPoints / mobInitialHealth;
             let mobHealthBarWidth = barWidth * mobHealthPercentage;
-            let playerStaminaPercentage = this.stamina / playerInitialStamina;
+            let playerStaminaPercentage = this.myBattleSystem.stamina / playerInitialStamina;
             let playerStaminaBarWidth = barWidth * playerStaminaPercentage;
 
             // Draw player's health bar
@@ -229,22 +228,25 @@ class BattleDisplay {
             text(this.myBattleSystem.player.myHitPoints + ' / ' + playerInitialHealth, playerTextX, height - height / 3 + 25 + 30);
 
             // Mob's health
-            let mobTextWidth = textWidth(this.mob.myHitPoints + ' / ' + mobInitialHealth);
+            let mobTextWidth = textWidth(this.myBattleSystem.mob.myHitPoints + ' / ' + mobInitialHealth);
             let mobTextX = width - width / 5 + barWidth - 35 - mobTextWidth; // Right-align the text
-            text(this.mob.myHitPoints + ' / ' + mobInitialHealth, mobTextX, height - height / 3 + 25 + 30);
+            text(this.myBattleSystem.mob.myHitPoints + ' / ' + mobInitialHealth, mobTextX, height - height / 3 + 25 + 30);
 
             // Stamina numbers
-            let staminaTextWidth = textWidth(this.stamina + ' / ' + playerInitialStamina);
+            let staminaTextWidth = textWidth(this.myBattleSystem.stamina + ' / ' + playerInitialStamina);
             let staminaTextX = width / 5 - barWidth + barWidth - 65 - staminaTextWidth; // Right-align the text
-            text(this.stamina + ' / ' + playerInitialStamina, staminaTextX, height - height / 3 + 75 + 30);
+            text(this.myBattleSystem.stamina + ' / ' + playerInitialStamina, staminaTextX, height - height / 3 + 75 + 30);
             
             pop()
 
         }
         this.tick = (delta) => {
             this.myBattleSystem.player.step(delta);
+            this.myBattleSystem.mob.step(delta);
         }
-        this.loop.setTickFunction(this.tick)
-        this.loop.setRenderFunction(this.render)
+        this.battleloop = new GameLoop()
+        this.battleloop.setTickFunction(this.tick)
+        this.battleloop.setRenderFunction(this.render)
+        this.battleloop.start();
     }
 }

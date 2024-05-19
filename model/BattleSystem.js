@@ -1,6 +1,16 @@
 
 class BattleSystem {
 
+    constructor(thePlayer, theMob) {
+        this.player = thePlayer;
+        this.mob = theMob;
+        this.turnCounter = 0;
+        this.inCombat = true;
+        this.stamina = this.player.getStamina();
+        this.random = Math.floor(Math.random() * 100);
+        window.dispatchEvent(new Event("e-player-freeze"))
+    }
+
     // Method that will check when the battle is over.
     isOutOfBattleCheck() {
         if (this.player.getHitPoints() <= 0) { //player health

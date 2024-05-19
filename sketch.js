@@ -35,13 +35,13 @@ window.addEventListener("e-battle-start", (E) => {
   instanceTextBox.add({ text: E['detail'].getName() + " battle" })
   instanceBattle = new BattleSystem(instancePlayer, E['detail'])
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
-  BattleDisplay.displayBattle();
+  instanceBattleDisplay.displayBattle();
+
   console.log(E['detail'])
 })
 
 window.addEventListener("e-battle-end", (E) => {
   window.dispatchEvent(new Event('e-player-unfreeze'))
-  console.log('battle end')
 })
 
 window.addEventListener("e-textbox-add", (E) => {
@@ -302,13 +302,15 @@ function setup() {
         text("Save", menuWidth / 2, menuHeight * 0.875)
         pop()
       }
-      // image(TILEMAP_PLAYER,0,0)
-      if (instanceTransition.drawerStatus()) instanceTransition.drawer();
-      if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
+      // image(TILEMAP_PLAYER,0,0)wif (instanceTransition.drawerStatus()) instanceTransition.drawer();
+      //if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
     }
   )
   instanceGameLoop.start()
-
+  if(instanceBattleDisplay && instanceBattle.inCombat) {
+    instanceBattleDisplay.displayBattle();
+    console.log("im here")
+  }
 
   if (instanceTextBox) {
     instanceTextBox.loop.stop()
@@ -328,7 +330,7 @@ function setup() {
     //instanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null, height:null, textSize: null})
     //instanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
   }
-  console.log(instanceTextBox.children)
+  //console.log(instanceTextBox.children)
 
 }
 
