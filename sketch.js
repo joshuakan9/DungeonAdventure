@@ -1,11 +1,15 @@
 
 p5.disableFriendlyErrors = true; // disables FES uncomment to increase performance
-let font
+let FONT = {}
 let CELLSIZE
 let TILEMAP
-let cellNumber = 15
+let cellNumber = 16
 function preload() {
-  font = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
+  // FONT['REGULAR'] = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
+  FONT['REGULAR'] = loadFont('./assets/fonts/MinecraftRegular.otf')
+  FONT['SEMIBOLD'] = loadFont('./assets/fonts/LeagueSpartan-SemiBold.ttf')
+  FONT['BOLD'] = loadFont('./assets/fonts/LeagueSpartan-Bold.ttf')
+
   TILEMAP = loadImage('./assets/images/tilemap.png')
 }
 let ratio = 1;
@@ -109,7 +113,8 @@ function setup() {
   TILEMAP_GREMLIN = TILEMAP.get(23*16, 20 * 16, 9* 16, 2 * 16)
   TILEMAP_POTION_HEALTH = TILEMAP.get(18*16, 13 * 16, 1 * 16, 1 * 16)
 
-  // randomSeed(0)
+  randomSeed(new Date().getTime())
+
   window.innerHeight <= window.innerWidth
     ? ((W = Math.max(window.innerHeight, 1) * ratio),
       (H = Math.max(window.innerHeight, 1)))
@@ -118,7 +123,7 @@ function setup() {
   CELLSIZE = floor(W / cellNumber)
   createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
   M = CELLSIZE / 16
-  textFont(font)
+  textFont(FONT['REGULAR'])
   if (!instanceGameLoop) {
     instanceGameLoop = new GameLoop();
   }
@@ -162,7 +167,7 @@ function setup() {
 
 
   // frameRate(60)
-  // pixelDensity(4)
+  // pixelDensity(1)
   let obstacleImage = createGraphics(CELLSIZE, CELLSIZE)
   obstacleImage.background(0, 0, 0)
   // for (let a = 0; a < 10000; a++) {
@@ -237,11 +242,12 @@ function setup() {
   instanceGameLoop.setRenderFunction(
     () => {
       background(0);
-  
+
       push()
+
       translate(round(width / 2 - getCellToPos(instancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(instancePlayer.getPos().y) - CELLSIZE / 2));
       // drawGridDebug()
-  
+
       // instanceFactory.drawDungeon(instancePlayer)
       // instanceFactory.drawOverworld(instancePlayer)
   
@@ -262,31 +268,37 @@ function setup() {
   
   
       if (IS_PAUSED) {
-        let menuWidth = width * 0.75
+        let menuWidth = width * 0.6
+        let menuHeight = width * 0.4
         push()
-        translate(menuWidth/6,menuWidth/6)
-        textSize(menuWidth * 0.25)
-        rect(0,0 , menuWidth)
+        textFont(FONT["REGULAR"])
+        noStroke()
+        translate(width / 2 - menuWidth / 2, height / 2 - menuHeight/2)
+        textSize(menuHeight * 0.1)
+        fill(0,0,0,100)
+        rect(0,0, menuWidth,menuHeight, 5 * M)
         
 
-        fill('red')
-        rect(0,0 , menuWidth, menuWidth * 0.25)
+        // fill('red')
+        // rect(0,0 , menuWidth, menuHeight * 0.25)
 
 
-        fill('blue')
-        rect(0, menuWidth * 0.25, menuWidth, menuWidth * 0.25)
+        // fill('blue')
+        // rect(0, menuHeight * 0.25, menuWidth, menuHeight * 0.25)
 
-        fill('green')
-        rect(0, menuWidth * 0.50, menuWidth, menuWidth * 0.25)
+        // fill('green')
+        // rect(0, menuHeight * 0.50, menuWidth, menuHeight * 0.25)
 
-        fill('yellow')
-        rect(0, menuWidth * 0.75, menuWidth, menuWidth * 0.25)
+        // fill('yellow')
+        // rect(0, menuHeight * 0.75, menuWidth, menuHeight * 0.25)
 
-        fill('black')
-        text("Resume", 0, menuWidth * 0.25)
-        text("Options", 0, menuWidth * 0.5)
-        text("Load", 0, menuWidth * 0.75)
-        text("Save", 0, menuWidth * 1)
+        fill(225)
+        textAlign(CENTER, CENTER);
+
+        text("Resume", menuWidth/2, menuHeight * 0.125)
+        text("Options", menuWidth/2, menuHeight * 0.375)
+        text("Load", menuWidth/2, menuHeight * 0.625)
+        text("Save", menuWidth/2, menuHeight * 0.875)
         pop()
       }
       // image(TILEMAP_PLAYER,0,0)
