@@ -77,6 +77,7 @@ class BattleSystem {
         this.player.setHitPoints(this.player.getHitPoints() + 100);
         this.player.removeBag("health potion");
         console.log("player used health potion");
+        window.dispatchEvent(new Event("e-player-use-health-potion"))
     }
 
     mobBasicAttack() {

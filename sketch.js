@@ -83,7 +83,7 @@ window.addEventListener("e-player-battle-win", (E) => {
 window.addEventListener("e-player-block", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has blocked!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
-window.addEventListener("e-player-use-potion", (E) => {
+window.addEventListener("e-player-use-health-potion", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
 
