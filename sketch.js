@@ -386,12 +386,13 @@ function mouseClicked() {
     }
   }
 
+  VPauseMenu.mouseClicked()
 }
 
 function keyPressed() {
   if (!instancePlayer.getIsFrozen()) {
 
-    VPauseMenu.tick()
+    VPauseMenu.keyPressed()
     if (keyCode === 32) { // space key
       instanceFactory.interact(instancePlayer)
     }
