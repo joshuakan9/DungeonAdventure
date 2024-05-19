@@ -1,6 +1,16 @@
 
 class BattleSystem {
+    constructor(thePlayer, theMob) {
+        this.player = thePlayer;
+        this.mob = theMob;
+        console.log("battle started");
+        this.turnCounter = 0;
+        this.inCombat = true;
+        this.stamina = this.player.getStamina();
+        // this.random = Math.floor(Math.random() * 100);
+        window.dispatchEvent(new Event("e-player-freeze"))
 
+    }
     // Method that will check when the battle is over.
     isOutOfBattleCheck() {
         if (this.player.getHitPoints() <= 0) { //player health
@@ -12,10 +22,10 @@ class BattleSystem {
         }
         if (this.mob.getHitPoints() <= 0) {
             console.log("YOU HAVE WON");
-            window.dispatchEvent(new Event("e-player-win"))
+            window.dispatchEvent(new Event("e-player-battle-win"))
             this.inCombat = false;
             window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
-
+            window.dispatchEvent(new Event("e-player-unfreeze"));
         }
 
     }
@@ -48,7 +58,6 @@ class BattleSystem {
 
             if (playerRandom < playerHitPercentage) {
                 this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
-                console.log(this.mob.getHitPoints())
 
                 let mobHealPercentage = this.mob.getHeal().getHealPercentage();
                 let mobHealRandom = random(0, 100);
@@ -62,6 +71,12 @@ class BattleSystem {
                 window.dispatchEvent(new Event("e-player-miss"))
             }
         }
+    }
+
+    playerUseHealthPotion() {
+        this.player.setHitPoints(this.player.getHitPoints() + 100);
+        this.player.removeBag("health potion");
+        console.log("player used health potion");
     }
 
     mobBasicAttack() {

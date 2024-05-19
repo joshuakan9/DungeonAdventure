@@ -29,6 +29,7 @@ let instanceBattle = null
 let instanceTextBox = null
 let instanceBattleDisplay = null
 
+let mobCount = 0;
 
 window.addEventListener("e-battle-start", (E) => {
 
@@ -54,9 +55,9 @@ window.addEventListener('e-transition', (E) => {
 })
 
 window.addEventListener("e-pickup", (E) => {
-  instanceTextBox.add({ text: "Found a " + E['detail'].getName() + "!" })
-  window.dispatchEvent(new CustomEvent("e-entity-remove", E))
-  // instanceFactory.removeEntity(E['detail'])
+  instanceTextBox.add({ text: "Found a " + E['detail'].getName() + "!" });
+  window.dispatchEvent(new CustomEvent("e-entity-remove", E));
+  instancePlayer.addBag(E['detail']);
 })
 
 window.addEventListener("e-entity-remove", (E) => {
@@ -75,15 +76,15 @@ window.addEventListener("e-player-die", (E) => {
   instanceTextBox.add({ text: "You died!" })
 });
 
-window.addEventListener("e-player-win", (E) => {
+window.addEventListener("e-player-battle-win", (E) => {
   instanceTextBox.add({ text: "You win!" })
 });
 
 window.addEventListener("e-player-block", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has blocked!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
-window.addEventListener("e-player-heal", (E) => {
-  instanceTextBox.add({ text: instancePlayer.getName() + " has healed!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+window.addEventListener("e-player-use-potion", (E) => {
+  instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
 
 window.addEventListener("e-player-miss", (E) => {
@@ -105,6 +106,7 @@ let TILEMAP_OGRE
 let TILEMAP_SKELETON
 let TILEMAP_GREMLIN
 let TILEMAP_POTION_HEALTH
+
 function setup() {
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
   TILEMAP_OGRE = TILEMAP.get(23 * 16, 20 * 16, 9 * 16, 2 * 16)
@@ -131,6 +133,7 @@ function setup() {
   }
   if (!instanceFactory) {
     instanceFactory = new Factory()
+    mobCount = instanceFactory.getMobCount();
   }
 
 
@@ -150,7 +153,6 @@ function setup() {
       theHitPoints: 1000,
       theAttack: new Attack(100, 100),
       theStamina: 10,
-      theBag: [],
       theBlockPercentage: 100,
       theSpecialAttack: new Attack(200, 100),
       theAnimation: new Animations({
@@ -158,7 +160,6 @@ function setup() {
         walk: new FramePattern(ANIM_WALK)
       }),
     });
-
     instanceTargetPos = instancePlayer.getPos().copy()
   }
   // instancePlayer.setSize(createVector(CELLSIZE, CELLSIZE * 2))
@@ -346,9 +347,7 @@ let IS_PAUSED = false;
 
 function mouseClicked() {
   instanceTextBox.nextText();
-  console.log(instanceTextBox)
-  //console.log(textBox);
-  console.log(instanceTextBox)
+  // console.log(instanceTextBox)
   if (instanceBattle && instanceBattle.inCombat) {
     // basic attack button
     let rect1X = width / 2 + 5;
