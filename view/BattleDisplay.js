@@ -153,7 +153,6 @@ class BattleDisplay {
                 this.battleloop.stop();
                 this.myBattleSystem.player.setPos(originalPos);
                 this.myBattleSystem.mob.setPos(mobOriginalPos);
-                window.dispatchEvent(new Event("e-battle-end"))
             }
             push()
             fill('black');

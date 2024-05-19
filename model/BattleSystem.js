@@ -18,6 +18,8 @@ class BattleSystem {
             window.dispatchEvent(new Event("e-player-die"))
             this.inCombat = false;
             window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
+            window.dispatchEvent(new Event("e-battle-end"))
+
 
         }
         if (this.mob.getHitPoints() <= 0) {
@@ -25,6 +27,8 @@ class BattleSystem {
             window.dispatchEvent(new Event("e-player-battle-win"))
             this.inCombat = false;
             window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
+            window.dispatchEvent(new Event("e-battle-end"))
+
         }
 
     }
