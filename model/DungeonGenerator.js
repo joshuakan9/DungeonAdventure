@@ -23,12 +23,10 @@ class DungeonGenerator {
         this.createInitialDungeon(this.myRows, this.myCols);
         this.generate();
         this.convert();
-        console.log(this.myDungeonFinal)
-
     }
 
-    getTotalEntityCount() {
-        return this.myTotalEntityCount;
+    getTotalMobCount() {
+        return this.myTotalMobCount;
     }
 
     getDungeon() {
@@ -456,23 +454,23 @@ class Room {
                 let entity = null;
                 if (this.myEntityMap[i][j] === 'X' && random(0, 100) < entityChance && entityCount < maxEntities) {
                     let randomEntity = floor(random(0, 4))
-                    console.log(`Placing entity at (${i}, ${j}), randomEntity = ${randomEntity}`);
+                    // console.log(`Placing entity at (${i}, ${j}), randomEntity = ${randomEntity}`);
                     switch (randomEntity) {
                         case 0:
                             entity = EntityFactory.createEntity('ogre', createVector(j, i));
-                            console.log('ogre created')
+                            // console.log('ogre created')
                             break;
                         case 1:
                             entity = EntityFactory.createEntity('skeleton', createVector(j, i));
-                            console.log('skeleton created')
+                            // console.log('skeleton created')
                             break;
                         case 2:
                             entity = EntityFactory.createEntity('gremlin', createVector(j, i));
-                            console.log('gremlin created')
+                            // console.log('gremlin created')
                             break;
                         case 3:
                             entity = EntityFactory.createEntity('health potion', createVector(j, i));
-                            console.log('health potion created')
+                            // console.log('health potion created')
                             break;
                         default:
                             console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
@@ -486,7 +484,7 @@ class Room {
                 this.myEntityMap[i][j] = entity
             }
         }
-        console.log('mob count in this room = ' + this.myMobCount)
+        // console.log('mob count in this room = ' + this.myMobCount)
     }
 
     getTileMap() {

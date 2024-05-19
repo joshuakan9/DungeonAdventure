@@ -2,7 +2,7 @@ class Factory {
     myEntities;
     myOverworld;
     myImage;
-    myEntityCount;
+    myMobCount;
     constructor() {
 
         this.myImage = createGraphics(CELLSIZE, CELLSIZE)
@@ -13,24 +13,36 @@ class Factory {
             ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'wall', 'wall', 'wall'],
             ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'wall', 'wall', 'wall']
         ]
-        this.myDungeon = new DungeonGenerator().getDungeon()
+        this.myDungeonGenerator = new DungeonGenerator();
+        this.myDungeon = this.myDungeonGenerator.getDungeon();
         this.myDungeonIndex = createVector(floor(this.myDungeon[0].length / 2), floor(this.myDungeon.length / 2))
         this.myDungeonImage = null
         this.myEntities = []
+        this.myMobCount = this.myDungeonGenerator.getTotalMobCount();
 
         for (let a = 0; a < this.myOverworld.length; a++) {
             this.myEntities.push([])
         }
     }
 
+    getMobCount() {
+        return this.myMobCount;
+    }
+
     addEntity(theEntity) {
         let thePos = theEntity.getPos()
         let cell = createVector(thePos.x, thePos.y)
         this.myEntities[cell.y][cell.x] = theEntity
+        if (theEntity.getName() === 'ogre' || theEntity.getName() === 'skeleton' || theEntity.getName() === 'gremlin') {
+            this.myMobCount++;
+        }
     }
     removeEntity(theEntity) {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         room.removeEntity(theEntity.getPos())
+        if (theEntity.getName() === 'ogre' || theEntity.getName() === 'skeleton' || theEntity.getName() === 'gremlin') {
+            this.myMobCount--;
+        }
     }
 
     checkCollision(thePlayer, thePos) {

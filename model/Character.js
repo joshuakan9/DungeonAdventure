@@ -3,12 +3,17 @@ class Character extends Entity {
     myBag;
     myBlockPercentage;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset,theAnimation, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage }) {
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset,theAnimation, theName, theHitPoints, theAttack, theStamina, theBlockPercentage, theMaxHitPoints}) {
         super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset,theAnimation, theName, theHitPoints, theAttack })
         this.myStamina = theStamina;
-        this.myBag = theBag;
+        this.myBag = new Map();
         this.myBlockPercentage = theBlockPercentage;
+        this.myMaxHitPoints = theMaxHitPoints;
         this.myIsFrozen = 0;
+    }
+
+    getMaxHitPoints() {
+        return this.myMaxHitPoints;
     }
 
     getStamina() {
@@ -17,6 +22,26 @@ class Character extends Entity {
 
     getBag() {
         return this.myBag;
+    }
+
+    addBag(theItem) {
+        const itemName = theItem.getName();
+
+        if (this.myBag.has(itemName)) {
+            this.myBag.set(itemName, this.myBag.get(itemName) + 1);
+        } else {
+            this.myBag.set(itemName, 1);
+        }
+        console.log(this.myBag);
+    }
+
+    removeBag(theItemName) {
+        if (this.myBag.get(theItemName) > 0) {
+            this.myBag.set(theItemName, this.myBag.get(theItemName) - 1);
+        } else {
+            console.log('remove bag failed as there are no more ' + theItemName + 's in the bag');
+        }
+        console.log(this.myBag);
     }
 
     getBlockPercentage() {
