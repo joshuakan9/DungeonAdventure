@@ -107,9 +107,9 @@ let TILEMAP_GREMLIN
 let TILEMAP_POTION_HEALTH
 function setup() {
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
-  TILEMAP_OGRE = TILEMAP.get(23 * 16, 10 * 16, 9 * 16, 2 * 16)
+  TILEMAP_OGRE = TILEMAP.get(23 * 16, 20 * 16, 9 * 16, 2 * 16)
   TILEMAP_SKELETON = TILEMAP.get(23 * 16, 4 * 16, 9 * 16, 2 * 16)
-  TILEMAP_GREMLIN = TILEMAP.get(23 * 16, 20 * 16, 9 * 16, 2 * 16)
+  TILEMAP_GREMLIN = TILEMAP.get(23 * 16, 10 * 16, 9 * 16, 2 * 16)
   TILEMAP_POTION_HEALTH = TILEMAP.get(18 * 16, 13 * 16, 1 * 16, 1 * 16)
 
   randomSeed(new Date().getTime())
