@@ -85,4 +85,8 @@ class Sprite {
         return createVector(this.myPos.x + ((this.mySize.x * CELLSIZE)/ 2), this.myPos.y + ((this.mySize.y * CELLSIZE) / 2))
     }
 
+    getImage() {
+        return this.myImage;
+    }
+
 }

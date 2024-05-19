@@ -16,7 +16,7 @@ class EntityFactory {
                     theOffset: createVector(0, -1.2),
                     theName: "ogre",
                     theHitPoints: 1000,
-                    theAttack: new Attack(100, 10),
+                    theAttack: new Attack(100, 100),
                     theHeal: new Heal(10,100),
                     theStamina: 10,
                     theBag: [],
@@ -84,7 +84,7 @@ class EntityFactory {
 
 
                     theOffset: createVector(0, -0.1),
-                    theName: "Tester",
+                    theName: "health potion",
                 })
                 break;
             default:
