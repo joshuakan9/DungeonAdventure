@@ -361,7 +361,7 @@ let IS_PAUSED = false;
 function mouseClicked() {
   instanceTextBox.nextText();
   // console.log(instanceTextBox)
-  if (instanceBattle && instanceBattle.inCombat) {
+  if (instanceBattle && instanceBattle.inCombat && instanceTextBox.children.length === 0) {
     // basic attack button
     let rect1X = width / 2 + 5;
     let rect1Y = height - height / 5 + 5;
