@@ -101,7 +101,7 @@ class BattleSystem {
         window.dispatchEvent(new CustomEvent("e-player-use-health-potion", {detail: healAmount}));
     }
 
-    mobBasicAttack() {
+    mobAttack() {
         let mobBasicDamage = this.mob.getAttack().getDamage();
         let mobSpecialDamage = this.mob.getSpecialAttack().getDamage();
         let mobHitPercentage = this.mob.getAttack().getHitPercentage();
@@ -119,7 +119,7 @@ class BattleSystem {
             } else {
 
                 let basicOrSpecial = random(0, 100);
-                if (basicOrSpecial < 0) {
+                if (basicOrSpecial < 75) {
                     this.player.setHitPoints(this.player.getHitPoints() - mobBasicDamage);
                     console.log("player hit by basic");
                     window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "basic" }}))
@@ -172,7 +172,7 @@ class BattleSystem {
                 }
 
                 if (this.stamina === 0) {
-                    this.mobBasicAttack();
+                    this.mobAttack();
                     this.isOutOfBattleCheck();
                     this.stamina = this.player.getStamina();
                 }
