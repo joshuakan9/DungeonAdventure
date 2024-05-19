@@ -1,7 +1,7 @@
 //These coordinates, parameters size, and text size are based on canvas size.
 const TEXT_BOX_X = 1;
 const TEXT_BOX_Y = .2;
-const TEXT_BOX_SIZE_X = 1;
+const TEXT_BOX_SIZE_X = 0;
 const TEXT_BOX_SIZE_Y = .2;
 
 const TEXT_SIZE = .02;
@@ -31,7 +31,7 @@ class TextBox {
                     this.children[0].text.substring(0, this.currentTextEnd), 
                     (width - width * this.children[0].x) + width * this.children[0].textSize, 
                     (height - height * this.children[0].y) + height * this.children[0].textSize,
-                    width)
+                    width - width * this.children[0].width)
             }
         }
         this.tick = (delta) => {
