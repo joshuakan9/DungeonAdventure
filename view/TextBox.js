@@ -21,7 +21,7 @@ class TextBox {
                 fill('white')
                 rect(width - width * this.children[0].x, 
                     height - height * this.children[0].y, 
-                    width * this.children[0].width/2, 
+                    width * this.children[0].width, 
                     height * this.children[0].height)
                 fill('black')
                 textSize(height * this.children[0].textSize)
@@ -50,7 +50,7 @@ class TextBox {
     }
 
     inTextDialogue() {
-        return children.length != 0;
+        return this.children.length != 0;
     }
 
     nextText() {
@@ -79,7 +79,7 @@ class TextBox {
 
 
     add(obj = {text, x, y, width, height, textSize}) {
-        if (obj.x == null || obj.y == null || obj.width == null || obj.height == null || obj.textSizing == null) {
+        if (obj.x == null && obj.y == null && obj.width == null && obj.height == null && obj.textSizing == null) {
             //console.log("This is a default text");
             obj.x = TEXT_BOX_X;
             obj.y = TEXT_BOX_Y;
@@ -87,7 +87,7 @@ class TextBox {
             obj.height = TEXT_BOX_SIZE_Y;
             obj.textSize = TEXT_SIZE;
         }
-        console.log(obj)
+        //console.log(obj)
         this.children.push(obj)
         this.inTextDialogue = true
         window.dispatchEvent(new Event("e-player-freeze"))

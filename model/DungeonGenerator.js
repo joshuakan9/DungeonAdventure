@@ -17,6 +17,7 @@ class DungeonGenerator {
         this.myRoomCode = '□'
         this.myNoRoomCode = '■'
         this.myDungeonFinal = [];
+        this.myTotalEntityCount = 0;
 
         this.createInitialDungeon(this.myRows, this.myCols);
         this.generate();
@@ -114,6 +115,7 @@ class DungeonGenerator {
                         this.myDungeonFinal[a][b].myEntityMap = startingEntityMap;
                     } else {
                         this.myDungeonFinal[a][b].populateEntityMap();
+                        this.myTotalEntityCount += this.myDungeonFinal[a][b].getEntityCount();
                     }
                     //console.log(`Room at (${a}, ${b}):`, this.myDungeonFinal[a][b]);
                 }
@@ -226,7 +228,6 @@ class DungeonGenerator {
             }
         }
     }
-
 }
 
 class Room {
@@ -436,7 +437,6 @@ class Room {
 
     populateEntityMap() {
         let maxEntities = Math.floor(Math.cbrt(this.myPossibleEntityCount));
-        let entityCount = 0;
         let entityChance = 10;
         for (let i = 0; i < this.myEntityMap.length; i++) {
             for (let j = 0; j < this.myEntityMap[0].length; j++) {
@@ -460,7 +460,7 @@ class Room {
                         default:
                             //console.log('unexpected value for randomEntity in Room.populateEntityMap()' + randomEntity);
                     }
-                    entityCount++;
+                    this.myEntityCount++;
                 }
                 this.myEntityMap[i][j] = entity
             }
