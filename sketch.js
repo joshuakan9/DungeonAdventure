@@ -84,7 +84,7 @@ window.addEventListener("e-player-block", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has blocked!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
 window.addEventListener("e-player-use-health-potion", (E) => {
-  instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion and has healed for health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
 
 window.addEventListener("e-player-miss", (E) => {
@@ -150,10 +150,11 @@ function setup() {
       theFrameSize: createVector(16, 32),
       theOffset: createVector(0, -1.2),
       theName: "Tester",
-      theHitPoints: 1000,
+      theHitPoints: 500,
       theAttack: new Attack(100, 100),
       theStamina: 10,
       theBlockPercentage: 100,
+      theMaxHitPoints: 1000,
       theSpecialAttack: new Attack(200, 100),
       theAnimation: new Animations({
         stand: new FramePattern(ANIM_STAND),
