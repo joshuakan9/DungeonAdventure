@@ -111,6 +111,22 @@ window.addEventListener("e-no-health-potions", (E) => {
     instanceTextBox.add({ text: "You have no health potions!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 })
 
+window.addEventListener("e-not-enough-stamina", (E) => {
+    instanceTextBox.add({ text: "You do not have enough stamina!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+})
+
+window.addEventListener("e-assassin-buff", (E) => {
+    instanceTextBox.add({ text: "You have used buff and increased your basic attack damage by 5 and your special attack damage by 10!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+})
+
+window.addEventListener("e-warrior-buff", (E) => {
+    instanceTextBox.add({ text: "You have used buff and increased your block chance by 5%!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+})
+
+window.addEventListener("e-priest-buff", (E) => {
+    instanceTextBox.add({ text: "You have used buff and increased your heal amount by 25!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+})
+
 let TILEMAP_ASSASSIN
 let TILEMAP_OGRE
 let TILEMAP_SKELETON
@@ -401,24 +417,36 @@ function mouseClicked() {
     }
 
     if (mouseX > rect3X && mouseX < rect3X + rect3Width && mouseY > rect3Y && mouseY < rect3Y + rect3Height) {
-      if (instancePlayer.getClass() === "Assassin") {
-        instanceTextBox.add({ text: instancePlayer.getName() + " used buff! and increased their basic attack damage by 5 and their special attack damage by 10", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-      } else if (instancePlayer.getClass() === "Warrior") {
-        instanceTextBox.add({ text: instancePlayer.getName() + " used buff! and increased their block chance by 5%", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-      } else if (instancePlayer.getClass() === "Priest") {
-        instanceTextBox.add({ text: instancePlayer.getName() + " used buff! and increased their heal amount by 25", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-      } else {
-        console.log("invalid class at sketch line 396" + instancePlayer.getClass());
-      }
       instanceBattle.turn("move_buff");
     }
 
     if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
       instanceTextBox.add({ text: "bag", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
       instanceBattle.turn("move_bag");
-    }
-  }
 
+
+      // TODO display bag contents rather than using move_bag, then have buttons for the player to interact with items in the bag
+      // if (IS_PAUSED) {
+      //   let menuWidth = width * 0.6
+      //   let menuHeight = width * 0.4
+      //   push()
+      //   textFont(FONT["REGULAR"])
+      //   noStroke()
+      //   translate(width / 2 - menuWidth / 2, height / 2 - menuHeight / 2)
+      //   textSize(menuHeight * 0.1)
+      //   fill(0, 0, 0, 100)
+      //   rect(0, 0, menuWidth, menuHeight, 5 * M)
+      //
+      //   fill(225)
+      //   textAlign(CENTER, CENTER);
+      //
+      //   text("Resume", menuWidth / 2, menuHeight * 0.125)
+      //   text("Options", menuWidth / 2, menuHeight * 0.375)
+      //   text("Load", menuWidth / 2, menuHeight * 0.625)
+      //   text("Save", menuWidth / 2, menuHeight * 0.875)
+      //   pop()
+      }
+    }
 }
 
 function keyPressed() {
