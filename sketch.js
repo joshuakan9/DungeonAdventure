@@ -256,11 +256,31 @@ function setup() {
   
   
       if (IS_PAUSED) {
+        let menuWidth = width * 0.75
         push()
-        rect(width / 2 - width / 4, height / 2 - width / 4, width / 2)
+        translate(menuWidth/6,menuWidth/6)
+        textSize(menuWidth * 0.25)
+        rect(0,0 , menuWidth)
+        
 
         fill('red')
-        rect(width / 2 - width / 4, height / 2 - width / 4, width / 2, width / 6)
+        rect(0,0 , menuWidth, menuWidth * 0.25)
+
+
+        fill('blue')
+        rect(0, menuWidth * 0.25, menuWidth, menuWidth * 0.25)
+
+        fill('green')
+        rect(0, menuWidth * 0.50, menuWidth, menuWidth * 0.25)
+
+        fill('yellow')
+        rect(0, menuWidth * 0.75, menuWidth, menuWidth * 0.25)
+
+        fill('black')
+        text("Resume", 0, menuWidth * 0.25)
+        text("Options", 0, menuWidth * 0.5)
+        text("Load", 0, menuWidth * 0.75)
+        text("Save", 0, menuWidth * 1)
         pop()
       }
       // image(TILEMAP_PLAYER,0,0)
