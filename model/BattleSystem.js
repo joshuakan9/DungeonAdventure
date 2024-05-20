@@ -7,6 +7,8 @@ class BattleSystem {
         this.pillarDropCount = thePillarDrop.count;
 
         console.log("battle started");
+        console.log(thePillarDrop.boolean);
+        console.log(thePillarDrop.count);
         this.turnCounter = 0;
         this.inCombat = true;
         this.stamina = this.player.getStamina();
@@ -27,27 +29,28 @@ class BattleSystem {
         }
         if (this.mob.getHitPoints() <= 0) {
             console.log("YOU HAVE WON");
-            window.dispatchEvent(new Event("e-player-battle-win"))
 
             if (this.pillarDropBoolean) {
                 switch(this.pillarDropCount) {
                     case 0:
-                        this.player.addBag("Pillar of Abstraction");
+                        this.player.addBag(EntityFactory.createEntity("pillar of abstraction"));
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Abstraction"}))
                         break;
                     case 1:
-                        this.player.addBag("Pillar of Encapsulation");
+                        this.player.addBag(EntityFactory.createEntity("pillar of encapsulation"));
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Encapsulation"}))
                         break;
                     case 2:
-                        this.player.addBag("Pillar of Inheritance");
+                        this.player.addBag(EntityFactory.createEntity("pillar of inheritance"));
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Inheritance"}))
                         break;
                     case 3:
-                        this.player.addBag("Pillar of Polymorphism");
+                        this.player.addBag(EntityFactory.createEntity("pillar of polymorphism"));
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Polymorphism"}))
                         break;
                 }
+                window.dispatchEvent(new Event("e-player-battle-win"))
+
             }
 
             this.inCombat = false;
