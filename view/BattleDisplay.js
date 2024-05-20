@@ -161,10 +161,10 @@ class BattleDisplay {
               walk: new FramePattern(ANIM_WALK)
             }),
         })
-        console.log(this.myBattleSystem.player)
-        console.log(this.playerClone)
-        console.log(this.myBattleSystem.mob)
-        console.log(this.mobClone)
+        // console.log(this.myBattleSystem.player)
+        // console.log(this.playerClone)
+        // console.log(this.myBattleSystem.mob)
+        // console.log(this.mobClone)
     }
 
 

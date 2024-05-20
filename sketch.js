@@ -78,7 +78,6 @@ window.addEventListener("e-battle-start", (E) => {
 
 window.addEventListener("e-pillar-drop", (E) => {
   console.log("pillar drop event")
-  instanceTextBox.add({ text: "You have found a pillar!" });
   instanceTextBox.add({ text: "You have gained the " + E.detail + "!" });
 })
 
@@ -118,7 +117,7 @@ window.addEventListener("e-player-die", (E) => {
 });
 
 window.addEventListener("e-player-battle-win", (E) => {
-  instanceTextBox.add({ text: "You win!" })
+  instanceTextBox.add({ text: "You have slain the " + E['detail'].getName() + "!" })
 });
 window.addEventListener("e-player-block", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has blocked " + E['detail'].getName() + "'s attack for " + E['detail'].getAttack().getDamage() + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
@@ -220,7 +219,7 @@ function setup() {
       theOffset: createVector(0, -1.2),
       theName: "Tester",
       theHitPoints: 1000,
-      theAttack: new Attack(100, 100),
+      theAttack: new Attack(10000, 100),
       theStamina: 10,
       theBlockPercentage: 0,
       theMaxHitPoints: 1000,
