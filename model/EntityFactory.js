@@ -166,7 +166,7 @@ class EntityFactory {
                     thePos: entityPos,
                     theSize: createVector(1, 1),
                     theIsCollideable: false,
-                    theImage: TILEMAP_ASSASSIN,
+                    theImage: TILEMAP_EXIT,
                     theHFrames: 1,
                     theVFrames: 1,
                     theFrame: 0,
