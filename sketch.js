@@ -426,6 +426,7 @@ function mouseClicked() {
     }
   }
   VPauseMenu.mouseClicked()
+  VMainMenu.mouseClicked()
 }
 
 function keyPressed() {

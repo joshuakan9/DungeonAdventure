@@ -7,7 +7,8 @@ class VPauseMenu {
             mouseX >= width / 2 - menuWidth / 2 &&
             mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
             mouseY >= height / 2 - menuHeight / 2 &&
-            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.25
+            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.25 &&
+            this.getIsPaused()
         ) {
             this.setIsPaused()
         }
