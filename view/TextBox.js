@@ -21,7 +21,7 @@ class TextBox {
                 fill('white')
                 rect(width - width * this.children[0].x, 
                     height - height * this.children[0].y, 
-                    width * this.children[0].width, 
+                    width - width * this.children[0].width, 
                     height * this.children[0].height)
                 fill('black')
                 textSize(height * this.children[0].textSize)
@@ -64,11 +64,8 @@ class TextBox {
                 this.children.shift();
             } else {
                 this.children.shift();
-                
                 console.log("no more dialogue");
                 this.inTextDialogue = false;
- 
-                
             }
             window.dispatchEvent(new Event("e-player-unfreeze"))
             if (this.currentTextEnd >= 0) {
