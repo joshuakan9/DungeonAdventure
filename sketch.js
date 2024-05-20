@@ -220,19 +220,10 @@ function setup() {
     });
     instanceTargetPos = instancePlayer.getPos().copy()
   }
-  // instancePlayer.setSize(createVector(CELLSIZE, CELLSIZE * 2))
-
 
 
   // frameRate(60)
   // pixelDensity(1)
-  let obstacleImage = createGraphics(CELLSIZE, CELLSIZE)
-  obstacleImage.background(0, 0, 0)
-  // for (let a = 0; a < 10000; a++) {
-  //   instanceFactory.addEntity(new Sprite({ thePos: createVector(getCellToPos(round(random(-100,100))), getCellToPos(4)), theSize: createVector(CELLSIZE,CELLSIZE), theImage: obstacleImage, theIsCollideable: true }))
-  // }
-
-
 
 
 
