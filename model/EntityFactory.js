@@ -81,8 +81,6 @@ class EntityFactory {
                     theSize: createVector(1, 1),
                     theIsCollideable: true,
                     theImage: TILEMAP_POTION_HEALTH,
-
-
                     theOffset: createVector(0, -0.1),
                     theName: "Health Potion",
                 })
