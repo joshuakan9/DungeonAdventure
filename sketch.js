@@ -67,6 +67,9 @@ window.addEventListener("e-battle-start", (E) => {
       pillarDrop.count = pillarDrop.count += 1;
       console.log('pillarDrop.drop = ' + pillarDrop.boolean)
       console.log('pillarDrop.count = ' + pillarDrop.count)
+    } else {
+        pillarDrop.boolean = false;
+        console.log('pillarDrop.drop = ' + pillarDrop.boolean)
     }
     // currentMobCount--;
   }
