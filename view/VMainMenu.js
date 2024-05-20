@@ -18,9 +18,9 @@ class VMainMenu {
         fill(177,188,184)
         if (
             mouseX >= width * 0.95 - textWidth("New Game") &&
-            mouseX <= width * 0.95 + textWidth("New Game") &&
+            mouseX <= width * 0.95 &&
             mouseY >= height * 0.6 - textHeight &&
-            mouseY <= height * 0.6 + textHeight
+            mouseY <= height * 0.6 
         ) {
             fill(239,255,255)
         }
@@ -29,9 +29,9 @@ class VMainMenu {
         fill(177,188,184)
         if (
             mouseX >= width * 0.95 - textWidth("Load Game") &&
-            mouseX <= width * 0.95 + textWidth("Load Game") &&
+            mouseX <= width * 0.95 &&
             mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
-            mouseY <= height * 0.6 + 1 * height / 15 + textHeight
+            mouseY <= height * 0.6 + 1 * height / 15
         ) {
             fill(239,255,255)
         }
@@ -40,9 +40,9 @@ class VMainMenu {
         fill(177,188,184)
         if (
             mouseX >= width * 0.95 - textWidth("Options") &&
-            mouseX <= width * 0.95 + textWidth("Options") &&
+            mouseX <= width * 0.95 &&
             mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
-            mouseY <= height * 0.6 + 2 * height / 15 + textHeight
+            mouseY <= height * 0.6 + 2 * height / 15
         ) {
             fill(239,255,255)
         }
@@ -52,9 +52,9 @@ class VMainMenu {
         fill(177,188,184)
         if (
             mouseX >= width * 0.95 - textWidth("About") &&
-            mouseX <= width * 0.95 + textWidth("About") &&
+            mouseX <= width * 0.95 &&
             mouseY >= height * 0.6 + 3 * height / 15 - textHeight &&
-            mouseY <= height * 0.6 + 3 * height / 15 + textHeight
+            mouseY <= height * 0.6 + 3 * height / 15 
         ) {
             fill(239,255,255)
         }

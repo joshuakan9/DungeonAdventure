@@ -3,13 +3,14 @@ p5.disableFriendlyErrors = true; // disables FES uncomment to increase performan
 let FONT = {}
 let CELLSIZE
 let TILEMAP
+let CURSOR
 let cellNumber = 16
 function preload() {
   // FONT['REGULAR'] = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
   FONT['REGULAR'] = loadFont('./assets/fonts/MinecraftRegular.otf')
   FONT['SEMIBOLD'] = loadFont('./assets/fonts/LeagueSpartan-SemiBold.ttf')
   FONT['BOLD'] = loadFont('./assets/fonts/LeagueSpartan-Bold.ttf')
-
+  CURSOR = loadImage('./assets/images/cursor.png')
   TILEMAP = loadImage('./assets/images/tilemap.png')
 }
 let ratio = 1;
@@ -306,6 +307,7 @@ function setup() {
   instanceGameLoop.setRenderFunction(
     () => {
       background(0);
+      noCursor()
 
       push()
 
@@ -340,6 +342,7 @@ function setup() {
       //if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
 //=======================================================================================================================
       if (instanceTransition.drawerStatus()) instanceTransition.drawer();
+      image(CURSOR,mouseX,mouseY, 8 * M, 8 * M)
     }
   )
   instanceGameLoop.start()
@@ -366,10 +369,9 @@ function setup() {
 
 }
 
-// function draw() {
-//   tick()
-//   render()
-// }
+function draw() {
+  
+}
 
 function windowResized() {
 
