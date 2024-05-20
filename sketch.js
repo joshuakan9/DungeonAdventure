@@ -34,9 +34,39 @@ let mobCount = 0;
 window.addEventListener("e-battle-start", (E) => {
 
   instanceTextBox.add({ text: E['detail'].getName() + " battle" })
-  instanceBattle = new BattleSystem(instancePlayer, E['detail'])
+
+  let pillarDrop = {boolean: false, count: -1};
+  let initialMobCount = instanceFactory.getInitialMobCount();
+  let currentMobCount = instanceFactory.getMobCount();
+  let pillarDropRate = floor(initialMobCount / 4);
+
+  if (initialMobCount < 20) {
+    pillarDropRate = pillarDropRate - 1;
+  } else if (initialMobCount < 30) {
+    pillarDropRate = pillarDropRate - 2;
+  } else {
+    pillarDropRate = pillarDropRate - 3;
+  }
+  console.log('initialMobCount = ' + initialMobCount)
+  console.log('currentMobCount = ' + currentMobCount)
+  console.log('pillarDropRate = ' + pillarDropRate)
+  if (pillarDrop.count < 4) {
+    if (initialMobCount - currentMobCount === pillarDropRate
+        || initialMobCount - currentMobCount === pillarDropRate * 2
+        || initialMobCount - currentMobCount === pillarDropRate * 3
+        || initialMobCount - currentMobCount === pillarDropRate * 4) {
+      pillarDrop.drop = true;
+      pillarDrop.count = pillarDrop.count++;
+    }
+  }
+
+  instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
   console.log(E['detail'])
+})
+
+window.addEventListener("e-pillar-drop", (E) => {
+  instanceTextBox.add({ text: "You have gained the " + E.detail + "!" });
 })
 
 window.addEventListener("e-battle-end", (E) => {
@@ -177,7 +207,7 @@ function setup() {
       theOffset: createVector(0, -1.2),
       theName: "Tester",
       theHitPoints: 1000,
-      theAttack: new Attack(100, 100),
+      theAttack: new Attack(10000, 100),
       theStamina: 10,
       theBlockPercentage: 0,
       theMaxHitPoints: 1000,
@@ -388,32 +418,10 @@ function mouseClicked() {
     }
 
     if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
-      instanceTextBox.add({ text: "bag", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+      instanceTextBox.add({text: "bag", x: 1, y: .2, width: .5, height: .2, textSize: .02});
       instanceBattle.turn("move_bag");
-
-
-      // TODO display bag contents rather than using move_bag, then have buttons for the player to interact with items in the bag
-      // if (IS_PAUSED) {
-      //   let menuWidth = width * 0.6
-      //   let menuHeight = width * 0.4
-      //   push()
-      //   textFont(FONT["REGULAR"])
-      //   noStroke()
-      //   translate(width / 2 - menuWidth / 2, height / 2 - menuHeight / 2)
-      //   textSize(menuHeight * 0.1)
-      //   fill(0, 0, 0, 100)
-      //   rect(0, 0, menuWidth, menuHeight, 5 * M)
-      //
-      //   fill(225)
-      //   textAlign(CENTER, CENTER);
-      //
-      //   text("Resume", menuWidth / 2, menuHeight * 0.125)
-      //   text("Options", menuWidth / 2, menuHeight * 0.375)
-      //   text("Load", menuWidth / 2, menuHeight * 0.625)
-      //   text("Save", menuWidth / 2, menuHeight * 0.875)
-      //   pop()
-      }
     }
+  }
 }
 
 function keyPressed() {

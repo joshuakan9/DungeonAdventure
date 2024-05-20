@@ -19,10 +19,15 @@ class Factory {
         this.myDungeonImage = null
         this.myEntities = []
         this.myMobCount = this.myDungeonGenerator.getTotalMobCount();
+        this.myInitialMobCount = this.myMobCount;
 
         for (let a = 0; a < this.myOverworld.length; a++) {
             this.myEntities.push([])
         }
+    }
+
+    getInitialMobCount() {
+        return this.myInitialMobCount;
     }
 
     getMobCount() {

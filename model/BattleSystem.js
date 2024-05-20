@@ -1,8 +1,11 @@
 
 class BattleSystem {
-    constructor(thePlayer, theMob) {
+    constructor(thePlayer, theMob, thePillarDrop) {
         this.player = thePlayer;
         this.mob = theMob;
+        this.pillarDropBoolean = thePillarDrop.boolean;
+        this.pillarDropCount = thePillarDrop.count;
+
         console.log("battle started");
         this.turnCounter = 0;
         this.inCombat = true;
@@ -25,6 +28,28 @@ class BattleSystem {
         if (this.mob.getHitPoints() <= 0) {
             console.log("YOU HAVE WON");
             window.dispatchEvent(new Event("e-player-battle-win"))
+
+            if (this.pillarDropBoolean) {
+                switch(this.pillarDropCount) {
+                    case 0:
+                        this.player.addBag("Pillar of Abstraction");
+                        window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Abstraction"}))
+                        break;
+                    case 1:
+                        this.player.addBag("Pillar of Encapsulation");
+                        window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Encapsulation"}))
+                        break;
+                    case 2:
+                        this.player.addBag("Pillar of Inheritance");
+                        window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Inheritance"}))
+                        break;
+                    case 3:
+                        this.player.addBag("Pillar of Polymorphism");
+                        window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Polymorphism"}))
+                        break;
+                }
+            }
+
             this.inCombat = false;
             window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
             window.dispatchEvent(new Event("e-battle-end"))

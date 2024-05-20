@@ -10,8 +10,8 @@ class DungeonGenerator {
     myTotalMobCount;
 
     constructor() {
-        this.myRows = 3;
-        this.myCols = 3;
+        this.myRows = 7;
+        this.myCols = 7;
         this.myInitialRow = Math.floor(this.myRows / 2);
         this.myInitialCol = Math.floor(this.myCols / 2);
         this.myDungeon = [];
