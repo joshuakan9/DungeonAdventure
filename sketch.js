@@ -332,6 +332,7 @@ function setup() {
 
 
       VPauseMenu.draw()
+      // VMainMenu.draw()
 //=======================================================================================================================
       if (instanceBattle && instanceBattle.inCombat) {
         instanceBattleDisplay.displayBattle()
