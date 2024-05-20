@@ -30,18 +30,25 @@ let instanceBattle = null
 let instanceTextBox = null
 let instanceBattleDisplay = null
 
-let mobCount = 0;
+// let mobCount = 0;
+// let currentMobCount = 10;
+let pillarDrop = {
+  boolean: false,
+  count: -1
+};
 
 window.addEventListener("e-battle-start", (E) => {
 
   instanceTextBox.add({ text: E['detail'].getName() + " battle" })
 
-  let pillarDrop = {boolean: false, count: -1};
   let initialMobCount = instanceFactory.getInitialMobCount();
   let currentMobCount = instanceFactory.getMobCount();
+
+  // let initialMobCount = 10;
   let pillarDropRate = floor(initialMobCount / 4);
 
-  if (initialMobCount < 20) {
+
+    if (initialMobCount < 20) {
     pillarDropRate = pillarDropRate - 1;
   } else if (initialMobCount < 30) {
     pillarDropRate = pillarDropRate - 2;
@@ -56,9 +63,12 @@ window.addEventListener("e-battle-start", (E) => {
         || initialMobCount - currentMobCount === pillarDropRate * 2
         || initialMobCount - currentMobCount === pillarDropRate * 3
         || initialMobCount - currentMobCount === pillarDropRate * 4) {
-      pillarDrop.drop = true;
-      pillarDrop.count = pillarDrop.count++;
+      pillarDrop.boolean = true;
+      pillarDrop.count = pillarDrop.count += 1;
+      console.log('pillarDrop.drop = ' + pillarDrop.boolean)
+      console.log('pillarDrop.count = ' + pillarDrop.count)
     }
+    // currentMobCount--;
   }
 
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
@@ -67,6 +77,8 @@ window.addEventListener("e-battle-start", (E) => {
 })
 
 window.addEventListener("e-pillar-drop", (E) => {
+  console.log("pillar drop event")
+  instanceTextBox.add({ text: "You have found a pillar!" });
   instanceTextBox.add({ text: "You have gained the " + E.detail + "!" });
 })
 
@@ -208,7 +220,7 @@ function setup() {
       theOffset: createVector(0, -1.2),
       theName: "Tester",
       theHitPoints: 1000,
-      theAttack: new Attack(10000, 100),
+      theAttack: new Attack(100, 100),
       theStamina: 10,
       theBlockPercentage: 0,
       theMaxHitPoints: 1000,

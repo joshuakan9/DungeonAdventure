@@ -81,10 +81,84 @@ class EntityFactory {
                     theSize: createVector(1, 1),
                     theIsCollideable: true,
                     theImage: TILEMAP_POTION_HEALTH,
-
-
                     theOffset: createVector(0, -0.1),
-                    theName: "health potion",
+                    theName: "Health Potion",
+                })
+                break;
+            case 'pillar of abstraction':
+                entity = new Entity({
+                    thePos: entityPos,
+                    theSize: createVector(1, 1),
+                    theIsCollideable: true,
+                    theImage: TILEMAP_ASSASSIN,
+                    theHFrames: 1,
+                    theVFrames: 1,
+                    theFrame: 0,
+                    theFrameSize: createVector(16,16),
+                    theOffset: createVector(0, 0),
+                    theName: "Pillar of Abstraction",
+                    theHitPoints: 1000,
+                    theAttack: new Attack(100, 100),
+                    theAnimation: new Animations({
+                        stand: new FramePattern(ANIM_STAND),
+                    }),
+                })
+                break;
+            case 'pillar of encapsulation':
+                entity = new Entity({
+                    thePos: entityPos,
+                    theSize: createVector(1, 1),
+                    theIsCollideable: true,
+                    theImage: TILEMAP_ASSASSIN,
+                    theHFrames: 1,
+                    theVFrames: 1,
+                    theFrame: 0,
+                    theFrameSize: createVector(16,16),
+                    theOffset: createVector(0, 0),
+                    theName: "Pillar of Encapsulation",
+                    theHitPoints: 1000,
+                    theAttack: new Attack(100, 100),
+                    theAnimation: new Animations({
+                        stand: new FramePattern(ANIM_STAND),
+                    }),
+                })
+                break;
+            case 'pillar of inheritance':
+                entity = new Entity({
+                    thePos: entityPos,
+                    theSize: createVector(1, 1),
+                    theIsCollideable: true,
+                    theImage: TILEMAP_ASSASSIN,
+                    theHFrames: 1,
+                    theVFrames: 1,
+                    theFrame: 0,
+                    theFrameSize: createVector(16,16),
+                    theOffset: createVector(0, 0),
+                    theName: "Pillar of Inheritance",
+                    theHitPoints: 1000,
+                    theAttack: new Attack(100, 100),
+                    theAnimation: new Animations({
+                        stand: new FramePattern(ANIM_STAND),
+                    }),
+                })
+                break;
+            case 'pillar of polymorphism':
+                entity = new Entity({
+                    thePos: entityPos,
+                    theSize: createVector(1, 1),
+                    theIsCollideable: true,
+                    theImage: TILEMAP_ASSASSIN,
+                    theHFrames: 1,
+                    theVFrames: 1,
+                    theFrame: 0,
+                    theFrameSize: createVector(16,16),
+                    theOffset: createVector(0, 0),
+                    theName: "Pillar of Polymorphism",
+                    theHitPoints: 1000,
+                    theAttack: new Attack(100, 100),
+                    theAnimation: new Animations({
+                        stand: new FramePattern(ANIM_STAND),
+                    }),
                 })
                 break;
             default:
