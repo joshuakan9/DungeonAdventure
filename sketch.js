@@ -73,7 +73,7 @@ window.addEventListener("e-battle-start", (E) => {
 
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
-  console.log(E['detail'])
+  //console.log(E['detail'])
 })
 
 window.addEventListener("e-pillar-drop", (E) => {
@@ -288,9 +288,10 @@ function setup() {
     (time) => {
       // console.log(time)
 
-      //if (instanceBattle && instanceBattle.inCombat) {
-      //  instanceBattleDisplay.displayBattle()
-      //}
+      if (instanceBattle && instanceBattle.inCombat) {
+        instanceBattleDisplay.mobClone.step(time);
+        instanceBattleDisplay.playerClone.step(time);
+      }
 
 
       if (!instancePlayer.getIsFrozen()) {

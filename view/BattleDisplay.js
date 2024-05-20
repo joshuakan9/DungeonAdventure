@@ -4,12 +4,7 @@ class BattleDisplay {
         this.playerMaxHealth = this.myBattleSystem.player.getMaxHitPoints();
         this.mobInitialHealth = this.myBattleSystem.mob.myHitPoints;
         this.playerInitialStamina = this.myBattleSystem.player.myStamina;
-        this.playerClone = this.myBattleSystem.player;
-        this.mobClone = this.myBattleSystem.mob;
-        this.playerClone.setPos(createVector(5,10))
-        this.mobClone.setPos(createVector(10,10))
-        console.log(this.myBattleSystem.player)
-        console.log(this.playerClone)
+        this.createClones();
     }
     displayBattle(){
         if (!this.myBattleSystem.inCombat) {
@@ -119,6 +114,57 @@ class BattleDisplay {
         // Stamina numbers
         text(this.myBattleSystem.stamina + ' / ' + this.playerInitialStamina, width / 5.3, height - height / 2.3);
         pop()
+    }
+
+    createClones() {
+        const playerConst = this.myBattleSystem.player.constructor;
+        const mobConst = this.myBattleSystem.mob.constructor;
+        this.playerClone = new playerConst({
+            thePos: createVector((5), (10)),
+            theSize: createVector(1, 2),
+            theImage: this.myBattleSystem.player.myImage,
+            theHFrames: 9,
+            theVFrames: 1,
+            theFrame: 0,
+            theFrameSize: createVector(16, 32),
+            theOffset: createVector(0, -1.2),
+            theName: "Tester",
+            theHitPoints: 1000,
+            theAttack: new Attack(10000, 100),
+            theStamina: 10,
+            theBlockPercentage: 0,
+            theMaxHitPoints: 1000,
+            theSpecialAttack: new Attack(200, 100),
+            theAnimation: new Animations({
+              stand: new FramePattern(ANIM_STAND),
+              walk: new FramePattern(ANIM_WALK)
+            }),
+        })
+        this.mobClone = new mobConst ({
+            thePos: createVector((10), (10)),
+            theSize: createVector(1, 2),
+            theImage: this.myBattleSystem.mob.myImage,
+            theHFrames: 9,
+            theVFrames: 1,
+            theFrame: 0,
+            theFrameSize: createVector(16, 32),
+            theOffset: createVector(0, -1.2),
+            theName: "Tester",
+            theHitPoints: 1000,
+            theAttack: new Attack(10000, 100),
+            theStamina: 10,
+            theBlockPercentage: 0,
+            theMaxHitPoints: 1000,
+            theSpecialAttack: new Attack(200, 100),
+            theAnimation: new Animations({
+              stand: new FramePattern(ANIM_STAND),
+              walk: new FramePattern(ANIM_WALK)
+            }),
+        })
+        console.log(this.myBattleSystem.player)
+        console.log(this.playerClone)
+        console.log(this.myBattleSystem.mob)
+        console.log(this.mobClone)
     }
 
 
