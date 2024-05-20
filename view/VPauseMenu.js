@@ -77,7 +77,7 @@ class VPauseMenu {
             }
             rect(0, menuHeight * 0.75, menuWidth, menuHeight * 0.25, 5 * M)
     
-            fill(225)
+            fill(177,188,184)
             textAlign(CENTER,CENTER);
     
             text("Resume", menuWidth / 2, menuHeight * 0.125)
