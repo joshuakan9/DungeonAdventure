@@ -18,20 +18,23 @@ class TextBox {
         this.children = []
         this.render = () => {
             if (this.children.length > 0) {
+                textSize(height * this.children[0].textSize)
+
+                push();
                 fill('white')
+                noStroke();
                 rect(width - width * this.children[0].x, 
                     height - height * this.children[0].y, 
                     width - width * this.children[0].width, 
                     height * this.children[0].height)
                 fill('black')
-                textSize(height * this.children[0].textSize)
-
 
                 text(
                     this.children[0].text.substring(0, this.currentTextEnd), 
                     (width - width * this.children[0].x) + width * this.children[0].textSize, 
                     (height - height * this.children[0].y) + height * this.children[0].textSize,
                     width - width * this.children[0].width)
+                pop();
             }
         }
         this.tick = (delta) => {

@@ -17,5 +17,5 @@ class Skeleton extends Mob {
     getHeal() {
         return this.myHeal;
     }
-
+    
 }
