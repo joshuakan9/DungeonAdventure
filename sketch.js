@@ -68,7 +68,7 @@ window.addEventListener("e-battle-start", (E) => {
       console.log('pillarDrop.drop = ' + pillarDrop.boolean)
       console.log('pillarDrop.count = ' + pillarDrop.count)
     }
-    currentMobCount--;
+    // currentMobCount--;
   }
 
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
