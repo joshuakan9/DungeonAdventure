@@ -27,23 +27,9 @@ class BattleDisplay {
         fill('white');
         rect(0, height - height/5, width, height - height/5);
         //buttons
-        rect(width/2 + 5, height - height/5 + 5, width/4 - 5, height/10 - 5, 10);
-        rect(width/2 + 5, height - height/10 + 5, width/4 - 5, height/10 - 10, 10);
-        rect(width - width/4 + 5, height - height/5 + 5, width/4 - 10, height/10 - 5, 10);
-        rect(width - width/4 + 5, height - height/10 + 5, width/4 - 10, height/10 - 10, 10);
+        this.drawButtons()
 
-        fill('black');
-        let textWidth1 = textWidth("Basic Attack"); // Get width of text
-        text("Basic Attack", width/2 + width/8 - textWidth1/2, height - height/5 + height/20 + 10);
-
-        let textWidth2 = textWidth("Special Attack");
-        text("Special Attack", width/2 + width/8 - textWidth2/2, height - height/10 + height/20 + 10);
-
-        let textWidth3 = textWidth("Buff");
-        text("Buff", width - width/4 + width/8 - textWidth3/2, height - height/5 + height/20 + 10);
-
-        let textWidth4 = textWidth("Bag");
-        text("Bag", width - width/4 + width/8 - textWidth4/2, height - height/10 + height/20 + 10);
+        // this.drawButtonsText()
 
         //player spot
         this.playerClone.draw()
@@ -51,6 +37,42 @@ class BattleDisplay {
         //monster spot
         this.mobClone.draw()
 
+        this.drawHealthStaminaBars()
+
+        // Health numbers
+        this.drawHealthStaminaNumbers();
+        pop()
+    }
+
+    drawButtons() {
+        push()
+        let buttonWidth = width/4.1;
+        let buttonHeight = height/10.6;
+        let rectRoundEdges = 10;
+        rect(width/1.985, height - height/5.1, buttonWidth, buttonHeight, rectRoundEdges);
+        rect(width/1.985, height - height/10.3, buttonWidth, buttonHeight, rectRoundEdges);
+        rect(width - width/4.025, height - height/5.1, buttonWidth, buttonHeight, rectRoundEdges);
+        rect(width - width/4.025, height - height/10.3, buttonWidth, buttonHeight, rectRoundEdges);
+
+        textAlign(CENTER, CENTER);
+        fill('black');
+        let textWidth1 = textWidth("Basic Attack"); // Get width of text
+        text("Basic Attack", width/1.985, height - height/5.1, buttonWidth, buttonHeight);
+
+        let textWidth2 = textWidth("Special Attack");
+        text("Special Attack", width/1.985, height - height/10.3, buttonWidth, buttonHeight, rectRoundEdges);
+
+        let textWidth3 = textWidth("Buff");
+        text("Buff", width - width/4.025, height - height/5.1, buttonWidth, buttonHeight, rectRoundEdges);
+
+        let textWidth4 = textWidth("Bag");
+        text("Bag", width - width/4.025, height - height/10.3, buttonWidth, buttonHeight, rectRoundEdges);
+        pop()
+    }
+
+
+    drawHealthStaminaBars() {
+        push()
         // Health bar
         let barWidth = width / 5; // Width of the bars
         let barHeight = 5; // Height of the bars
@@ -80,9 +102,6 @@ class BattleDisplay {
         rect(width / 20, height - height / 2.2, barWidth, barHeight, barRoundedEdges); // Draw the background of the health bar
         fill('yellow');
         rect(width / 4 - playerStaminaBarWidth, height - height / 2.2, playerStaminaBarWidth, barHeight, barRoundedEdges); // Draw the actual health bar
-
-        // Health numbers
-        this.drawHealthStaminaNumbers();
         pop()
     }
 
