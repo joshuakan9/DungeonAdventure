@@ -179,17 +179,6 @@ window.addEventListener("e-player-already-full-health", (E) => {
   }
 })
 
-// currently not in use
-// window.addEventListener("e-no-health-potions", (E) => {
-//   if (instanceBattle && instanceBattle.inCombat) {
-//     instanceTextBox.add({ text: "You have no health potions!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-//
-//   } else {
-//     instanceTextBox.add({ text: "You have no health potions!"});
-//
-//   }
-// })
-
 window.addEventListener("e-not-enough-stamina", (E) => {
   instanceTextBox.add({ text: "You do not have enough stamina!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 })
@@ -217,8 +206,8 @@ let TILEMAP_EXIT
 
 function setup() {
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
-  TILEMAP_WARRIOR = TILEMAP.get(32 * 16, 3 * 16, 9 * 16, 2 * 16)
-  TILEMAP_PRIEST = TILEMAP.get(32 * 16, 5 * 16, 9 * 16, 2 * 16)
+  TILEMAP_WARRIOR = TILEMAP.get(32 * 16, 4 * 16, 9 * 16, 2 * 16)
+  TILEMAP_PRIEST = TILEMAP.get(32 * 16, 8 * 16, 9 * 16, 2 * 16)
   TILEMAP_OGRE = TILEMAP.get(23 * 16, 20 * 16, 9 * 16, 2 * 16)
   TILEMAP_SKELETON = TILEMAP.get(23 * 16, 4 * 16, 9 * 16, 2 * 16)
   TILEMAP_GREMLIN = TILEMAP.get(23 * 16, 10 * 16, 9 * 16, 2 * 16)
@@ -258,7 +247,7 @@ function setup() {
     instancePlayer = new Assassin({
       thePos: createVector((6), (6)),
       theSize: createVector(1, 2),
-      theImage: TILEMAP_ASSASSIN,
+      theImage: TILEMAP_PRIEST,
       theHFrames: 9,
       theVFrames: 1,
       theFrame: 0,
