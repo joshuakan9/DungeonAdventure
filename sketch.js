@@ -27,7 +27,7 @@ let instanceFactory = null
 let instanceTargetPos = null
 let instancePlayer = null
 let instanceBattle = null
-let instanceTextBox = null
+let instanceTextBox = new TextBox();
 let instanceBattleDisplay = null
 let instanceBagDisplay = null
 
@@ -74,7 +74,6 @@ window.addEventListener("e-battle-start", (E) => {
     }
     // currentMobCount--;
   }
-
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
   instanceBagDisplay = new BagDisplay(instancePlayer);
@@ -235,7 +234,7 @@ function setup() {
       theOffset: createVector(0, -1.2),
       theName: "Tester",
       theHitPoints: 1000,
-      theAttack: new Attack(10000, 100),
+      theAttack: new Attack(500, 100),
       theStamina: 10,
       theBlockPercentage: 0,
       theMaxHitPoints: 1000,
@@ -303,10 +302,15 @@ function setup() {
     (time) => {
       // console.log(time)
 
-      if (instanceBattle && instanceBattle.inCombat) {
+      if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
         instanceBattleDisplay.mobClone.step(time);
         instanceBattleDisplay.playerClone.step(time);
       }
+      if (instanceTextBox && !instanceTextBox.isEmpty()) {
+        instanceTextBox.tickTextBox(time);
+      }
+
+
 
 
       if (!instancePlayer.getIsFrozen()) {
@@ -354,41 +358,23 @@ function setup() {
 
       VPauseMenu.draw()
       // VMainMenu.draw()
+
 //=======================================================================================================================
-      if (instanceBattle && instanceBattle.inCombat) {
+      if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
         instanceBattleDisplay.displayBattle()
       }
       if (instanceBagDisplay && instanceBagDisplay.getIsPaused() && instanceBattle && instanceBattle.inCombat) {
         instanceBagDisplay.draw()
       }
-      //if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
+      if (instanceTextBox && !instanceTextBox.isEmpty()) {
+        instanceTextBox.renderTextBox();
+      }
 //=======================================================================================================================
       if (instanceTransition.drawerStatus()) instanceTransition.drawer();
       image(CURSOR,mouseX,mouseY, 8 * M, 8 * M)
     }
   )
   instanceGameLoop.start()
-
-  if (instanceTextBox) {
-    instanceTextBox.loop.stop()
-    let newTextBox = new TextBox()
-    newTextBox.timeCurrent = instanceTextBox.timeCurrent
-    newTextBox.currentTextEnd = instanceTextBox.currentTextEnd
-    newTextBox.children = instanceTextBox.children
-    instanceTextBox = newTextBox
-    instanceTextBox.loop.start()
-  }
-  if (!instanceTextBox) {
-    instanceTextBox = new TextBox()
-    instanceTextBox.loop.start();
-
-    //instanceTextBox.add({text:"Welcome to the Dungeon traveler", x:null, y:null, width:null, height:null, textSize: null})
-    //instanceTextBox.add({text:"The game is still in development", x:null, y:null, width:null, height:null, textSize: null})
-    //instanceTextBox.add({text:"Explore the dungeon and find the Keys to OO", x:null, y:null, width:null, height:null, textSize: null})
-    //instanceTextBox.add({text:"Good Luck and Have fun", x:null, y:null, width:null, height:null, textSize: null})
-  }
-  //console.log(instanceTextBox.children)
-
 }
 
 function draw() {
@@ -403,8 +389,8 @@ function windowResized() {
 
 function mouseClicked() {
   instanceTextBox.nextText();
-  // console.log(instanceTextBox)
-  if (instanceBattle && instanceBattle.inCombat && instanceTextBox.children.length === 0) {
+  //console.log(instanceTextBox)
+  if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
 
     //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS
     // basic attack button
@@ -447,10 +433,10 @@ function mouseClicked() {
     if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
       instanceBattle.turn("move_bag");
     }
+    instanceBagDisplay.mouseClicked();
   }
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
-  instanceBagDisplay.mouseClicked();
 }
 
 function keyPressed() {

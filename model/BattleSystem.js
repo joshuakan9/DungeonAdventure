@@ -5,6 +5,7 @@ class BattleSystem {
         this.mob = theMob;
         this.pillarDropBoolean = thePillarDrop.boolean;
         this.pillarDropCount = thePillarDrop.count;
+        this.outOfText = false;
 
         console.log("battle started");
         console.log(thePillarDrop.boolean);
@@ -49,11 +50,15 @@ class BattleSystem {
                         break;
                 }
             }
-
+            window.addEventListener("e-no-text", (E) => {
+                this.outOfText = true;
+            })
+            window.addEventListener("e-has-text", (E) => {
+                this.outOfText = false;
+            })
             this.inCombat = false;
             window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
             window.dispatchEvent(new Event("e-battle-end"))
-
         }
 
     }
