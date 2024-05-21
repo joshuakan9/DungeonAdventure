@@ -14,7 +14,7 @@ class BagDisplay {
 
     mouseClicked() {
         let menuWidth = width * 0.6
-        let menuHeight = height * 0.4
+        let menuHeight = height * 0.5
         if (
             mouseX >= width / 2 - menuWidth / 2 &&
             mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
@@ -29,7 +29,7 @@ class BagDisplay {
     draw() {
         if (this.getIsPaused()) {
             let menuWidth = width * 0.6
-            let menuHeight = width * 0.4
+            let menuHeight = width * 0.5
             push()
             textFont(FONT["REGULAR"])
             noStroke()

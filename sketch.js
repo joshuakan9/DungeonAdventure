@@ -438,17 +438,15 @@ function mouseClicked() {
 }
 
 function keyPressed() {
-  if (!instancePlayer.getIsFrozen()) {
-
+  if (!instancePlayer.getIsFrozen() && instanceBagDisplay.getIsPaused() === false) {
     VPauseMenu.keyPressed()
-
-    if (instanceBagDisplay) {
-      instanceBagDisplay.keyPressed()
-    }
+    
     if (keyCode === 32) { // space key
       instanceFactory.interact(instancePlayer)
     }
-
+  }
+  if (instanceBagDisplay && VPauseMenu.getIsPaused() === false) {
+    instanceBagDisplay.keyPressed()
   }
   //text, x, y, width, height, textSize
 }
