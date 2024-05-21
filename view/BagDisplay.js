@@ -18,8 +18,8 @@ class BagDisplay {
         if (
             mouseX >= width / 2 - menuWidth / 2 &&
             mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-            mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
-            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0 &&
+            mouseY >= height / 2 - menuHeight / 2 + menuHeight * 1 &&
+            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.2 &&
             this.myIsPaused
         ) {
             console.log('exit')
@@ -36,9 +36,9 @@ class BagDisplay {
             translate(width / 2 - menuWidth / 2, height / 2 - menuHeight / 2)
             textSize(width / 30)
             fill(0, 0, 0, 100)
-            rect(0, 0, menuWidth, menuHeight, 5 * M)
+            rect(0, 0, menuWidth, menuHeight * 1.2, 5 * M)
 
-            // RESUME
+            // HEALTH POTION / BAG IS EMPTY
             fill(0, 0, 0, 25)
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
@@ -50,7 +50,7 @@ class BagDisplay {
             }
             rect(0, 0, menuWidth, menuHeight * 0.2, 5 * M)
 
-            // OPTIONS
+            // PILLAR OF ABSTRACTION
             fill(0, 0, 0, 25)
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
@@ -62,7 +62,7 @@ class BagDisplay {
             }
             rect(0, menuHeight * 0.2, menuWidth, menuHeight * 0.2, 5 * M)
 
-            // LOAD
+            // PILLAR OF ENCAPSULATION
             fill(0, 0, 0, 25)
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
@@ -74,7 +74,7 @@ class BagDisplay {
             }
             rect(0, menuHeight * 0.40, menuWidth, menuHeight * 0.2, 5 * M)
 
-            // SAVE
+            // PILLAR OF INHERITANCE
             fill(0, 0, 0, 25)
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
@@ -86,7 +86,7 @@ class BagDisplay {
             }
             rect(0, menuHeight * 0.6, menuWidth, menuHeight * 0.2, 5 * M)
 
-            // EXIT
+            // PILLAR OF POLYMORPHISM
             fill(0, 0, 0, 25)
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
@@ -98,13 +98,25 @@ class BagDisplay {
             }
             rect(0, menuHeight * 0.8, menuWidth, menuHeight * 0.2, 5 * M)
 
+            // EXIT
+            fill(0, 0, 0, 25)
+            if (
+                mouseX >= width / 2 - menuWidth / 2 &&
+                mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
+                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 1 &&
+                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.2
+            ) {
+                fill(0, 0, 0, 100)
+            }
+            rect(0, menuHeight * 1, menuWidth, menuHeight * 0.2, 5 * M)
+
+
             fill(177, 188, 184)
             textAlign(CENTER, CENTER);
 
             if (this.myBag.size === 0) {
                 text('Bag is empty', menuWidth / 2, menuHeight * 0.1)
             }
-
             if (this.myBag.has('Health Potion')) {
                 text('Health Potions: ' + this.myBag.get('Health Potion'), menuWidth / 2, menuHeight * 0.1)
             }
@@ -120,7 +132,7 @@ class BagDisplay {
             if (this.myBag.has('Pillar of Encapsulation')) {
                 text('Pillar of Encapsulation: ' + this.myBag.get('Pillar of Encapsulation'), menuWidth / 2, menuHeight * 0.9)
             }
-            text("Exit", menuWidth / 2, menuHeight * 0.9)
+            text("Exit", menuWidth / 2, menuHeight * 1.1)
             pop()
         }
     }
