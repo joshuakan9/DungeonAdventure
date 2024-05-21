@@ -14,10 +14,16 @@ class BattleDisplay {
         rect(0, 0, width, height);
         fill(92, 64, 51);
         rect(0, (height * 2)/3, width, height/3);
+        pop()
 
         //background of textbox and buttons
+        push()
         fill('white');
+        noStroke();
         rect(0, height - height/5, width, height - height/5);
+        pop()
+        push()
+
         //buttons
         this.drawButtons()
 

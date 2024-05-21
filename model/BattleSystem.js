@@ -50,12 +50,6 @@ class BattleSystem {
                         break;
                 }
             }
-            window.addEventListener("e-no-text", (E) => {
-                this.outOfText = true;
-            })
-            window.addEventListener("e-has-text", (E) => {
-                this.outOfText = false;
-            })
             this.inCombat = false;
             window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
             window.dispatchEvent(new Event("e-battle-end"))
@@ -70,6 +64,10 @@ class BattleSystem {
 
         if (playerRandom < playerHitPercentage) {
             this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
+
+            if (this.mob.getHitPoints() <= 0) {
+                this.inCombat = false;
+            }
             window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.player, attack: "basic" }}))
 
             let mobHealPercentage = this.mob.getHeal().getHealPercentage();
@@ -96,6 +94,11 @@ class BattleSystem {
 
             if (playerRandom < playerHitPercentage) {
                 this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
+
+                if (this.mob.getHitPoints() <= 0) {
+                    this.inCombat = false;
+                }
+
                 window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.player, attack: "special" }}))
 
                 let mobHealPercentage = this.mob.getHeal().getHealPercentage();
