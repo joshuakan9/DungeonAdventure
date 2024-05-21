@@ -29,6 +29,7 @@ let instancePlayer = null
 let instanceBattle = null
 let instanceTextBox = null
 let instanceBattleDisplay = null
+let instanceBagSystem = null
 let instanceBagDisplay = null
 
 
@@ -234,7 +235,7 @@ function setup() {
       theOffset: createVector(0, -1.2),
       theName: "Tester",
       theHitPoints: 1000,
-      theAttack: new Attack(10000, 100),
+      theAttack: new Attack(100, 100),
       theStamina: 10,
       theBlockPercentage: 0,
       theMaxHitPoints: 1000,
@@ -249,6 +250,10 @@ function setup() {
 
   if (!instanceBagDisplay) {
     instanceBagDisplay = new BagDisplay(instancePlayer)
+  }
+
+  if (!instanceBagSystem) {
+    instanceBagSystem = new BagSystem(instancePlayer)
   }
 
 
@@ -454,20 +459,20 @@ function mouseClicked() {
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
   instanceBagDisplay.mouseClicked();
+  instanceBagSystem.mouseClicked();
 }
 
 function keyPressed() {
   if (!instancePlayer.getIsFrozen()) {
 
     VPauseMenu.keyPressed()
+    if (instanceBagDisplay) {
+        instanceBagDisplay.keyPressed()
+    }
     if (keyCode === 32) { // space key
       instanceFactory.interact(instancePlayer)
     }
-    if (instanceBagDisplay) {
-      if (keyCode === 66) { // b key
-        instanceBagDisplay.setIsPaused()
-      }
-    }
+
   }
   //text, x, y, width, height, textSize
 }

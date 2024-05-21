@@ -6,6 +6,12 @@ class BagDisplay {
         this.myIsPaused = false;
     }
 
+    keyPressed() {
+        if (keyCode === 66) { // b
+            this.setIsPaused();
+        }
+    }
+
     mouseClicked() {
         let menuWidth = width * 0.6
         let menuHeight = width * 0.5
@@ -122,6 +128,10 @@ class BagDisplay {
 
             fill(177, 188, 184)
             textAlign(CENTER, CENTER);
+
+            if (this.myBag.size === 0) {
+                text('Bag is empty', menuWidth / 2, menuHeight * 0.1)
+            }
 
             if (this.myBag.has('Health Potion')) {
                 text('Health Potions: ' + this.myBag.get('Health Potion'), menuWidth / 2, menuHeight * 0.1)
