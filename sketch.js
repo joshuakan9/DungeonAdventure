@@ -31,6 +31,7 @@ let instanceTextBox = null
 let instanceBattleDisplay = null
 let instanceBagDisplay = null
 
+
 // let mobCount = 0;
 // let currentMobCount = 10;
 let pillarDrop = {
@@ -77,7 +78,6 @@ window.addEventListener("e-battle-start", (E) => {
 
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
-  instanceBagDisplay = new BagDisplay(instancePlayer);
   //console.log(E['detail'])
 })
 
@@ -220,7 +220,6 @@ function setup() {
     mobCount = instanceFactory.getMobCount();
   }
 
-
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
@@ -246,6 +245,10 @@ function setup() {
       }),
     });
     instanceTargetPos = instancePlayer.getPos().copy()
+  }
+
+  if (!instanceBagDisplay) {
+    instanceBagDisplay = new BagDisplay(instancePlayer)
   }
 
 
@@ -358,7 +361,7 @@ function setup() {
       if (instanceBattle && instanceBattle.inCombat) {
         instanceBattleDisplay.displayBattle()
       }
-      if (instanceBagDisplay && instanceBagDisplay.getIsPaused() && instanceBattle && instanceBattle.inCombat) {
+      if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
         instanceBagDisplay.draw()
       }
       //if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
@@ -460,7 +463,11 @@ function keyPressed() {
     if (keyCode === 32) { // space key
       instanceFactory.interact(instancePlayer)
     }
-
+    if (instanceBagDisplay) {
+      if (keyCode === 66) { // b key
+        instanceBagDisplay.setIsPaused()
+      }
+    }
   }
   //text, x, y, width, height, textSize
 }

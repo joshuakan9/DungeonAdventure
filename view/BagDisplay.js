@@ -147,8 +147,6 @@ class BagDisplay {
         return this.myIsPaused;
     }
     setIsPaused() {
-        console.log('this.myIsPaused: ' + this.myIsPaused)
         this.myIsPaused = !this.myIsPaused;
-        console.log('this.myIsPaused: ' + this.myIsPaused)
     }
 }
