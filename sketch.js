@@ -358,7 +358,7 @@ function setup() {
       if (instanceBattle && instanceBattle.inCombat) {
         instanceBattleDisplay.displayBattle()
       }
-      if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
+      if (instanceBagDisplay && instanceBagDisplay.getIsPaused() && instanceBattle && instanceBattle.inCombat) {
         instanceBagDisplay.draw()
       }
       //if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
@@ -450,6 +450,7 @@ function mouseClicked() {
   }
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
+  instanceBagDisplay.mouseClicked();
 }
 
 function keyPressed() {
