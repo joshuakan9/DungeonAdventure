@@ -244,27 +244,7 @@ function setup() {
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
-    instancePlayer = new Assassin({
-      thePos: createVector((6), (6)),
-      theSize: createVector(1, 2),
-      theImage: TILEMAP_PRIEST,
-      theHFrames: 9,
-      theVFrames: 1,
-      theFrame: 0,
-      theFrameSize: createVector(16, 32),
-      theOffset: createVector(0, -1.2),
-      theName: "Tester",
-      theHitPoints: 500,
-      theAttack: new Attack(100, 100),
-      theStamina: 10,
-      theBlockPercentage: 0,
-      theMaxHitPoints: 1000,
-      theSpecialAttack: new Attack(200, 100),
-      theAnimation: new Animations({
-        stand: new FramePattern(ANIM_STAND),
-        walk: new FramePattern(ANIM_WALK)
-      }),
-    });
+    instancePlayer = CharacterFactory.createCharacter("assassin");
     instanceTargetPos = instancePlayer.getPos().copy()
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));
