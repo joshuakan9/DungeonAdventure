@@ -555,7 +555,7 @@ function setUpHeroDatabase() {
     theStamina: 10,
     theBlockPercentage: 100,
     theMaxHitPoints: 1000,
-    theSpecialAttack: {damage: 200, hitChance: 100},
+    theSpecialAttack: {damage: 10000, hitChance: 100},
   }))
   window.localStorage.setItem("priest", JSON.stringify({
     thePos: {x: 6, y: 6},

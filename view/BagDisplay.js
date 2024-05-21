@@ -124,13 +124,13 @@ class BagDisplay {
                 text('Pillar of Abstraction', menuWidth / 2, menuHeight * 0.3)
             }
             if (this.myBag.has('Pillar of Encapsulation')) {
-                text('Pillar of Inheritance', menuWidth / 2, menuHeight * 0.5)
+                text('Pillar of Encapsulation', menuWidth / 2, menuHeight * 0.5)
             }
             if (this.myBag.has('Pillar of Inheritance')) {
-                text('Pillar of Polymorphism', menuWidth / 2, menuHeight * 0.7)
+                text('Pillar of Inheritance', menuWidth / 2, menuHeight * 0.7)
             }
             if (this.myBag.has('Pillar of Polymorphism')) {
-                text('Pillar of Encapsulation', menuWidth / 2, menuHeight * 0.9)
+                text('Pillar of Polymorphism', menuWidth / 2, menuHeight * 0.9)
             }
             text("Exit", menuWidth / 2, menuHeight * 1.1)
             pop()
