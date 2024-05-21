@@ -17,63 +17,77 @@ class TextBox {
         this.currentTextEnd = 0;
         this.children = []
         this.render = () => {
-            if (this.children.length > 0) {
-                textSize(height * this.children[0].textSize)
-
-                push();
-                fill('white')
-                noStroke();
-                rect(width - width * this.children[0].x, 
-                    height - height * this.children[0].y, 
-                    width - width * this.children[0].width, 
-                    height * this.children[0].height)
-                fill('black')
-
-                text(
-                    this.children[0].text.substring(0, this.currentTextEnd), 
-                    (width - width * this.children[0].x) + width * this.children[0].textSize, 
-                    (height - height * this.children[0].y) + height * this.children[0].textSize,
-                    width - width * this.children[0].width)
-                pop();
-            }
-        }
-        this.tick = (delta) => {
-            if (this.timeCurrent >= this.timeTarget && this.children[0] && this.currentTextEnd < this.children[0].text.length) {
-                if (this.children.length % 2 !== 0) {
-                    this.children[0].text = this.children[0].text + " ";
-                }
-                this.currentTextEnd += 2;
-                this.timeCurrent = 0;
-            } else {
-                this.timeCurrent += delta
-            }
-
-
+            
         }
         this.loop = new GameLoop()
         this.loop.setTickFunction(this.tick)
         this.loop.setRenderFunction(this.render)
     }
+    renderTextBox() {
+        if (this.children.length > 0) {
+            textSize(height * this.children[0].textSize)
 
-    inTextDialogue() {
-        return this.children.length != 0;
+            push();
+            fill('white')
+            noStroke();
+            rect(width - width * this.children[0].x, 
+                height - height * this.children[0].y, 
+                width - width * this.children[0].width, 
+                height * this.children[0].height)
+            fill('black')
+
+            text(
+                this.children[0].text.substring(0, this.currentTextEnd), 
+                (width - width * this.children[0].x) + width * this.children[0].textSize, 
+                (height - height * this.children[0].y) + height * this.children[0].textSize,
+                width - width * this.children[0].width)
+            pop();
+        }
+    }
+
+    tickTextBox(delta) {
+        if (this.timeCurrent >= this.timeTarget && this.children[0] && this.currentTextEnd < this.children[0].text.length) {
+            if (this.children.length % 2 !== 0) {
+                this.children[0].text = this.children[0].text + " ";
+            }
+            this.currentTextEnd += 2;
+            this.timeCurrent = 0;
+        } else {
+            this.timeCurrent += delta
+        }
+
+
+    }
+
+
+    
+    isEmpty() {
+        return this.children.length === 0;
     }
 
     nextText() {
+        console.log("children amt: " + this.children.length)
         if (this.inTextDialogue && this.children[0] && this.children[0].text.length == this.currentTextEnd) {
 
-            if (this.children.length > 1) {
-                this.inTextDialogue = true;
+            if (this.children.length > 0) {
                 this.children.shift();
             } else {
                 this.children.shift();
-                this.inTextDialogue = false;
             }
+
+            if (this.isEmpty()) {
+                window.dispatchEvent(new Event("e-no-text"))
+            } else {
+                window.dispatchEvent(new Event("e-has-text"))
+            }
+
             window.dispatchEvent(new Event("e-player-unfreeze"))
             if (this.currentTextEnd >= 0) {
                 this.currentTextEnd = 0;
             }
         }
+        console.log("bool: " + this.isEmpty())
+        console.log("children amt: " + this.children.length)
 
 
     }

@@ -8,12 +8,7 @@ class BattleDisplay {
     }
 
     displayBattle(){
-        if (!this.myBattleSystem.inCombat && noText) {
-            this.playerClone = null;
-            this.mobClone = null;
-            this.battleloop.stop();
-            this.noText = false;
-        }
+        //window.dispatchEvent(new Event("e-transition"))
         push()
         fill('gray');
         rect(0, 0, width, height);
