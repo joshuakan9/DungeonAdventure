@@ -22,9 +22,6 @@ class BagSystem {
                 if (this.myPlayer.getBag().get("Health Potion") > 0) {
                     this.playerUseHealthPotion();
                     console.log('player used health potion');
-                } else {
-                    console.log("no health potions");
-                    window.dispatchEvent(new Event("e-no-health-potions"));
                 }
             }
         }
