@@ -251,11 +251,7 @@ function setup() {
       theFrameSize: createVector(16, 32),
       theOffset: createVector(0, -1.2),
       theName: "Tester",
-<<<<<<< HEAD
-      theHitPoints: 1000,
-=======
       theHitPoints: 500,
->>>>>>> af280ce9bb60552dbafaaec136e1ed0a82d721dd
       theAttack: new Attack(100, 100),
       theStamina: 10,
       theBlockPercentage: 0,
@@ -428,6 +424,12 @@ function mouseClicked() {
   }
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
+  if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
+    instanceBagDisplay.mouseClicked()
+  }
+  if (instanceBagSystem) {
+    instanceBagSystem.mouseClicked()
+  }
 }
 
 function keyPressed() {
