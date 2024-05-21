@@ -4,161 +4,104 @@ class EntityFactory {
         let entity = null;
         switch(entityType) {
             case 'ogre':
+                let ogreData = JSON.parse(window.localStorage.getItem('ogre'));
                 entity = new Ogre({
                     thePos: entityPos,
-                    theSize: createVector(1, 2),
-                    theIsCollideable: true,
+                    theSize: createVector(ogreData.theSize.x, ogreData.theSize.y),
+                    theIsCollideable: ogreData.theIsCollideable,
                     theImage: TILEMAP_OGRE,
-                    theHFrames: 9,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,32),
-                    theOffset: createVector(0, -1.2),
-                    theName: "Ogre",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
-                    theHeal: new Heal(10,100),
-                    theStamina: 10,
-                    theBag: [],
-                    theBlockPercentage: 100,
-                    theSpecialAttack: new Attack(200, 100),
+                    theHFrames: ogreData.theHFrames,
+                    theVFrames: ogreData.theVFrames,
+                    theFrame: ogreData.theFrame,
+                    theFrameSize: createVector(ogreData.theFrameSize.x, ogreData.theFrameSize.y),
+                    theOffset: createVector(ogreData.theOffset.x, ogreData.theOffset.y),
+                    theName: ogreData.theName,
+                    theHitPoints: ogreData.theHitPoints,
+                    theAttack: new Attack(ogreData.theAttack.damage, ogreData.theAttack.hitChance),
+                    theHeal: new Heal(ogreData.theHeal.healAmount, ogreData.theHeal.healChance),
+                    theSpecialAttack: new Attack(ogreData.theSpecialAttack.damage, ogreData.theSpecialAttack.hitChance),
                     theAnimation: new Animations({
                       stand: new FramePattern(ANIM_STAND),
                     }),
                 })
                 break;
             case 'skeleton':
+                let skeletonData = JSON.parse(window.localStorage.getItem('skeleton'));
                 entity = new Skeleton({
                     thePos: entityPos,
-                    theSize: createVector(1, 2),
-                    theIsCollideable: true,
+                    theSize: createVector(skeletonData.theSize.x, skeletonData.theSize.y),
+                    theIsCollideable: skeletonData.theIsCollideable,
                     theImage: TILEMAP_SKELETON,
-                    theHFrames: 9,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,32),
-                    theOffset: createVector(0, -1.2),
-                    theName: "Skeleton",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
-                    theHeal: new Heal(10,100),
-                    theStamina: 10,
-                    theBag: [],
-                    theBlockPercentage: 100,
-                    theSpecialAttack: new Attack(200, 100),
+                    theHFrames: skeletonData.theHFrames,
+                    theVFrames: skeletonData.theVFrames,
+                    theFrame: skeletonData.theFrame,
+                    theFrameSize: createVector(skeletonData.theFrameSize.x, skeletonData.theFrameSize.y),
+                    theOffset: createVector(skeletonData.theOffset.x, skeletonData.theOffset.y),
+                    theName: skeletonData.theName,
+                    theHitPoints: skeletonData.theHitPoints,
+                    theAttack: new Attack(skeletonData.theAttack.damage, skeletonData.theAttack.hitChance),
+                    theHeal: new Heal(skeletonData.theHeal.healAmount, skeletonData.theHeal.healChance),
+                    theSpecialAttack: new Attack(skeletonData.theSpecialAttack.damage, skeletonData.theSpecialAttack.hitChance),
                     theAnimation: new Animations({
                       stand: new FramePattern(ANIM_STAND),
                     }),
                 })
                 break;
             case 'gremlin':
+                let gremlinData = JSON.parse(window.localStorage.getItem('gremlin'));
                 entity = new Gremlin({
                     thePos: entityPos,
-                    theSize: createVector(1, 2),
-                    theIsCollideable: true,
+                    theSize: createVector(gremlinData.theSize.x, gremlinData.theSize.y),
+                    theIsCollideable: gremlinData.theIsCollideable,
                     theImage: TILEMAP_GREMLIN,
-                    theHFrames: 9,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,32),
-                    theOffset: createVector(0, -1.2),
-                    theName: "Gremlin",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
-                    theHeal: new Heal(10,100),
-                    theStamina: 10,
-                    theBag: [],
-                    theBlockPercentage: 100,
-                    theSpecialAttack: new Attack(200, 100),
+                    theHFrames: gremlinData.theHFrames,
+                    theVFrames: gremlinData.theVFrames,
+                    theFrame: gremlinData.theFrame,
+                    theFrameSize: createVector(gremlinData.theFrameSize.x, gremlinData.theFrameSize.y),
+                    theOffset: createVector(gremlinData.theOffset.x, gremlinData.theOffset.y),
+                    theName: gremlinData.theName,
+                    theHitPoints: gremlinData.theHitPoints,
+                    theAttack: new Attack(gremlinData.theAttack.damage, gremlinData.theAttack.hitChance),
+                    theHeal: new Heal(gremlinData.theHeal.healAmount, gremlinData.theHeal.healChance),
+                    theSpecialAttack: new Attack(gremlinData.theSpecialAttack.damage, gremlinData.theSpecialAttack.hitChance),
                     theAnimation: new Animations({
-                        stand: new FramePattern(ANIM_STAND),
+                      stand: new FramePattern(ANIM_STAND),
                     }),
                 })
                 break;
             case 'health potion':
+                let healthPotionData = JSON.parse(window.localStorage.getItem('health potion'));
                 entity = new HealthPotion({
                     thePos: entityPos,
-                    theSize: createVector(1, 1),
-                    theIsCollideable: true,
+                    theSize: createVector(healthPotionData.theSize.x, healthPotionData.theSize.y),
+                    theIsCollideable: healthPotionData.theIsCollideable,
                     theImage: TILEMAP_POTION_HEALTH,
-                    theOffset: createVector(0, -0.1),
-                    theName: "Health Potion",
+                    theOffset: createVector(healthPotionData.theOffset.x, healthPotionData.theOffset.y),
+                    theName: healthPotionData.theName,
                 })
                 break;
             case 'pillar of abstraction':
                 entity = new Entity({
-                    thePos: entityPos,
-                    theSize: createVector(1, 1),
-                    theIsCollideable: true,
                     theImage: TILEMAP_ASSASSIN,
-                    theHFrames: 1,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,16),
-                    theOffset: createVector(0, 0),
                     theName: "Pillar of Abstraction",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
-                    theAnimation: new Animations({
-                        stand: new FramePattern(ANIM_STAND),
-                    }),
                 })
                 break;
             case 'pillar of encapsulation':
                 entity = new Entity({
-                    thePos: entityPos,
-                    theSize: createVector(1, 1),
-                    theIsCollideable: true,
                     theImage: TILEMAP_ASSASSIN,
-                    theHFrames: 1,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,16),
-                    theOffset: createVector(0, 0),
                     theName: "Pillar of Encapsulation",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
-                    theAnimation: new Animations({
-                        stand: new FramePattern(ANIM_STAND),
-                    }),
                 })
                 break;
             case 'pillar of inheritance':
                 entity = new Entity({
-                    thePos: entityPos,
-                    theSize: createVector(1, 1),
-                    theIsCollideable: true,
                     theImage: TILEMAP_ASSASSIN,
-                    theHFrames: 1,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,16),
-                    theOffset: createVector(0, 0),
                     theName: "Pillar of Inheritance",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
-                    theAnimation: new Animations({
-                        stand: new FramePattern(ANIM_STAND),
-                    }),
                 })
                 break;
             case 'pillar of polymorphism':
                 entity = new Entity({
-                    thePos: entityPos,
-                    theSize: createVector(1, 1),
-                    theIsCollideable: true,
                     theImage: TILEMAP_ASSASSIN,
-                    theHFrames: 1,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,16),
-                    theOffset: createVector(0, 0),
                     theName: "Pillar of Polymorphism",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
-                    theAnimation: new Animations({
-                        stand: new FramePattern(ANIM_STAND),
-                    }),
                 })
                 break;
             case 'exit':
@@ -167,14 +110,7 @@ class EntityFactory {
                     theSize: createVector(1, 1),
                     theIsCollideable: true,
                     theImage: TILEMAP_EXIT,
-                    theHFrames: 1,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,16),
-                    theOffset: createVector(0, 0),
                     theName: "Exit",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
                 })
                 break;
             default:
