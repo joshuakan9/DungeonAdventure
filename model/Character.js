@@ -36,7 +36,9 @@ class Character extends Entity {
     }
 
     removeBag(theItemName) {
-        if (this.myBag.get(theItemName) > 0) {
+        if (this.myBag.get(theItemName) === 1) {
+            this.myBag.delete(theItemName);
+        } else if (this.myBag.get(theItemName) > 1) {
             this.myBag.set(theItemName, this.myBag.get(theItemName) - 1);
         } else {
             console.log('remove bag failed as there are no more ' + theItemName + 's in the bag');

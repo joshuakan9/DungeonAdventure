@@ -29,10 +29,9 @@ let instancePlayer = null
 let instanceBattle = null
 let instanceTextBox = new TextBox();
 let instanceBattleDisplay = null
+let instanceBagSystem = null
 let instanceBagDisplay = null
 
-// let mobCount = 0;
-// let currentMobCount = 10;
 let pillarDrop = {
   boolean: false,
   count: -1
@@ -45,7 +44,6 @@ window.addEventListener("e-battle-start", (E) => {
   let initialMobCount = instanceFactory.getInitialMobCount();
   let currentMobCount = instanceFactory.getMobCount();
 
-  // let initialMobCount = 10;
   let pillarDropRate = floor(initialMobCount / 4);
 
 
@@ -72,11 +70,9 @@ window.addEventListener("e-battle-start", (E) => {
         pillarDrop.boolean = false;
         console.log('pillarDrop.drop = ' + pillarDrop.boolean)
     }
-    // currentMobCount--;
   }
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
-  instanceBagDisplay = new BagDisplay(instancePlayer);
   //console.log(E['detail'])
 })
 
@@ -136,7 +132,18 @@ window.addEventListener("e-bag", (E) => {
   console.log("bag event")
 })
 window.addEventListener("e-player-use-health-potion", (E) => {
-  instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion and has healed for "+ E.detail + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  if (instanceBattle && instanceBattle.inCombat) {
+    instanceTextBox.add({
+      text: instancePlayer.getName() + " has used a potion and has healed for " + E.detail + " health!",
+      x: 1,
+      y: .2,
+      width: .5,
+      height: .2,
+      textSize: .02
+    });
+  } else {
+    instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion and has healed for " + E.detail + " health!" });
+  }
 });
 
 window.addEventListener("e-miss-attack", (E) => {
@@ -159,12 +166,24 @@ window.addEventListener("e-mob-heal", (E) => {
 })
 
 window.addEventListener("e-player-already-full-health", (E) => {
-    instanceTextBox.add({ text: "You are already at full health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  if (instanceBattle && instanceBattle.inCombat) {
+    instanceTextBox.add({text: "You are already at full health!", x: 1, y: .2, width: .5, height: .2, textSize: .02});
+  } else {
+    instanceTextBox.add({text: "You are already at full health!"});
+
+  }
 })
 
-window.addEventListener("e-no-health-potions", (E) => {
-    instanceTextBox.add({ text: "You have no health potions!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-})
+// currently not in use
+// window.addEventListener("e-no-health-potions", (E) => {
+//   if (instanceBattle && instanceBattle.inCombat) {
+//     instanceTextBox.add({ text: "You have no health potions!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+//
+//   } else {
+//     instanceTextBox.add({ text: "You have no health potions!"});
+//
+//   }
+// })
 
 window.addEventListener("e-not-enough-stamina", (E) => {
     instanceTextBox.add({ text: "You do not have enough stamina!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
@@ -219,7 +238,6 @@ function setup() {
     mobCount = instanceFactory.getMobCount();
   }
 
-
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
@@ -233,8 +251,13 @@ function setup() {
       theFrameSize: createVector(16, 32),
       theOffset: createVector(0, -1.2),
       theName: "Tester",
+<<<<<<< HEAD
       theHitPoints: 1000,
       theAttack: new Attack(500, 100),
+=======
+      theHitPoints: 500,
+      theAttack: new Attack(100, 100),
+>>>>>>> 98d3af9b991390be9919ad8e4f582eb593f1361b
       theStamina: 10,
       theBlockPercentage: 0,
       theMaxHitPoints: 1000,
@@ -245,6 +268,18 @@ function setup() {
       }),
     });
     instanceTargetPos = instancePlayer.getPos().copy()
+    // instancePlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
+    // instancePlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));
+    // instancePlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
+    // instancePlayer.addBag(EntityFactory.createEntity("pillar of encapsulation"));
+  }
+
+  if (!instanceBagDisplay) {
+    instanceBagDisplay = new BagDisplay(instancePlayer)
+  }
+
+  if (!instanceBagSystem) {
+    instanceBagSystem = new BagSystem(instancePlayer)
   }
 
 
@@ -363,7 +398,7 @@ function setup() {
       if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
         instanceBattleDisplay.displayBattle()
       }
-      if (instanceBagDisplay && instanceBagDisplay.getIsPaused() && instanceBattle && instanceBattle.inCombat) {
+      if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
         instanceBagDisplay.draw()
       }
       if (instanceTextBox && !instanceTextBox.isEmpty()) {
@@ -392,7 +427,7 @@ function mouseClicked() {
   //console.log(instanceTextBox)
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
 
-    //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS
+    //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS and move it into the battledisplay mouseClicked() function
     // basic attack button
     let rect1X = width / 2 + 5;
     let rect1Y = height - height / 5 + 5;
@@ -419,7 +454,6 @@ function mouseClicked() {
 
     if (mouseX > rect1X && mouseX < rect1X + rect1Width && mouseY > rect1Y && mouseY < rect1Y + rect1Height) {
       instanceBattle.turn("move_basic");
-      console.log(instanceTextBox.children)
     }
 
     if (mouseX > rect2X && mouseX < rect2X + rect2Width && mouseY > rect2Y && mouseY < rect2Y + rect2Height) {
@@ -437,12 +471,21 @@ function mouseClicked() {
   }
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
+<<<<<<< HEAD
+=======
+  instanceBagDisplay.mouseClicked();
+  instanceBagSystem.mouseClicked();
+>>>>>>> 98d3af9b991390be9919ad8e4f582eb593f1361b
 }
 
 function keyPressed() {
   if (!instancePlayer.getIsFrozen()) {
 
     VPauseMenu.keyPressed()
+
+    if (instanceBagDisplay) {
+        instanceBagDisplay.keyPressed()
+    }
     if (keyCode === 32) { // space key
       instanceFactory.interact(instancePlayer)
     }

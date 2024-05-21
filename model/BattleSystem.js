@@ -114,22 +114,6 @@ class BattleSystem {
         }
     }
 
-    playerUseHealthPotion() {
-        let healAmount = floor(random(50,101));
-        // console.log("health = " + (this.player.getHitPoints() + healAmount));
-        // console.log("max health = " + this.player.getMaxHitPoints());
-        if (this.player.getHitPoints() === this.player.getMaxHitPoints()) {
-            console.log("player is already at full health");
-            window.dispatchEvent(new Event("e-player-already-full-health"));
-            return;
-        } else if (this.player.getHitPoints() + healAmount > this.player.getMaxHitPoints()) {
-            this.player.setHitPoints(this.player.getMaxHitPoints());
-        } else {
-            this.player.setHitPoints(this.player.getHitPoints() + healAmount);
-        }
-        this.player.removeBag("Health Potion");
-        window.dispatchEvent(new CustomEvent("e-player-use-health-potion", {detail: healAmount}));
-    }
 
     mobAttack() {
         let mobBasicDamage = this.mob.getAttack().getDamage();
@@ -212,15 +196,6 @@ class BattleSystem {
                 } else if (theMove === 'move_bag') {
                     console.log(this.player.getBag());
                     window.dispatchEvent(new Event("e-bag"))
-
-                    //TODO HEALTH POTION LOGIC HERE.
-                    // if (this.player.getBag().get("Health Potion") > 0) {
-                    //     this.playerUseHealthPotion();
-                    //     console.log('player used health potion');
-                    // } else {
-                    //     console.log("no health potions");
-                    //     window.dispatchEvent(new Event("e-no-health-potions"));
-                    // }
                 }
 
                 if (this.stamina === 0) {
