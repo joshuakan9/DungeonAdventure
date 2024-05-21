@@ -24,11 +24,10 @@ class BattleSystem {
             this.inCombat = false;
             window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
             window.dispatchEvent(new Event("e-battle-end"))
-
-
         }
         if (this.mob.getHitPoints() <= 0) {
             console.log("YOU HAVE WON");
+            window.dispatchEvent(new CustomEvent("e-player-battle-win", {detail: this.mob}))
 
             if (this.pillarDropBoolean) {
                 switch(this.pillarDropCount) {
@@ -49,8 +48,6 @@ class BattleSystem {
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Polymorphism"}))
                         break;
                 }
-                window.dispatchEvent(new Event("e-player-battle-win"))
-
             }
 
             this.inCombat = false;
@@ -73,7 +70,7 @@ class BattleSystem {
             let mobHealPercentage = this.mob.getHeal().getHealPercentage();
             let mobHealRandom = random(0, 100);
 
-            if (mobHealRandom < mobHealPercentage) {
+            if (mobHealRandom < mobHealPercentage && this.mob.getHitPoints() - playerDamage > 0) {
                 console.log("mob healed")
                 window.dispatchEvent(new CustomEvent("e-mob-heal", {detail: this.mob}))
                 this.mob.heal();
@@ -209,14 +206,16 @@ class BattleSystem {
                     }
                 } else if (theMove === 'move_bag') {
                     console.log(this.player.getBag());
-                    if (this.player.getBag().get("Health Potion") > 0) {
-                        this.playerUseHealthPotion();
-                        console.log('player used health potion');
-                    } else {
-                        console.log("no health potions");
-                        window.dispatchEvent(new Event("e-no-health-potions"));
+                    window.dispatchEvent(new Event("e-bag"))
 
-                    }
+                    //TODO HEALTH POTION LOGIC HERE.
+                    // if (this.player.getBag().get("Health Potion") > 0) {
+                    //     this.playerUseHealthPotion();
+                    //     console.log('player used health potion');
+                    // } else {
+                    //     console.log("no health potions");
+                    //     window.dispatchEvent(new Event("e-no-health-potions"));
+                    // }
                 }
 
                 if (this.stamina === 0) {

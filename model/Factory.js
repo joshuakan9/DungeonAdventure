@@ -38,16 +38,17 @@ class Factory {
         let thePos = theEntity.getPos()
         let cell = createVector(thePos.x, thePos.y)
         this.myEntities[cell.y][cell.x] = theEntity
-        if (theEntity.getName() === 'ogre' || theEntity.getName() === 'skeleton' || theEntity.getName() === 'gremlin') {
-            this.myMobCount++;
+        if (theEntity.getName() === 'Ogre' || theEntity.getName() === 'Skeleton' || theEntity.getName() === 'Gremlin') {
+            this.myMobCount = this.myMobCount + 1;
         }
     }
     removeEntity(theEntity) {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         room.removeEntity(theEntity.getPos())
-        if (theEntity.getName() === 'ogre' || theEntity.getName() === 'skeleton' || theEntity.getName() === 'gremlin') {
-            this.myMobCount--;
+        if (theEntity.getName() === 'Ogre' || theEntity.getName() === 'Skeleton' || theEntity.getName() === 'Gremlin') {
+            this.myMobCount = this.myMobCount - 1;
         }
+        console.log('entity removed, mobcount = ' + this.myMobCount)
     }
 
     checkCollision(thePlayer, thePos) {
@@ -79,8 +80,8 @@ class Factory {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         if (room.getIsCollideDoor([cell.x, cell.y])) {
             window.dispatchEvent(new CustomEvent("e-transition"));
-            console.log('collide with door!')
-            console.log(this.myDungeonIndex)
+            // console.log('collide with door!')
+            // console.log(this.myDungeonIndex)
             let direction = room.getIsCollideDoor([cell.x, cell.y])
             if (direction == 'north') {
                 this.myDungeonIndex.add(createVector(0, -1))

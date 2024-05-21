@@ -14,7 +14,7 @@ class EntityFactory {
                     theFrame: 0,
                     theFrameSize: createVector(16,32),
                     theOffset: createVector(0, -1.2),
-                    theName: "ogre",
+                    theName: "Ogre",
                     theHitPoints: 1000,
                     theAttack: new Attack(100, 100),
                     theHeal: new Heal(10,100),
@@ -38,7 +38,7 @@ class EntityFactory {
                     theFrame: 0,
                     theFrameSize: createVector(16,32),
                     theOffset: createVector(0, -1.2),
-                    theName: "skeleton",
+                    theName: "Skeleton",
                     theHitPoints: 1000,
                     theAttack: new Attack(100, 100),
                     theHeal: new Heal(10,100),
@@ -62,7 +62,7 @@ class EntityFactory {
                     theFrame: 0,
                     theFrameSize: createVector(16,32),
                     theOffset: createVector(0, -1.2),
-                    theName: "gremlin",
+                    theName: "Gremlin",
                     theHitPoints: 1000,
                     theAttack: new Attack(100, 100),
                     theHeal: new Heal(10,100),
@@ -159,6 +159,22 @@ class EntityFactory {
                     theAnimation: new Animations({
                         stand: new FramePattern(ANIM_STAND),
                     }),
+                })
+                break;
+            case 'exit':
+                entity = new Exit({
+                    thePos: entityPos,
+                    theSize: createVector(1, 1),
+                    theIsCollideable: false,
+                    theImage: TILEMAP_EXIT,
+                    theHFrames: 1,
+                    theVFrames: 1,
+                    theFrame: 0,
+                    theFrameSize: createVector(16,16),
+                    theOffset: createVector(0, 0),
+                    theName: "Exit",
+                    theHitPoints: 1000,
+                    theAttack: new Attack(100, 100),
                 })
                 break;
             default:

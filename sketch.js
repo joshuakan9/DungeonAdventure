@@ -29,6 +29,7 @@ let instancePlayer = null
 let instanceBattle = null
 let instanceTextBox = null
 let instanceBattleDisplay = null
+let instanceBagDisplay = null
 
 // let mobCount = 0;
 // let currentMobCount = 10;
@@ -67,18 +68,21 @@ window.addEventListener("e-battle-start", (E) => {
       pillarDrop.count = pillarDrop.count += 1;
       console.log('pillarDrop.drop = ' + pillarDrop.boolean)
       console.log('pillarDrop.count = ' + pillarDrop.count)
+    } else {
+        pillarDrop.boolean = false;
+        console.log('pillarDrop.drop = ' + pillarDrop.boolean)
     }
     // currentMobCount--;
   }
 
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
+  instanceBagDisplay = new BagDisplay(instancePlayer);
   //console.log(E['detail'])
 })
 
 window.addEventListener("e-pillar-drop", (E) => {
   console.log("pillar drop event")
-  instanceTextBox.add({ text: "You have found a pillar!" });
   instanceTextBox.add({ text: "You have gained the " + E.detail + "!" });
 })
 
@@ -113,16 +117,25 @@ window.addEventListener("e-player-unfreeze", (E) => {
   instancePlayer.setIsFrozen(-1)
 })
 
+window.addEventListener("e-game-over-victory", (E) => {
+  if (instancePlayer.hasPillars())
+    instanceTextBox.add({ text: "You have completed the game!" })
+})
+
 window.addEventListener("e-player-die", (E) => {
   instanceTextBox.add({ text: "You died!" })
 });
 
 window.addEventListener("e-player-battle-win", (E) => {
-  instanceTextBox.add({ text: "You win!" })
+  instanceTextBox.add({ text: "You have slain the " + E['detail'].getName() + "!" })
 });
 window.addEventListener("e-player-block", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has blocked " + E['detail'].getName() + "'s attack for " + E['detail'].getAttack().getDamage() + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
+window.addEventListener("e-bag", (E) => {
+  instanceBagDisplay.setIsPaused()
+  console.log("bag event")
+})
 window.addEventListener("e-player-use-health-potion", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion and has healed for "+ E.detail + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
@@ -175,6 +188,7 @@ let TILEMAP_OGRE
 let TILEMAP_SKELETON
 let TILEMAP_GREMLIN
 let TILEMAP_POTION_HEALTH
+let TILEMAP_EXIT
 
 function setup() {
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
@@ -182,6 +196,7 @@ function setup() {
   TILEMAP_SKELETON = TILEMAP.get(23 * 16, 4 * 16, 9 * 16, 2 * 16)
   TILEMAP_GREMLIN = TILEMAP.get(23 * 16, 10 * 16, 9 * 16, 2 * 16)
   TILEMAP_POTION_HEALTH = TILEMAP.get(18 * 16, 13 * 16, 1 * 16, 1 * 16)
+  TILEMAP_EXIT = TILEMAP.get(3 * 16, 6 * 16, 1 * 16, 1 * 16)
 
   randomSeed(new Date().getTime())
 
@@ -220,7 +235,7 @@ function setup() {
       theOffset: createVector(0, -1.2),
       theName: "Tester",
       theHitPoints: 1000,
-      theAttack: new Attack(100, 100),
+      theAttack: new Attack(10000, 100),
       theStamina: 10,
       theBlockPercentage: 0,
       theMaxHitPoints: 1000,
@@ -343,6 +358,9 @@ function setup() {
       if (instanceBattle && instanceBattle.inCombat) {
         instanceBattleDisplay.displayBattle()
       }
+      if (instanceBagDisplay && instanceBagDisplay.getIsPaused() && instanceBattle && instanceBattle.inCombat) {
+        instanceBagDisplay.draw()
+      }
       //if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
 //=======================================================================================================================
       if (instanceTransition.drawerStatus()) instanceTransition.drawer();
@@ -387,6 +405,8 @@ function mouseClicked() {
   instanceTextBox.nextText();
   // console.log(instanceTextBox)
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.children.length === 0) {
+
+    //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS
     // basic attack button
     let rect1X = width / 2 + 5;
     let rect1Y = height - height / 5 + 5;
@@ -425,12 +445,12 @@ function mouseClicked() {
     }
 
     if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
-      instanceTextBox.add({text: "bag", x: 1, y: .2, width: .5, height: .2, textSize: .02});
       instanceBattle.turn("move_bag");
     }
   }
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
+  instanceBagDisplay.mouseClicked();
 }
 
 function keyPressed() {
