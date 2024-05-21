@@ -15,8 +15,8 @@ class BagSystem {
         if (
             mouseX >= width / 2 - menuWidth / 2 &&
             mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-            mouseY >= height / 2 - menuHeight / 2 &&
-            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2)
+            mouseY >= height / 2.25 - menuHeight / 2 &&
+            mouseY <= height / 2.25 - menuHeight / 2 + menuHeight * 0.2)
         {
             if (this.myPlayer.getBag().has("Health Potion")) {
                 if (this.myPlayer.getBag().get("Health Potion") > 0) {

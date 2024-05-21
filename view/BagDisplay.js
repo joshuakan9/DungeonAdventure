@@ -33,7 +33,7 @@ class BagDisplay {
             push()
             textFont(FONT["REGULAR"])
             noStroke()
-            translate(width / 2 - menuWidth / 2, height / 2 - menuHeight / 2)
+            translate(width / 2 - menuWidth / 2, height / 2.25 - menuHeight / 2)
             textSize(width / 30)
             fill(0, 0, 0, 100)
             rect(0, 0, menuWidth, menuHeight * 1.2, 5 * M)
@@ -43,8 +43,8 @@ class BagDisplay {
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
                 mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-                mouseY >= height / 2 - menuHeight / 2 &&
-                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2
+                mouseY >= height / 2.25 - menuHeight / 2 &&
+                mouseY <= height / 2.25 - menuHeight / 2 + menuHeight * 0.2
             ) {
                 fill(0, 0, 0, 100)
             }
@@ -55,8 +55,8 @@ class BagDisplay {
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
                 mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.2 &&
-                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.4
+                mouseY >= height / 2.25 - menuHeight / 2 + menuHeight * 0.2 &&
+                mouseY <= height / 2.25 - menuHeight / 2 + menuHeight * 0.4
             ) {
                 fill(0, 0, 0, 100)
             }
@@ -67,8 +67,8 @@ class BagDisplay {
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
                 mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.4 &&
-                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.6
+                mouseY >= height / 2.25 - menuHeight / 2 + menuHeight * 0.4 &&
+                mouseY <= height / 2.25 - menuHeight / 2 + menuHeight * 0.6
             ) {
                 fill(0, 0, 0, 100)
             }
@@ -79,8 +79,8 @@ class BagDisplay {
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
                 mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.6 &&
-                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.8
+                mouseY >= height / 2.25 - menuHeight / 2 + menuHeight * 0.6 &&
+                mouseY <= height / 2.25 - menuHeight / 2 + menuHeight * 0.8
             ) {
                 fill(0, 0, 0, 100)
             }
@@ -91,8 +91,8 @@ class BagDisplay {
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
                 mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
-                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0
+                mouseY >= height / 2.25 - menuHeight / 2 + menuHeight * 0.8 &&
+                mouseY <= height / 2.25 - menuHeight / 2 + menuHeight * 1.0
             ) {
                 fill(0, 0, 0, 100)
             }
@@ -103,8 +103,8 @@ class BagDisplay {
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
                 mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 1 &&
-                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.2
+                mouseY >= height / 2.25 - menuHeight / 2 + menuHeight * 1 &&
+                mouseY <= height / 2.25 - menuHeight / 2 + menuHeight * 1.2
             ) {
                 fill(0, 0, 0, 100)
             }
