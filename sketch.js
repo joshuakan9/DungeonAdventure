@@ -252,7 +252,7 @@ function setup() {
       theFrameSize: createVector(16, 32),
       theOffset: createVector(0, -1.2),
       theName: "Tester",
-      theHitPoints: 1000,
+      theHitPoints: 500,
       theAttack: new Attack(100, 100),
       theStamina: 10,
       theBlockPercentage: 0,
@@ -436,7 +436,7 @@ function mouseClicked() {
   // console.log(instanceTextBox)
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.children.length === 0) {
 
-    //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS
+    //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS and move it into the battledisplay mouseClicked() function
     // basic attack button
     let rect1X = width / 2 + 5;
     let rect1Y = height - height / 5 + 5;
@@ -463,7 +463,6 @@ function mouseClicked() {
 
     if (mouseX > rect1X && mouseX < rect1X + rect1Width && mouseY > rect1Y && mouseY < rect1Y + rect1Height) {
       instanceBattle.turn("move_basic");
-      console.log(instanceTextBox.children)
     }
 
     if (mouseX > rect2X && mouseX < rect2X + rect2Width && mouseY > rect2Y && mouseY < rect2Y + rect2Height) {
@@ -488,6 +487,7 @@ function keyPressed() {
   if (!instancePlayer.getIsFrozen()) {
 
     VPauseMenu.keyPressed()
+
     if (instanceBagDisplay) {
         instanceBagDisplay.keyPressed()
     }

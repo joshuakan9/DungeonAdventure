@@ -29,7 +29,8 @@ class BagSystem {
 
 
     playerUseHealthPotion() {
-        let healAmount = floor(random(50,101));
+        // let healAmount = floor(random(50,101));
+        let healAmount = floor(Math.random()*50 + 50);
         if (this.myPlayer.getHitPoints() === this.myPlayer.getMaxHitPoints()) {
             console.log("player is already at full health");
             window.dispatchEvent(new Event("e-player-already-full-health"));
