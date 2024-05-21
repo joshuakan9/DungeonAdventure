@@ -438,11 +438,13 @@ function mouseClicked() {
 }
 
 function keyPressed() {
-  if (!instancePlayer.getIsFrozen() && instanceBagDisplay.getIsPaused() === false) {
-    VPauseMenu.keyPressed()
-    
-    if (keyCode === 32) { // space key
+  if (!instancePlayer.getIsFrozen()) {
+    if (keyCode === 32) { // space keyba
       instanceFactory.interact(instancePlayer)
+    }
+    if (instanceBagDisplay.getIsPaused() === false) {
+      VPauseMenu.keyPressed()
+
     }
   }
   if (instanceBagDisplay && VPauseMenu.getIsPaused() === false) {
