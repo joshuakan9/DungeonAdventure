@@ -244,7 +244,7 @@ function setup() {
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
-    instancePlayer = CharacterFactory.createCharacter("assassin");
+    instancePlayer = CharacterFactory.createCharacter("warrior");
     instanceTargetPos = instancePlayer.getPos().copy()
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));

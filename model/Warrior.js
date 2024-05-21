@@ -2,8 +2,8 @@ class Warrior extends Character {
 
     mySpecialAttack;
 
-    constructor({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage, theMaxHitPoints, theSpecialAttack }) {
-        super({ thePos, theSize, theImage, theIsCollideable, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage, theMaxHitPoints})
+    constructor({thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset,theAnimation, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage, theMaxHitPoints, theSpecialAttack}) {
+        super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset,theAnimation, theName, theHitPoints, theAttack, theStamina, theBag, theBlockPercentage, theMaxHitPoints})
         this.mySpecialAttack = theSpecialAttack;
     }
 
@@ -12,7 +12,7 @@ class Warrior extends Character {
     }
 
     buff() {
-        this.myBlockChance += 5;
+        this.myBlockPercentage += 5;
     }
 
     getClass() {

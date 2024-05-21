@@ -30,6 +30,7 @@ class CharacterFactory {
             case 'warrior':
                 let warriorData = JSON.parse(window.localStorage.getItem('warrior'));
                 character = new Warrior({
+                    thePos: createVector(warriorData.thePos.x, warriorData.thePos.y),
                     theSize: createVector(warriorData.theSize.x, warriorData.theSize.y),
                     theIsCollideable: warriorData.theIsCollideable,
                     theImage: TILEMAP_WARRIOR,
@@ -54,6 +55,7 @@ class CharacterFactory {
             case 'priest':
                 let priestData = JSON.parse(window.localStorage.getItem('priest'));
                 character = new Priest({
+                    thePos: createVector(priestData.thePos.x, priestData.thePos.y),
                     theSize: createVector(priestData.theSize.x, priestData.theSize.y),
                     theIsCollideable: priestData.theIsCollideable,
                     theImage: TILEMAP_PRIEST,
