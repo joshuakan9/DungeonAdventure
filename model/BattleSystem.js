@@ -104,7 +104,7 @@ class BattleSystem {
                 let mobHealPercentage = this.mob.getHeal().getHealPercentage();
                 let mobHealRandom = random(0, 100);
 
-                if (mobHealRandom < mobHealPercentage) {
+                if (mobHealRandom < mobHealPercentage && this.mob.getHitPoints() - playerDamage > 0) {
                     console.log("mob healed")
                     window.dispatchEvent(new CustomEvent("e-mob-heal", {detail: this.mob}))
                     this.mob.heal();
