@@ -435,47 +435,7 @@ function mouseClicked() {
   instanceTextBox.nextText();
   // console.log(instanceTextBox)
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.children.length === 0) {
-
-    //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS and move it into the battledisplay mouseClicked() function
-    // basic attack button
-    let rect1X = width / 2 + 5;
-    let rect1Y = height - height / 5 + 5;
-    let rect1Width = width / 4 - 5;
-    let rect1Height = height / 10 - 5;
-
-    // special attack button
-    let rect2X = width / 2 + 5;
-    let rect2Y = height - height / 10 + 5;
-    let rect2Width = width / 4 - 5;
-    let rect2Height = height / 10 - 10;
-
-    // buff button
-    let rect3X = width - width / 4 + 5;
-    let rect3Y = height - height / 5 + 5;
-    let rect3Width = width / 4 - 10;
-    let rect3Height = height / 10 - 5;
-
-    // bag button
-    let rect4X = width - width / 4 + 5;
-    let rect4Y = height - height / 10 + 5;
-    let rect4Width = width / 4 - 10;
-    let rect4Height = height / 10 - 10;
-
-    if (mouseX > rect1X && mouseX < rect1X + rect1Width && mouseY > rect1Y && mouseY < rect1Y + rect1Height) {
-      instanceBattle.turn("move_basic");
-    }
-
-    if (mouseX > rect2X && mouseX < rect2X + rect2Width && mouseY > rect2Y && mouseY < rect2Y + rect2Height) {
-      instanceBattle.turn("move_special");
-    }
-
-    if (mouseX > rect3X && mouseX < rect3X + rect3Width && mouseY > rect3Y && mouseY < rect3Y + rect3Height) {
-      instanceBattle.turn("move_buff");
-    }
-
-    if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
-      instanceBattle.turn("move_bag");
-    }
+    instanceBattle.mouseClicked()
   }
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
