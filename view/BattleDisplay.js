@@ -41,24 +41,69 @@ class BattleDisplay {
         let buttonWidth = width/4.1;
         let buttonHeight = height/10.6;
         let rectRoundEdges = 10;
-        rect(width/1.985, height - height/5.1, buttonWidth, buttonHeight, rectRoundEdges);
-        rect(width/1.985, height - height/10.3, buttonWidth, buttonHeight, rectRoundEdges);
-        rect(width - width/4.025, height - height/5.1, buttonWidth, buttonHeight, rectRoundEdges);
-        rect(width - width/4.025, height - height/10.3, buttonWidth, buttonHeight, rectRoundEdges);
+
+        // basic attack button
+        let rect1X = width/1.985;
+        let rect1Y = height - height/5.1;
+        // special attack button
+        let rect2X = width/1.985;
+        let rect2Y = height - height/10.3;
+        // buff button
+        let rect3X = width - width/4.025;
+        let rect3Y = height - height/5.1;
+        // bag button
+        let rect4X = width - width/4.025;
+        let rect4Y = height - height/10.3;
+
+        rect(rect1X, rect1Y, buttonWidth, buttonHeight, rectRoundEdges);
+        rect(rect2X, rect2Y, buttonWidth, buttonHeight, rectRoundEdges);
+        rect(rect3X, rect3Y, buttonWidth, buttonHeight, rectRoundEdges);
+        rect(rect4X, rect4Y, buttonWidth, buttonHeight, rectRoundEdges);
 
         textAlign(CENTER, CENTER);
         fill('black');
-        let textWidth1 = textWidth("Basic Attack"); // Get width of text
-        text("Basic Attack", width/1.985, height - height/5.1, buttonWidth, buttonHeight);
 
-        let textWidth2 = textWidth("Special Attack");
-        text("Special Attack", width/1.985, height - height/10.3, buttonWidth, buttonHeight, rectRoundEdges);
+        text("Basic Attack", rect1X, rect1Y, buttonWidth, buttonHeight);
+        text("Special Attack", rect2X, rect2Y, buttonWidth, buttonHeight, rectRoundEdges);
+        text("Buff", rect3X, rect3Y, buttonWidth, buttonHeight, rectRoundEdges);
+        text("Bag", rect4X, rect4Y, buttonWidth, buttonHeight, rectRoundEdges);
 
-        let textWidth3 = textWidth("Buff");
-        text("Buff", width - width/4.025, height - height/5.1, buttonWidth, buttonHeight, rectRoundEdges);
+        // HEALTH POTION / BAG IS EMPTY
+        fill(0, 0, 0, 25)
+        if (
+            mouseX > rect1X && mouseX < rect1X + buttonWidth && mouseY > rect1Y && mouseY < rect1Y + buttonHeight
+        ) {
+            fill(0, 0, 0, 100)
+        }
+        rect(rect1X, rect1Y, buttonWidth, buttonHeight, rectRoundEdges)
 
-        let textWidth4 = textWidth("Bag");
-        text("Bag", width - width/4.025, height - height/10.3, buttonWidth, buttonHeight, rectRoundEdges);
+        // PILLAR OF ABSTRACTION
+        fill(0, 0, 0, 25)
+        if (
+            mouseX > rect2X && mouseX < rect2X + buttonWidth && mouseY > rect2Y && mouseY < rect2Y + buttonHeight
+        ) {
+            fill(0, 0, 0, 100)
+        }
+        rect(rect2X, rect2Y, buttonWidth, buttonHeight, rectRoundEdges)
+
+        // PILLAR OF ENCAPSULATION
+        fill(0, 0, 0, 25)
+        if (
+            mouseX > rect3X && mouseX < rect3X + buttonWidth && mouseY > rect3Y && mouseY < rect3Y + buttonHeight
+        ) {
+            fill(0, 0, 0, 100)
+        }
+        rect(rect3X, rect3Y, buttonWidth, buttonHeight, rectRoundEdges)
+
+        // PILLAR OF INHERITANCE
+        fill(0, 0, 0, 25)
+        if (
+            mouseX > rect4X && mouseX < rect4X + buttonWidth && mouseY > rect4Y && mouseY < rect4Y + buttonHeight
+        ) {
+            fill(0, 0, 0, 100)
+        }
+        rect(rect4X, rect4Y, buttonWidth, buttonHeight, rectRoundEdges)
+
         pop()
     }
 

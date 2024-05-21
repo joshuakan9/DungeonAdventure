@@ -211,5 +211,41 @@ class BattleSystem {
         }
     }
 
+    mouseClicked() {
+
+        let buttonWidth = width/4.1;
+        let buttonHeight = height/10.6;
+        let rect1X = width/1.985;
+        let rect1Y = height - height/5.1;
+
+        // special attack button
+        let rect2X = width/1.985;
+        let rect2Y = height - height/10.3;
+
+        // buff button
+        let rect3X = width - width/4.025;
+        let rect3Y = height - height/5.1;
+
+        // bag button
+        let rect4X = width - width/4.025;
+        let rect4Y = height - height/10.3;
+
+        if (mouseX > rect1X && mouseX < rect1X + buttonWidth && mouseY > rect1Y && mouseY < rect1Y + buttonHeight) {
+            instanceBattle.turn("move_basic");
+        }
+
+        if (mouseX > rect2X && mouseX < rect2X + buttonWidth && mouseY > rect2Y && mouseY < rect2Y + buttonHeight) {
+            instanceBattle.turn("move_special");
+        }
+
+        if (mouseX > rect3X && mouseX < rect3X + buttonWidth && mouseY > rect3Y && mouseY < rect3Y + buttonHeight) {
+            instanceBattle.turn("move_buff");
+        }
+
+        if (mouseX > rect4X && mouseX < rect4X + buttonWidth && mouseY > rect4Y && mouseY < rect4Y + buttonHeight) {
+            instanceBattle.turn("move_bag");
+        }
+    }
+
 }
 

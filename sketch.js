@@ -47,7 +47,7 @@ window.addEventListener("e-battle-start", (E) => {
   let pillarDropRate = floor(initialMobCount / 4);
 
 
-    if (initialMobCount < 20) {
+  if (initialMobCount < 20) {
     pillarDropRate = pillarDropRate - 1;
   } else if (initialMobCount < 30) {
     pillarDropRate = pillarDropRate - 2;
@@ -67,8 +67,8 @@ window.addEventListener("e-battle-start", (E) => {
       console.log('pillarDrop.drop = ' + pillarDrop.boolean)
       console.log('pillarDrop.count = ' + pillarDrop.count)
     } else {
-        pillarDrop.boolean = false;
-        console.log('pillarDrop.drop = ' + pillarDrop.boolean)
+      pillarDrop.boolean = false;
+      console.log('pillarDrop.drop = ' + pillarDrop.boolean)
     }
   }
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
@@ -150,19 +150,19 @@ window.addEventListener("e-miss-attack", (E) => {
   instanceTextBox.add({ text: E['detail'].getName() + " has missed!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
 window.addEventListener("e-attack", (E) => {
-        let damage = 0;
-        if (E.detail.attack === "basic") {
-          damage = E.detail.entity.getAttack().getDamage()
-        } else {
-          damage = E.detail.entity.getSpecialAttack().getDamage()
-        }
-        instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  let damage = 0;
+  if (E.detail.attack === "basic") {
+    damage = E.detail.entity.getAttack().getDamage()
+  } else {
+    damage = E.detail.entity.getSpecialAttack().getDamage()
+  }
+  instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 
-  });
+});
 
 window.addEventListener("e-mob-heal", (E) => {
   console.log("mob heal event")
-    instanceTextBox.add({ text: E['detail'].getName() + " has healed for " + E.detail.getHeal().getHealAmount() + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: E['detail'].getName() + " has healed for " + E.detail.getHeal().getHealAmount() + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 })
 
 window.addEventListener("e-player-already-full-health", (E) => {
@@ -186,19 +186,19 @@ window.addEventListener("e-player-already-full-health", (E) => {
 // })
 
 window.addEventListener("e-not-enough-stamina", (E) => {
-    instanceTextBox.add({ text: "You do not have enough stamina!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: "You do not have enough stamina!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 })
 
 window.addEventListener("e-assassin-buff", (E) => {
-    instanceTextBox.add({ text: "You have used buff and increased your basic attack damage by 5 and your special attack damage by 10!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: "You have used buff and increased your basic attack damage by 5 and your special attack damage by 10!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 })
 
 window.addEventListener("e-warrior-buff", (E) => {
-    instanceTextBox.add({ text: "You have used buff and increased your block chance by 5%!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: "You have used buff and increased your block chance by 5%!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 })
 
 window.addEventListener("e-priest-buff", (E) => {
-    instanceTextBox.add({ text: "You have used buff and increased your heal amount by 25!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: "You have used buff and increased your heal amount by 25!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 })
 
 let TILEMAP_ASSASSIN
@@ -219,10 +219,10 @@ function setup() {
   randomSeed(new Date().getTime())
 
   window.innerHeight <= window.innerWidth
-    ? ((W = Math.max(window.innerHeight, 1) * ratio),
-      (H = Math.max(window.innerHeight, 1)))
-    : ((W = Math.max(window.innerWidth, 1)),
-      (H = Math.max(window.innerWidth, 1) / ratio));
+      ? ((W = Math.max(window.innerHeight, 1) * ratio),
+          (H = Math.max(window.innerHeight, 1)))
+      : ((W = Math.max(window.innerWidth, 1)),
+          (H = Math.max(window.innerWidth, 1) / ratio));
   CELLSIZE = floor(W / cellNumber)
   createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
   M = CELLSIZE / 16
@@ -251,7 +251,11 @@ function setup() {
       theFrameSize: createVector(16, 32),
       theOffset: createVector(0, -1.2),
       theName: "Tester",
+<<<<<<< HEAD
       theHitPoints: 1000,
+=======
+      theHitPoints: 500,
+>>>>>>> af280ce9bb60552dbafaaec136e1ed0a82d721dd
       theAttack: new Attack(100, 100),
       theStamina: 10,
       theBlockPercentage: 0,
@@ -329,86 +333,86 @@ function setup() {
 
 
   instanceGameLoop.setTickFunction(
-    (time) => {
-      // console.log(time)
+      (time) => {
+        // console.log(time)
 
-      if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
-        instanceBattleDisplay.mobClone.step(time);
-        instanceBattleDisplay.playerClone.step(time);
-      }
-      if (instanceTextBox && !instanceTextBox.isEmpty()) {
-        instanceTextBox.tickTextBox(time);
-      }
-
-
-
-
-      if (!instancePlayer.getIsFrozen()) {
-
-        let distance = moveTowards(instancePlayer, instanceTargetPos, 1 / 25)
-        if (distance <= 0.01) {
-          tryMove()
+        if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
+          instanceBattleDisplay.mobClone.step(time);
+          instanceBattleDisplay.playerClone.step(time);
         }
-        if (!VPauseMenu.getIsPaused()) {
-          instancePlayer.step(time)
-          instanceFactory.step(time)
+        if (instanceTextBox && !instanceTextBox.isEmpty()) {
+          instanceTextBox.tickTextBox(time);
         }
 
+
+
+
+        if (!instancePlayer.getIsFrozen()) {
+
+          let distance = moveTowards(instancePlayer, instanceTargetPos, 1 / 25)
+          if (distance <= 0.01) {
+            tryMove()
+          }
+          if (!VPauseMenu.getIsPaused()) {
+            instancePlayer.step(time)
+            instanceFactory.step(time)
+          }
+
+        }
       }
-    }
   )
   instanceGameLoop.setRenderFunction(
-    () => {
-      background(0);
-      noCursor()
+      () => {
+        background(0);
+        noCursor()
 
-      push()
+        push()
 
-      translate(round(width / 2 - getCellToPos(instancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(instancePlayer.getPos().y) - CELLSIZE / 2));
-      // drawGridDebug()
+        translate(round(width / 2 - getCellToPos(instancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(instancePlayer.getPos().y) - CELLSIZE / 2));
+        // drawGridDebug()
 
-      // instanceFactory.drawDungeon(instancePlayer)
-      // instanceFactory.drawOverworld(instancePlayer)
-
-
-      instanceFactory.drawDungeon(instancePlayer)
-      instanceFactory.draw(instancePlayer)
-      instancePlayer.draw()
-
-      pop()
+        // instanceFactory.drawDungeon(instancePlayer)
+        // instanceFactory.drawOverworld(instancePlayer)
 
 
-      push()
-      fill('red')
-      textSize(width / 10);
-      text(round(frameRate()), 0, width / 10)
+        instanceFactory.drawDungeon(instancePlayer)
+        instanceFactory.draw(instancePlayer)
+        instancePlayer.draw()
 
-      pop()
+        pop()
 
 
-      VPauseMenu.draw()
-      // VMainMenu.draw()
+        push()
+        fill('red')
+        textSize(width / 10);
+        text(round(frameRate()), 0, width / 10)
+
+        pop()
+
+
+        VPauseMenu.draw()
+        // VMainMenu.draw()
 
 //=======================================================================================================================
-      if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
-        instanceBattleDisplay.displayBattle()
-      }
-      if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
-        instanceBagDisplay.draw()
-      }
-      if (instanceTextBox && !instanceTextBox.isEmpty()) {
-        instanceTextBox.renderTextBox();
-      }
+        if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
+          instanceBattleDisplay.displayBattle()
+        }
+        if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
+          instanceBagDisplay.draw()
+        }
+        if (instanceTextBox && !instanceTextBox.isEmpty()) {
+          instanceTextBox.renderTextBox();
+        }
 //=======================================================================================================================
-      if (instanceTransition.drawerStatus()) instanceTransition.drawer();
-      image(CURSOR,mouseX,mouseY, 8 * M, 8 * M)
-    }
+        if (instanceTransition.drawerStatus()) instanceTransition.drawer();
+        image(CURSOR,mouseX,mouseY, 8 * M, 8 * M)
+      }
   )
   instanceGameLoop.start()
 }
 
 function draw() {
-  
+
 }
 
 function windowResized() {
@@ -420,48 +424,7 @@ function windowResized() {
 function mouseClicked() {
   instanceTextBox.nextText();
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
-
-    //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS and move it into the battledisplay mouseClicked() function
-    // basic attack button
-    let rect1X = width / 2 + 5;
-    let rect1Y = height - height / 5 + 5;
-    let rect1Width = width / 4 - 5;
-    let rect1Height = height / 10 - 5;
-
-    // special attack button
-    let rect2X = width / 2 + 5;
-    let rect2Y = height - height / 10 + 5;
-    let rect2Width = width / 4 - 5;
-    let rect2Height = height / 10 - 10;
-
-    // buff button
-    let rect3X = width - width / 4 + 5;
-    let rect3Y = height - height / 5 + 5;
-    let rect3Width = width / 4 - 10;
-    let rect3Height = height / 10 - 5;
-
-    // bag button
-    let rect4X = width - width / 4 + 5;
-    let rect4Y = height - height / 10 + 5;
-    let rect4Width = width / 4 - 10;
-    let rect4Height = height / 10 - 10;
-
-    if (mouseX > rect1X && mouseX < rect1X + rect1Width && mouseY > rect1Y && mouseY < rect1Y + rect1Height) {
-      instanceBattle.turn("move_basic");
-    }
-
-    if (mouseX > rect2X && mouseX < rect2X + rect2Width && mouseY > rect2Y && mouseY < rect2Y + rect2Height) {
-      instanceBattle.turn("move_special");
-    }
-
-    if (mouseX > rect3X && mouseX < rect3X + rect3Width && mouseY > rect3Y && mouseY < rect3Y + rect3Height) {
-      instanceBattle.turn("move_buff");
-    }
-
-    if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
-      instanceBattle.turn("move_bag");
-    }
-    instanceBagDisplay.mouseClicked();
+    instanceBattle.mouseClicked()
   }
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
@@ -473,7 +436,7 @@ function keyPressed() {
     VPauseMenu.keyPressed()
 
     if (instanceBagDisplay) {
-        instanceBagDisplay.keyPressed()
+      instanceBagDisplay.keyPressed()
     }
     if (keyCode === 32) { // space key
       instanceFactory.interact(instancePlayer)
