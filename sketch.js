@@ -251,13 +251,8 @@ function setup() {
       theFrameSize: createVector(16, 32),
       theOffset: createVector(0, -1.2),
       theName: "Tester",
-<<<<<<< HEAD
       theHitPoints: 1000,
-      theAttack: new Attack(500, 100),
-=======
-      theHitPoints: 500,
       theAttack: new Attack(100, 100),
->>>>>>> 98d3af9b991390be9919ad8e4f582eb593f1361b
       theStamina: 10,
       theBlockPercentage: 0,
       theMaxHitPoints: 1000,
@@ -424,7 +419,6 @@ function windowResized() {
 
 function mouseClicked() {
   instanceTextBox.nextText();
-  //console.log(instanceTextBox)
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
 
     //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS and move it into the battledisplay mouseClicked() function
@@ -471,11 +465,6 @@ function mouseClicked() {
   }
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
-<<<<<<< HEAD
-=======
-  instanceBagDisplay.mouseClicked();
-  instanceBagSystem.mouseClicked();
->>>>>>> 98d3af9b991390be9919ad8e4f582eb593f1361b
 }
 
 function keyPressed() {

@@ -74,13 +74,12 @@ class TextBox {
             } else {
                 this.children.shift();
             }
-
+            
             if (this.isEmpty()) {
                 window.dispatchEvent(new Event("e-no-text"))
             } else {
                 window.dispatchEvent(new Event("e-has-text"))
             }
-
             window.dispatchEvent(new Event("e-player-unfreeze"))
             if (this.currentTextEnd >= 0) {
                 this.currentTextEnd = 0;
