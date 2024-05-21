@@ -6,6 +6,7 @@ class BattleDisplay {
         this.playerInitialStamina = this.myBattleSystem.player.myStamina;
         this.createClones();
     }
+
     displayBattle(){
         if (!this.myBattleSystem.inCombat) {
             this.playerClone = null;

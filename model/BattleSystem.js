@@ -206,14 +206,16 @@ class BattleSystem {
                     }
                 } else if (theMove === 'move_bag') {
                     console.log(this.player.getBag());
-                    if (this.player.getBag().get("Health Potion") > 0) {
-                        this.playerUseHealthPotion();
-                        console.log('player used health potion');
-                    } else {
-                        console.log("no health potions");
-                        window.dispatchEvent(new Event("e-no-health-potions"));
+                    window.dispatchEvent(new Event("e-bag"))
 
-                    }
+                    //TODO HEALTH POTION LOGIC HERE.
+                    // if (this.player.getBag().get("Health Potion") > 0) {
+                    //     this.playerUseHealthPotion();
+                    //     console.log('player used health potion');
+                    // } else {
+                    //     console.log("no health potions");
+                    //     window.dispatchEvent(new Event("e-no-health-potions"));
+                    // }
                 }
 
                 if (this.stamina === 0) {

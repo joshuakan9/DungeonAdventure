@@ -29,6 +29,7 @@ let instancePlayer = null
 let instanceBattle = null
 let instanceTextBox = null
 let instanceBattleDisplay = null
+let instanceBagDisplay = null
 
 // let mobCount = 0;
 // let currentMobCount = 10;
@@ -76,6 +77,7 @@ window.addEventListener("e-battle-start", (E) => {
 
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
   instanceBattleDisplay = new BattleDisplay(instanceBattle);
+  instanceBagDisplay = new BagDisplay(instancePlayer);
   //console.log(E['detail'])
 })
 
@@ -130,6 +132,10 @@ window.addEventListener("e-player-battle-win", (E) => {
 window.addEventListener("e-player-block", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has blocked " + E['detail'].getName() + "'s attack for " + E['detail'].getAttack().getDamage() + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
+window.addEventListener("e-bag", (E) => {
+  instanceBagDisplay.setIsPaused()
+  console.log("bag event")
+})
 window.addEventListener("e-player-use-health-potion", (E) => {
   instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion and has healed for "+ E.detail + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
 });
@@ -352,6 +358,9 @@ function setup() {
       if (instanceBattle && instanceBattle.inCombat) {
         instanceBattleDisplay.displayBattle()
       }
+      if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
+        instanceBagDisplay.draw()
+      }
       //if (instanceBattle != null && instanceBattle.inCombat) instanceBattle.drawer();
 //=======================================================================================================================
       if (instanceTransition.drawerStatus()) instanceTransition.drawer();
@@ -396,6 +405,8 @@ function mouseClicked() {
   instanceTextBox.nextText();
   // console.log(instanceTextBox)
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.children.length === 0) {
+
+    //TODO UPDATE THESE TO USE THE BATTLE DISPLAY BUTTONS
     // basic attack button
     let rect1X = width / 2 + 5;
     let rect1Y = height - height / 5 + 5;
@@ -434,7 +445,6 @@ function mouseClicked() {
     }
 
     if (mouseX > rect4X && mouseX < rect4X + rect4Width && mouseY > rect4Y && mouseY < rect4Y + rect4Height) {
-      instanceTextBox.add({text: "bag", x: 1, y: .2, width: .5, height: .2, textSize: .02});
       instanceBattle.turn("move_bag");
     }
   }
