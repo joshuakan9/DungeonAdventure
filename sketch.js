@@ -115,6 +115,11 @@ window.addEventListener("e-player-unfreeze", (E) => {
   instancePlayer.setIsFrozen(-1)
 })
 
+window.addEventListener("e-game-over-victory", (E) => {
+  if (instancePlayer.hasPillars())
+    instanceTextBox.add({ text: "You have completed the game!" })
+})
+
 window.addEventListener("e-player-die", (E) => {
   instanceTextBox.add({ text: "You died!" })
 });

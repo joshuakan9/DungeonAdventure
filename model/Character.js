@@ -49,7 +49,7 @@ class Character extends Entity {
     }
 
     hasPillars() {
-
+        return this.myBag.has('Pillar of Abstraction') && this.myBag.has('Pillar of Inheritance') && this.myBag.has('Pillar of Polymorphism') && this.myBag.has('Pillar of Encapsulation');
     }
 
     setIsFrozen(theNum) {

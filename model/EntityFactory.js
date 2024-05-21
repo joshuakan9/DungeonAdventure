@@ -162,7 +162,7 @@ class EntityFactory {
                 })
                 break;
             case 'exit':
-                entity = new Entity({
+                entity = new Exit({
                     thePos: entityPos,
                     theSize: createVector(1, 1),
                     theIsCollideable: false,
