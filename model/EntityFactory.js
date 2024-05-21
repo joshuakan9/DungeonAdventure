@@ -165,7 +165,7 @@ class EntityFactory {
                 entity = new Exit({
                     thePos: entityPos,
                     theSize: createVector(1, 1),
-                    theIsCollideable: false,
+                    theIsCollideable: true,
                     theImage: TILEMAP_EXIT,
                     theHFrames: 1,
                     theVFrames: 1,
