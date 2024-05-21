@@ -121,16 +121,16 @@ class BagDisplay {
                 text('Health Potions: ' + this.myBag.get('Health Potion'), menuWidth / 2, menuHeight * 0.1)
             }
             if (this.myBag.has('Pillar of Abstraction')) {
-                text('Pillar of Abstraction:' + this.myBag.get('Pillar of Abstraction'), menuWidth / 2, menuHeight * 0.3)
-            }
-            if (this.myBag.has('Pillar of Inheritance')) {
-                text('Pillar of Inheritance: ' + this.myBag.get('Pillar of Inheritance'), menuWidth / 2, menuHeight * 0.5)
-            }
-            if (this.myBag.has('Pillar of Polymorphism')) {
-                text('Pillar of Polymorphism: ' + this.myBag.get('Pillar of Polymorphism'), menuWidth / 2, menuHeight * 0.7)
+                text('Pillar of Abstraction', menuWidth / 2, menuHeight * 0.3)
             }
             if (this.myBag.has('Pillar of Encapsulation')) {
-                text('Pillar of Encapsulation: ' + this.myBag.get('Pillar of Encapsulation'), menuWidth / 2, menuHeight * 0.9)
+                text('Pillar of Inheritance', menuWidth / 2, menuHeight * 0.5)
+            }
+            if (this.myBag.has('Pillar of Inheritance')) {
+                text('Pillar of Polymorphism', menuWidth / 2, menuHeight * 0.7)
+            }
+            if (this.myBag.has('Pillar of Polymorphism')) {
+                text('Pillar of Encapsulation', menuWidth / 2, menuHeight * 0.9)
             }
             text("Exit", menuWidth / 2, menuHeight * 1.1)
             pop()

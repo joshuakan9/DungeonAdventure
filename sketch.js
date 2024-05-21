@@ -32,9 +32,6 @@ let instanceBattleDisplay = null
 let instanceBagSystem = null
 let instanceBagDisplay = null
 
-
-// let mobCount = 0;
-// let currentMobCount = 10;
 let pillarDrop = {
   boolean: false,
   count: -1
@@ -47,7 +44,6 @@ window.addEventListener("e-battle-start", (E) => {
   let initialMobCount = instanceFactory.getInitialMobCount();
   let currentMobCount = instanceFactory.getMobCount();
 
-  // let initialMobCount = 10;
   let pillarDropRate = floor(initialMobCount / 4);
 
 
@@ -74,7 +70,6 @@ window.addEventListener("e-battle-start", (E) => {
         pillarDrop.boolean = false;
         console.log('pillarDrop.drop = ' + pillarDrop.boolean)
     }
-    // currentMobCount--;
   }
 
   instanceBattle = new BattleSystem(instancePlayer, E['detail'], pillarDrop)
@@ -246,6 +241,10 @@ function setup() {
       }),
     });
     instanceTargetPos = instancePlayer.getPos().copy()
+    // instancePlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
+    // instancePlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));
+    // instancePlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
+    // instancePlayer.addBag(EntityFactory.createEntity("pillar of encapsulation"));
   }
 
   if (!instanceBagDisplay) {
