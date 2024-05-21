@@ -10,10 +10,11 @@ class BattleDisplay {
     displayBattle(){
         //window.dispatchEvent(new Event("e-transition"))
         push()
-        fill('gray');
-        rect(0, 0, width, height);
-        fill(92, 64, 51);
-        rect(0, (height * 2)/3, width, height/3);
+        fill('black')
+        rect(0, 0, width, height)
+        this.drawWall();
+        this.drawFloor();
+        //image(this.myTILEMAP, 0, (height * 2)/5, 1 * width/, 2 * height/5);
         pop()
 
         //background of textbox and buttons
@@ -40,6 +41,20 @@ class BattleDisplay {
         // Health numbers
         this.drawHealthStaminaNumbers();
         pop()
+    }
+
+    drawWall() {
+        image(WALL_IMG, 0, (height *2)/5, width/2, (height * 4)/16);
+        image(WALL_IMG, width/2, (height *2)/5, width/2, (height * 4)/16);
+    }
+
+    drawFloor() {
+        fill(92, 64, 51);
+        image(FLOOR_IMG, 0, (height * 3)/5, width/5, height/5);
+        image(FLOOR_IMG, width * 1/5, (height * 3)/5, width/5, height/5);
+        image(FLOOR_IMG, width * 2/5, (height * 3)/5, width/5, height/5);
+        image(FLOOR_IMG, width * 3/5, (height * 3)/5, width/5, height/5);
+        image(FLOOR_IMG, width * 4/5, (height * 3)/5, width/5, height/5);
     }
 
     drawButtons() {

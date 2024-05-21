@@ -4,6 +4,8 @@ let FONT = {}
 let CELLSIZE
 let TILEMAP
 let CURSOR
+let WALL_IMG
+let FLOOR_IMG
 let cellNumber = 16
 function preload() {
   // FONT['REGULAR'] = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
@@ -12,6 +14,9 @@ function preload() {
   FONT['BOLD'] = loadFont('./assets/fonts/LeagueSpartan-Bold.ttf')
   CURSOR = loadImage('./assets/images/cursor.png')
   TILEMAP = loadImage('./assets/images/tilemap.png')
+  WALL_IMG = loadImage('./assets/images/background.png')
+  FLOOR_IMG = loadImage('/assets/images/floor.png')
+
 }
 let ratio = 1;
 let W, H;
