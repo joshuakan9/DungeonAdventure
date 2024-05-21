@@ -133,7 +133,18 @@ window.addEventListener("e-bag", (E) => {
   console.log("bag event")
 })
 window.addEventListener("e-player-use-health-potion", (E) => {
-  instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion and has healed for "+ E.detail + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  if (instanceBattle && instanceBattle.inCombat) {
+    instanceTextBox.add({
+      text: instancePlayer.getName() + " has used a potion and has healed for " + E.detail + " health!",
+      x: 1,
+      y: .2,
+      width: .5,
+      height: .2,
+      textSize: .02
+    });
+  } else {
+    instanceTextBox.add({ text: instancePlayer.getName() + " has used a potion and has healed for " + E.detail + " health!" });
+  }
 });
 
 window.addEventListener("e-miss-attack", (E) => {
@@ -156,12 +167,24 @@ window.addEventListener("e-mob-heal", (E) => {
 })
 
 window.addEventListener("e-player-already-full-health", (E) => {
-    instanceTextBox.add({ text: "You are already at full health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  if (instanceBattle && instanceBattle.inCombat) {
+    instanceTextBox.add({text: "You are already at full health!", x: 1, y: .2, width: .5, height: .2, textSize: .02});
+  } else {
+    instanceTextBox.add({text: "You are already at full health!"});
+
+  }
 })
 
-window.addEventListener("e-no-health-potions", (E) => {
-    instanceTextBox.add({ text: "You have no health potions!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-})
+// currently not in use
+// window.addEventListener("e-no-health-potions", (E) => {
+//   if (instanceBattle && instanceBattle.inCombat) {
+//     instanceTextBox.add({ text: "You have no health potions!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+//
+//   } else {
+//     instanceTextBox.add({ text: "You have no health potions!"});
+//
+//   }
+// })
 
 window.addEventListener("e-not-enough-stamina", (E) => {
     instanceTextBox.add({ text: "You do not have enough stamina!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
