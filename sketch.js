@@ -207,6 +207,8 @@ window.addEventListener("e-priest-buff", (E) => {
 })
 
 let TILEMAP_ASSASSIN
+let TILEMAP_WARRIOR
+let TILEMAP_PRIEST
 let TILEMAP_OGRE
 let TILEMAP_SKELETON
 let TILEMAP_GREMLIN
@@ -215,6 +217,8 @@ let TILEMAP_EXIT
 
 function setup() {
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
+  TILEMAP_WARRIOR = TILEMAP.get(32 * 16, 3 * 16, 9 * 16, 2 * 16)
+  TILEMAP_PRIEST = TILEMAP.get(32 * 16, 5 * 16, 9 * 16, 2 * 16)
   TILEMAP_OGRE = TILEMAP.get(23 * 16, 20 * 16, 9 * 16, 2 * 16)
   TILEMAP_SKELETON = TILEMAP.get(23 * 16, 4 * 16, 9 * 16, 2 * 16)
   TILEMAP_GREMLIN = TILEMAP.get(23 * 16, 10 * 16, 9 * 16, 2 * 16)
@@ -232,6 +236,11 @@ function setup() {
   createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
   M = CELLSIZE / 16
   textFont(FONT['REGULAR'])
+
+  setUpMonsterDatabase()
+  setUpHeroDatabase()
+  setUpPickUpDatabase()
+
   if (!instanceGameLoop) {
     instanceGameLoop = new GameLoop();
   }
@@ -488,4 +497,113 @@ function moveTowards(person, destinationPosition, speed) {
   }
 
   return distance;
+}
+
+function setUpMonsterDatabase() {
+  window.localStorage.setItem("ogre", JSON.stringify({
+    theSize: {x: 1,y: 2},
+    theIsCollideable: true,
+    theHFrames: 9,
+    theVFrames: 1,
+    theFrame: 0,
+    theFrameSize: {x: 16,y: 32},
+    theOffset: {x: 0,y: -1.2},
+    theName: "Ogre",
+    theHitPoints: 1000,
+    theAttack: {damage: 100, hitChance: 100},
+    theHeal: {healAmount: 10, healChance: 100},
+    theSpecialAttack: {damage: 200, hitChance: 100},
+  }))
+  window.localStorage.setItem("skeleton", JSON.stringify({
+    theSize: {x: 1,y: 2},
+    theIsCollideable: true,
+    theHFrames: 9,
+    theVFrames: 1,
+    theFrame: 0,
+    theFrameSize: {x: 16,y: 32},
+    theOffset: {x: 0,y: -1.2},
+    theName: "Skeleton",
+    theHitPoints: 1000,
+    theAttack: {damage: 100, hitChance: 100},
+    theHeal: {healAmount: 10, healChance: 100},
+    theStamina: 10,
+    theBag: [],
+    theBlockPercentage: 100,
+    theSpecialAttack: {damage: 200, hitChance: 100},
+  }))
+  window.localStorage.setItem("gremlin", JSON.stringify({
+    theSize: {x: 1,y: 2},
+    theIsCollideable: true,
+    theHFrames: 9,
+    theVFrames: 1,
+    theFrame: 0,
+    theFrameSize: {x: 16,y: 32},
+    theOffset: {x: 0,y: -1.2},
+    theName: "Gremlin",
+    theHitPoints: 1000,
+    theAttack: {damage: 100, hitChance: 100},
+    theHeal: {healAmount: 10, healChance: 100},
+    theStamina: 10,
+    theBag: [],
+    theBlockPercentage: 100,
+    theSpecialAttack: {damage: 200, hitChance: 100},
+  }))
+}
+
+function setUpHeroDatabase() {
+  window.localStorage.setItem("assassin", JSON.stringify({
+    thePos: {x: 6, y: 6},
+    theSize: {x: 1, y: 2},
+    theHFrames: 9,
+    theVFrames: 1,
+    theFrame: 0,
+    theFrameSize: {x: 16, y: 32},
+    theOffset: {x: 0, y: -1.2},
+    theName: "Assassin",
+    theHitPoints: 500,
+    theAttack: {damage: 100, hitChance: 100},
+    theStamina: 10,
+    theBlockPercentage: 0,
+    theMaxHitPoints: 1000,
+    theSpecialAttack: {damage: 200, hitChance: 100},
+  }))
+  window.localStorage.setItem("warrior", JSON.stringify({
+    thePos: {x: 6, y: 6},
+    theSize: {x: 1, y: 2},
+    theHFrames: 9,
+    theVFrames: 1,
+    theFrame: 0,
+    theFrameSize: {x: 16, y: 32},
+    theOffset: {x: 0, y: -1.2},
+    theName: "Warrior",
+    theHitPoints: 1000,
+    theAttack: {damage: 100, hitChance: 100},
+    theStamina: 10,
+    theBlockPercentage: 100,
+    theSpecialAttack: {damage: 200, hitChance: 100},
+  }))
+  window.localStorage.setItem("priest", JSON.stringify({
+    thePos: {x: 6, y: 6},
+    theSize: {x: 1, y: 2},
+    theHFrames: 9,
+    theVFrames: 1,
+    theFrame: 0,
+    theFrameSize: {x: 16, y: 32},
+    theOffset: {x: 0, y: -1.2},
+    theName: "Priest",
+    theHitPoints: 1000,
+    theAttack: {damage: 100, hitChance: 100},
+    theStamina: 10,
+    theBlockPercentage: 100,
+    theSpecialAttack: {damage: 200, hitChance: 100},
+    theHeal: {healAmount: 50, hitChance: 100},
+  }))
+}
+function setUpPickUpDatabase() {
+    window.localStorage.setItem("health potion", JSON.stringify({
+      theSize: {x: 1,y: 1},
+      theIsCollideable: true,
+      theOffset: {x: 0,y: -0.1},
+      theName: "Health Potion",
+    }))
 }
