@@ -7,10 +7,11 @@ class BattleDisplay {
         this.createClones();
     }
     displayBattle(){
-        if (!this.myBattleSystem.inCombat) {
+        if (!this.myBattleSystem.inCombat && noText) {
             this.playerClone = null;
             this.mobClone = null;
             this.battleloop.stop();
+            this.noText = false;
         }
         push()
         fill('gray');

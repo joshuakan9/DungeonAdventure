@@ -67,7 +67,6 @@ class TextBox {
                 this.children.shift();
             } else {
                 this.children.shift();
-                console.log("no more dialogue");
                 this.inTextDialogue = false;
             }
             window.dispatchEvent(new Event("e-player-unfreeze"))
