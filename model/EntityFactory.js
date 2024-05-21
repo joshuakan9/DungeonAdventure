@@ -110,14 +110,7 @@ class EntityFactory {
                     theSize: createVector(1, 1),
                     theIsCollideable: true,
                     theImage: TILEMAP_EXIT,
-                    theHFrames: 1,
-                    theVFrames: 1,
-                    theFrame: 0,
-                    theFrameSize: createVector(16,16),
-                    theOffset: createVector(0, 0),
                     theName: "Exit",
-                    theHitPoints: 1000,
-                    theAttack: new Attack(100, 100),
                 })
                 break;
             default:
