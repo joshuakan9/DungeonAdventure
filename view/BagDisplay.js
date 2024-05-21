@@ -18,34 +18,6 @@ class BagDisplay {
         if (
             mouseX >= width / 2 - menuWidth / 2 &&
             mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-            mouseY >= height / 2 - menuHeight / 2 &&
-            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2 &&
-            this.myIsPaused
-        ) {
-            console.log('health potion')
-        }
-
-        if (
-            mouseX >= width / 2 - menuWidth / 2 &&
-            mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-            mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.2 &&
-            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.4 &&
-            this.myIsPaused
-        ) {
-            console.log('2nd item')
-        }
-        if (
-            mouseX >= width / 2 - menuWidth / 2 &&
-            mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-            mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.6 &&
-            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
-            this.myIsPaused
-        ) {
-            console.log('3rd item')
-        }
-        if (
-            mouseX >= width / 2 - menuWidth / 2 &&
-            mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
             mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
             mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0 &&
             this.myIsPaused
