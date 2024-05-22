@@ -85,7 +85,17 @@ class BattleDisplay {
         fill('black');
 
         text("Basic Attack", rect1X, rect1Y, buttonWidth, buttonHeight);
-        text("Special Attack", rect2X, rect2Y, buttonWidth, buttonHeight, rectRoundEdges);
+        switch (this.myBattleSystem.player.getClass()) {
+            case 'Assassin':
+                text("Quick Attack", rect2X, rect2Y, buttonWidth, buttonHeight);
+                break;
+            case 'Warrior':
+                text("Crushing Blow", rect2X, rect2Y, buttonWidth, buttonHeight);
+                break;
+            case 'Priest':
+                text("Heal", rect2X, rect2Y, buttonWidth, buttonHeight);
+                break;
+        }
         text("Buff", rect3X, rect3Y, buttonWidth, buttonHeight, rectRoundEdges);
         text("Bag", rect4X, rect4Y, buttonWidth, buttonHeight, rectRoundEdges);
 

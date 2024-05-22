@@ -6,6 +6,10 @@ class Priest extends Character {
         this.myHeal = theHeal;
     }
 
+    getHeal() {
+        return this.myHeal;
+    }
+
     heal() {
         this.myHitPoints += this.myHeal.getHealAmount();
     }

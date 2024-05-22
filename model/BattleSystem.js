@@ -86,7 +86,16 @@ class BattleSystem {
 
     playerSpecialAttack() {
         if (this.player.getClass() === "Priest") {
-            this.player.heal();
+            let healAmount = this.player.getHeal().getHealAmount();
+            console.log("heal amount = " + healAmount);
+            if (this.player.getHitPoints() + this.player.getHeal().getHealAmount() > this.player.getMaxHitPoints()) {
+                healAmount = this.player.getMaxHitPoints() - this.player.getHitPoints();
+                this.player.setHitPoints(this.player.getMaxHitPoints());
+                window.dispatchEvent(new CustomEvent("e-priest-heal", {detail: {player: this.player, healAmount: healAmount}}))
+            } else {
+                this.player.heal();
+                window.dispatchEvent(new CustomEvent("e-priest-heal",  {detail: {player: this.player, healAmount: healAmount}}))
+            }
         } else {
             let playerDamage = this.player.getSpecialAttack().getDamage();
             let playerHitPercentage = this.player.getSpecialAttack().getHitPercentage();
@@ -99,7 +108,7 @@ class BattleSystem {
                     this.inCombat = false;
                 }
 
-                window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.player, attack: "special" }}))
+                window.dispatchEvent(new CustomEvent("e-special-attack"))
 
                 let mobHealPercentage = this.mob.getHeal().getHealPercentage();
                 let mobHealRandom = random(0, 100);
@@ -170,6 +179,11 @@ class BattleSystem {
 
                 } else if (theMove === 'move_special') {
                     if (this.stamina >= 6) {
+                        if (this.player.getClass() === "Priest" && this.player.getHitPoints() === this.player.getMaxHitPoints()) {
+                            console.log("player is already at full health");
+                            window.dispatchEvent(new Event("e-player-already-full-health"));
+                            return;
+                        }
                         this.stamina -= 6;
                         this.playerSpecialAttack();
                         this.isOutOfBattleCheck();

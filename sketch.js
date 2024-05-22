@@ -167,8 +167,40 @@ window.addEventListener("e-attack", (E) => {
   } else {
     instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!" });
   }
-
 });
+
+window.addEventListener("e-special-attack", (E) => {
+    if (instancePlayer.getClass() === "Assassin") {
+      if (instanceBattle && instanceBattle.inCombat) {
+        instanceTextBox.add({
+          text: instancePlayer.getName() + " has used quick attack and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!",
+          x: 1,
+          y: .2,
+          width: .5,
+          height: .2,
+          textSize: .02
+        });
+      } else {
+        instanceTextBox.add({ text: instancePlayer.getName() + " has used quick attack and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!" });
+      }
+    } else {
+        if (instanceBattle && instanceBattle.inCombat) {
+          instanceTextBox.add({text: instancePlayer.getName() + " has used crushing blow and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!",
+            x: 1,
+            y: .2,
+            width: .5,
+            height: .2,
+            textSize: .02
+          });
+        } else {
+            instanceTextBox.add({text: instancePlayer.getName() + " has used crushing blow and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!"});
+        }
+    }
+})
+
+window.addEventListener("e-priest-heal", (E) => {
+    instanceTextBox.add({ text: E.detail.player.getName() + " has healed for " + E.detail.healAmount + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02});
+})
 
 window.addEventListener("e-mob-heal", (E) => {
   console.log("mob heal event")
@@ -249,7 +281,7 @@ function setup() {
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
-    instancePlayer = CharacterFactory.createCharacter("warrior");
+    instancePlayer = CharacterFactory.createCharacter("priest");
     instanceTargetPos = instancePlayer.getPos().copy()
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));
@@ -553,7 +585,7 @@ function setUpHeroDatabase() {
     theHitPoints: 1000,
     theAttack: {damage: 100, hitChance: 100},
     theStamina: 10,
-    theBlockPercentage: 100,
+    theBlockPercentage: 0,
     theMaxHitPoints: 1000,
     theSpecialAttack: {damage: 10000, hitChance: 100},
   }))
@@ -566,10 +598,10 @@ function setUpHeroDatabase() {
     theFrameSize: {x: 16, y: 32},
     theOffset: {x: 0, y: -1.2},
     theName: "Priest",
-    theHitPoints: 1000,
+    theHitPoints: 999,
     theAttack: {damage: 100, hitChance: 100},
     theStamina: 10,
-    theBlockPercentage: 100,
+    theBlockPercentage: 0,
     theMaxHitPoints: 1000,
     theSpecialAttack: {damage: 200, hitChance: 100},
     theHeal: {healAmount: 50, hitChance: 100},
