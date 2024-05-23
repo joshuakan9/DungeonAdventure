@@ -1,3 +1,31 @@
+// Background Display
+const DISPLAY_SCALE = 5;
+const FLOOR_Y = 3;
+const WALL_AMT = 2;
+// Buttons Size
+const BUTTON_WIDTH_SCALE = 4.1
+const BUTTON_HEIGHT_SCALE = 10.6
+// Button XY
+const FIRST_COLUMN_X = 1.985
+const SECOND_COLUMN_X = 4.025
+const FIRST_ROW_Y = 5.1
+const SECOND_ROW_Y = 10.3
+// Button Corner Edge
+const BUTTON_ROUNDING = 10;
+
+// Hover Effect
+const ORIGIN_TRANSPARENCY = 25
+const MOUSE_ON_TRANSPARENCY = 100
+
+// Information bars
+
+const BAR_SCALE = 20
+const HP_BAR_SCALE = 2;
+const HP_BAR_BG_SCALE = 4;
+const HP_BAR_BG_HEIGHT_SCALE = 2.2;
+
+
+
 class BattleDisplay {
     constructor(theBattleSystem) {
         this.myBattleSystem = theBattleSystem;
@@ -44,42 +72,40 @@ class BattleDisplay {
     }
 
     drawWall() {
-        image(WALL_IMG, 0, (height *2)/5, width/2, (height * 4)/16);
-        image(WALL_IMG, width/2, (height *2)/5, width/2, (height * 4)/16);
+        image(WALL_IMG, 0, (height * WALL_AMT)/DISPLAY_SCALE, width/WALL_AMT, height/DISPLAY_SCALE);
+        image(WALL_IMG, width/WALL_AMT, (height * WALL_AMT)/DISPLAY_SCALE, width/WALL_AMT, height/DISPLAY_SCALE);
     }
 
     drawFloor() {
-        fill(92, 64, 51);
-        image(FLOOR_IMG, 0, (height * 3)/5, width/5, height/5);
-        image(FLOOR_IMG, width * 1/5, (height * 3)/5, width/5, height/5);
-        image(FLOOR_IMG, width * 2/5, (height * 3)/5, width/5, height/5);
-        image(FLOOR_IMG, width * 3/5, (height * 3)/5, width/5, height/5);
-        image(FLOOR_IMG, width * 4/5, (height * 3)/5, width/5, height/5);
+        for (let i = 0; i < DISPLAY_SCALE; i++) {
+            image(FLOOR_IMG, (width * i/DISPLAY_SCALE), (height * FLOOR_Y)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
+        }
     }
 
     drawButtons() {
         push()
-        let buttonWidth = width/4.1;
-        let buttonHeight = height/10.6;
-        let rectRoundEdges = 10;
 
-        // basic attack button
-        let rect1X = width/1.985;
-        let rect1Y = height - height/5.1;
-        // special attack button
-        let rect2X = width/1.985;
-        let rect2Y = height - height/10.3;
-        // buff button
-        let rect3X = width - width/4.025;
-        let rect3Y = height - height/5.1;
-        // bag button
-        let rect4X = width - width/4.025;
-        let rect4Y = height - height/10.3;
+        //Button Size
+        const buttonWidth = width/BUTTON_WIDTH_SCALE;
+        const buttonHeight = height/BUTTON_HEIGHT_SCALE;
 
-        rect(rect1X, rect1Y, buttonWidth, buttonHeight, rectRoundEdges);
-        rect(rect2X, rect2Y, buttonWidth, buttonHeight, rectRoundEdges);
-        rect(rect3X, rect3Y, buttonWidth, buttonHeight, rectRoundEdges);
-        rect(rect4X, rect4Y, buttonWidth, buttonHeight, rectRoundEdges);
+        // basic attack button X,Y
+        const rect1X = width/FIRST_COLUMN_X;
+        const rect1Y = height - height/FIRST_ROW_Y;
+        // special attack button X,Y
+        const rect2X = width/FIRST_COLUMN_X;
+        const rect2Y = height - height/SECOND_ROW_Y;
+        // buff button X,Y
+        const rect3X = width - width/SECOND_COLUMN_X;
+        const rect3Y = height - height/FIRST_ROW_Y;
+        // bag button X,Y
+        const rect4X = width - width/SECOND_COLUMN_X;
+        const rect4Y = height - height/SECOND_ROW_Y;
+
+        rect(rect1X, rect1Y, buttonWidth, buttonHeight, BUTTON_ROUNDING);
+        rect(rect2X, rect2Y, buttonWidth, buttonHeight, BUTTON_ROUNDING);
+        rect(rect3X, rect3Y, buttonWidth, buttonHeight, BUTTON_ROUNDING);
+        rect(rect4X, rect4Y, buttonWidth, buttonHeight, BUTTON_ROUNDING);
 
         textAlign(CENTER, CENTER);
         fill('black');
@@ -96,44 +122,44 @@ class BattleDisplay {
                 text("Heal", rect2X, rect2Y, buttonWidth, buttonHeight);
                 break;
         }
-        text("Buff", rect3X, rect3Y, buttonWidth, buttonHeight, rectRoundEdges);
-        text("Bag", rect4X, rect4Y, buttonWidth, buttonHeight, rectRoundEdges);
+        text("Buff", rect3X, rect3Y, buttonWidth, buttonHeight, BUTTON_ROUNDING);
+        text("Bag", rect4X, rect4Y, buttonWidth, buttonHeight, BUTTON_ROUNDING);
 
         // HEALTH POTION / BAG IS EMPTY
-        fill(0, 0, 0, 25)
+        fill(0, 0, 0, ORIGIN_TRANSPARENCY)
         if (
             mouseX > rect1X && mouseX < rect1X + buttonWidth && mouseY > rect1Y && mouseY < rect1Y + buttonHeight
         ) {
-            fill(0, 0, 0, 100)
+            fill(0, 0, 0, MOUSE_ON_TRANSPARENCY)
         }
-        rect(rect1X, rect1Y, buttonWidth, buttonHeight, rectRoundEdges)
+        rect(rect1X, rect1Y, buttonWidth, buttonHeight, BUTTON_ROUNDING)
 
         // PILLAR OF ABSTRACTION
-        fill(0, 0, 0, 25)
+        fill(0, 0, 0, ORIGIN_TRANSPARENCY)
         if (
             mouseX > rect2X && mouseX < rect2X + buttonWidth && mouseY > rect2Y && mouseY < rect2Y + buttonHeight
         ) {
-            fill(0, 0, 0, 100)
+            fill(0, 0, 0, MOUSE_ON_TRANSPARENCY)
         }
-        rect(rect2X, rect2Y, buttonWidth, buttonHeight, rectRoundEdges)
+        rect(rect2X, rect2Y, buttonWidth, buttonHeight, BUTTON_ROUNDING)
 
         // PILLAR OF ENCAPSULATION
-        fill(0, 0, 0, 25)
+        fill(0, 0, 0, ORIGIN_TRANSPARENCY)
         if (
             mouseX > rect3X && mouseX < rect3X + buttonWidth && mouseY > rect3Y && mouseY < rect3Y + buttonHeight
         ) {
-            fill(0, 0, 0, 100)
+            fill(0, 0, 0, MOUSE_ON_TRANSPARENCY)
         }
-        rect(rect3X, rect3Y, buttonWidth, buttonHeight, rectRoundEdges)
+        rect(rect3X, rect3Y, buttonWidth, buttonHeight, BUTTON_ROUNDING)
 
         // PILLAR OF INHERITANCE
-        fill(0, 0, 0, 25)
+        fill(0, 0, 0, ORIGIN_TRANSPARENCY)
         if (
             mouseX > rect4X && mouseX < rect4X + buttonWidth && mouseY > rect4Y && mouseY < rect4Y + buttonHeight
         ) {
-            fill(0, 0, 0, 100)
+            fill(0, 0, 0, MOUSE_ON_TRANSPARENCY)
         }
-        rect(rect4X, rect4Y, buttonWidth, buttonHeight, rectRoundEdges)
+        rect(rect4X, rect4Y, buttonWidth, buttonHeight, BUTTON_ROUNDING)
 
         pop()
     }
@@ -142,8 +168,8 @@ class BattleDisplay {
     drawHealthStaminaBars() {
         push()
         // Health bar
-        let barWidth = width / 5; // Width of the bars
-        let barHeight = 5; // Height of the bars
+        let barWidth = width / DISPLAY_SCALE; // Width of the bars
+        let barHeight = DISPLAY_SCALE; // Height of the bars
 
         let playerHealthPercentage = this.myBattleSystem.player.myHitPoints / this.playerMaxHealth;
         let playerHealthBarWidth = barWidth * playerHealthPercentage;
@@ -151,25 +177,24 @@ class BattleDisplay {
         let mobHealthBarWidth = barWidth * mobHealthPercentage;
         let playerStaminaPercentage = this.myBattleSystem.stamina / this.playerInitialStamina;
         let playerStaminaBarWidth = barWidth * playerStaminaPercentage;
-        let barRoundedEdges = 10;
 
         // Draw player's health bar
         fill('red');
-        rect(width / 20, height - height / 2, barWidth, barHeight, barRoundedEdges); // Draw the background of the health bar
+        rect(width / BAR_SCALE, height - height / HP_BAR_SCALE, barWidth, barHeight, BUTTON_ROUNDING); // Draw the background of the health bar
         fill('green');
-        rect(width / 4 - playerHealthBarWidth, height - height / 2, playerHealthBarWidth, barHeight, barRoundedEdges); // Draw the actual health bar
+        rect(width / HP_BAR_BG_SCALE - playerHealthBarWidth, height - height / HP_BAR_SCALE, playerHealthBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
 
         // Draw mob's health bar
         fill('red');
-        rect(width - width / 4, height - height / 2, barWidth, barHeight, barRoundedEdges); // Draw the background of the health bar
+        rect(width - width / HP_BAR_BG_SCALE, height - height / HP_BAR_SCALE, barWidth, barHeight, BUTTON_ROUNDING); // Draw the background of the health bar
         fill('green');
-        rect(width - width / 20 - mobHealthBarWidth, height - height / 2, mobHealthBarWidth, barHeight, barRoundedEdges); // Draw the actual health bar
+        rect(width - width / BAR_SCALE - mobHealthBarWidth, height - height / HP_BAR_SCALE, mobHealthBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
 
         // // Stamina bar
         fill('red');
-        rect(width / 20, height - height / 2.2, barWidth, barHeight, barRoundedEdges); // Draw the background of the health bar
+        rect(width / BAR_SCALE, height - height / HP_BAR_BG_HEIGHT_SCALE, barWidth, barHeight, BUTTON_ROUNDING); // Draw the background of the health bar
         fill('yellow');
-        rect(width / 4 - playerStaminaBarWidth, height - height / 2.2, playerStaminaBarWidth, barHeight, barRoundedEdges); // Draw the actual health bar
+        rect(width / 4 - playerStaminaBarWidth, height - height / HP_BAR_BG_HEIGHT_SCALE, playerStaminaBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
         pop()
     }
 
@@ -193,15 +218,15 @@ class BattleDisplay {
         const playerConst = this.myBattleSystem.player.constructor;
         const mobConst = this.myBattleSystem.mob.constructor;
         this.playerClone = new playerConst({
-            thePos: createVector((5), (10)),
-            theSize: createVector(1, 2),
+            thePos: createVector((5), (8)),
+            theSize: createVector(2, 4),
             theImage: this.myBattleSystem.player.myImage,
             theHFrames: 9,
             theVFrames: 1,
             theFrame: 0,
             theFrameSize: createVector(16, 32),
             theOffset: createVector(0, -1.2),
-            theName: "Tester",
+            theName: "BATTLE_DISPLAY_ONE",
             theHitPoints: 1000,
             theAttack: new Attack(10000, 100),
             theStamina: 10,
@@ -214,15 +239,15 @@ class BattleDisplay {
             }),
         })
         this.mobClone = new mobConst ({
-            thePos: createVector((10), (10)),
-            theSize: createVector(1, 2),
+            thePos: createVector((10), (8)),
+            theSize: createVector(2, 4),
             theImage: this.myBattleSystem.mob.myImage,
             theHFrames: 9,
             theVFrames: 1,
             theFrame: 0,
             theFrameSize: createVector(16, 32),
             theOffset: createVector(0, -1.2),
-            theName: "Tester",
+            theName: "BATTLE_DISPLAY_TWO",
             theHitPoints: 1000,
             theAttack: new Attack(10000, 100),
             theStamina: 10,
@@ -234,10 +259,6 @@ class BattleDisplay {
               walk: new FramePattern(ANIM_WALK)
             }),
         })
-        // console.log(this.myBattleSystem.player)
-        // console.log(this.playerClone)
-        // console.log(this.myBattleSystem.mob)
-        // console.log(this.mobClone)
     }
 
 

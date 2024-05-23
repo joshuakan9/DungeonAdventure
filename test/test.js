@@ -3,4 +3,8 @@ class Test {
         chai.assert.equal(width, 'bar', 'foo equal `bar`');
     }
 
+    sketchTests() {
+        
+    }
+
 }
