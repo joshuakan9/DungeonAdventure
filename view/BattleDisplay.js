@@ -194,7 +194,7 @@ class BattleDisplay {
         fill('red');
         rect(width / BAR_SCALE, height - height / HP_BAR_BG_HEIGHT_SCALE, barWidth, barHeight, BUTTON_ROUNDING); // Draw the background of the health bar
         fill('yellow');
-        rect(width / 4 - playerStaminaBarWidth, height - height / HP_BAR_BG_HEIGHT_SCALE, playerStaminaBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
+        rect(width / HP_BAR_BG_SCALE - playerStaminaBarWidth, height - height / HP_BAR_BG_HEIGHT_SCALE, playerStaminaBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
         pop()
     }
 

@@ -1,3 +1,6 @@
+const HANDLER_TIME = 100;
+const TRANSITION_TRANSPARENCY = 255;
+const RATE_OF_TRANSITION = 20;
 class TransitionEffect {
 
     clear() {
@@ -9,7 +12,7 @@ class TransitionEffect {
 
     transition() {
         let alpha = 255;
-        let rate = 10; // how fast the rendering is (based off of background color number line 22)
+        let rate = RATE_OF_TRANSITION; // how fast the rendering is (based off of background color number line 22)
         this.clear();
         const handler = () => { // anonymous function that is put into the setInterval
             if (alpha < 0) { // the break out case
@@ -21,10 +24,10 @@ class TransitionEffect {
                 rect(0, 0, width, height);
             }
             alpha -= rate;
-            rate += rate * 2;
+            rate += rate;
         }
         handler();
-        this.interval = setInterval(handler, 100); // handler function and the time it takes for handler to be finished
+        this.interval = setInterval(handler, HANDLER_TIME); // handler function and the time it takes for handler to be finished
     }
 
     drawerStatus() {
