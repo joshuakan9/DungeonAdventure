@@ -20,6 +20,7 @@ class VPauseMenu {
             mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0 &&
             this.myIsPaused
         ) {
+            this.setIsPaused()
             VMainMenu.setMainMenu()
         }
     }
