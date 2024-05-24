@@ -92,6 +92,11 @@ window.addEventListener("e-battle-start", (E) => {
   //console.log(E['detail'])
 })
 
+window.addEventListener("e-player-set-character", (E) => {
+  instancePlayer = E['detail']
+})
+
+
 window.addEventListener("e-pillar-drop", (E) => {
   console.log("pillar drop event")
   instanceTextBox.add({ text: "You have gained the " + E.detail + "!" });
@@ -362,7 +367,7 @@ function setup() {
   instanceGameLoop.setTickFunction(
       (time) => {
         // console.log(time)
-
+        VMainMenu.step(time)
         if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
           instanceBattleDisplay.mobClone.step(time);
           instanceBattleDisplay.playerClone.step(time);
@@ -374,7 +379,7 @@ function setup() {
 
 
 
-        if (!instancePlayer.getIsFrozen()) {
+        if (!instancePlayer.getIsFrozen() && !VMainMenu.getIsPaused()) {
 
           let distance = moveTowards(instancePlayer, instanceTargetPos, 1 / 25)
           if (distance <= 0.01) {
@@ -383,6 +388,7 @@ function setup() {
           if (!VPauseMenu.getIsPaused()) {
             instancePlayer.step(time)
             instanceFactory.step(time)
+            
           }
 
         }
@@ -418,7 +424,7 @@ function setup() {
 
 
         VPauseMenu.draw()
-        // VMainMenu.draw()
+        VMainMenu.draw()
 
 //=======================================================================================================================
         if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {

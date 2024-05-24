@@ -28,6 +28,8 @@ class VPauseMenu {
             this.myIsPaused = !this.myIsPaused
         }
     }
+
+
     static draw() {
         if (this.getIsPaused()) {
             let menuWidth = width * 0.6
