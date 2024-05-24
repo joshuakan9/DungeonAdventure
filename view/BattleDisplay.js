@@ -20,9 +20,9 @@ const MOUSE_ON_TRANSPARENCY = 100
 // Information bars
 
 const BAR_SCALE = 20
-const HP_BAR_SCALE = 2;
+const HP_BAR_SCALE = 1.75;
 const HP_BAR_BG_SCALE = 4;
-const HP_BAR_BG_HEIGHT_SCALE = 2.2;
+const HP_BAR_BG_HEIGHT_SCALE = 1.90;
 
 
 
@@ -33,6 +33,10 @@ class BattleDisplay {
         this.mobInitialHealth = this.myBattleSystem.mob.myHitPoints;
         this.playerInitialStamina = this.myBattleSystem.player.myStamina;
         this.createClones();
+        this.randomIndexes = [];
+        for (let i = 0; i < DISPLAY_SCALE; i++) {
+            this.randomIndexes.push(Math.floor(Math.random() * 5))
+        }
     }
 
     displayBattle(){
@@ -49,7 +53,7 @@ class BattleDisplay {
         push()
         fill('white');
         noStroke();
-        rect(0, height - height/5, width, height - height/5);
+        rect(0, height - height/DISPLAY_SCALE, width, height - height/5);
         pop()
         push()
 
@@ -72,11 +76,31 @@ class BattleDisplay {
     }
 
     drawWall() {
-        image(WALL_IMG, 0, (height * WALL_AMT)/DISPLAY_SCALE, width/WALL_AMT, height/DISPLAY_SCALE);
-        image(WALL_IMG, width/WALL_AMT, (height * WALL_AMT)/DISPLAY_SCALE, width/WALL_AMT, height/DISPLAY_SCALE);
+        let WALL_IMG_ARRAY = [
+            WALL1_IMG,
+            WALL2_IMG,
+            WALL3_IMG,
+            WALL4_IMG,
+            WALL5_IMG,
+        ]
+        
+        image(WALL_IMG, 0, 0, width/WALL_AMT, height/DISPLAY_SCALE);
+        image(WALL_IMG, width/WALL_AMT, 0, width/WALL_AMT, height/DISPLAY_SCALE);
+        //console.log(1234, WALL1_IMG)
+        for (let i = 0; i < DISPLAY_SCALE; i++) {
+            let x = Math.floor(Math.random() * WALL_IMG_ARRAY.length);
+            if(i % 2 == 0) {
+                image(WALL_IMG_ARRAY[this.randomIndexes[i]], (width * i/DISPLAY_SCALE), (height)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
+            } else {
+                image(WALL0_IMG, (width * i/DISPLAY_SCALE), (height)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
+            }
+        }
     }
 
     drawFloor() {
+        for (let i = 0; i < DISPLAY_SCALE; i++) {
+            image(FLOOR_IMG, (width * i/DISPLAY_SCALE), (height * 2)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
+        }
         for (let i = 0; i < DISPLAY_SCALE; i++) {
             image(FLOOR_IMG, (width * i/DISPLAY_SCALE), (height * FLOOR_Y)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
         }
@@ -205,13 +229,13 @@ class BattleDisplay {
         fill('white');
 
         // Player's health
-        text(this.myBattleSystem.player.myHitPoints + ' / ' + this.playerMaxHealth, width / 4.7, height - height / 2.1);
+        text(this.myBattleSystem.player.myHitPoints + ' / ' + this.playerMaxHealth, width / 4.7, height - height / 1.825);
 
         // Mob's health
-        text(this.myBattleSystem.mob.myHitPoints + ' / ' + this.mobInitialHealth, width - width / 11.3, height - height / 2.1);
+        text(this.myBattleSystem.mob.myHitPoints + ' / ' + this.mobInitialHealth, width - width / 11.3, height - height / 1.825);
 
         // Stamina numbers
-        text(this.myBattleSystem.stamina + ' / ' + this.playerInitialStamina, width / 5.3, height - height / 2.3);
+        text(this.myBattleSystem.stamina + ' / ' + this.playerInitialStamina, width / 5.3, height - height / 2);
         pop()
     }
 
@@ -219,7 +243,7 @@ class BattleDisplay {
         const playerConst = this.myBattleSystem.player.constructor;
         const mobConst = this.myBattleSystem.mob.constructor;
         this.playerClone = new playerConst({
-            thePos: createVector((5), (8)),
+            thePos: createVector((1.5), (8)),
             theSize: createVector(2, 4),
             theImage: this.myBattleSystem.player.myImage,
             theHFrames: 9,
@@ -240,7 +264,7 @@ class BattleDisplay {
             }),
         })
         this.mobClone = new mobConst ({
-            thePos: createVector((10), (8)),
+            thePos: createVector((12.5), (8)),
             theSize: createVector(2, 4),
             theImage: this.myBattleSystem.mob.myImage,
             theHFrames: 9,

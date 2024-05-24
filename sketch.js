@@ -4,9 +4,15 @@ let FONT = {}
 let CELLSIZE
 let TILEMAP
 let CURSOR
+let cellNumber = 16
 let WALL_IMG
 let FLOOR_IMG
-let cellNumber = 16
+let WALL0_IMG
+let WALL1_IMG
+let WALL2_IMG
+let WALL3_IMG
+let WALL4_IMG
+let WALL5_IMG
 function preload() {
   // FONT['REGULAR'] = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
   FONT['REGULAR'] = loadFont('./assets/fonts/MinecraftRegular.otf')
@@ -15,8 +21,13 @@ function preload() {
   CURSOR = loadImage('./assets/images/cursor.png')
   TILEMAP = loadImage('./assets/images/tilemap.png')
   WALL_IMG = loadImage('./assets/images/background.png')
-  FLOOR_IMG = loadImage('/assets/images/floor.png')
-
+  FLOOR_IMG = loadImage('./assets/images/floor.png')
+  WALL0_IMG = loadImage('./assets/images/backgroundLOriginal.png')
+  WALL1_IMG = loadImage('./assets/images/backgroundLOne.png')
+  WALL2_IMG = loadImage('./assets/images/backgroundLTwo.png')
+  WALL3_IMG = loadImage('./assets/images/backgroundLThree.png')
+  WALL4_IMG = loadImage('./assets/images/backgroundLFour.png')
+  WALL5_IMG = loadImage('./assets/images/backgroundLFive.png')
 }
 let ratio = 1;
 let W, H;
