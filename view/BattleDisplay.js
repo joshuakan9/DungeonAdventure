@@ -193,7 +193,7 @@ class BattleDisplay {
         push()
         // Health bar
         let barWidth = width / DISPLAY_SCALE; // Width of the bars
-        let barHeight = DISPLAY_SCALE; // Height of the bars
+        let barHeight = BAR_SCALE; // Height of the bars
 
         let playerHealthPercentage = this.myBattleSystem.player.myHitPoints / this.playerMaxHealth;
         let playerHealthBarWidth = barWidth * playerHealthPercentage;
