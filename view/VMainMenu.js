@@ -79,10 +79,31 @@ class VMainMenu {
 
         }
 
+        if (!this.myGroundImages) {
+            this.myGroundImages = [
+                TILEMAP.get(1 * 16, 4 * 16, 16, 16),
+                TILEMAP.get(2 * 16, 4 * 16, 16, 16),
+                TILEMAP.get(3 * 16, 4 * 16, 16, 16),
+                TILEMAP.get(1 * 16, 5 * 16, 16, 16),
+                TILEMAP.get(2 * 16, 5 * 16, 16, 16),
+                TILEMAP.get(3 * 16, 5 * 16, 16, 16),
+                TILEMAP.get(1 * 16, 6 * 16, 16, 16),
+                TILEMAP.get(2 * 16, 6 * 16, 16, 16)
+            ]
+        }
+
         let textHeight = width /30
         push()
 
         background(0)
+        for (let a = 5.5; a < 10; a++) {
+            for (let b = 5.5; b < 10; b++) {
+                image(random(this.myGroundImages), getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
+
+         
+            }
+        }
+
 
         this.myCurrentCharacter.setPos(createVector(7.5,7.5))
         this.myCurrentCharacter.draw()
