@@ -36,6 +36,7 @@ class BagSystem {
             window.dispatchEvent(new Event("e-player-already-full-health"));
             return;
         } else if (this.myPlayer.getHitPoints() + healAmount > this.myPlayer.getMaxHitPoints()) {
+            healAmount = this.myPlayer.getMaxHitPoints() - this.myPlayer.getHitPoints();
             this.myPlayer.setHitPoints(this.myPlayer.getMaxHitPoints());
         } else {
             this.myPlayer.setHitPoints(this.myPlayer.getHitPoints() + healAmount);

@@ -201,7 +201,8 @@ class BattleDisplay {
     drawHealthStaminaNumbers() {
         push()
         textAlign(RIGHT, CENTER);
-        fill('black');
+        strokeWeight(5);
+        fill('white');
 
         // Player's health
         text(this.myBattleSystem.player.myHitPoints + ' / ' + this.playerMaxHealth, width / 4.7, height - height / 2.1);

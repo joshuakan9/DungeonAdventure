@@ -5,7 +5,7 @@ class EntityFactory {
         switch(entityType) {
             case 'ogre':
                 let ogreData = JSON.parse(window.localStorage.getItem('ogre'));
-                entity = new Ogre({
+                entity = new Mob({
                     thePos: entityPos,
                     theSize: createVector(ogreData.theSize.x, ogreData.theSize.y),
                     theIsCollideable: ogreData.theIsCollideable,
@@ -27,7 +27,7 @@ class EntityFactory {
                 break;
             case 'skeleton':
                 let skeletonData = JSON.parse(window.localStorage.getItem('skeleton'));
-                entity = new Skeleton({
+                entity = new Mob({
                     thePos: entityPos,
                     theSize: createVector(skeletonData.theSize.x, skeletonData.theSize.y),
                     theIsCollideable: skeletonData.theIsCollideable,
@@ -49,7 +49,7 @@ class EntityFactory {
                 break;
             case 'gremlin':
                 let gremlinData = JSON.parse(window.localStorage.getItem('gremlin'));
-                entity = new Gremlin({
+                entity = new Mob({
                     thePos: entityPos,
                     theSize: createVector(gremlinData.theSize.x, gremlinData.theSize.y),
                     theIsCollideable: gremlinData.theIsCollideable,
@@ -71,7 +71,7 @@ class EntityFactory {
                 break;
             case 'health potion':
                 let healthPotionData = JSON.parse(window.localStorage.getItem('health potion'));
-                entity = new HealthPotion({
+                entity = new Pickup({
                     thePos: entityPos,
                     theSize: createVector(healthPotionData.theSize.x, healthPotionData.theSize.y),
                     theIsCollideable: healthPotionData.theIsCollideable,
