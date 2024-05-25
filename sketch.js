@@ -40,7 +40,6 @@ let M
 let instanceTransition = new TransitionEffect()
 let instanceGameLoop = null
 let instanceFactory = null
-let instanceTargetPos = null
 let instancePlayer = null
 let instanceBattle = null
 let instanceTextBox = new TextBox();
@@ -298,7 +297,6 @@ function setup() {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
     instancePlayer = CharacterFactory.createCharacter("priest");
-    instanceTargetPos = instancePlayer.getPos().copy()
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
@@ -323,7 +321,7 @@ function setup() {
   tryMove = () => {
 
 
-    let potentialTargetPos = instanceTargetPos.copy()
+    let potentialTargetPos = instancePlayer.getTargetPos()
     let newDirection = null;
     if (!VPauseMenu.getIsPaused()) {
       if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
@@ -350,14 +348,14 @@ function setup() {
 
 
     if (!instanceFactory.checkCollision(instancePlayer, potentialTargetPos)) {
-      instanceTargetPos = potentialTargetPos
+      instancePlayer.setTargetPos(potentialTargetPos)
     } else {
       console.log('colliding')
     }
 
     instancePlayer.setDirection(newDirection)
     if (instanceFactory.checkDoor(instancePlayer, potentialTargetPos)) {
-      instanceTargetPos = instancePlayer.getPos()
+      instancePlayer.setTargetPos(instancePlayer.getPos())
     }
 
 
@@ -381,7 +379,7 @@ function setup() {
 
         if (!instancePlayer.getIsFrozen() && !VMainMenu.getIsPaused()) {
 
-          let distance = moveTowards(instancePlayer, instanceTargetPos, 1 / 25)
+          let distance = moveTowards(instancePlayer, instancePlayer.getTargetPos(), 1 / 25)
           if (distance <= 0.01) {
             tryMove()
           }

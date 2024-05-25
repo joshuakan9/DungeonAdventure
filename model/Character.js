@@ -10,6 +10,15 @@ class Character extends Entity {
         this.myBlockPercentage = theBlockPercentage;
         this.myMaxHitPoints = theMaxHitPoints;
         this.myIsFrozen = 0;
+        this.myTargetPos = thePos.copy();
+    }
+
+    setTargetPos(thePos) {
+        this.myTargetPos = thePos.copy()
+    }
+
+    getTargetPos() {
+        return this.myTargetPos
     }
 
     getMaxHitPoints() {
