@@ -298,6 +298,7 @@ function newGame() {
     instanceGameLoop.stop()
   }
   instanceFactory = new Factory()
+  console.log(instanceFactory)
 
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)

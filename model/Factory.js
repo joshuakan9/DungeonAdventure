@@ -1,29 +1,19 @@
 class Factory {
-    myEntities;
-    myOverworld;
+
     myImage;
     myMobCount;
     constructor() {
 
         this.myImage = createGraphics(CELLSIZE, CELLSIZE)
-        this.myOverworld = [
-            ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'wall', 'wall', 'wall'],
-            ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'wall', 'wall', 'wall'],
-            ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white', 'white'],
-            ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'wall', 'wall', 'wall'],
-            ['white', 'white', 'white', 'white', 'white', 'white', 'white', 'wall', 'wall', 'wall']
-        ]
         this.myDungeonGenerator = new DungeonGenerator();
         this.myDungeon = this.myDungeonGenerator.getDungeon();
+        console.log((this.myDungeon))
         this.myDungeonIndex = createVector(floor(this.myDungeon[0].length / 2), floor(this.myDungeon.length / 2))
         this.myDungeonImage = null
-        this.myEntities = []
+  
         this.myMobCount = this.myDungeonGenerator.getTotalMobCount();
         this.myInitialMobCount = this.myMobCount;
 
-        for (let a = 0; a < this.myOverworld.length; a++) {
-            this.myEntities.push([])
-        }
     }
 
     getInitialMobCount() {
@@ -34,14 +24,6 @@ class Factory {
         return this.myMobCount;
     }
 
-    addEntity(theEntity) {
-        let thePos = theEntity.getPos()
-        let cell = createVector(thePos.x, thePos.y)
-        this.myEntities[cell.y][cell.x] = theEntity
-        if (theEntity.getName() === 'Ogre' || theEntity.getName() === 'Skeleton' || theEntity.getName() === 'Gremlin') {
-            this.myMobCount = this.myMobCount + 1;
-        }
-    }
     removeEntity(theEntity) {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         room.removeEntity(theEntity.getPos())
@@ -119,7 +101,7 @@ class Factory {
                 if (entityMap[a][b]) {
                     // console.log(entitymap[a][b])
                     entityMap[a][b].step(theDelta)
-                    // this.myEntities[a][b].step()
+
                 }
             }
         }
@@ -129,19 +111,6 @@ class Factory {
         let cell = createVector(round(thePos.x), round(thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         let entityMap = room.getEntityMap()
-        // for (let a = cell.y - 8; a < cell.y + 9; a++) {
-        //     if (a < 0 || a >= this.myOverworld.length) {
-        //         continue
-        //     }
-        //     for (let b = cell.x - 8; b < cell.x + 9; b++) {
-        //         if (b < 0 || b >= this.myOverworld[0].length) {
-        //             continue
-        //         }
-        //         if (this.myEntities[a][b]) {
-        //             this.myEntities[a][b].draw()
-        //         }
-        //     }
-        // }
 
         for (let a = 0; a < entityMap.length; a++) {
 
@@ -156,9 +125,7 @@ class Factory {
             }
         }
 
-        // for (let a = 0; a < this.myEntities.length; a++) {
-        //     this.myEntities[a].draw()
-        // }
+
     }
 
     interact(thePlayer) {
@@ -189,27 +156,6 @@ class Factory {
         }
     }
 
-    drawOverworld(thePlayer) {
-        let thePos = thePlayer.getPos()
-        let cell = createVector(round(thePos.x), round(thePos.y))
-        push()
-        for (let a = cell.y - 8; a < cell.y + 9; a++) {
-            if (a < 0 || a >= this.myOverworld.length) {
-                continue
-            }
-            for (let b = cell.x - 8; b < cell.x + 9; b++) {
-                if (b < 0 || b >= this.myOverworld[0].length) {
-                    continue
-                }
-                if (this.myOverworld[a][b] != 'wall') {
-                    this.myImage.background(this.myOverworld[a][b])
-                    image(this.myImage, getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
-                }
-
-            }
-        }
-        pop()
-    }
 
     drawDungeon(thePlayer) {
         let thePos = thePlayer.getPos()
