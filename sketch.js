@@ -255,6 +255,7 @@ let TILEMAP_SKELETON
 let TILEMAP_GREMLIN
 let TILEMAP_POTION_HEALTH
 let TILEMAP_EXIT
+let hasCompleteInitial = false
 
 function setup() {
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
@@ -266,7 +267,7 @@ function setup() {
   TILEMAP_POTION_HEALTH = TILEMAP.get(18 * 16, 13 * 16, 1 * 16, 1 * 16)
   TILEMAP_EXIT = TILEMAP.get(3 * 16, 6 * 16, 1 * 16, 1 * 16)
 
-  randomSeed(new Date().getTime())
+  
 
   window.innerHeight <= window.innerWidth
       ? ((W = Math.max(window.innerHeight, 1) * ratio),
@@ -282,16 +283,21 @@ function setup() {
   setUpHeroDatabase()
   setUpPickUpDatabase()
 
+  if (!hasCompleteInitial) {
+    newGame()
+    hasCompleteInitial = true
+  }
+}
+
+function newGame() {
+  randomSeed(new Date().getTime())
   if (!instanceGameLoop) {
     instanceGameLoop = new GameLoop();
   }
   if (instanceGameLoop) {
     instanceGameLoop.stop()
   }
-  if (!instanceFactory) {
-    instanceFactory = new Factory()
-    // mobCount = instanceFactory.getMobCount();
-  }
+  instanceFactory = new Factory()
 
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
@@ -440,10 +446,6 @@ function setup() {
       }
   )
   instanceGameLoop.start()
-}
-
-function draw() {
-
 }
 
 function windowResized() {

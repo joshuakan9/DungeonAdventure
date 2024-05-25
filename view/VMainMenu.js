@@ -12,7 +12,7 @@ class VMainMenu {
             mouseY <= height * 0.6  &&
             this.myCurrentScreen == 'main'
         ) {
-            console.log('newgame')
+            
             this.myCurrentScreen = 'character'
             return
         }
@@ -24,6 +24,7 @@ class VMainMenu {
             mouseY <= height * 0.6  &&
             this.myCurrentScreen == 'character'
         ) {
+            newGame()
             window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('assassin')}))
             this.myCurrentScreen = 'none'
 
@@ -36,7 +37,7 @@ class VMainMenu {
             mouseY <= height * 0.6 + 1 * height / 15&&
             this.myCurrentScreen == 'character'
         ) {
-
+            newGame()
             window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('warrior')}))
             this.myCurrentScreen = 'none'
         }
@@ -48,6 +49,7 @@ class VMainMenu {
             mouseY <= height * 0.6 + 2 * height / 15&&
             this.myCurrentScreen == 'character'
         ) {
+            newGame()
             window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('priest')}))
             this.myCurrentScreen = 'none'
         }
