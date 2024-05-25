@@ -1,38 +1,56 @@
 class VPauseMenu {
-    static myIsPaused = false;
+    static myCurrentScreen = 'none';
     static mouseClicked() {
         let menuWidth = width * 0.6
         let menuHeight = width * 0.5
-        if (
-            mouseX >= width / 2 - menuWidth / 2 &&
-            mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-            mouseY >= height / 2 - menuHeight / 2 &&
-            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2 &&
-            this.myIsPaused
-        ) {
-            this.setIsPaused()
-        }
+        if (this.myCurrentScreen == 'paused') {
+            if (
+                mouseX >= width / 2 - menuWidth / 2 &&
+                mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
+                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.0 &&
+                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2
+            ) {
+                this.myCurrentScreen = 'none'
+            }
 
-        if (
-            mouseX >= width / 2 - menuWidth / 2 &&
-            mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
-            mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
-            mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0 &&
-            this.myIsPaused
-        ) {
-            this.setIsPaused()
-            VMainMenu.setMainMenu()
+            //load
+            if (
+                mouseX >= width / 2 - menuWidth / 2 &&
+                mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
+                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.4 &&
+                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.6
+            ) {
+                console.log('load')
+                this.myCurrentScreen = 'load'
+                // this.setIsPaused()
+                // VMainMenu.setMainMenu()
+            }
+
+            if (
+                mouseX >= width / 2 - menuWidth / 2 &&
+                mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
+                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
+                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0
+            ) {
+                this.myCurrentScreen = 'none'
+                VMainMenu.setMainMenu()
+            }
         }
     }
     static keyPressed() {
         if (keyCode === 27 || keyCode === 80) { // escape key or p
-            this.myIsPaused = !this.myIsPaused
+            if (this.myCurrentScreen != 'none') {
+                this.myCurrentScreen = 'none'
+            } else {
+                this.myCurrentScreen = 'paused'
+            }
+
         }
     }
 
 
     static draw() {
-        if (this.getIsPaused()) {
+        if (this.myCurrentScreen == 'paused') {
             let menuWidth = width * 0.6
             let menuHeight = width * 0.5
             push()
@@ -112,13 +130,30 @@ class VPauseMenu {
             text("Save", menuWidth / 2, menuHeight * 0.7)
             text("Exit to Main Menu", menuWidth / 2, menuHeight * 0.9)
             pop()
-          }
+        }
+        if (this.myCurrentScreen == 'load') {
+            push()
+            textFont(FONT["REGULAR"])
+            textSize(width / 30)
+            noStroke()
+            fill(0, 0, 0, 100)
+
+
+            rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+            rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+            rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+            fill(177,188,184)
+            text("Save 1", width * 0.2, height * 0.675 - width / 10)
+            text("Save 2", width * 0.45, height * 0.675 - width / 10)
+            text("Save 3", width * 0.7, height * 0.675 - width / 10)
+
+            pop()
+        }
     }
 
     static getIsPaused() {
-        return this.myIsPaused;
+        return this.myCurrentScreen != 'none';
     }
-    static setIsPaused() {
-        this.myIsPaused = !this.myIsPaused;
-    }
+
 }
