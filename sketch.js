@@ -290,7 +290,7 @@ function setup() {
   }
   if (!instanceFactory) {
     instanceFactory = new Factory()
-    mobCount = instanceFactory.getMobCount();
+    // mobCount = instanceFactory.getMobCount();
   }
 
   if (!instancePlayer) {
@@ -321,7 +321,7 @@ function setup() {
   tryMove = () => {
 
 
-    let potentialTargetPos = instancePlayer.getTargetPos()
+    let potentialTargetPos = instancePlayer.getTargetPos().copy()
     let newDirection = null;
     if (!VPauseMenu.getIsPaused()) {
       if (keyIsDown(68) || keyIsDown(RIGHT_ARROW)) { //D right
