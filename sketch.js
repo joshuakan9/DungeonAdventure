@@ -428,7 +428,7 @@ function newGame() {
 
 
         VPauseMenu.draw()
-        // VMainMenu.draw()
+        VMainMenu.draw()
 
 //=======================================================================================================================
         if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {

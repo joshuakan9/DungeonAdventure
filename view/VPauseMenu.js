@@ -22,8 +22,19 @@ class VPauseMenu {
             ) {
                 console.log('load')
                 this.myCurrentScreen = 'load'
-                // this.setIsPaused()
-                // VMainMenu.setMainMenu()
+
+            }
+
+            //save
+            if (
+                mouseX >= width / 2 - menuWidth / 2 &&
+                mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
+                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.6 &&
+                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.8
+            ) {
+                console.log('save')
+                this.myCurrentScreen = 'save'
+
             }
 
             if (
@@ -163,7 +174,55 @@ class VPauseMenu {
             text("Exit to Main Menu", menuWidth / 2, menuHeight * 0.9)
             pop()
         }
+
+
         if (this.myCurrentScreen == 'load') {
+            push()
+            textFont(FONT["REGULAR"])
+            textSize(width / 30)
+            noStroke()
+            fill(0, 0, 0, 100)
+            if (
+                mouseX >= width * 0.15 &&
+                mouseX <= width * 0.15 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                fill(0, 0, 0, 125)   
+            }
+            rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+            fill(0, 0, 0, 100)
+            if (
+                mouseX >= width * 0.4 &&
+                mouseX <= width * 0.4 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                fill(0, 0, 0, 125)   
+            }
+            rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+            fill(0, 0, 0, 100)
+            if (
+                mouseX >= width * 0.65 &&
+                mouseX <= width * 0.65 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                fill(0, 0, 0, 125)   
+            }
+            rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+            fill(177,188,184)
+            text("Save 1", width * 0.2, height * 0.675 - width / 10)
+            text("Save 2", width * 0.45, height * 0.675 - width / 10)
+            text("Save 3", width * 0.7, height * 0.675 - width / 10)
+
+            pop()
+        }
+    
+        if (this.myCurrentScreen == 'save') {
             push()
             textFont(FONT["REGULAR"])
             textSize(width / 30)
