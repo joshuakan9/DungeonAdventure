@@ -36,6 +36,38 @@ class VPauseMenu {
                 VMainMenu.setMainMenu()
             }
         }
+        
+        if (this.myCurrentScreen == 'load') {
+
+            if (
+                mouseX >= width * 0.15 &&
+                mouseX <= width * 0.15 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                console.log('save 1')
+            }
+
+            if (
+                mouseX >= width * 0.4 &&
+                mouseX <= width * 0.4 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                console.log('save 2')
+            }
+
+            if (
+                mouseX >= width * 0.65 &&
+                mouseX <= width * 0.65 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                console.log('save 3')
+            }
+
+        }
+
     }
     static keyPressed() {
         if (keyCode === 27 || keyCode === 80) { // escape key or p
@@ -137,10 +169,36 @@ class VPauseMenu {
             textSize(width / 30)
             noStroke()
             fill(0, 0, 0, 100)
-
-
+            if (
+                mouseX >= width * 0.15 &&
+                mouseX <= width * 0.15 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                fill(0, 0, 0, 125)   
+            }
             rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+            fill(0, 0, 0, 100)
+            if (
+                mouseX >= width * 0.4 &&
+                mouseX <= width * 0.4 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                fill(0, 0, 0, 125)   
+            }
             rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+            fill(0, 0, 0, 100)
+            if (
+                mouseX >= width * 0.65 &&
+                mouseX <= width * 0.65 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                fill(0, 0, 0, 125)   
+            }
             rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
 
             fill(177,188,184)
