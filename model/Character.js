@@ -33,6 +33,10 @@ class Character extends Entity {
         return this.myBag;
     }
 
+    setBag(theBag) {
+        this.myBag = theBag;
+    }
+
     addBag(theItem) {
         const itemName = theItem.getName();
 

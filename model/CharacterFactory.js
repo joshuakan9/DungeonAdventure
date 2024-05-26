@@ -1,4 +1,7 @@
 class CharacterFactory {
+    static loadCharacter(theCharacterType) {
+
+    }
 
     static createCharacter(characterType) {
         let character = null;

@@ -28,6 +28,10 @@ function preload() {
   WALL3_IMG = loadImage('./assets/images/backgroundLThree.png')
   WALL4_IMG = loadImage('./assets/images/backgroundLFour.png')
   WALL5_IMG = loadImage('./assets/images/backgroundLFive.png')
+
+  if (!window.localStorage.getItem("save")) {
+    window.localStorage.setItem("save", JSON.stringify([]))
+  }
 }
 let ratio = 1;
 let W, H;
@@ -376,10 +380,7 @@ function newGame() {
       (time) => {
 
 
-        // let test = JSON.stringify(Array.from(instancePlayer.getBag().entries()))
-        // console.log(test)
-        // console.log(new Map(JSON.parse(test)))
-        // console.log(time)
+
         VMainMenu.step(time)
         if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
           instanceBattleDisplay.mobClone.step(time);
@@ -641,4 +642,32 @@ function setUpPickUpDatabase() {
       theOffset: {x: 0,y: -0.1},
       theName: "Health Potion",
     }))
+}
+
+function saveGame(theSlot) {
+  let saveArray = JSON.parse(window.localStorage.getItem("save"))
+  saveArray[theSlot] = 
+  { 
+    player: {
+      name: instancePlayer.getName().toLowerCase(),
+      pos: [instancePlayer.getPos().x, instancePlayer.getPos().y],
+      bag: JSON.stringify(Array.from(instancePlayer.getBag().entries())),
+    }
+  }
+  window.localStorage.setItem("save", JSON.stringify(saveArray))
+}
+
+function loadGame(theSlot) {
+  let saveArray = JSON.parse(window.localStorage.getItem("save"))
+  let save = saveArray[theSlot]
+  if (!save) {
+    return false
+  } else {
+
+    instancePlayer = CharacterFactory.createCharacter(save["player"]["name"])
+    instancePlayer.setBag(new Map(JSON.parse(save["player"]["bag"])))
+    instancePlayer.setPos(createVector(JSON.parse(save["player"]["pos"][0]), JSON.parse(save["player"]["pos"][1])))
+    instancePlayer.setTargetPos(instancePlayer.getPos())
+    return true
+  }
 }

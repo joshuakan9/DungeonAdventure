@@ -46,9 +46,7 @@ class VPauseMenu {
                 this.myCurrentScreen = 'none'
                 VMainMenu.setMainMenu()
             }
-        }
-        
-        if (this.myCurrentScreen == 'load') {
+        } else if (this.myCurrentScreen == 'load' || this.myCurrentScreen == 'save') {
 
             if (
                 mouseX >= width * 0.15 &&
@@ -56,6 +54,12 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myCurrentScreen == 'save') {
+                    saveGame(0)
+                } else {
+                    loadGame(0)
+                }
+                this.myCurrentScreen = 'none'
                 console.log('save 1')
             }
 
@@ -65,6 +69,12 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myCurrentScreen == 'save') {
+                    saveGame(1)
+                } else {
+                    loadGame(1)
+                }
+                this.myCurrentScreen = 'none'
                 console.log('save 2')
             }
 
@@ -74,6 +84,12 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myCurrentScreen == 'save') {
+                    saveGame(2)
+                } else {
+                    loadGame(2)
+                }
+                this.myCurrentScreen = 'none'
                 console.log('save 3')
             }
 
