@@ -9,9 +9,14 @@ class BagSystem {
         this.myHitPoints = thePlayer.getHitPoints();
     }
 
+    setPlayer(thePlayer) {
+        this.myPlayer = thePlayer
+    }
+
     mouseClicked() {
         let menuWidth = width * 0.6
         let menuHeight = width * 0.5
+        console.log(this.myPlayer.getBag())
         if (
             mouseX >= width / 2 - menuWidth / 2 &&
             mouseX <= width / 2 - menuWidth / 2 + menuWidth &&

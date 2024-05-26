@@ -253,6 +253,7 @@ class Room {
 
     constructor(theTileMap) {
         this.mySeed = round(random(-8192, 8192))
+
         this.myNorthDoor = false;
         this.mySouthDoor = false;
         this.myRightDoor = false;
@@ -270,6 +271,53 @@ class Room {
         this.createLeftWall();
         this.createRightWall();
         this.createCorners();
+    }
+
+    load(theSave) {
+        this.mySeed = theSave["mySeed"]
+        this.myNorthDoor = theSave["myNorthDoor"]
+        this.mySouthDoor = theSave["mySouthDoor"]
+        this.myRightDoor = theSave["myRightDoor"]
+        this.myLeftDoor = theSave["myLeftDoor"]
+        this.myPossibleEntityCount = theSave["myPossibleEntityCount"]
+        this.myMobCount = theSave["myMobCount"]
+
+        let entityMap = theSave["myEntityMap"]
+        for (let a = 0; a < entityMap.length; a++) {
+            for (let b = 0; b < entityMap[0].length; b++) {
+                if (entityMap[a][b]) {
+                    entityMap[a][b] = EntityFactory.createEntity(entityMap[a][b], createVector(b,a))
+                }
+            
+            }
+        }
+        this.myEntityMap = theSave["myEntityMap"]
+        this.createDoors()
+    }
+
+    cloneForSave() {
+        console.log(this)
+        let room = new Room(this.myTileMap)
+
+        room.mySeed = this.mySeed
+        room.myNorthDoor = this.myNorthDoor
+        room.mySouthDoor = this.mySouthDoor
+        room.myRightDoor = this.myRightDoor
+        room.myLeftDoor = this.myLeftDoor
+        room.myPossibleEntityCount = this.myPossibleEntityCount
+        room.myMobCount = this.myMobCount
+
+        for (let a = 0; a < this.myEntityMap.length; a++) {
+            for (let b = 0; b < this.myEntityMap[0].length; b++) {
+                if (this.myEntityMap[a][b]) {
+                    room.myEntityMap[a][b] = this.myEntityMap[a][b].getName().toLowerCase()
+                } else {
+                    room.myEntityMap[a][b] = null
+                }
+            }
+        }
+        this.createDoors()
+        return room
     }
 
     removeEntity(theIndex) {
@@ -447,6 +495,7 @@ class Room {
 
 
     populateEntityMap() {
+
         let entityCount = 0;
         let maxEntities = Math.floor(Math.cbrt(this.myPossibleEntityCount));
         let entityChance = 10;

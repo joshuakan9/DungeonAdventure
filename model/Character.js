@@ -87,5 +87,5 @@ class Character extends Entity {
     //     pop()
     // }
 
-
+    
 }

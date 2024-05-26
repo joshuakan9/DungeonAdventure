@@ -313,8 +313,17 @@ function newGame() {
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of encapsulation"));
   }
-  console.log((instanceFactory.myDungeon))
-  console.log((instancePlayer))
+
+  console.log(instanceFactory)
+
+  // let test = instanceFactory.myDungeon[3][3]
+  // // test.myDungeon = null
+  // test.myEntityMap = null
+
+  // console.log(test)
+
+  // console.log(JSON.stringify(test))
+
 
 
   if (!instanceBagDisplay) {
@@ -646,12 +655,33 @@ function setUpPickUpDatabase() {
 
 function saveGame(theSlot) {
   let saveArray = JSON.parse(window.localStorage.getItem("save"))
+  let saveMyDungeon = []
+  for (let a = 0; a < instanceFactory.myDungeon.length; a++) {
+    saveMyDungeon[a] = []
+    for (let b = 0; b < instanceFactory.myDungeon[0].length; b++) {
+      if (instanceFactory.myDungeon[a][b]) {
+        // console.log(instanceFactory.myDungeon[a][b])
+
+        saveMyDungeon[a][b] = instanceFactory.myDungeon[a][b].cloneForSave()
+
+      } else {
+        saveMyDungeon[a][b] = null
+      }
+    }
+  }
+
   saveArray[theSlot] = 
   { 
     player: {
       name: instancePlayer.getName().toLowerCase(),
       pos: [instancePlayer.getPos().x, instancePlayer.getPos().y],
       bag: JSON.stringify(Array.from(instancePlayer.getBag().entries())),
+    },
+    factory: {
+      dungeon: JSON.stringify(saveMyDungeon),
+      dungeonIndex: [instanceFactory.myDungeonIndex.x, instanceFactory.myDungeonIndex.y],
+      initialMobCount: instanceFactory.myInitialMobCount,
+      mobCount: instanceFactory.myMobCount,
     }
   }
   window.localStorage.setItem("save", JSON.stringify(saveArray))
@@ -668,6 +698,11 @@ function loadGame(theSlot) {
     instancePlayer.setBag(new Map(JSON.parse(save["player"]["bag"])))
     instancePlayer.setPos(createVector(JSON.parse(save["player"]["pos"][0]), JSON.parse(save["player"]["pos"][1])))
     instancePlayer.setTargetPos(instancePlayer.getPos())
+
+    instanceFactory.load(save["factory"])
+    instanceBagSystem.setPlayer(instancePlayer)
+
     return true
   }
+
 }

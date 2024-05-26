@@ -263,4 +263,23 @@ class Factory {
         pop()
         randomSeed(room.getSeed())
     }
+
+    load(theSave) {
+        let dungeon = JSON.parse(theSave["dungeon"])
+
+        for (let a = 0; a < dungeon.length; a++) {
+            for (let b = 0; b < dungeon[0].length; b++) {
+                if (dungeon[a][b]) {
+                    let room = new Room(dungeon[a][b].myTileMap)
+                    room.load(dungeon[a][b])
+                    dungeon[a][b] = room
+                }
+            }
+        }
+
+        this.myDungeon = dungeon
+        this.myDungeonIndex = createVector(theSave["dungeonIndex"][0], theSave["dungeonIndex"][1])
+        this.myInitialMobCount = theSave["initialMobCount"]
+        this.myMobCount = theSave["mobCount"]
+    }
 }
