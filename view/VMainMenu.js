@@ -5,28 +5,28 @@ class VMainMenu {
         push()
         textSize(width / 30)
         let textHeight = width / 30
-        if (
-            mouseX >= width * 0.95 - textWidth("New Game") &&
-            mouseX <= width * 0.95 &&
-            mouseY >= height * 0.6 - textHeight &&
-            mouseY <= height * 0.6  &&
-            this.myCurrentScreen == 'main'
-        ) {
-            
-            this.myCurrentScreen = 'character'
-            return
-        }
+        if (this.myCurrentScreen == 'main') {
+            if (
+                mouseX >= width * 0.95 - textWidth("New Game") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 - textHeight &&
+                mouseY <= height * 0.6
+                
+            ) {
+                
+                this.myCurrentScreen = 'character'
+                return
+            }
 
-        if (
-            mouseX >= width * 0.95 - textWidth("Load Game") &&
-            mouseX <= width * 0.95 &&
-            mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
-            mouseY <= height * 0.6 + 1 * height / 15
-        ) {
-            this.myCurrentScreen = 'load'
-        }
-
-        if (this.myCurrentScreen == 'load') {
+            if (
+                mouseX >= width * 0.95 - textWidth("Load Game") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
+                mouseY <= height * 0.6 + 1 * height / 15
+            ) {
+                this.myCurrentScreen = 'load'
+            }
+        } else if (this.myCurrentScreen == 'load') {
             if (
                 mouseX >= width * 0.15 &&
                 mouseX <= width * 0.15 + width / 5 &&
@@ -59,52 +59,55 @@ class VMainMenu {
                 this.myCurrentScreen = 'none'
                 console.log('save 3')
             }
+        } else if (this.myCurrentScreen = 'character') {
+
+            if (
+                mouseX >= width * 0.95 - textWidth("Assassin") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 - textHeight &&
+                mouseY <= height * 0.6  &&
+                this.myCurrentScreen == 'character'
+            ) {
+                newGame()
+                window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('assassin')}))
+                this.myCurrentScreen = 'none'
+    
+            }
+    
+            if (
+                mouseX >= width * 0.95 - textWidth("Warrior") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
+                mouseY <= height * 0.6 + 1 * height / 15&&
+                this.myCurrentScreen == 'character'
+            ) {
+                newGame()
+                window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('warrior')}))
+                this.myCurrentScreen = 'none'
+            }
+    
+            if (
+                mouseX >= width * 0.95 - textWidth("Priest") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
+                mouseY <= height * 0.6 + 2 * height / 15&&
+                this.myCurrentScreen == 'character'
+            ) {
+                newGame()
+                window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('priest')}))
+                this.myCurrentScreen = 'none'
+            }
         }
 
-        if (
-            mouseX >= width * 0.95 - textWidth("Assassin") &&
-            mouseX <= width * 0.95 &&
-            mouseY >= height * 0.6 - textHeight &&
-            mouseY <= height * 0.6  &&
-            this.myCurrentScreen == 'character'
-        ) {
-            newGame()
-            window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('assassin')}))
-            this.myCurrentScreen = 'none'
-
-        }
-
-        if (
-            mouseX >= width * 0.95 - textWidth("Warrior") &&
-            mouseX <= width * 0.95 &&
-            mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
-            mouseY <= height * 0.6 + 1 * height / 15&&
-            this.myCurrentScreen == 'character'
-        ) {
-            newGame()
-            window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('warrior')}))
-            this.myCurrentScreen = 'none'
-        }
-
-        if (
-            mouseX >= width * 0.95 - textWidth("Priest") &&
-            mouseX <= width * 0.95 &&
-            mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
-            mouseY <= height * 0.6 + 2 * height / 15&&
-            this.myCurrentScreen == 'character'
-        ) {
-            newGame()
-            window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('priest')}))
-            this.myCurrentScreen = 'none'
-        }
-
-        if (
-            mouseX >= width * 0.95 - textWidth("Return to Main Menu") &&
-            mouseX <= width * 0.95 &&
-            mouseY >= height * 0.6 + 4 * height / 15 - textHeight &&
-            mouseY <= height * 0.6 + 4 * height / 15 
-        ) {
-            this.myCurrentScreen = 'main'
+        if (this.myCurrentScreen == 'character' || this.myCurrentScreen == 'load') {
+            if (
+                mouseX >= width * 0.95 - textWidth("Return to Main Menu") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 + 4 * height / 15 - textHeight &&
+                mouseY <= height * 0.6 + 4 * height / 15 
+            ) {
+                this.myCurrentScreen = 'main'
+            }
         }
         pop()
     }
