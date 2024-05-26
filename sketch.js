@@ -298,7 +298,7 @@ function newGame() {
     instanceGameLoop.stop()
   }
   instanceFactory = new Factory()
-  console.log(instanceFactory)
+
 
   if (!instancePlayer) {
     let playerImage = createGraphics(50, 50)
@@ -309,9 +309,12 @@ function newGame() {
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
     // instancePlayer.addBag(EntityFactory.createEntity("pillar of encapsulation"));
   }
+  console.log((instanceFactory.myDungeon))
+  console.log((instancePlayer))
+
 
   if (!instanceBagDisplay) {
-    instanceBagDisplay = new BagDisplay(instancePlayer)
+    instanceBagDisplay = new BagDisplay()
   }
 
   if (!instanceBagSystem) {
@@ -371,6 +374,11 @@ function newGame() {
 
   instanceGameLoop.setTickFunction(
       (time) => {
+
+
+        // let test = JSON.stringify(Array.from(instancePlayer.getBag().entries()))
+        // console.log(test)
+        // console.log(new Map(JSON.parse(test)))
         // console.log(time)
         VMainMenu.step(time)
         if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
@@ -436,7 +444,7 @@ function newGame() {
           instanceBattleDisplay.displayBattle()
         }
         if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
-          instanceBagDisplay.draw()
+          instanceBagDisplay.draw(instancePlayer)
         }
         if (instanceTextBox && !instanceTextBox.isEmpty()) {
           instanceTextBox.renderTextBox();
@@ -474,6 +482,7 @@ function keyPressed() {
   if (!instancePlayer.getIsFrozen()) {
     if (keyCode === 32) { // space keyba
       instanceFactory.interact(instancePlayer)
+      
     }
     if (instanceBagDisplay.getIsPaused() === false) {
       VPauseMenu.keyPressed()

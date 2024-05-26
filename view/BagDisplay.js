@@ -1,8 +1,7 @@
 class BagDisplay {
     myBag;
     myIsPaused
-    constructor(thePlayer) {
-        this.myBag = thePlayer.getBag();
+    constructor() {
         this.myIsPaused = false;
     }
 
@@ -26,8 +25,10 @@ class BagDisplay {
             this.setIsPaused()
         }
     }
-    draw() {
-        if (this.getIsPaused()) {
+    draw(thePlayer) {
+        if (this.getIsPaused()) 
+            {
+            this.myBag = thePlayer.getBag();
             let menuWidth = width * 0.6
             let menuHeight = width * 0.5
             push()
