@@ -18,6 +18,50 @@ class VMainMenu {
         }
 
         if (
+            mouseX >= width * 0.95 - textWidth("Load Game") &&
+            mouseX <= width * 0.95 &&
+            mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
+            mouseY <= height * 0.6 + 1 * height / 15
+        ) {
+            this.myCurrentScreen = 'load'
+        }
+
+        if (this.myCurrentScreen == 'load') {
+            if (
+                mouseX >= width * 0.15 &&
+                mouseX <= width * 0.15 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                loadGame(0)
+                this.myCurrentScreen = 'none'
+                console.log('save 1')
+            }
+
+            if (
+                mouseX >= width * 0.4 &&
+                mouseX <= width * 0.4 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                loadGame(1)
+                this.myCurrentScreen = 'none'
+                console.log('save 2')
+            }
+
+            if (
+                mouseX >= width * 0.65 &&
+                mouseX <= width * 0.65 + width / 5 &&
+                mouseY >= height / 2 - width / 10 &&
+                mouseY <= height / 2 - width / 10 + width / 5
+            ) {
+                loadGame(2)
+                this.myCurrentScreen = 'none'
+                console.log('save 3')
+            }
+        }
+
+        if (
             mouseX >= width * 0.95 - textWidth("Assassin") &&
             mouseX <= width * 0.95 &&
             mouseY >= height * 0.6 - textHeight &&
@@ -247,12 +291,73 @@ class VMainMenu {
 
         pop()
     }
+
+    static drawLoadScreen() {
+        push()
+        background(0)
+        textFont(FONT["REGULAR"])
+        textSize(width / 30)
+        noStroke()
+        fill(0, 0, 0, 100)
+        if (
+            mouseX >= width * 0.15 &&
+            mouseX <= width * 0.15 + width / 5 &&
+            mouseY >= height / 2 - width / 10 &&
+            mouseY <= height / 2 - width / 10 + width / 5
+        ) {
+            fill(0, 0, 0, 125)   
+        }
+        rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+        fill(0, 0, 0, 100)
+        if (
+            mouseX >= width * 0.4 &&
+            mouseX <= width * 0.4 + width / 5 &&
+            mouseY >= height / 2 - width / 10 &&
+            mouseY <= height / 2 - width / 10 + width / 5
+        ) {
+            fill(0, 0, 0, 125)   
+        }
+        rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+        fill(0, 0, 0, 100)
+        if (
+            mouseX >= width * 0.65 &&
+            mouseX <= width * 0.65 + width / 5 &&
+            mouseY >= height / 2 - width / 10 &&
+            mouseY <= height / 2 - width / 10 + width / 5
+        ) {
+            fill(0, 0, 0, 125)   
+        }
+        rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+
+        fill(177,188,184)
+        text("Save 1", width * 0.2, height * 0.675 - width / 10)
+        text("Save 2", width * 0.45, height * 0.675 - width / 10)
+        text("Save 3", width * 0.7, height * 0.675 - width / 10)
+
+        textAlign(RIGHT)
+        translate(width * 0.95, height * 0.6)
+        fill(177,188,184)
+        if (
+            mouseX >= width * 0.95 - textWidth("Return to Main Menu") &&
+            mouseX <= width * 0.95 &&
+            mouseY >= height * 0.6 + 4 * height / 15 - width / 30 &&
+            mouseY <= height * 0.6 + 4 * height / 15 
+        ) {
+            fill(239,255,255)
+        }
+        text("Return to Main Menu", 0, 4 * height / 15)
+        pop()
+    }
     static draw() {
         if (this.myCurrentScreen != 'none') {
 
 
             if (this.myCurrentScreen == 'character') {
                 this.drawCharacterSelection()
+            } else if (this.myCurrentScreen == 'load') {
+                this.drawLoadScreen()
             } else {
                 this.drawMainMenu()
             }
