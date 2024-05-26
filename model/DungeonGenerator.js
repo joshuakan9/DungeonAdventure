@@ -252,7 +252,7 @@ class Room {
     myMobCount
 
     constructor(theTileMap) {
-        this.mySeed = random(-8192, 8192)
+        this.mySeed = round(random(-8192, 8192))
         this.myNorthDoor = false;
         this.mySouthDoor = false;
         this.myRightDoor = false;
