@@ -5,6 +5,7 @@ class VMainMenu {
         push()
         textSize(width / 30)
         let textHeight = width / 30
+
         if (this.myCurrentScreen == 'main') {
             if (
                 mouseX >= width * 0.95 - textWidth("New Game") &&
@@ -59,14 +60,13 @@ class VMainMenu {
                 this.myCurrentScreen = 'none'
                 console.log('save 3')
             }
-        } else if (this.myCurrentScreen = 'character') {
+        } else if (this.myCurrentScreen == 'character') {
 
             if (
                 mouseX >= width * 0.95 - textWidth("Assassin") &&
                 mouseX <= width * 0.95 &&
                 mouseY >= height * 0.6 - textHeight &&
-                mouseY <= height * 0.6  &&
-                this.myCurrentScreen == 'character'
+                mouseY <= height * 0.6
             ) {
                 newGame()
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('assassin')}))
@@ -78,8 +78,7 @@ class VMainMenu {
                 mouseX >= width * 0.95 - textWidth("Warrior") &&
                 mouseX <= width * 0.95 &&
                 mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
-                mouseY <= height * 0.6 + 1 * height / 15&&
-                this.myCurrentScreen == 'character'
+                mouseY <= height * 0.6 + 1 * height / 15
             ) {
                 newGame()
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('warrior')}))
@@ -90,8 +89,7 @@ class VMainMenu {
                 mouseX >= width * 0.95 - textWidth("Priest") &&
                 mouseX <= width * 0.95 &&
                 mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
-                mouseY <= height * 0.6 + 2 * height / 15&&
-                this.myCurrentScreen == 'character'
+                mouseY <= height * 0.6 + 2 * height / 15
             ) {
                 newGame()
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('priest')}))
@@ -128,18 +126,7 @@ class VMainMenu {
 
         }
 
-        if (!this.myGroundImages) {
-            this.myGroundImages = [
-                TILEMAP.get(1 * 16, 4 * 16, 16, 16),
-                TILEMAP.get(2 * 16, 4 * 16, 16, 16),
-                TILEMAP.get(3 * 16, 4 * 16, 16, 16),
-                TILEMAP.get(1 * 16, 5 * 16, 16, 16),
-                TILEMAP.get(2 * 16, 5 * 16, 16, 16),
-                TILEMAP.get(3 * 16, 5 * 16, 16, 16),
-                TILEMAP.get(1 * 16, 6 * 16, 16, 16),
-                TILEMAP.get(2 * 16, 6 * 16, 16, 16)
-            ]
-        }
+
 
         let textHeight = width /30
         push()
@@ -239,6 +226,7 @@ class VMainMenu {
 
      
         background(0)
+
         textSize(width / 30)
         textAlign(RIGHT)
         // rect(width * 0.95 - textWidth("New Game"), height * 0.6 - textHeight, textWidth("New Game"), width / 30)
@@ -298,6 +286,13 @@ class VMainMenu {
     static drawLoadScreen() {
         push()
         background(0)
+        for (let a = 5.5; a < 10; a++) {
+            for (let b = 1.5; b < 14; b++) {
+                image(random(this.myGroundImages), getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
+
+         
+            }
+        }
         textFont(FONT["REGULAR"])
         textSize(width / 30)
         noStroke()
@@ -354,6 +349,19 @@ class VMainMenu {
         pop()
     }
     static draw() {
+        if (!this.myGroundImages) {
+            this.myGroundImages = [
+                TILEMAP.get(1 * 16, 4 * 16, 16, 16),
+                TILEMAP.get(2 * 16, 4 * 16, 16, 16),
+                TILEMAP.get(3 * 16, 4 * 16, 16, 16),
+                TILEMAP.get(1 * 16, 5 * 16, 16, 16),
+                TILEMAP.get(2 * 16, 5 * 16, 16, 16),
+                TILEMAP.get(3 * 16, 5 * 16, 16, 16),
+                TILEMAP.get(1 * 16, 6 * 16, 16, 16),
+                TILEMAP.get(2 * 16, 6 * 16, 16, 16)
+            ]
+        }
+        console.log(this.myCurrentScreen)
         if (this.myCurrentScreen != 'none') {
 
 
@@ -364,6 +372,7 @@ class VMainMenu {
             } else {
                 this.drawMainMenu()
             }
+            
 
             push()
             textAlign(RIGHT)
