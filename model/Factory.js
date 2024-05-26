@@ -247,9 +247,12 @@ class Factory {
                     if (!this.myGroundImages) {
                         this.myGroundImages = [
                             TILEMAP.get(1 * 16, 4 * 16, 16, 16),
+                            TILEMAP.get(1 * 16, 4 * 16, 16, 16),
                             TILEMAP.get(2 * 16, 4 * 16, 16, 16),
                             TILEMAP.get(3 * 16, 4 * 16, 16, 16),
+                            TILEMAP.get(3 * 16, 4 * 16, 16, 16),
                             TILEMAP.get(1 * 16, 5 * 16, 16, 16),
+                            TILEMAP.get(2 * 16, 5 * 16, 16, 16),
                             TILEMAP.get(2 * 16, 5 * 16, 16, 16),
                             TILEMAP.get(3 * 16, 5 * 16, 16, 16),
                             TILEMAP.get(1 * 16, 6 * 16, 16, 16),
