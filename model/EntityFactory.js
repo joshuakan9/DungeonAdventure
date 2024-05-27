@@ -1,5 +1,15 @@
+/**
+ * EntityFactory is a class that provides a static method to create different types of entities.
+ */
 class EntityFactory {
-
+    /**
+     * createEntity is a static method that creates an entity based on the given entity type and position.
+     * It retrieves the entity data from the local storage, creates a new entity with the retrieved data, and returns it.
+     *
+     * @param {string} entityType - The type of the entity to be created. It can be 'ogre', 'skeleton', 'gremlin', 'health potion', 'pillar of abstraction', 'pillar of encapsulation', 'pillar of inheritance', 'pillar of polymorphism', or 'exit'.
+     * @param {Object} entityPos - The position of the entity to be created.
+     * @returns {Object} The created entity.
+     */
     static createEntity(entityType, entityPos) {
         let entity = null;
         switch(entityType) {

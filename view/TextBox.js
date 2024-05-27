@@ -1,16 +1,47 @@
-//These coordinates, parameters size, and text size are based on canvas size.
+/**
+ * The X position of the text box.
+ * @constant
+ */
 const TEXT_BOX_X = 1;
+
+/**
+ * The Y position of the text box.
+ * @constant
+ */
 const TEXT_BOX_Y = .2;
+
+/**
+ * The X size of the text box.
+ * @constant
+ */
 const TEXT_BOX_SIZE_X = 0;
+
+/**
+ * The Y size of the text box.
+ * @constant
+ */
 const TEXT_BOX_SIZE_Y = .2;
 
+/**
+ * The size of the text.
+ * @constant
+ */
 const TEXT_SIZE = .02;
 
+/**
+ * The speed of the text.
+ * @constant
+ */
 const TEXT_SPEED = 10;
 
+/**
+ * Class representing a TextBox.
+ */
 class TextBox {
-    
-// set default
+
+    /**
+     * Create a TextBox and set default values.
+     */
     constructor() {
         this.timeCurrent = 0
         this.timeTarget = TEXT_SPEED;
@@ -23,6 +54,9 @@ class TextBox {
         this.loop.setTickFunction(this.tick)
         this.loop.setRenderFunction(this.render)
     }
+    /**
+     * Render the TextBox.
+     */
     renderTextBox() {
         if (this.children.length > 0) {
             textSize(height * this.children[0].textSize)
@@ -44,7 +78,10 @@ class TextBox {
             pop();
         }
     }
-
+    /**
+     * Tick the TextBox.
+     * @param {number} delta - The time since the last tick.
+     */
     tickTextBox(delta) {
         if (this.timeCurrent >= this.timeTarget && this.children[0] && this.currentTextEnd < this.children[0].text.length) {
             this.children[0].text = this.children[0].text;
@@ -56,12 +93,17 @@ class TextBox {
 
     }
 
-
-    
+    /**
+     * Check if the TextBox is empty.
+     * @returns {boolean} Whether the TextBox is empty.
+     */
     isEmpty() {
         return this.children.length === 0;
     }
 
+    /**
+     * Move to the next text.
+     */
     nextText() {
         console.log("children amt: " + this.children.length)
         if (this.inTextDialogue && this.children[0] && this.children[0].text.length == this.currentTextEnd) {
@@ -84,12 +126,12 @@ class TextBox {
         }
         console.log("bool: " + this.isEmpty())
         console.log("children amt: " + this.children.length)
-
-
     }
 
-
-
+    /**
+     * Add a new text object to the TextBox.
+     * @param {Object} obj - The text object to add.
+     */
     add(obj = {text, x, y, width, height, textSize}) {
         if (obj.x == null && obj.y == null && obj.width == null && obj.height == null && obj.textSizing == null) {
             //console.log("This is a default text");

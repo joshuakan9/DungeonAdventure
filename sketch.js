@@ -13,6 +13,10 @@ let WALL2_IMG
 let WALL3_IMG
 let WALL4_IMG
 let WALL5_IMG
+
+/**
+ * Preload function to load all the assets before the game starts
+ */
 function preload() {
   // FONT['REGULAR'] = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
   FONT['REGULAR'] = loadFont('./assets/fonts/MinecraftRegular.otf')
@@ -261,6 +265,9 @@ let TILEMAP_POTION_HEALTH
 let TILEMAP_EXIT
 let hasCompleteInitial = false
 
+/**
+ * Setup function to initialize the game
+ */
 function setup() {
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
   TILEMAP_WARRIOR = TILEMAP.get(32 * 16, 4 * 16, 9 * 16, 2 * 16)
@@ -293,6 +300,9 @@ function setup() {
   }
 }
 
+/**
+ * Function to start a new game
+ */
 function newGame() {
   randomSeed(new Date().getTime())
   if (!instanceGameLoop) {
@@ -467,12 +477,18 @@ function newGame() {
   instanceGameLoop.start()
 }
 
+/**
+ * Function to handle window resize events
+ */
 function windowResized() {
 
   setup()
 }
 
 
+/**
+ * Function to handle mouse click events
+ */
 function mouseClicked() {
   instanceTextBox.nextText();
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
@@ -488,6 +504,9 @@ function mouseClicked() {
   }
 }
 
+/**
+ * Function to handle key press events
+ */
 function keyPressed() {
   if (!instancePlayer.getIsFrozen()) {
     if (keyCode === 32) { // space keyba
@@ -505,6 +524,9 @@ function keyPressed() {
   //text, x, y, width, height, textSize
 }
 
+/**
+ * Function to draw a debug grid
+ */
 function drawGridDebug() {
 
   push()
@@ -519,10 +541,22 @@ function drawGridDebug() {
   pop()
 }
 
+/**
+ * Function to convert cell index to position
+ * @param {number} theIndex - The index of the cell
+ * @returns {number} - The position of the cell
+ */
 function getCellToPos(theIndex) {
   return CELLSIZE * theIndex
 }
 
+/**
+ * Function to move a character towards a destination
+ * @param {Object} person - The character to move
+ * @param {Object} destinationPosition - The destination position
+ * @param {number} speed - The speed of the movement
+ * @returns {number} - The remaining distance to the destination
+ */
 function moveTowards(person, destinationPosition, speed) {
 
   let distance = dist(destinationPosition.x, destinationPosition.y, person.getPos().x, person.getPos().y)
@@ -542,6 +576,9 @@ function moveTowards(person, destinationPosition, speed) {
   return distance;
 }
 
+/**
+ * Function to set up the monster database
+ */
 function setUpMonsterDatabase() {
   window.localStorage.setItem("ogre", JSON.stringify({
     theSize: {x: 1,y: 2},
@@ -593,6 +630,9 @@ function setUpMonsterDatabase() {
   }))
 }
 
+/**
+ * Function to set up the hero database
+ */
 function setUpHeroDatabase() {
   window.localStorage.setItem("assassin", JSON.stringify({
     thePos: {x: 6, y: 6},
@@ -644,6 +684,10 @@ function setUpHeroDatabase() {
     theHeal: {healAmount: 50, hitChance: 100},
   }))
 }
+
+/**
+ * Function to set up the pick up database
+ */
 function setUpPickUpDatabase() {
     window.localStorage.setItem("health potion", JSON.stringify({
       theSize: {x: 1,y: 1},
@@ -653,6 +697,10 @@ function setUpPickUpDatabase() {
     }))
 }
 
+/**
+ * Function to save the game state
+ * @param {number} theSlot - The slot to save the game state in
+ */
 function saveGame(theSlot) {
   let saveArray = JSON.parse(window.localStorage.getItem("save"))
   let saveMyDungeon = []
@@ -687,6 +735,11 @@ function saveGame(theSlot) {
   window.localStorage.setItem("save", JSON.stringify(saveArray))
 }
 
+/**
+ * Function to load the game state
+ * @param {number} theSlot - The slot to load the game state from
+ * @returns {boolean} - Whether the game state was successfully loaded
+ */
 function loadGame(theSlot) {
   let saveArray = JSON.parse(window.localStorage.getItem("save"))
   let save = saveArray[theSlot]

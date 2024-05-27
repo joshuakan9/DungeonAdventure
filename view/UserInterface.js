@@ -1,8 +1,0 @@
-class UserInterface {
-    drawMainMenu() {
-
-    }
-    drawHUD() {
-        
-    }
-}

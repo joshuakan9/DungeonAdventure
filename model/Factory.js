@@ -1,7 +1,16 @@
-class Factory {
 
+/**
+ * generate()
+ * This method generates the initial dungeon layout by randomly expanding from the center until no more rooms can be added.
+ */
+class Factory {
     myImage;
     myMobCount;
+
+    /**
+     * Constructor for Factory class.
+     * Initializes properties and creates the dungeon.
+     */
     constructor() {
 
         this.myImage = createGraphics(CELLSIZE, CELLSIZE)
@@ -16,14 +25,26 @@ class Factory {
 
     }
 
+    /**
+     * Returns the initial number of mobs in the dungeon.
+     * @returns {number} The initial number of mobs in the dungeon.
+     */
     getInitialMobCount() {
         return this.myInitialMobCount;
     }
 
+    /**
+     * Returns the current number of mobs in the dungeon.
+     * @returns {number} The current number of mobs in the dungeon.
+     */
     getMobCount() {
         return this.myMobCount;
     }
 
+    /**
+     * Removes an entity from the room and updates the mob count if necessary.
+     * @param {Entity} theEntity - The entity to remove.
+     */
     removeEntity(theEntity) {
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
         room.removeEntity(theEntity.getPos())
@@ -33,6 +54,12 @@ class Factory {
         console.log('entity removed, mobcount = ' + this.myMobCount)
     }
 
+    /**
+     * Checks if a player's position collides with a wall or an entity.
+     * @param {Player} thePlayer - The player to check.
+     * @param {Vector} thePos - The position to check.
+     * @returns {boolean} True if there is a collision, false otherwise.
+     */
     checkCollision(thePlayer, thePos) {
         let cell = createVector((thePos.x), (thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
@@ -57,6 +84,14 @@ class Factory {
 
         return false
     }
+
+    /**
+     * Checks if a player's position collides with a door.
+     * If there is a collision, it triggers a transition event and updates the player's position.
+     * @param {Player} thePlayer - The player to check.
+     * @param {Vector} thePos - The position to check.
+     * @returns {boolean} True if there is a collision with a door, false otherwise.
+     */
     checkDoor(thePlayer, thePos) {
         let cell = createVector((thePos.x), (thePos.y))
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
@@ -88,6 +123,10 @@ class Factory {
         return false
     }
 
+    /**
+     * Updates the state of the entities in the current room.
+     * @param {number} theDelta - The time delta for the update step.
+     */
     step(theDelta) {
         // let thePos = thePlayer.getPos()
         // let cell = createVector(round(thePos.x), round(thePos.y))
@@ -106,6 +145,11 @@ class Factory {
             }
         }
     }
+
+    /**
+     * Draws the entities in the current room.
+     * @param {Player} thePlayer - The player to draw.
+     */
     draw(thePlayer) {
         let thePos = thePlayer.getPos()
         let cell = createVector(round(thePos.x), round(thePos.y))
@@ -128,6 +172,10 @@ class Factory {
 
     }
 
+    /**
+     * Checks if a player can interact with an entity in the current room.
+     * @param {Player} thePlayer - The player to check.
+     */
     interact(thePlayer) {
         let thePos = thePlayer.getPos()
         let room = this.myDungeon[this.myDungeonIndex.y][this.myDungeonIndex.x]
@@ -156,7 +204,10 @@ class Factory {
         }
     }
 
-
+    /**
+     * Draws the dungeon.
+     * @param {Player} thePlayer - The player to draw.
+     */
     drawDungeon(thePlayer) {
         let thePos = thePlayer.getPos()
         let cell = createVector(round(thePos.x), round(thePos.y))
@@ -267,6 +318,10 @@ class Factory {
         randomSeed(room.getSeed())
     }
 
+    /**
+     * Loads the dungeon from a saved state.
+     * @param {Object} theSave - The saved state of the dungeon.
+     */
     load(theSave) {
         let dungeon = JSON.parse(theSave["dungeon"])
 

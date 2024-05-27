@@ -1,5 +1,15 @@
-
+/**
+ * BattleSystem is a class that manages the battle system in the game.
+ */
 class BattleSystem {
+
+    /**
+     * Constructs a new BattleSystem instance.
+     *
+     * @param {Object} thePlayer - The player.
+     * @param {Object} theMob - The mob.
+     * @param {Object} thePillarDrop - The pillar drop.
+     */
     constructor(thePlayer, theMob, thePillarDrop) {
         this.player = thePlayer;
         this.mob = theMob;
@@ -17,9 +27,12 @@ class BattleSystem {
         window.dispatchEvent(new Event("e-player-freeze"))
 
     }
-    // Method that will check when the battle is over.
+
+    /**
+     * Checks if the battle is over.
+     */
     isOutOfBattleCheck() {
-        if (this.player.getHitPoints() <= 0) { //player health
+        if (this.player.getHitPoints() <= 0) {
             console.log("YOU HAVE DIED");
             window.dispatchEvent(new Event("e-player-die"))
             this.inCombat = false;
@@ -57,6 +70,9 @@ class BattleSystem {
 
     }
 
+    /**
+     * Performs a basic attack by the player.
+     */
     playerBasicAttack() {
         let playerDamage = this.player.getAttack().getDamage();
         let playerHitPercentage = this.player.getAttack().getHitPercentage();
@@ -84,12 +100,16 @@ class BattleSystem {
         }
     }
 
+    /**
+     * Performs a special attack by the player.
+     */
     playerSpecialAttack() {
         if (this.player.getClass() === "Priest") {
             let healAmount = this.player.getHeal().getHealAmount();
             console.log("heal amount = " + healAmount);
             if (this.player.getHitPoints() + this.player.getHeal().getHealAmount() > this.player.getMaxHitPoints()) {
                 healAmount = this.player.getMaxHitPoints() - this.player.getHitPoints();
+
                 this.player.setHitPoints(this.player.getMaxHitPoints());
                 window.dispatchEvent(new CustomEvent("e-priest-heal", {detail: {player: this.player, healAmount: healAmount}}))
             } else {
@@ -126,7 +146,9 @@ class BattleSystem {
         }
     }
 
-
+    /**
+     * Performs an attack by the mob.
+     */
     mobAttack() {
         let mobBasicDamage = this.mob.getAttack().getDamage();
         let mobSpecialDamage = this.mob.getSpecialAttack().getDamage();
@@ -161,6 +183,11 @@ class BattleSystem {
         }
     }
 
+    /**
+     * Performs a turn in the battle.
+     *
+     * @param {string} theMove - The move to perform in the turn.
+     */
     turn(theMove) {
         if (this.inCombat) {
             console.log('stamina = ' + this.stamina);
@@ -228,6 +255,9 @@ class BattleSystem {
         }
     }
 
+    /**
+     * Handles the mouse clicked event.
+     */
     mouseClicked() {
 
         let buttonWidth = width/4.1;

@@ -1,8 +1,23 @@
+/**
+ * CharacterFactory is a class that creates characters in the game.
+ */
 class CharacterFactory {
+
+    /**
+     * Loads a character from local storage.
+     *
+     * @param {string} theCharacterType - The type of the character to load.
+     */
     static loadCharacter(theCharacterType) {
 
     }
 
+    /**
+     * Creates a new character.
+     *
+     * @param {string} characterType - The type of the character to create.
+     * @returns {Object} The created character.
+     */
     static createCharacter(characterType) {
         let character = null;
         switch(characterType) { //later add name as a param

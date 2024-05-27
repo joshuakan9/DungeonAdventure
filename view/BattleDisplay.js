@@ -1,32 +1,107 @@
-// Background Display
+/**
+ * The scale of the display.
+ * @constant
+ */
 const DISPLAY_SCALE = 5;
+
+/**
+ * The Y position of the floor.
+ * @constant
+ */
 const FLOOR_Y = 3;
+
+/**
+ * The amount of wall.
+ * @constant
+ */
 const WALL_AMT = 2;
-// Buttons Size
-const BUTTON_WIDTH_SCALE = 4.1
-const BUTTON_HEIGHT_SCALE = 10.6
-// Button XY
-const FIRST_COLUMN_X = 1.985
-const SECOND_COLUMN_X = 4.025
-const FIRST_ROW_Y = 5.1
-const SECOND_ROW_Y = 10.3
-// Button Corner Edge
+
+/**
+ * The width scale of the buttons.
+ * @constant
+ */
+const BUTTON_WIDTH_SCALE = 4.1;
+
+/**
+ * The height scale of the buttons.
+ * @constant
+ */
+const BUTTON_HEIGHT_SCALE = 10.6;
+
+/**
+ * The X position of the first column of buttons.
+ * @constant
+ */
+const FIRST_COLUMN_X = 1.985;
+
+/**
+ * The X position of the second column of buttons.
+ * @constant
+ */
+const SECOND_COLUMN_X = 4.025;
+
+/**
+ * The Y position of the first row of buttons.
+ * @constant
+ */
+const FIRST_ROW_Y = 5.1;
+
+/**
+ * The Y position of the second row of buttons.
+ * @constant
+ */
+const SECOND_ROW_Y = 10.3;
+
+/**
+ * The rounding of the button corners.
+ * @constant
+ */
 const BUTTON_ROUNDING = 10;
 
-// Hover Effect
-const ORIGIN_TRANSPARENCY = 25
-const MOUSE_ON_TRANSPARENCY = 100
+/**
+ * The transparency of the button when not hovered over.
+ * @constant
+ */
+const ORIGIN_TRANSPARENCY = 25;
 
-// Information bars
+/**
+ * The transparency of the button when hovered over.
+ * @constant
+ */
+const MOUSE_ON_TRANSPARENCY = 100;
 
-const BAR_SCALE = 20
+/**
+ * The scale of the information bars.
+ * @constant
+ */
+const BAR_SCALE = 20;
+
+/**
+ * The scale of the health bar.
+ * @constant
+ */
 const HP_BAR_SCALE = 1.75;
+
+/**
+ * The scale of the background of the health bar.
+ * @constant
+ */
 const HP_BAR_BG_SCALE = 4;
+
+/**
+ * The height scale of the background of the health bar.
+ * @constant
+ */
 const HP_BAR_BG_HEIGHT_SCALE = 1.90;
 
-
-
+/**
+ * Class representing a BattleDisplay.
+ */
 class BattleDisplay {
+    /**
+     * Create a BattleDisplay.
+     * @param {Object} theBattleSystem - The battle system for the BattleDisplay.
+     */
     constructor(theBattleSystem) {
         this.myBattleSystem = theBattleSystem;
         this.playerMaxHealth = this.myBattleSystem.player.getMaxHitPoints();
@@ -39,6 +114,9 @@ class BattleDisplay {
         }
     }
 
+    /**
+     * Display the battle.
+     */
     displayBattle(){
         //window.dispatchEvent(new Event("e-transition"))
         push()
@@ -75,6 +153,9 @@ class BattleDisplay {
         pop()
     }
 
+    /**
+     * Draw the wall.
+     */
     drawWall() {
         let WALL_IMG_ARRAY = [
             WALL1_IMG,
@@ -97,6 +178,9 @@ class BattleDisplay {
         }
     }
 
+    /**
+     * Draw the floor.
+     */
     drawFloor() {
         for (let i = 0; i < DISPLAY_SCALE; i++) {
             image(FLOOR_IMG, (width * i/DISPLAY_SCALE), (height * 2)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
@@ -106,6 +190,9 @@ class BattleDisplay {
         }
     }
 
+    /**
+     * Draw the buttons.
+     */
     drawButtons() {
         push()
 
@@ -189,6 +276,9 @@ class BattleDisplay {
     }
 
 
+    /**
+     * Draw the health and stamina bars.
+     */
     drawHealthStaminaBars() {
         push()
         // Health bar
@@ -222,6 +312,9 @@ class BattleDisplay {
         pop()
     }
 
+    /**
+     * Draw the health and stamina numbers.
+     */
     drawHealthStaminaNumbers() {
         push()
         textAlign(RIGHT, CENTER);
@@ -239,6 +332,9 @@ class BattleDisplay {
         pop()
     }
 
+    /**
+     * Create clones.
+     */
     createClones() {
         const playerConst = this.myBattleSystem.player.constructor;
         const mobConst = this.myBattleSystem.mob.constructor;

@@ -1,3 +1,8 @@
+/**
+ * DungeonGenerator class is responsible for generating a dungeon layout.
+ * It creates an initial dungeon layout and then generates rooms and doors.
+ * It also converts the dungeon layout into a final layout with rooms and entities.
+ */
 class DungeonGenerator {
     myRows;
     myCols;
@@ -9,6 +14,10 @@ class DungeonGenerator {
     myDungeonFinal;
     myTotalMobCount;
 
+    /**
+     * Constructor for DungeonGenerator class.
+     * Initializes properties and calls methods to create and generate the dungeon.
+     */
     constructor() {
         this.myRows = 7;
         this.myCols = 7;
@@ -25,14 +34,29 @@ class DungeonGenerator {
         this.convert();
     }
 
+    /**
+     * getTotalMobCount()
+     * This method returns the total number of mobs (enemies) in the dungeon.
+     * @returns {number} The total number of mobs in the dungeon.
+     */
     getTotalMobCount() {
         return this.myTotalMobCount;
     }
 
+    /**
+     * getDungeon()
+     * This method returns the final layout of the dungeon.
+     * @returns {Array} The final layout of the dungeon.
+     */
     getDungeon() {
         return this.myDungeonFinal;
     }
 
+    /**
+     * convert()
+     * This method converts the initial dungeon layout into the final layout. It creates rooms based on templates,
+     * sets up the starting room with certain entities (like health potions and an exit), and generates doors between rooms.
+     */
     convert() {
 
         for (let a = 0; a < this.myDungeon.length; a++) {
@@ -130,6 +154,10 @@ class DungeonGenerator {
         console.log('total mob count = ' + this.myTotalMobCount)
     }
 
+    /**
+     * generateDoors()
+     * This method checks each room in the dungeon and sets doors to adjacent rooms.
+     */
     generateDoors() {
         for (let i = 0; i < this.myDungeonFinal.length; i++) {
             for (let j = 0; j < this.myDungeonFinal[0].length; j++) {
@@ -157,9 +185,12 @@ class DungeonGenerator {
         }
     }
 
-
-
-
+    /**
+     * createInitialDungeon(theRows, theCols)
+     * This method creates the initial dungeon layout with no rooms.
+     * @param {number} theRows - The number of rows in the dungeon.
+     * @param {number} theCols - The number of columns in the dungeon.
+     */
     createInitialDungeon(theRows, theCols) {
         for (let i = 0; i < theRows; i++) {
             let row = [];
@@ -177,26 +208,44 @@ class DungeonGenerator {
         //console.log(this.myDungeonFinal);
     }
 
-    isWithinBounds(theRow, col) {
-        return theRow >= 0 && theRow < this.myRows && col >= 0 && col < this.myCols;
+    /**
+     * isWithinBounds(theRow, theCol)
+     * This method checks if a given position is within the dungeon bounds.
+     * @param {number} theRow - The row index to check.
+     * @param {number} theCol - The column index to check.
+     * @returns {boolean} True if the position is within bounds, false otherwise.
+     */
+    isWithinBounds(theRow, theCol) {
+        return theRow >= 0 && theRow < this.myRows && theCol >= 0 && theCol < this.myCols;
     }
 
-    hasNoValidDirection(row, col) {
+    /**
+     * hasNoValidDirection(row, col)
+     * This method checks if a room has no valid direction to expand to.
+     * @param {number} row - The row index of the room.
+     * @param {number} col - The column index of the room.
+     * @returns {boolean} True if the room has no valid direction to expand, false otherwise.
+     */
+    hasNoValidDirection(theRow, theCol) {
         return (
-            (row - 1 < 0 || this.myDungeon[row - 1][col] !== this.myNoRoomCode) &&
-            (row + 1 >= this.myRows || this.myDungeon[row + 1][col] !== this.myNoRoomCode) &&
-            (col - 1 < 0 || this.myDungeon[row][col - 1] !== this.myNoRoomCode) &&
-            (col + 1 >= this.myCols || this.myDungeon[row][col + 1] !== this.myNoRoomCode)
+            (theRow - 1 < 0 || this.myDungeon[theRow - 1][theCol] !== this.myNoRoomCode) &&
+            (theRow + 1 >= this.myRows || this.myDungeon[theRow + 1][theCol] !== this.myNoRoomCode) &&
+            (theCol - 1 < 0 || this.myDungeon[theRow][theCol - 1] !== this.myNoRoomCode) &&
+            (theCol + 1 >= this.myCols || this.myDungeon[theRow][theCol + 1] !== this.myNoRoomCode)
         );
     }
 
 
+    /**
+     * generate()
+     * This method generates the initial dungeon layout by randomly expanding from the center until no more rooms can be added.
+     */
     generate() {
 
         while (this.myDungeon[this.myInitialRow + 1][this.myInitialCol] === this.myNoRoomCode ||
-            this.myDungeon[this.myInitialRow - 1][this.myInitialCol] === this.myNoRoomCode ||
-            this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === this.myNoRoomCode ||
-            this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
+        this.myDungeon[this.myInitialRow - 1][this.myInitialCol] === this.myNoRoomCode ||
+        this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === this.myNoRoomCode ||
+        this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
             //console.log('restarting from the initial position');
             let maxRoomsInOneDirection = 5;
             let rowPos = Math.floor(this.myRows / 2);
@@ -239,6 +288,10 @@ class DungeonGenerator {
     }
 }
 
+/**
+ * Room class is responsible for creating a room with doors and entities.
+ * It also provides methods to create walls, corners, and door locations.
+ */
 class Room {
     myNorthDoor;
     mySouthDoor;
@@ -251,6 +304,11 @@ class Room {
     myPossibleEntityCount;
     myMobCount
 
+    /**
+     * Constructor for Room class.
+     * Initializes properties and calls methods to create walls, corners, and door locations.
+     * @param {Array} theTileMap - The tile map of the room.
+     */
     constructor(theTileMap) {
         this.mySeed = round(random(-8192, 8192))
 
@@ -273,6 +331,10 @@ class Room {
         this.createCorners();
     }
 
+    /**
+     * Loads the room from a saved state.
+     * @param {Object} theSave - The saved state of the room.
+     */
     load(theSave) {
         this.mySeed = theSave["mySeed"]
         this.myNorthDoor = theSave["myNorthDoor"]
@@ -288,13 +350,17 @@ class Room {
                 if (entityMap[a][b]) {
                     entityMap[a][b] = EntityFactory.createEntity(entityMap[a][b], createVector(b,a))
                 }
-            
+
             }
         }
         this.myEntityMap = theSave["myEntityMap"]
         this.createDoors()
     }
 
+    /**
+     * Clones the room for saving.
+     * @returns {Room} The cloned room.
+     */
     cloneForSave() {
         console.log(this)
         let room = new Room(this.myTileMap)
@@ -320,14 +386,28 @@ class Room {
         return room
     }
 
+    /**
+     * Removes an entity from the room.
+     * @param {Object} theIndex - The index of the entity to remove.
+     */
     removeEntity(theIndex) {
         this.myEntityMap[theIndex.y][theIndex.x] = null
     }
 
+    /**
+     * Returns the seed of the room.
+     * @returns {number} The seed of the room.
+     */
     getSeed() {
         return this.mySeed
     }
 
+    /**
+     * Checks if a position collides with a door in the room.
+     *
+     * @param {Array} thePlayerPos - The position of the player.
+     * @returns {boolean} True if the position collides with a door in the room, false otherwise.
+     */
     getIsCollideDoor(thePlayerPos) {
         let bool = [this.myNorthDoor, this.mySouthDoor, this.myRightDoor, this.myLeftDoor]
         let tile = this.myTileMap[thePlayerPos[1]][thePlayerPos[0]]
@@ -357,35 +437,73 @@ class Room {
         return null
     }
 
+    /**
+     * Returns the teleport location of the north door.
+     *
+     * @returns {Array} The teleport location of the north door.
+     */
     getNorthTeleportLocation() {
         return [this.myDoorLocations[0][0] + 1, this.myDoorLocations[0][1]];
     }
 
+    /**
+     * Returns the teleport location of the south door.
+     *
+     * @returns {Array} The teleport location of the south door.
+     */
     getSouthTeleportLocation() {
         return [this.myDoorLocations[1][0] - 1, this.myDoorLocations[1][1]];
     }
 
+    /**
+     * Returns the teleport location of the east door.
+     *
+     * @returns {Array} The teleport location of the east door.
+     */
     getEastTeleportLocation() {
         return [this.myDoorLocations[2][0], this.myDoorLocations[2][1] - 1];
     }
 
+    /**
+     * Returns the teleport location of the west door.
+     *
+     * @returns {Array} The teleport location of the west door.
+     */
     getWestTeleportLocation() {
         return [this.myDoorLocations[3][0], this.myDoorLocations[3][1] + 1];
     }
 
+    /**
+     * Sets the north door of the room.
+     */
     setNorthDoor() {
         this.myNorthDoor = true;
     }
+
+    /**
+     * Sets the south door of the room.
+     */
     setSouthDoor() {
         this.mySouthDoor = true;
     }
+
+    /**
+     * Sets the right door of the room.
+     */
     setRightDoor() {
         this.myRightDoor = true;
     }
+
+    /**
+     * Sets the left door of the room.
+     */
     setLeftDoor() {
         this.myLeftDoor = true;
     }
 
+    /**
+     * Creates doors for the room.
+     */
     createDoors() {
         // North door
         if (this.myNorthDoor) {
@@ -409,6 +527,9 @@ class Room {
     }
 
 
+    /**
+     * Creates corners for the room.
+     */
     createCorners() {
         this.myTileMap[0][0] = '⌜';
         this.myTileMap[0][this.myTileMap[0].length - 1] = '⌝';
@@ -416,30 +537,45 @@ class Room {
         this.myTileMap[this.myTileMap.length - 1][this.myTileMap[0].length - 1] = '⌟';
     }
 
+    /**
+     * Creates the top wall of the room.
+     */
     createTopWall() {
         for (let j = 0; j < this.myTileMap[0].length - 1; j++) {
             this.myTileMap[0][j] = '‾';
         }
     }
 
+    /**
+     * Creates the bottom wall of the room.
+     */
     createBottomWall() {
         for (let j = 0; j < this.myTileMap[0].length - 1; j++) {
             this.myTileMap[this.myTileMap.length - 1][j] = '_';
         }
     }
 
+    /**
+     * Creates the left wall of the room.
+     */
     createLeftWall() {
         for (let i = 0; i < this.myTileMap.length; i++) {
             this.myTileMap[i][0] = WORLD.WALL_LEFT;
         }
     }
 
+    /**
+     * Creates the right wall of the room.
+     */
     createRightWall() {
         for (let i = 0; i < this.myTileMap.length; i++) {
             this.myTileMap[i][this.myTileMap[0].length - 1] = WORLD.WALL_RIGHT;
         }
     }
 
+    /**
+     * Creates door locations for the room.
+     */
     createDoorLocations() {
         this.myDoorLocations = [
             [0, Math.floor(this.myTileMap[0].length / 2)], // north
@@ -449,6 +585,9 @@ class Room {
         ];
     }
 
+    /**
+     * Creates an entity map for the room.
+     */
     createEntityMap() {
         this.myEntityMap = [];
         for (let i = 0; i < this.myTileMap.length; i++) {
@@ -475,6 +614,9 @@ class Room {
         }
     }
 
+    /**
+     * Creates entity locations for the room.
+     */
     createEntityLocations() {
         this.myEntityLocations = [];
         for (let i = 1; i < this.myTileMap.length - 1; i++) {
@@ -493,7 +635,9 @@ class Room {
         }
     }
 
-
+    /**
+     * Populates the entity map of the room.
+     */
     populateEntityMap() {
 
         let entityCount = 0;
@@ -537,14 +681,29 @@ class Room {
         // console.log('mob count in this room = ' + this.myMobCount)
     }
 
+    /**
+     * Returns the tile map of the room.
+     *
+     * @returns {Array} The tile map of the room.
+     */
     getTileMap() {
         return this.myTileMap;
     }
 
+    /**
+     * Returns the entity map of the room.
+     *
+     * @returns {Array} The entity map of the room.
+     */
     getEntityMap() {
         return this.myEntityMap;
     }
 
+    /**
+     * Returns the number of mobs in the room.
+     *
+     * @returns {number} The number of mobs in the room.
+     */
     getMobCount() {
         return this.myMobCount;
     }

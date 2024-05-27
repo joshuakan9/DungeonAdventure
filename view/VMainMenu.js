@@ -1,6 +1,15 @@
+/**
+ * VMainMenu class is responsible for handling the main menu of the game.
+ * It includes methods for handling mouse clicks, key presses, and drawing the menu.
+ * It also manages the current screen of the game.
+ */
 class VMainMenu {
     static myCurrentScreen = 'main';
 
+    /**
+     * Handles mouse click events.
+     * Depending on the current screen and the position of the mouse click, it changes the current screen or triggers game actions.
+     */
     static mouseClicked() {
         push()
         textSize(width / 30)
@@ -109,10 +118,20 @@ class VMainMenu {
         }
         pop()
     }
+
+    /**
+     * Handles key press events.
+     * Currently, this method is empty and does not perform any actions.
+     */
     static keyPressed() {
 
     }
 
+    /**
+     * Updates the game state.
+     * If a character is selected, it updates the character's state.
+     * @param {number} theTime - The current time or tick of the game.
+     */
     static step(theTime) {
         if (this.myCurrentCharacter) {
             this.myCurrentCharacter.step(theTime)
@@ -120,6 +139,10 @@ class VMainMenu {
 
     }
 
+    /**
+     * Draws the character selection screen.
+     * It displays the available characters and highlights the currently selected character.
+     */
     static drawCharacterSelection() {
         if (!this.myCurrentCharacter) {
             this.myCurrentCharacter = CharacterFactory.createCharacter('assassin')
@@ -220,6 +243,10 @@ class VMainMenu {
         pop()
     }
 
+    /**
+     * Draws the main menu screen.
+     * It displays the available options: New Game, Load Game, Options, and About.
+     */
     static drawMainMenu() {
         let textHeight = width /30
         push()
@@ -283,6 +310,10 @@ class VMainMenu {
         pop()
     }
 
+    /**
+     * Draws the load game screen.
+     * It displays the available saved games.
+     */
     static drawLoadScreen() {
         push()
         background(0)
@@ -348,6 +379,11 @@ class VMainMenu {
         text("Return to Main Menu", 0, 4 * height / 15)
         pop()
     }
+
+    /**
+     * Draws the current screen.
+     * Depending on the current screen, it calls the appropriate draw method.
+     */
     static draw() {
         if (!this.myGroundImages) {
             this.myGroundImages = [
@@ -388,9 +424,18 @@ class VMainMenu {
         }
     }
 
+    /**
+     * Returns whether the game is paused.
+     * The game is considered paused if the current screen is not 'none'.
+     * @returns {boolean} - True if the game is paused, false otherwise.
+     */
     static getIsPaused() {
         return this.myCurrentScreen != 'none';
     }
+
+    /**
+     * Sets the current screen to the main menu.
+     */
     static setMainMenu() {
         this.myCurrentScreen = 'main'
     }

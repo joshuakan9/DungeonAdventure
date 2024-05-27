@@ -1,3 +1,8 @@
+/**
+ * Function to create standing frames for an animation.
+ * @param {number} rootFrame - The root frame number from which the animation frames are calculated. Default is 0.
+ * @returns {Object} An object containing the duration of the animation and an array of frames with their respective times and frame numbers.
+ */
 function makeStandingFrames(rootFrame = 0) {
   return {
     duration: 400,
@@ -21,6 +26,12 @@ function makeStandingFrames(rootFrame = 0) {
     ]
   }
 }
+
+/**
+ * Function to create walking frames for an animation.
+ * @param {number} rootFrame - The root frame number from which the animation frames are calculated. Default is 0.
+ * @returns {Object} An object containing the duration of the animation and an array of frames with their respective times and frame numbers.
+ */
 const makeWalkingFrames = (rootFrame=0) => {
   return {
     duration: 400,
@@ -45,10 +56,13 @@ const makeWalkingFrames = (rootFrame=0) => {
   }
 }
 
+// Animation for standing
 const ANIM_STAND = makeStandingFrames(0);
 
+// Animation for walking
 const ANIM_WALK = makeWalkingFrames(0);
 
+// Animation for picking up and down (currently commented out)
 // const PICK_UP_DOWN = {
 //   duration: 400,
 //   frames: [

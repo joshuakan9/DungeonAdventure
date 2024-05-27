@@ -1,5 +1,19 @@
+/**
+ * VPauseMenu class
+ * This class is responsible for creating and managing the pause menu in the game.
+ * It includes methods for handling mouse clicks, key presses, drawing the menu, and checking if the game is paused.
+ */
 class VPauseMenu {
+
+    /**
+     * Current screen state. It can be 'none', 'paused', 'load', or 'save'.
+     */
     static myCurrentScreen = 'none';
+
+    /**
+     * Handles mouse click events.
+     * Depending on the current screen state and the mouse position, it performs different actions.
+     */
     static mouseClicked() {
         let menuWidth = width * 0.6
         let menuHeight = width * 0.5
@@ -96,6 +110,11 @@ class VPauseMenu {
         }
 
     }
+
+    /**
+     * Handles key press events.
+     * If the escape key or 'p' is pressed, it toggles the pause state of the game.
+     */
     static keyPressed() {
         if (keyCode === 27 || keyCode === 80) { // escape key or p
             if (this.myCurrentScreen != 'none') {
@@ -107,7 +126,10 @@ class VPauseMenu {
         }
     }
 
-
+    /**
+     * Draws the pause menu on the screen.
+     * The appearance of the menu depends on the current screen state.
+     */
     static draw() {
         if (this.myCurrentScreen == 'paused') {
             let menuWidth = width * 0.6
@@ -285,6 +307,10 @@ class VPauseMenu {
         }
     }
 
+    /**
+     * Checks if the game is currently paused.
+     * @returns {boolean} True if the game is paused, false otherwise.
+     */
     static getIsPaused() {
         return this.myCurrentScreen != 'none';
     }
