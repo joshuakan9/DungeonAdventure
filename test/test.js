@@ -1,40 +1,102 @@
-class Test {
-    constructor() {
-        //chai.assert.equal(width, 'bar', 'foo equal `bar`');
-        this.dungeonGeneratorTest()
-    }
+import { assert } from 'chai';
 
-    dungeonGeneratorTest() {
-        let dungeonGenerator;
 
-        beforeEach(function () {
-            dungeonGenerator = new DungeonGenerator();
-        });
 
-        it('should initialize with correct properties', function () {
-            assert.equal(dungeonGenerator.myRows, 7);
-            assert.equal(dungeonGenerator.myCols, 7);
-            assert.equal(dungeonGenerator.myInitialRow, Math.floor(dungeonGenerator.myRows / 2));
-            assert.equal(dungeonGenerator.myInitialCol, Math.floor(dungeonGenerator.myCols / 2));
-            assert.equal(dungeonGenerator.myRoomCode, '□');
-            assert.equal(dungeonGenerator.myNoRoomCode, '■');
-            assert.isArray(dungeonGenerator.myDungeon);
-            assert.isArray(dungeonGenerator.myDungeonFinal);
-            assert.equal(dungeonGenerator.myTotalMobCount, 0);
-        });
+function animationTest() {
+    
 
-        it('should create a valid starting room with specific entities', function () {
-            dungeonGenerator.convert();
-            let startingRoom = dungeonGenerator.myDungeonFinal[Math.floor(dungeonGenerator.myDungeonFinal.length / 2)][Math.floor(dungeonGenerator.myDungeonFinal[0].length / 2)];
-            assert.isNotNull(startingRoom);
-            assert.equal(startingRoom.myEntityMap[3][3].type, 'health potion');
-            assert.equal(startingRoom.myEntityMap[3][9].type, 'health potion');
-            assert.equal(startingRoom.myEntityMap[9][3].type, 'health potion');
-            assert.equal(startingRoom.myEntityMap[9][9].type, 'health potion');
-            assert.equal(startingRoom.myEntityMap[6][6].type, 'exit');
-        });
-    }
 }
 
-let test = new Test();
-test.dungeonGeneratorTest();
+function assassinTest() {
+
+}
+
+function attackTest() {
+
+}
+
+function bagSystemTest() {
+
+}
+
+function characterTest() {
+
+}
+
+function characterFactoryTest() {
+    
+}
+
+function dungeonGeneratorTest() {
+
+}
+
+function entityTest() {
+
+}
+
+function entityFactoryTest() {
+
+}
+
+function factoryTest() {}
+
+
+function framePatternTest() {
+
+}
+
+function gameLoopTest() {
+
+}
+
+function healTest() {
+
+}
+
+function makeAnimationTest() {
+
+}
+
+
+function mob() {
+
+}
+
+function pickUpTest() {
+
+}
+
+function priestTest() {}{
+
+}
+
+function spriteTest() {
+    
+}
+
+function warriorTest() {
+    let warriorTest = new playerConst({
+        thePos: createVector((1.5), (8)),
+        theSize: createVector(2, 4),
+        theImage: this.myBattleSystem.player.myImage,
+        theHFrames: 9,
+        theVFrames: 1,
+        theFrame: 0,
+        theFrameSize: createVector(16, 32),
+        theOffset: createVector(0, -1.2),
+        theName: "BATTLE_DISPLAY_ONE",
+        theHitPoints: 1000,
+        theAttack: new Attack(10000, 100),
+        theStamina: 10,
+        theBlockPercentage: 0,
+        theMaxHitPoints: 1000,
+        theSpecialAttack: new Attack(200, 100),
+        theAnimation: new Animations({
+          stand: new FramePattern(ANIM_STAND),
+          walk: new FramePattern(ANIM_WALK)
+        }),
+    })
+}
+
+animationTest();
