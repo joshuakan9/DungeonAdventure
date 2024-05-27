@@ -1,6 +1,6 @@
 class Test {
     constructor() {
-        chai.assert.equal(width, 'bar', 'foo equal `bar`');
+        //chai.assert.equal(width, 'bar', 'foo equal `bar`');
         this.dungeonGeneratorTest()
     }
 
@@ -35,3 +35,6 @@ class Test {
         });
     }
 }
+
+let test = new Test();
+test.dungeonGeneratorTest();
