@@ -270,7 +270,7 @@ let hasCompleteInitial = false
  */
 function setup() {
   //=================================================================JS Test==================================================================================
-  Test.animationTest()
+  Test.animationsTest()
   Test.assassinTest()
   Test.attackTest()
   Test.bagSystemTest()

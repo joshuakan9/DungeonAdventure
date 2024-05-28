@@ -1,8 +1,22 @@
 class Test {
 
-  static animationTest() {
-    chai.assert.equal(1,1);
-  }
+    static animationsTest() {
+        let animationsTester = new Animations({
+            stand: new FramePattern(ANIM_STAND),
+            walk: new FramePattern(ANIM_WALK),
+        });
+
+        // Test the getFrame method
+        chai.assert.equal(animationsTester.getFrame(), ANIM_STAND.frames[0].frame, "Initial frame should be the first frame of ANIM_STAND");
+
+        // Test the play method
+        animationsTester.play('walk');
+        chai.assert.equal(animationsTester.getFrame(), ANIM_WALK.frames[0].frame, "After play('walk'), frame should be the first frame of ANIM_WALK");
+
+        // Test the step method
+        animationsTester.step(100);
+        chai.assert.equal(animationsTester.getFrame(), ANIM_WALK.frames[1].frame, "After step(100), frame should be the second frame of ANIM_WALK");
+    }
   static assassinTest() {
     let assassinData = JSON.parse(window.localStorage.getItem('assassin'));
     let assassinTest = new Assassin({
@@ -52,27 +66,140 @@ class Test {
       //let battleTester = new BattleSystem()
     
   }
-  static characterTest() {
-    
-  }
+    static characterTest() {
+        // Create an instance of Character for testing
+        let characterTester = new Character({
+            thePos: createVector(0, 0),
+            theSize: createVector(1, 1),
+            theImage: null, // Assuming you have a valid image for the character
+            theIsCollideable: true,
+            theHFrames: 1,
+            theVFrames: 1,
+            theFrame: 0,
+            theFrameSize: createVector(16, 16),
+            theOffset: createVector(0, 0),
+            theAnimation: new Animations({
+                stand: new FramePattern(ANIM_STAND),
+                walk: new FramePattern(ANIM_WALK),
+            }),
+            theName: "Test Character",
+            theHitPoints: 100,
+            theAttack: new Attack(10, 90),
+            theStamina: 10,
+            theBlockPercentage: 10,
+            theMaxHitPoints: 100,
+        });
+
+        // Test the getStamina method
+        chai.assert.equal(characterTester.getStamina(), 10, "getStamina should return 10");
+
+        // Test the getBlockPercentage method
+        chai.assert.equal(characterTester.getBlockPercentage(), 10, "getBlockPercentage should return 10");
+
+        // Test the getMaxHitPoints method
+        chai.assert.equal(characterTester.getMaxHitPoints(), 100, "getMaxHitPoints should return 100");
+
+        // Test the getBag method
+        chai.assert.deepEqual(characterTester.getBag(), new Map(), "getBag should return an empty Map");
+
+        // Test the addBag method
+        characterTester.addBag({getName: () => "Test Item"});
+        chai.assert.equal(characterTester.getBag().get("Test Item"), 1, "After addBag, getBag should return a Map with 'Test Item' as key and 1 as value");
+
+        // Test the removeBag method
+        characterTester.removeBag("Test Item");
+        chai.assert.equal(characterTester.getBag().has("Test Item"), false, "After removeBag, 'Test Item' should not exist in the bag");
+    }
   static characterFactoryTest() {
     
   }
   static dungeonGeneratorTest() {
     
   }
-  static entityTest() {
-    
-  }
+
+    static entityTest() {
+        // Create an instance of Entity for testing
+        let entityTester = new Entity({
+            thePos: createVector(0, 0),
+            theSize: createVector(1, 1),
+            theImage: null, // Assuming you have a valid image for the entity
+            theIsCollideable: true,
+            theHFrames: 1,
+            theVFrames: 1,
+            theFrame: 0,
+            theFrameSize: createVector(16, 16),
+            theOffset: createVector(0, 0),
+            theAnimation: new Animations({
+                stand: new FramePattern(ANIM_STAND),
+                walk: new FramePattern(ANIM_WALK),
+            }),
+            theName: "Test Entity",
+            theHitPoints: 100,
+            theAttack: 10,
+            theDirection: 'north'
+        });
+
+        // Test the getPos method
+        chai.assert.deepEqual(entityTester.getPos(), createVector(0, 0), "getPos should return a vector with x=0 and y=0");
+
+        // Test the getSize method
+        chai.assert.deepEqual(entityTester.getSize(), createVector(1, 1), "getSize should return a vector with x=1 and y=1");
+
+        // Test the getMiddle method
+        chai.assert.deepEqual(entityTester.getMiddle(), createVector(0.5, 0.5), "getMiddle should return a vector with x=0.5 and y=0.5");
+
+        // Test the collide method
+        chai.assert.equal(entityTester.collide(createVector(0, 0)), true, "collide with a vector at the same position should return true");
+        chai.assert.equal(entityTester.collide(createVector(10, 10)), false, "collide with a vector at a different position should return false");
+
+        // Test the setPos method
+        entityTester.setPos(createVector(2, 2));
+        chai.assert.deepEqual(entityTester.getPos(), createVector(2, 2), "After setPos, getPos should return the new position");
+
+        // Test the setSize method
+        entityTester.setSize(createVector(3, 3));
+        chai.assert.deepEqual(entityTester.getSize(), createVector(3, 3), "After setSize, getSize should return the new size");
+
+        // Test the getName method
+        chai.assert.equal(entityTester.getName(), "Test Entity", "getName should return 'Test Entity'");
+
+        // Test the getHitPoints method
+        chai.assert.equal(entityTester.getHitPoints(), 100, "getHitPoints should return 100");
+
+        // Test the getAttack method
+        chai.assert.equal(entityTester.getAttack(), 10, "getAttack should return 10");
+
+        // Test the getDirection method
+        chai.assert.equal(entityTester.getDirection(), 'north', "getDirection should return 'north'");
+
+        // Test the setName method
+        entityTester.setName("New Entity");
+        chai.assert.equal(entityTester.getName(), "New Entity", "After setName, getName should return 'New Entity'");
+
+        // Test the setHitPoints method
+        entityTester.setHitPoints(200);
+        chai.assert.equal(entityTester.getHitPoints(), 200, "After setHitPoints, getHitPoints should return 200");
+
+        // Test the setDirection method
+        entityTester.setDirection('south');
+        chai.assert.equal(entityTester.getDirection(), 'south', "After setDirection, getDirection should return 'south'");
+    }
   static entityFactoryTest() {
     
   }
   static factoryTest() {
     
   }
-  static framePatternTest() {
-    
-  }
+    static framePatternTest() {
+        let framePatternTester = new FramePattern(ANIM_STAND);
+
+        // Test the getFrame method
+        chai.assert.equal(framePatternTester.getFrame(), ANIM_STAND.frames[0].frame, "Initial frame should be the first frame of ANIM_STAND");
+
+        // Test the step method
+        framePatternTester.step(100);
+        chai.assert.equal(framePatternTester.getFrame(), ANIM_STAND.frames[1].frame, "After step(100), frame should be the second frame of ANIM_STAND");
+    }
   static gameLoopTest() {
     
   }
@@ -86,9 +213,15 @@ class Test {
       chai.assert.equal(healTester.getHealPercentage(), 80, "Heal percentage is set to 80");
 
   }
-  static makeAnimationsTest() {
-    
-  }
+    static makeAnimationsTest() {
+        // Test makeStandingFrames function
+        let standingFrames = makeStandingFrames(0);
+        chai.assert.deepEqual(standingFrames, ANIM_STAND, "makeStandingFrames(0) should return ANIM_STAND");
+
+        // Test makeWalkingFrames function
+        let walkingFrames = makeWalkingFrames(0);
+        chai.assert.deepEqual(walkingFrames, ANIM_WALK, "makeWalkingFrames(0) should return ANIM_WALK");
+    }
   static mobTest() {
     
   }
@@ -130,9 +263,45 @@ class Test {
       priestTester.buff()
       chai.assert.equal(priestTester.getHeal().getHealAmount(), 75, "Needs to return buff() stats to heal increase by 25: 50 -> 75");
   }
-  static spriteTest() {
+    static spriteTest() {
+        // Create an instance of Sprite for testing
+        let spriteTester = new Sprite({
+            thePos: createVector(0, 0),
+            theSize: createVector(1, 1),
+            theImage: null, // Assuming you have a valid image for the sprite
+            theIsCollideable: true,
+            theHFrames: 1,
+            theVFrames: 1,
+            theFrame: 0,
+            theFrameSize: createVector(16, 16),
+            theOffset: createVector(0, 0),
+            theAnimation: new Animations({
+                stand: new FramePattern(ANIM_STAND),
+                walk: new FramePattern(ANIM_WALK),
+            }),
+        });
 
-  }
+        // Test the getPos method
+        chai.assert.deepEqual(spriteTester.getPos(), createVector(0, 0), "getPos should return a vector with x=0 and y=0");
+
+        // Test the getSize method
+        chai.assert.deepEqual(spriteTester.getSize(), createVector(1, 1), "getSize should return a vector with x=1 and y=1");
+
+        // Test the getMiddle method
+        chai.assert.deepEqual(spriteTester.getMiddle(), createVector(0.5, 0.5), "getMiddle should return a vector with x=0.5 and y=0.5");
+
+        // Test the collide method
+        chai.assert.equal(spriteTester.collide(createVector(0, 0)), true, "collide with a vector at the same position should return true");
+        chai.assert.equal(spriteTester.collide(createVector(10, 10)), false, "collide with a vector at a different position should return false");
+
+        // Test the setPos method
+        spriteTester.setPos(createVector(2, 2));
+        chai.assert.deepEqual(spriteTester.getPos(), createVector(2, 2), "After setPos, getPos should return the new position");
+
+        // Test the setSize method
+        spriteTester.setSize(createVector(3, 3));
+        chai.assert.deepEqual(spriteTester.getSize(), createVector(3, 3), "After setSize, getSize should return the new size");
+    }
   static warriorTest() {
     let warriorData = JSON.parse(window.localStorage.getItem('warrior'));
     let warriorTester = new Warrior({
