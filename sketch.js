@@ -270,8 +270,26 @@ let hasCompleteInitial = false
  */
 function setup() {
   //=================================================================JS Test==================================================================================
-  let tester = new Test();
-  tester.testAll();
+  Test.animationTest()
+  Test.assassinTest()
+  Test.attackTest()
+  Test.bagSystemTest()
+  Test.battleSystemTest()
+  Test.characterTest()
+  Test.characterFactoryTest()
+  Test.dungeonGeneratorTest()
+  Test.entityTest()
+  Test.entityFactoryTest()
+  Test.factoryTest()
+  Test.framePatternTest()
+  Test.gameLoopTest()
+  Test.healTest()
+  Test.makeAnimationsTest()
+  Test.mobTest()
+  Test.pickupTest()
+  Test.priestTest()
+  Test.spriteTest()
+  Test.warriorTest()
   //=================================================================JS Test==================================================================================
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
   TILEMAP_WARRIOR = TILEMAP.get(32 * 16, 4 * 16, 9 * 16, 2 * 16)

@@ -1,11 +1,9 @@
 class Test {
-  constructor() {
-  }
 
-  animationTest() {
+  static animationTest() {
     chai.assert.equal(1,1);
   }
-  assassinTest() {
+  static assassinTest() {
     let assassinData = JSON.parse(window.localStorage.getItem('assassin'));
     let assassinTest = new Assassin({
         thePos: createVector(assassinData.thePos.x, assassinData.thePos.y),
@@ -37,7 +35,7 @@ class Test {
   chai.assert.equal(assassinTest.getAttack().getDamage(), 105, "After buff() that increases damage, damage for basic is: 105");
 
   }
-  attackTest() {
+  static attackTest() {
     let attackTester = new Attack(0,0);
     attackTester.setDamage(100);
     attackTester.setHitPercentage(50);
@@ -46,39 +44,39 @@ class Test {
     
     
   }
-  bagSystemTest() {
+  static bagSystemTest() {
     
   }
-  battleSystemTest() {
+  static battleSystemTest() {
 
       //let battleTester = new BattleSystem()
     
   }
-  characterTest() {
+  static characterTest() {
     
   }
-  characterFactoryTest() {
+  static characterFactoryTest() {
     
   }
-  dungeonGeneratorTest() {
+  static dungeonGeneratorTest() {
     
   }
-  entityTest() {
+  static entityTest() {
     
   }
-  entityFactoryTest() {
+  static entityFactoryTest() {
     
   }
-  factoryTest() {
+  static factoryTest() {
     
   }
-  framePatternTest() {
+  static framePatternTest() {
     
   }
-  gameLoopTest() {
+  static gameLoopTest() {
     
   }
-  healTest() {
+  static healTest() {
       let healTester = new Heal(0, 0);
       healTester.setHealAmount(100);
       healTester.setHealPercentage(80);
@@ -88,16 +86,16 @@ class Test {
       chai.assert.equal(healTester.getHealPercentage(), 80, "Heal percentage is set to 80");
 
   }
-  makeAnimationsTest() {
+  static makeAnimationsTest() {
     
   }
-  mobTest() {
+  static mobTest() {
     
   }
-  pickUpTest() {
+  static pickupTest() {
     
   }
-  priestTest() {
+  static priestTest() {
       let priestData = JSON.parse(window.localStorage.getItem('priest'));
       let priestTester = new Priest({
           thePos: createVector(priestData.thePos.x, priestData.thePos.y),
@@ -132,13 +130,10 @@ class Test {
       priestTester.buff()
       chai.assert.equal(priestTester.getHeal().getHealAmount(), 75, "Needs to return buff() stats to heal increase by 25: 50 -> 75");
   }
-  spriteTest() {
+  static spriteTest() {
 
   }
-  utilTest() {
-
-  }
-  warriorTest() {
+  static warriorTest() {
     let warriorData = JSON.parse(window.localStorage.getItem('warrior'));
     let warriorTester = new Warrior({
       thePos: createVector(warriorData.thePos.x, warriorData.thePos.y),
@@ -170,26 +165,5 @@ class Test {
     chai.assert.equal(warriorTester.myBlockPercentage, 5, "Needs to return buff() stats to block percentage: 5");
 
   }
-  testAll() {
-    this.assassinTest();
-    this.warriorTest();
-    this.utilTest();
-    this.spriteTest();
-    this.priestTest();
-    this.pickUpTest();
-    this.mobTest();
-    this.makeAnimationsTest();
-    this.healTest();
-    this.gameLoopTest();
-    this.framePatternTest();
-    this.factoryTest();
-    this.entityFactoryTest();
-    this.entityTest();
-    this.characterFactoryTest();
-    this.dungeonGeneratorTest();
-    this.characterTest();
-    this.attackTest();
-    this.bagSystemTest();
-    this.battleSystemTest();
-  }
+
 }
