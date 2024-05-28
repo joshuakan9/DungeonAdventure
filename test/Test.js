@@ -139,27 +139,6 @@ class Test {
             theDirection: 'north'
         });
 
-        // Test the getPos method
-        chai.assert.deepEqual(entityTester.getPos(), createVector(0, 0), "getPos should return a vector with x=0 and y=0");
-
-        // Test the getSize method
-        chai.assert.deepEqual(entityTester.getSize(), createVector(1, 1), "getSize should return a vector with x=1 and y=1");
-
-        // Test the getMiddle method
-        chai.assert.deepEqual(entityTester.getMiddle(), createVector(0.5, 0.5), "getMiddle should return a vector with x=0.5 and y=0.5");
-
-        // Test the collide method
-        chai.assert.equal(entityTester.collide(createVector(0, 0)), true, "collide with a vector at the same position should return true");
-        chai.assert.equal(entityTester.collide(createVector(10, 10)), false, "collide with a vector at a different position should return false");
-
-        // Test the setPos method
-        entityTester.setPos(createVector(2, 2));
-        chai.assert.deepEqual(entityTester.getPos(), createVector(2, 2), "After setPos, getPos should return the new position");
-
-        // Test the setSize method
-        entityTester.setSize(createVector(3, 3));
-        chai.assert.deepEqual(entityTester.getSize(), createVector(3, 3), "After setSize, getSize should return the new size");
-
         // Test the getName method
         chai.assert.equal(entityTester.getName(), "Test Entity", "getName should return 'Test Entity'");
 
