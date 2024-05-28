@@ -269,7 +269,10 @@ let hasCompleteInitial = false
  * Setup function to initialize the game
  */
 function setup() {
-  let tester = new Test(); 
+  //=================================================================JS Test==================================================================================
+  let tester = new Test();
+  tester.testAll();
+  //=================================================================JS Test==================================================================================
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
   TILEMAP_WARRIOR = TILEMAP.get(32 * 16, 4 * 16, 9 * 16, 2 * 16)
   TILEMAP_PRIEST = TILEMAP.get(32 * 16, 8 * 16, 9 * 16, 2 * 16)
