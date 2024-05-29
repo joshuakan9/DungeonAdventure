@@ -204,8 +204,6 @@ class DungeonGenerator {
         }
 
         this.myDungeon[this.myInitialRow][this.myInitialCol] = this.myRoomCode;
-        //console.log(this.myDungeon);
-        //console.log(this.myDungeonFinal);
     }
 
     /**
@@ -222,8 +220,8 @@ class DungeonGenerator {
     /**
      * hasNoValidDirection(row, col)
      * This method checks if a room has no valid direction to expand to.
-     * @param {number} row - The row index of the room.
-     * @param {number} col - The column index of the room.
+     * @param {number} theRow - The row index of the room.
+     * @param {number} theCol - The column index of the room.
      * @returns {boolean} True if the room has no valid direction to expand, false otherwise.
      */
     hasNoValidDirection(theRow, theCol) {
@@ -246,7 +244,7 @@ class DungeonGenerator {
         this.myDungeon[this.myInitialRow - 1][this.myInitialCol] === this.myNoRoomCode ||
         this.myDungeon[this.myInitialRow][this.myInitialCol + 1] === this.myNoRoomCode ||
         this.myDungeon[this.myInitialRow][this.myInitialCol - 1] === this.myNoRoomCode) {
-            //console.log('restarting from the initial position');
+
             let maxRoomsInOneDirection = 5;
             let rowPos = Math.floor(this.myRows / 2);
             let colPos = Math.floor(this.myCols / 2);
@@ -258,29 +256,22 @@ class DungeonGenerator {
 
                 if (direction === 0) {
                     newRowPos = rowPos - 1;
-                    //console.log('up');
                 } else if (direction === 1) {
                     newRowPos = rowPos + 1;
-                    //console.log('down');
                 } else if (direction === 2) {
                     newColPos = colPos + 1;
-                    //console.log('right');
                 } else if (direction === 3) {
                     newColPos = colPos - 1;
-                    //console.log('left');
                 }
 
-                // check that the new room location is within bounds, and that it is not already a room
                 if (this.isWithinBounds(newRowPos, newColPos) && this.myDungeon[newRowPos][newColPos] === this.myNoRoomCode) {
                     rowPos = newRowPos;
                     colPos = newColPos;
                     this.myDungeon[rowPos][colPos] = this.myRoomCode;
                     maxRoomsInOneDirection--;
-                    //console.log(this.myDungeon);
                 }
 
                 if (this.hasNoValidDirection(rowPos, colPos)) {
-                    //console.log('no valid direction, break')
                     break;
                 }
             }

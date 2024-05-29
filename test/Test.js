@@ -181,11 +181,30 @@ class Test {
   static dungeonGeneratorTest() {
       let dungeonGeneratorTester = new DungeonGenerator();
 
-      chai.assert.isNumber(dungeonGeneratorTester.myRows, "myRows should be a number");
-      chai.assert.isNumber(dungeonGeneratorTester.myCols, "myCols should be a number");
+      // Test initial properties
+      chai.assert.equal(dungeonGeneratorTester.myRows, 7, "myRows should be 7");
+      chai.assert.equal(dungeonGeneratorTester.myCols, 7, "myCols should be 7");
+      chai.assert.equal(dungeonGeneratorTester.myInitialRow, 3, "myInitialRow should be 3");
+      chai.assert.equal(dungeonGeneratorTester.myInitialCol, 3, "myInitialCol should be 3");
       chai.assert.isArray(dungeonGeneratorTester.myDungeon, "myDungeon should be an array");
       chai.assert.isArray(dungeonGeneratorTester.myDungeonFinal, "myDungeonFinal should be an array");
       chai.assert.isNumber(dungeonGeneratorTester.myTotalMobCount, "myTotalMobCount should be a number");
+
+      // Test getDungeon method
+      let dungeon = dungeonGeneratorTester.getDungeon();
+      chai.assert.isArray(dungeon, "getDungeon should return an array");
+      chai.assert.isArray(dungeon[0], "getDungeon should return a 2D array");
+      chai.assert.equal(dungeon.length, dungeonGeneratorTester.myRows, "getDungeon should return an array with the same number of rows as myRows");
+      chai.assert.equal(dungeon[0].length, dungeonGeneratorTester.myCols, "getDungeon should return an array with the same number of columns as myCols");
+
+      // Test getTotalMobCount method
+      let totalMobCount = dungeonGeneratorTester.getTotalMobCount();
+      chai.assert.isNumber(totalMobCount, "getTotalMobCount should return a number");
+      chai.assert.equal(totalMobCount, dungeonGeneratorTester.myTotalMobCount, "getTotalMobCount should return the same value as myTotalMobCount");
+
+
+
+      // ROOM TESTS HERE+++++++++++++++++++++++++++++++++
 
       let roomTester = new Room ([
           ['□','□','□','□','□','□','□'],
