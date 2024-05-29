@@ -237,15 +237,55 @@ class Test {
           ['⌞','_','_','▼','_','_','⌟']
       ], "myTileMap should return the proper tile map");
 
-      let mobCount = roomTester.getMobCount();
-      chai.assert.isNumber(mobCount, "getMobCount should return a number");
-
       chai.assert.deepEqual(roomTester.getNorthTeleportLocation(), [1, 3], "getNorthTeleportLocation should return the north teleport location");
       chai.assert.deepEqual(roomTester.getSouthTeleportLocation(), [5, 3], "getSouthTeleportLocation should return the south teleport location");
       chai.assert.deepEqual(roomTester.getEastTeleportLocation(), [3, 5], "getEastTeleportLocation should return the east teleport location");
       chai.assert.deepEqual(roomTester.getWestTeleportLocation(), [3, 1], "getWestTeleportLocation should return the west teleport location");
 
+      roomTester.populateEntityMap();
+      let mobCount = roomTester.getMobCount();
+      chai.assert.isNumber(mobCount, "getMobCount should return a number");
 
+      for (let a = 0; a < roomTester.myEntityMap.length; a++) {
+            for (let b = 0; b < roomTester.myEntityMap[0].length; b++) {
+                if (roomTester.myEntityMap[a][b]) {
+                    roomTester.removeEntity(createVector(b,a))
+                }
+            }
+      }
+      chai.assert.deepEqual(roomTester.getEntityMap(), [
+          [null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null],
+          [null,null,null,null,null,null,null]
+      ], "removeEntity should remove all entities from the entity map");
+
+
+      let roomTester_2 = new Room ([
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□']
+      ]);
+
+      roomTester_2.populateEntityMap()
+      let roomClone = roomTester_2.cloneForSave();
+      for (let a = 0; a < roomTester_2.myEntityMap.length; a++) {
+          for (let b = 0; b < roomTester_2.myEntityMap[0].length; b++) {
+              if (roomTester_2.myEntityMap[a][b]) {
+                  roomTester_2.myEntityMap[a][b] = roomTester_2.myEntityMap[a][b].getName().toLowerCase()
+              } else {
+                  roomTester_2.myEntityMap[a][b] = null
+              }
+          }
+      }
+      chai.assert.deepEqual(roomClone, roomTester_2, "cloneForSave should return a clone of the room");
   }
 
     static entityTest() {
