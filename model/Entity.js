@@ -26,7 +26,22 @@ class Entity extends Sprite {
         this.myHitPoints = theHitPoints;
         this.myAttack = theAttack;
         this.myDirection = theDirection
+        this.myLastHorzDirection = this.myDirection ? this.myDirection : 'east'
     }
+
+    draw() {
+
+        let frame = this.myFrameMap.get(this.myFrame)
+        push()
+        translate(this.myPos.x * CELLSIZE + this.myOffset.x * CELLSIZE, this.myPos.y * CELLSIZE + this.myOffset.y * CELLSIZE)
+        if (this.myLastHorzDirection == 'west') {
+            translate(1  * CELLSIZE, 0)
+            scale(-1, 1)
+        }
+        image(this.myImage, 0, 0, this.mySize.x * CELLSIZE, this.mySize.y * CELLSIZE, frame.x, frame.y, this.myFrameSize.x, this.myFrameSize.y)
+        pop()
+    }
+
 
     /**
      * Get the name of the entity.
@@ -65,6 +80,9 @@ class Entity extends Sprite {
      * @param {string} theDirection - The new direction of the entity.
      */
     setDirection(theDirection) {
+        if (theDirection == 'east' || theDirection == 'west') {
+            this.myLastHorzDirection = theDirection;
+        }
         this.myDirection = theDirection;
     }
 
