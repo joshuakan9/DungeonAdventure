@@ -105,7 +105,7 @@ class TextBox {
      * Move to the next text.
      */
     nextText() {
-        console.log("children amt: " + this.children.length)
+        // console.log("children amt: " + this.children.length)
         if (this.inTextDialogue && this.children[0] && this.children[0].text.length == this.currentTextEnd) {
 
             if (this.children.length > 0) {
@@ -124,8 +124,8 @@ class TextBox {
                 this.currentTextEnd = 0;
             }
         }
-        console.log("bool: " + this.isEmpty())
-        console.log("children amt: " + this.children.length)
+        // console.log("bool: " + this.isEmpty())
+        // console.log("children amt: " + this.children.length)
     }
 
     /**

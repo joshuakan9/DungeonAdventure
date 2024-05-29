@@ -397,7 +397,6 @@ class VMainMenu {
                 TILEMAP.get(2 * 16, 6 * 16, 16, 16)
             ]
         }
-        console.log(this.myCurrentScreen)
         if (this.myCurrentScreen != 'none') {
 
 
