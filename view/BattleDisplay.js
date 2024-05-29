@@ -190,7 +190,7 @@ class BattleDisplay {
         ]
         
         
-        WALL_IMG, 0, 0, width/WALL_AMT, height/DISPLAY_SCALE;
+        image(WALL_IMG, 0, 0, width/WALL_AMT, height/DISPLAY_SCALE);
         image(WALL_IMG, width/WALL_AMT, 0, width/WALL_AMT, height/DISPLAY_SCALE);
         //console.log(1234, WALL1_IMG)
         for (let i = 0; i < DISPLAY_SCALE; i++) {

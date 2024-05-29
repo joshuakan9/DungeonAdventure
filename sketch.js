@@ -195,8 +195,10 @@ window.addEventListener("e-attack", (E) => {
 
   if (instanceBattle && instanceBattle.inCombat) {
     instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+    console.log("fdhlksf;hasj")
   } else {
-    instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!" });
+    instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!" , x: 1, y: .2, width: 1, height: .2, textSize: .02 });
+    console.log("working")
   }
 });
 
@@ -502,7 +504,7 @@ function newGame() {
         VMainMenu.draw()
 
 //=======================================================================================================================
-        if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
+        if (instanceBattle && (instanceBattle.inCombat || !instanceTextBox.isEmpty())) {
           instanceBattleDisplay.displayBattle()
         }
         if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
@@ -550,13 +552,14 @@ function mouseClicked() {
  * Function to handle key press events
  */
 function keyPressed() {
-  if (keyCode === 32) {
+  if (keyCode === 32) { // space keyba
     instanceTextBox.nextText();
   }
   if (!instancePlayer.getIsFrozen()) {
     if (keyCode === 32) { // space keyba
-      instanceFactory.interact(instancePlayer)
-      
+      if (instancePlayer.getHitPoints() > 0) {
+        instanceFactory.interact(instancePlayer)
+      }
     }
     if (instanceBagDisplay.getIsPaused() === false) {
       VPauseMenu.keyPressed()

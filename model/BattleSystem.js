@@ -32,11 +32,10 @@ class BattleSystem {
      * Checks if the battle is over.
      */
     isOutOfBattleCheck() {
-        if (this.player.getHitPoints() <= 0) {
-            console.log("YOU HAVE DIED");
+        if (this.player.getHitPoints() <= 0 ) {
             window.dispatchEvent(new Event("e-player-die"))
             this.inCombat = false;
-            window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
+            //window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
             window.dispatchEvent(new Event("e-battle-end"))
         }
         if (this.mob.getHitPoints() <= 0) {
