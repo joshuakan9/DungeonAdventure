@@ -279,7 +279,7 @@ let hasCompleteInitial = false
 function setup() {
   //=================================================================JS Test==================================================================================
   Test.animationsTest()
-  Test.assassinTest()
+  Test.assassinTest() // problem
   Test.attackTest()
   Test.bagSystemTest()
   Test.battleSystemTest()
@@ -536,6 +536,9 @@ function mouseClicked() {
  * Function to handle key press events
  */
 function keyPressed() {
+  if (keyCode === 32) {
+    instanceTextBox.nextText();
+  }
   if (!instancePlayer.getIsFrozen()) {
     if (keyCode === 32) { // space keyba
       instanceFactory.interact(instancePlayer)
