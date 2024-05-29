@@ -12,6 +12,7 @@ class EntityFactory {
      */
     static createEntity(entityType, entityPos) {
         let entity = null;
+        let direction = random(['east', 'west'])
         switch(entityType) {
             case 'ogre':
                 let ogreData = JSON.parse(window.localStorage.getItem('ogre'));
@@ -33,6 +34,7 @@ class EntityFactory {
                     theAnimation: new Animations({
                       stand: new FramePattern(ANIM_STAND),
                     }),
+                    theDirection: direction
                 })
                 break;
             case 'skeleton':
@@ -55,6 +57,7 @@ class EntityFactory {
                     theAnimation: new Animations({
                       stand: new FramePattern(ANIM_STAND),
                     }),
+                    theDirection: direction
                 })
                 break;
             case 'gremlin':
@@ -77,6 +80,7 @@ class EntityFactory {
                     theAnimation: new Animations({
                       stand: new FramePattern(ANIM_STAND),
                     }),
+                    theDirection: direction
                 })
                 break;
             case 'health potion':

@@ -27,8 +27,8 @@ class Mob extends Entity {
      * @param {Function} param0.theSpecialAttack - The special attack function of the Mob.
      * @param {Object} param0.theHeal - The healing function of the Mob.
      */
-    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theName, theHitPoints, theAttack, theSpecialAttack, theHeal }) {
-        super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theName, theHitPoints, theAttack })
+    constructor({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theName, theHitPoints, theAttack, theSpecialAttack, theHeal, theDirection }) {
+        super({ thePos, theSize, theImage, theIsCollideable, theHFrames, theVFrames, theFrame, theFrameSize, theOffset, theAnimation, theName, theHitPoints, theAttack, theDirection })
         this.mySpecialAttack = theSpecialAttack;
         this.myHeal = theHeal;
     }

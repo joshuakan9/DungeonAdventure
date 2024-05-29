@@ -26,7 +26,7 @@ class Entity extends Sprite {
         this.myHitPoints = theHitPoints;
         this.myAttack = theAttack;
         this.myDirection = theDirection
-        this.myLastHorzDirection = this.myDirection ? this.myDirection : 'east'
+        this.setDirection(this.myDirection)
     }
 
     draw() {
