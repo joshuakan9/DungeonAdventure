@@ -268,13 +268,30 @@ class VMainMenu {
      
         background(0)
 
-        textSize(width / 30)
-        textAlign(RIGHT)
+        for (let a = 5.5; a < 10; a++) {
+            for (let b = 5.5; b < 10; b++) {
+                image(random(this.myGroundImages), getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
+
+         
+            }
+        }
+        image(TILEMAP_EXIT, getCellToPos(7.5), getCellToPos(7.5), CELLSIZE, CELLSIZE)
+
+
+        textAlign(CENTER)
         // rect(width * 0.95 - textWidth("New Game"), height * 0.6 - textHeight, textWidth("New Game"), width / 30)
+        fill(177,188,184)
+        textSize(width / 20)
+        text("Dungeon Adventure", width / 2, height * 0.2)
+        textAlign(RIGHT)
         translate(width * 0.95, height * 0.6)
+
+        
+
+        textSize(width / 30)
         // rect(-textWidth("New Game"), -textHeight ,textWidth("New Game"), textHeight)
 
-        fill(177,188,184)
+        
         if (
             mouseX >= width * 0.95 - textWidth("New Game") &&
             mouseX <= width * 0.95 &&
