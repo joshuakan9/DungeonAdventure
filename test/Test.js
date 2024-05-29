@@ -115,6 +115,25 @@ class Test {
         chai.assert.equal(battleSystemTester.inCombat, true, "InCombat should be true");
         chai.assert.equal(battleSystemTester.stamina, playerTester.getStamina(), "Stamina should be equal to player's stamina");
 
+        battleSystemTester.turn('move_basic') 
+        chai.assert.equal(battleSystemTester.stamina, 8);
+
+        battleSystemTester.turn('move_basic') 
+        chai.assert.equal(battleSystemTester.stamina, 6);
+
+        battleSystemTester.turn('move_basic') 
+        chai.assert.equal(battleSystemTester.stamina, 4);
+
+        battleSystemTester.turn('move_basic') 
+        chai.assert.equal(battleSystemTester.stamina, 2);
+        
+        
+        //Resets the stamina back to ten once it hits 0
+        battleSystemTester.turn('move_basic') 
+        chai.assert.equal(battleSystemTester.stamina, 10);
+
+
+
         // Add more tests as needed to cover other methods and scenarios
     }
     static characterTest() {
@@ -305,6 +324,12 @@ class Test {
           }
       }
       chai.assert.deepEqual(roomClone, roomTester_2, "cloneForSave should return a clone of the room");
+      
+      // Check if doors are generated correctly.
+      chai.assert(dungeon[3][3].myNorthDoor || dungeon[3][3].mySouthDoor || dungeon[3][3].myRightDoor || dungeon[3][3].myLeftDoor, 'Doors should be generated for center room')
+      // Final dungeon check
+      chai.assert.strictEqual(dungeon.length, 7, 'Final dungeon should have 7 rows');
+      chai.assert.strictEqual(dungeon[0].length, 7, 'Each row of final dungeon should have 7 columns');
   }
 
     static entityTest() {
