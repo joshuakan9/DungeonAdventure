@@ -101,6 +101,14 @@ window.addEventListener("e-battle-start", (E) => {
 
 window.addEventListener("e-player-set-character", (E) => {
   instancePlayer = E['detail']
+
+  if (!instanceBagSystem) {
+    instanceBagSystem = new BagSystem(instancePlayer)
+  }
+
+  if (!instanceBagDisplay) {
+    instanceBagDisplay = new BagDisplay(instancePlayer)
+  }
 })
 
 
@@ -340,31 +348,29 @@ function newGame() {
     let playerImage = createGraphics(50, 50)
     playerImage.background(255, 0, 0)
     instancePlayer = CharacterFactory.createCharacter("priest");
-    // instancePlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
-    // instancePlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));
-    // instancePlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
-    // instancePlayer.addBag(EntityFactory.createEntity("pillar of encapsulation"));
+  //   // instancePlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
+  //   // instancePlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));
+  //   // instancePlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
+  //   // instancePlayer.addBag(EntityFactory.createEntity("pillar of encapsulation"));
   }
-
-  console.log(instanceFactory)
-
-  // let test = instanceFactory.myDungeon[3][3]
-  // // test.myDungeon = null
-  // test.myEntityMap = null
-
-  // console.log(test)
-
-  // console.log(JSON.stringify(test))
-
-
-
-  if (!instanceBagDisplay) {
-    instanceBagDisplay = new BagDisplay()
-  }
-
-  if (!instanceBagSystem) {
-    instanceBagSystem = new BagSystem(instancePlayer)
-  }
+  //
+  // console.log(instanceFactory)
+  //
+  // // let test = instanceFactory.myDungeon[3][3]
+  // // // test.myDungeon = null
+  // // test.myEntityMap = null
+  //
+  // // console.log(test)
+  //
+  // // console.log(JSON.stringify(test))
+  //
+  // if (!instanceBagSystem) {
+  //   instanceBagSystem = new BagSystem(instancePlayer)
+  // }
+  //
+  // if (!instanceBagDisplay) {
+  //   instanceBagDisplay = new BagDisplay(instancePlayer)
+  // }
 
 
   // frameRate(60)
@@ -670,7 +676,7 @@ function setUpHeroDatabase() {
     theStamina: 10,
     theBlockPercentage: 0,
     theMaxHitPoints: 1000,
-    theSpecialAttack: {damage: 200, hitChance: 100},
+    theSpecialAttack: {damage: 2000, hitChance: 100},
   }))
   window.localStorage.setItem("warrior", JSON.stringify({
     thePos: {x: 6, y: 6},
