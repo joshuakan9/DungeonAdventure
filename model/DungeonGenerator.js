@@ -630,6 +630,7 @@ class Room {
      * Populates the entity map of the room.
      */
     populateEntityMap() {
+        randomSeed(this.mySeed)
 
         let entityCount = 0;
         let maxEntities = Math.floor(Math.cbrt(this.myPossibleEntityCount));
