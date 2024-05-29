@@ -42,7 +42,7 @@ class Test {
     });
     
   chai.assert.equal(assassinTest.getClass(), "Assassin", "Needs to return the string: Assassin");
-  chai.assert.equal(assassinTest.getSpecialAttack().getDamage(), 2000, "Needs to return the amount of damage for assassinTest: 200");
+  chai.assert.equal(assassinTest.getSpecialAttack().getDamage(), 200, "Needs to return the amount of damage for assassinTest: 200");
   chai.assert.equal(assassinTest.getSpecialAttack().getHitPercentage(), 100, "Needs to return the hit percentage for assassinTest: 100");
   assassinTest.buff()
   chai.assert.equal(assassinTest.getSpecialAttack().getDamage(), 115, "After buff() that increases damage, damage for special attack is: 115");
