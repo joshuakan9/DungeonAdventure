@@ -131,6 +131,7 @@ class BattleDisplay {
         this.mobInitialHealth = this.myBattleSystem.mob.myHitPoints;
         this.playerInitialStamina = this.myBattleSystem.player.myStamina;
         this.createClones();
+   
         this.randomIndexes = [];
         for (let i = 0; i < DISPLAY_SCALE; i++) {
             this.randomIndexes.push(Math.floor(Math.random() * 5))
@@ -188,7 +189,8 @@ class BattleDisplay {
             WALL5_IMG,
         ]
         
-        image(WALL_IMG, 0, 0, width/WALL_AMT, height/DISPLAY_SCALE);
+        
+        WALL_IMG, 0, 0, width/WALL_AMT, height/DISPLAY_SCALE;
         image(WALL_IMG, width/WALL_AMT, 0, width/WALL_AMT, height/DISPLAY_SCALE);
         //console.log(1234, WALL1_IMG)
         for (let i = 0; i < DISPLAY_SCALE; i++) {
@@ -405,7 +407,10 @@ class BattleDisplay {
               stand: new FramePattern(ANIM_STAND),
               walk: new FramePattern(ANIM_WALK)
             }),
+            
         })
+        this.mobClone.setDirection('west')
+        
     }
 
 
