@@ -96,6 +96,30 @@ class CharacterFactory {
                     }),
                 })
                 break;
+            case 'dino':
+                let dinoData = JSON.parse(window.localStorage.getItem('dino'));
+                character = new Dino({
+                    thePos: createVector(dinoData.thePos.x, dinoData.thePos.y),
+                    theSize: createVector(dinoData.theSize.x, dinoData.theSize.y),
+                    theImage: TILEMAP_DINO,
+                    theHFrames: dinoData.theHFrames,
+                    theVFrames: dinoData.theVFrames,
+                    theFrame: dinoData.theFrame,
+                    theFrameSize: createVector(dinoData.theFrameSize.x, dinoData.theFrameSize.y),
+                    theOffset: createVector(dinoData.theOffset.x, dinoData.theOffset.y),
+                    theName: dinoData.theName,
+                    theHitPoints: dinoData.theHitPoints,
+                    theAttack: new Attack(dinoData.theAttack.damage, dinoData.theAttack.hitChance),
+                    theStamina: dinoData.theStamina,
+                    theBlockPercentage: dinoData.theBlockPercentage,
+                    theMaxHitPoints: dinoData.theMaxHitPoints,
+                    theSpecialAttack: new Attack(dinoData.theSpecialAttack.damage, dinoData.theSpecialAttack.hitChance),
+                    theAnimation: new Animations({
+                        stand: new FramePattern(ANIM_STAND),
+                        walk: new FramePattern(ANIM_WALK),
+                    }),
+                })
+                break;
             default:
                 console.log("Invalid character type");
             }

@@ -104,6 +104,18 @@ class VMainMenu {
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('priest')}))
                 this.myCurrentScreen = 'none'
             }
+
+            if (
+                mouseX >= width * 0.95 - textWidth("Dino") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 + 3 * height / 15 - textHeight &&
+                mouseY <= height * 0.6 + 3 * height / 15 
+            ) {
+
+                newGame()
+                window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('dino')}))
+                this.myCurrentScreen = 'none'
+            }
         }
 
         if (this.myCurrentScreen == 'character' || this.myCurrentScreen == 'load') {
@@ -150,7 +162,6 @@ class VMainMenu {
         }
 
 
-
         let textHeight = width /30
         push()
 
@@ -162,7 +173,6 @@ class VMainMenu {
          
             }
         }
-
 
         this.myCurrentCharacter.setPos(createVector(7.5,7.5))
         this.myCurrentCharacter.draw()
@@ -225,6 +235,9 @@ class VMainMenu {
             mouseY >= height * 0.6 + 3 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 3 * height / 15 
         ) {
+            if (!(this.myCurrentCharacter instanceof Dino)) {
+                this.myCurrentCharacter = CharacterFactory.createCharacter('dino')
+            }
             fill(239,255,255)
         }
         text("Dino", 0, 3 * height / 15)
@@ -236,6 +249,7 @@ class VMainMenu {
             mouseY >= height * 0.6 + 4 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 4 * height / 15 
         ) {
+
             fill(239,255,255)
         }
         text("Return to Main Menu", 0, 4 * height / 15)

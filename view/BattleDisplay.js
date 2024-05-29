@@ -255,6 +255,9 @@ class BattleDisplay {
             case 'Priest':
                 text("Heal", rect2X, rect2Y, buttonWidth, buttonHeight);
                 break;
+            case 'Dino':
+                text("Bite", rect2X, rect2Y, buttonWidth, buttonHeight);
+            break;
         }
         text("Buff", rect3X, rect3Y, buttonWidth, buttonHeight, BUTTON_ROUNDING);
         text("Bag", rect4X, rect4Y, buttonWidth, buttonHeight, BUTTON_ROUNDING);

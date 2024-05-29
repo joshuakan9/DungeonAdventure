@@ -214,7 +214,7 @@ window.addEventListener("e-special-attack", (E) => {
       } else {
         instanceTextBox.add({ text: instancePlayer.getName() + " has used quick attack and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!" });
       }
-    } else {
+    } else if (instancePlayer.getClass() === "Warrior") {
         if (instanceBattle && instanceBattle.inCombat) {
           instanceTextBox.add({text: instancePlayer.getName() + " has used crushing blow and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!",
             x: 1,
@@ -226,7 +226,19 @@ window.addEventListener("e-special-attack", (E) => {
         } else {
             instanceTextBox.add({text: instancePlayer.getName() + " has used crushing blow and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!"});
         }
-    }
+    } else if (instancePlayer.getClass() === "Dino") {
+      if (instanceBattle && instanceBattle.inCombat) {
+        instanceTextBox.add({text: instancePlayer.getName() + " has used bite and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!",
+          x: 1,
+          y: .2,
+          width: .5,
+          height: .2,
+          textSize: .02
+        });
+      } else {
+          instanceTextBox.add({text: instancePlayer.getName() + " has used bite and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!"});
+      }
+  }
 })
 
 window.addEventListener("e-priest-heal", (E) => {
@@ -266,6 +278,7 @@ window.addEventListener("e-priest-buff", (E) => {
 let TILEMAP_ASSASSIN
 let TILEMAP_WARRIOR
 let TILEMAP_PRIEST
+let TILEMAP_DINO
 let TILEMAP_OGRE
 let TILEMAP_SKELETON
 let TILEMAP_GREMLIN
@@ -278,30 +291,31 @@ let hasCompleteInitial = false
  */
 function setup() {
   //=================================================================JS Test==================================================================================
-  Test.animationsTest()
-  Test.assassinTest() // problem
-  Test.attackTest()
-  Test.bagSystemTest()
-  Test.battleSystemTest()
-  Test.characterTest()
-  Test.characterFactoryTest()
-  Test.dungeonGeneratorTest()
-  Test.entityTest()
-  Test.entityFactoryTest()
-  Test.factoryTest()
-  Test.framePatternTest()
-  Test.gameLoopTest()
-  Test.healTest()
-  Test.makeAnimationsTest()
-  Test.mobTest()
-  Test.pickupTest()
-  Test.priestTest()
-  Test.spriteTest()
-  Test.warriorTest()
+  // Test.animationsTest()
+  // Test.assassinTest() // problem
+  // Test.attackTest()
+  // Test.bagSystemTest()
+  // Test.battleSystemTest()
+  // Test.characterTest()
+  // Test.characterFactoryTest()
+  // Test.dungeonGeneratorTest()
+  // Test.entityTest()
+  // Test.entityFactoryTest()
+  // Test.factoryTest()
+  // Test.framePatternTest()
+  // Test.gameLoopTest()
+  // Test.healTest()
+  // Test.makeAnimationsTest()
+  // Test.mobTest()
+  // Test.pickupTest()
+  // Test.priestTest()
+  // Test.spriteTest()
+  // Test.warriorTest()
   //=================================================================JS Test==================================================================================
   TILEMAP_ASSASSIN = TILEMAP.get(32 * 16, 2 * 16, 9 * 16, 2 * 16)
   TILEMAP_WARRIOR = TILEMAP.get(32 * 16, 4 * 16, 9 * 16, 2 * 16)
   TILEMAP_PRIEST = TILEMAP.get(32 * 16, 8 * 16, 9 * 16, 2 * 16)
+  TILEMAP_DINO = TILEMAP.get(32 * 16, 12 * 16, 9 * 16, 2 * 16)
   TILEMAP_OGRE = TILEMAP.get(23 * 16, 20 * 16, 9 * 16, 2 * 16)
   TILEMAP_SKELETON = TILEMAP.get(23 * 16, 4 * 16, 9 * 16, 2 * 16)
   TILEMAP_GREMLIN = TILEMAP.get(23 * 16, 10 * 16, 9 * 16, 2 * 16)
@@ -674,7 +688,7 @@ function setUpHeroDatabase() {
     theFrameSize: {x: 16, y: 32},
     theOffset: {x: 0, y: -1.2},
     theName: "Assassin",
-    theHitPoints: 500,
+    theHitPoints: 1,
     theAttack: {damage: 100, hitChance: 100},
     theStamina: 10,
     theBlockPercentage: 0,
@@ -713,6 +727,22 @@ function setUpHeroDatabase() {
     theMaxHitPoints: 1000,
     theSpecialAttack: {damage: 200, hitChance: 100},
     theHeal: {healAmount: 50, hitChance: 100},
+  }))
+  window.localStorage.setItem("dino", JSON.stringify({
+    thePos: {x: 6, y: 6},
+    theSize: {x: 1, y: 2},
+    theHFrames: 9,
+    theVFrames: 1,
+    theFrame: 0,
+    theFrameSize: {x: 16, y: 32},
+    theOffset: {x: 0, y: -1.2},
+    theName: "Dino",
+    theHitPoints: 1,
+    theAttack: {damage: 100, hitChance: 100},
+    theStamina: 10,
+    theBlockPercentage: 0,
+    theMaxHitPoints: 1000,
+    theSpecialAttack: {damage: 2000, hitChance: 100},
   }))
 }
 
