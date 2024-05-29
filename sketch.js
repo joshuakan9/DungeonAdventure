@@ -457,7 +457,7 @@ function newGame() {
         if (!instancePlayer.getIsFrozen() && !VMainMenu.getIsPaused()) {
 
           let distance = moveTowards(instancePlayer, instancePlayer.getTargetPos(), 1 / 25)
-          if (distance <= 0.01) {
+          if (distance <= 0.025 * M) {
             tryMove()
           }
           if (!VPauseMenu.getIsPaused()) {
