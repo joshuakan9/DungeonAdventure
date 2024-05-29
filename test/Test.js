@@ -179,7 +179,73 @@ class Test {
         chai.assert.isNull(invalidTester, "createCharacter('invalid') should return null");
     }
   static dungeonGeneratorTest() {
-    
+      let dungeonGeneratorTester = new DungeonGenerator();
+
+      chai.assert.isNumber(dungeonGeneratorTester.myRows, "myRows should be a number");
+      chai.assert.isNumber(dungeonGeneratorTester.myCols, "myCols should be a number");
+      chai.assert.isArray(dungeonGeneratorTester.myDungeon, "myDungeon should be an array");
+      chai.assert.isArray(dungeonGeneratorTester.myDungeonFinal, "myDungeonFinal should be an array");
+      chai.assert.isNumber(dungeonGeneratorTester.myTotalMobCount, "myTotalMobCount should be a number");
+
+      let roomTester = new Room ([
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□'],
+          ['□','□','□','□','□','□','□']
+      ]);
+
+      chai.assert.isArray(roomTester.myTileMap, "myTileMap should be an array");
+      chai.assert.isArray(roomTester.myTileMap[0], "myTileMap should be a 2D array");
+      chai.assert.equal(roomTester.myTileMap.length, 7, "myTileMap should have 3 rows");
+      chai.assert.equal(roomTester.myTileMap[0].length, 7, "myTileMap should have 3 columns");
+
+      let tileMap = roomTester.getTileMap();
+      chai.assert.isArray(tileMap, "getTileMap should return an array");
+      chai.assert.isArray(tileMap[0], "getTileMap should return a 2D array");
+      chai.assert.equal(tileMap.length, 7, "getTileMap should return an array with 3 rows");
+      chai.assert.equal(tileMap[0].length, 7, "getTileMap should return an array with 3 columns");
+
+      chai.assert.deepEqual(roomTester.getEntityMap(), [
+          ['□','□','□','□','□','□','□'],
+          ['□','X','X','□','X','X','□'],
+          ['□','X','X','□','X','X','□'],
+          ['□','□','□','X','□','□','□'],
+          ['□','X','X','□','X','X','□'],
+          ['□','X','X','□','X','X','□'],
+          ['□','□','□','□','□','□','□']
+      ], "getEntityMap should return the entity map");
+
+      chai.assert.deepEqual(roomTester.myDoorLocations, [
+          [0, 3], [6, 3], [3, 6], [3, 0]
+          ], "myDoorLocations should return the proper door locations");
+
+      roomTester.setLeftDoor()
+      roomTester.setRightDoor()
+      roomTester.setNorthDoor()
+      roomTester.setSouthDoor()
+      roomTester.createDoors()
+      chai.assert.deepEqual(roomTester.myTileMap, [
+          ['⌜','‾','‾','▲','‾','‾','⌝'],
+          ['||','□','□','□','□','□','|'],
+          ['||','□','□','□','□','□','|'],
+          ['◀','□','□','□','□','□','▶'],
+          ['||','□','□','□','□','□','|'],
+          ['||','□','□','□','□','□','|'],
+          ['⌞','_','_','▼','_','_','⌟']
+      ], "myTileMap should return the proper tile map");
+
+      let mobCount = roomTester.getMobCount();
+      chai.assert.isNumber(mobCount, "getMobCount should return a number");
+
+      chai.assert.deepEqual(roomTester.getNorthTeleportLocation(), [1, 3], "getNorthTeleportLocation should return the north teleport location");
+      chai.assert.deepEqual(roomTester.getSouthTeleportLocation(), [5, 3], "getSouthTeleportLocation should return the south teleport location");
+      chai.assert.deepEqual(roomTester.getEastTeleportLocation(), [3, 5], "getEastTeleportLocation should return the east teleport location");
+      chai.assert.deepEqual(roomTester.getWestTeleportLocation(), [3, 1], "getWestTeleportLocation should return the west teleport location");
+
+
   }
 
     static entityTest() {
