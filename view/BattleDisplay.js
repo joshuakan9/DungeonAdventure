@@ -95,8 +95,31 @@ const HP_BAR_BG_SCALE = 4;
 const HP_BAR_BG_HEIGHT_SCALE = 1.90;
 
 /**
+ * The height scale of the numbers of the health and stamina bar Y.
+ * @constant
+ */
+const HP_NUMBER_HEIGHT_NUM_SCALE = 1.85;
+
+/**
+ * The height scale of the numbers of the health bar X.
+ * @constant
+ */
+const HP_PLAYER_NUMBER_WIDTH_NUM_SCALE = 4.7;
+
+/**
+ * The height scale of the numbers of the health bar X.
+ * @constant
+ */
+const HP_MOB_NUMBER_WIDTH_NUM_SCALE = 11.3;
+/**
+ * The height scale of the numbers of the stamina bar X.
+ */
+
+const STAMINA_MOB_NUMBER_WIDTH_NUM_SCALE = 5.3;
+/**
  * Class representing a BattleDisplay.
  */
+
 class BattleDisplay {
     /**
      * Create a BattleDisplay.
@@ -322,13 +345,13 @@ class BattleDisplay {
         fill('white');
 
         // Player's health
-        text(this.myBattleSystem.player.myHitPoints + ' / ' + this.playerMaxHealth, width / 4.7, height - height / 1.825);
+        text(this.myBattleSystem.player.myHitPoints + ' / ' + this.playerMaxHealth, width / HP_PLAYER_NUMBER_WIDTH_NUM_SCALE, height - height / HP_NUMBER_HEIGHT_NUM_SCALE);
 
         // Mob's health
-        text(this.myBattleSystem.mob.myHitPoints + ' / ' + this.mobInitialHealth, width - width / 11.3, height - height / 1.825);
+        text(this.myBattleSystem.mob.myHitPoints + ' / ' + this.mobInitialHealth, width - width / HP_MOB_NUMBER_WIDTH_NUM_SCALE, height - height / HP_NUMBER_HEIGHT_NUM_SCALE);
 
         // Stamina numbers
-        text(this.myBattleSystem.stamina + ' / ' + this.playerInitialStamina, width / 5.3, height - height / 2);
+        text(this.myBattleSystem.stamina + ' / ' + this.playerInitialStamina, width / STAMINA_MOB_NUMBER_WIDTH_NUM_SCALE, height - height / 2);
         pop()
     }
 
