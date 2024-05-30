@@ -313,9 +313,9 @@ class BattleDisplay {
         let barWidth = width / DISPLAY_SCALE; // Width of the bars
         let barHeight = BAR_SCALE; // Height of the bars
 
-        let playerHealthPercentage = this.myBattleSystem.player.myHitPoints / this.playerMaxHealth;
+        let playerHealthPercentage = this.myBattleSystem.player.getHitPoints() / this.playerMaxHealth;
         let playerHealthBarWidth = barWidth * playerHealthPercentage;
-        let mobHealthPercentage = this.myBattleSystem.mob.myHitPoints / this.mobInitialHealth;
+        let mobHealthPercentage = this.myBattleSystem.mob.getHitPoints() / this.mobInitialHealth;
         let mobHealthBarWidth = barWidth * mobHealthPercentage;
         let playerStaminaPercentage = this.myBattleSystem.stamina / this.playerInitialStamina;
         let playerStaminaBarWidth = barWidth * playerStaminaPercentage;
@@ -323,14 +323,18 @@ class BattleDisplay {
         // Draw player's health bar
         fill('red');
         rect(width / BAR_SCALE, height - height / HP_BAR_SCALE, barWidth, barHeight, BUTTON_ROUNDING); // Draw the background of the health bar
-        fill('green');
-        rect(width / HP_BAR_BG_SCALE - playerHealthBarWidth, height - height / HP_BAR_SCALE, playerHealthBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
+        if(this.myBattleSystem.player.getHitPoints() > -1) {
+            fill('green');
+            rect(width / HP_BAR_BG_SCALE - playerHealthBarWidth, height - height / HP_BAR_SCALE, playerHealthBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
+        }
 
         // Draw mob's health bar
         fill('red');
         rect(width - width / HP_BAR_BG_SCALE, height - height / HP_BAR_SCALE, barWidth, barHeight, BUTTON_ROUNDING); // Draw the background of the health bar
-        fill('green');
-        rect(width - width / BAR_SCALE - mobHealthBarWidth, height - height / HP_BAR_SCALE, mobHealthBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
+        if(this.myBattleSystem.mob.getHitPoints() > -1) {
+            fill('green');
+            rect(width - width / BAR_SCALE - mobHealthBarWidth, height - height / HP_BAR_SCALE, mobHealthBarWidth, barHeight, BUTTON_ROUNDING); // Draw the actual health bar
+        }
 
         // // Stamina bar
         fill('red');
