@@ -392,7 +392,7 @@ class BattleDisplay {
             }),
         })
         this.mobClone = new mobConst ({
-            thePos: createVector((12.5), (8)),
+            thePos: createVector((13.5), (8)),
             theSize: createVector(2, 4),
             theImage: this.myBattleSystem.mob.myImage,
             theHFrames: 9,

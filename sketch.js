@@ -161,7 +161,7 @@ window.addEventListener("e-player-battle-win", (E) => {
   instanceTextBox.add({ text: "You have slain the " + E['detail'].getName() + "!" })
 });
 window.addEventListener("e-player-block", (E) => {
-  instanceTextBox.add({ text: instancePlayer.getName() + " has blocked " + E['detail'].getName() + "'s attack for " + E['detail'].getAttack().getDamage() + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: instancePlayer.getName() + " has blocked " + E['detail'].getName() + "'s attack for " + E['detail'].getAttack().getDamage() + " damage!", x: 1, y: .2, width: 0, height: .2, textSize: .02 });
 });
 window.addEventListener("e-bag", (E) => {
   instanceBagDisplay.setIsPaused()
@@ -173,7 +173,7 @@ window.addEventListener("e-player-use-health-potion", (E) => {
       text: instancePlayer.getName() + " has used a potion and has healed for " + E.detail + " health!",
       x: 1,
       y: .2,
-      width: .5,
+      width: 0,
       height: .2,
       textSize: .02
     });
@@ -183,7 +183,7 @@ window.addEventListener("e-player-use-health-potion", (E) => {
 });
 
 window.addEventListener("e-miss-attack", (E) => {
-  instanceTextBox.add({ text: E['detail'].getName() + " has missed!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: E['detail'].getName() + " has missed!", x: 1, y: .2, width: 0, height: .2, textSize: .02 });
 });
 window.addEventListener("e-attack", (E) => {
   let damage = 0;
@@ -194,10 +194,7 @@ window.addEventListener("e-attack", (E) => {
   }
 
   if (instanceBattle && instanceBattle.inCombat) {
-    instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
-    console.log("fdhlksf;hasj")
-  } else {
-    instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!" , x: 1, y: .2, width: 1, height: .2, textSize: .02 });
+    instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!" , x: 1, y: .2, width: 0, height: .2, textSize: .02 });
     console.log("working")
   }
 });
@@ -244,12 +241,12 @@ window.addEventListener("e-special-attack", (E) => {
 })
 
 window.addEventListener("e-priest-heal", (E) => {
-    instanceTextBox.add({ text: E.detail.player.getName() + " has healed for " + E.detail.healAmount + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02});
+    instanceTextBox.add({ text: E.detail.player.getName() + " has healed for " + E.detail.healAmount + " health!", x: 1, y: .2, width: 0, height: .2, textSize: .02});
 })
 
 window.addEventListener("e-mob-heal", (E) => {
   console.log("mob heal event")
-  instanceTextBox.add({ text: E['detail'].getName() + " has healed for " + E.detail.getHeal().getHealAmount() + " health!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: E['detail'].getName() + " has healed for " + E.detail.getHeal().getHealAmount() + " health!", x: 1, y: .2, width: 0, height: .2, textSize: .02 });
 })
 
 window.addEventListener("e-player-already-full-health", (E) => {
@@ -504,11 +501,11 @@ function newGame() {
         VMainMenu.draw()
 
 //=======================================================================================================================
-        if (instanceBattle && (instanceBattle.inCombat || !instanceTextBox.isEmpty())) {
-          instanceBattleDisplay.displayBattle()
+        if (instanceBattle && instanceBattle.inCombat) {
+            instanceBattleDisplay.displayBattle();
         }
         if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
-          instanceBagDisplay.draw(instancePlayer)
+          instanceBagDisplay.draw(instancePlayer);
         }
         if (instanceTextBox && !instanceTextBox.isEmpty()) {
           instanceTextBox.renderTextBox();

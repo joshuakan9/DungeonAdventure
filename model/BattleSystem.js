@@ -126,7 +126,9 @@ class BattleSystem {
                 if (this.mob.getHitPoints() <= 0) {
                     this.inCombat = false;
                 }
-
+                if (this.player.getHitPoints() <= 0) {
+                    this.inCombat = false;
+                }
                 window.dispatchEvent(new CustomEvent("e-special-attack"))
 
                 let mobHealPercentage = this.mob.getHeal().getHealPercentage();
@@ -168,6 +170,7 @@ class BattleSystem {
                 let basicOrSpecial = random(0, 100);
                 if (basicOrSpecial < 75) {
                     this.player.setHitPoints(this.player.getHitPoints() - mobBasicDamage);
+                    
                     console.log("player hit by basic");
                     window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "basic" }}))
                 } else {
