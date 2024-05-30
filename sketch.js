@@ -300,7 +300,7 @@ function setup() {
   // Test.battleSystemTest()
   // Test.characterTest()
   // Test.characterFactoryTest()
-  // Test.dungeonGeneratorTest()
+  Test.dungeonGeneratorTest()
   // Test.entityTest()
   // Test.entityFactoryTest()
   // Test.factoryTest()

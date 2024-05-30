@@ -221,9 +221,25 @@ class Test {
       chai.assert.isNumber(totalMobCount, "getTotalMobCount should return a number");
       chai.assert.equal(totalMobCount, dungeonGeneratorTester.myTotalMobCount, "getTotalMobCount should return the same value as myTotalMobCount");
 
+      // Test starting room in convert() method
+      // Test that doors are generated for the starting room
+      let startingRoom = dungeonGeneratorTester.myDungeonFinal[3][3];
+      chai.assert(startingRoom.myNorthDoor || startingRoom.mySouthDoor || startingRoom.myRightDoor || startingRoom.myLeftDoor, 'Starting room should have a door')
+      chai.assert.equal(startingRoom.myEntityMap[3][3].getName(), "Health Potion", "Starting room should contain a health potion");
+      chai.assert.equal(startingRoom.myEntityMap[3][9].getName(), "Health Potion", "Starting room should contain a health potion");
+      chai.assert.equal(startingRoom.myEntityMap[9][3].getName(), "Health Potion", "Starting room should contain a health potion");
+      chai.assert.equal(startingRoom.myEntityMap[9][9].getName(), "Health Potion", "Starting room should contain a health potion");
+      chai.assert.equal(startingRoom.myEntityMap[6][6].getName(), "Exit", "Starting room should contain an exit");
+
+      chai.assert.isTrue(dungeonGeneratorTester.isWithinBounds(0, 0), "isWithinBounds should return true for 0, 0");
+      chai.assert.isTrue(dungeonGeneratorTester.isWithinBounds(6, 6), "isWithinBounds should return true for 6, 6");
+      chai.assert.isFalse(dungeonGeneratorTester.isWithinBounds(-1, 0), "isWithinBounds should return false for -1, 0");
+      chai.assert.isFalse(dungeonGeneratorTester.isWithinBounds(0, -1), "isWithinBounds should return false for 0, -1");
+
+      chai.assert.isTrue(dungeonGeneratorTester.hasNoValidDirection(3,3), "hasNoValidDirection should return true for 3,3");
 
 
-      // ROOM TESTS HERE+++++++++++++++++++++++++++++++++
+          // ROOM TESTS HERE+++++++++++++++++++++++++++++++++
 
       let roomTester = new Room ([
           ['□','□','□','□','□','□','□'],
