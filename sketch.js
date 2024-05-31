@@ -62,7 +62,7 @@ let pillarDrop = {
 
 window.addEventListener("e-battle-start", (E) => {
 
-  instanceTextBox.add({ text: E['detail'].getName() + " battle", x: 1, y: .2, width: .5, height: .2, textSize: .02 })
+  instanceTextBox.add({ text: E['detail'].getName() + " battle", x: 1, y: .2, width: 0, height: .2, textSize: .02 })
 
   let initialMobCount = instanceFactory.getInitialMobCount();
   let currentMobCount = instanceFactory.getMobCount();
@@ -531,10 +531,10 @@ function windowResized() {
  * Function to handle mouse click events
  */
 function mouseClicked() {
-  instanceTextBox.nextText();
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
     instanceBattle.mouseClicked()
   }
+  instanceTextBox.nextText();
   VPauseMenu.mouseClicked()
   VMainMenu.mouseClicked()
   if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
