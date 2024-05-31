@@ -476,11 +476,6 @@ function newGame() {
         push()
 
         translate(round(width / 2 - getCellToPos(instancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(instancePlayer.getPos().y) - CELLSIZE / 2));
-        // drawGridDebug()
-
-        // instanceFactory.drawDungeon(instancePlayer)
-        // instanceFactory.drawOverworld(instancePlayer)
-
 
         instanceFactory.drawDungeon(instancePlayer)
         instanceFactory.draw(instancePlayer)
@@ -569,22 +564,6 @@ function keyPressed() {
   //text, x, y, width, height, textSize
 }
 
-/**
- * Function to draw a debug grid
- */
-function drawGridDebug() {
-
-  push()
-  fill(255)
-  strokeWeight(width / 500)
-  for (let a = 0; a < cellNumber; a += 1) {
-
-    for (let b = 0; b < cellNumber; b += 1) {
-      rect(getCellToPos(b), getCellToPos(a), CELLSIZE)
-    }
-  }
-  pop()
-}
 
 /**
  * Function to convert cell index to position
