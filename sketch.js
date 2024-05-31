@@ -540,7 +540,7 @@ function mouseClicked() {
   if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
     instanceBagDisplay.mouseClicked()
   }
-  if (instanceBagSystem && instanceTextBox.isEmpty()) {
+  if (instanceBagSystem && instanceTextBox.isEmpty() && instanceBagDisplay.getIsPaused()) {
     instanceBagSystem.mouseClicked()
   }
 }
