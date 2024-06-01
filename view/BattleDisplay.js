@@ -23,6 +23,12 @@ const WALL_AMT = 2;
 const BUTTON_WIDTH_SCALE = 4.1;
 
 /**
+ * The scale of the display.
+ * @constant
+ */
+const TEXT_SCALE = 50;
+
+/**
  * The height scale of the buttons.
  * @constant
  */
@@ -75,6 +81,12 @@ const MOUSE_ON_TRANSPARENCY = 100;
  * @constant
  */
 const BAR_SCALE = 20;
+
+/**
+ * The height scale of the information bars.
+ * @constant
+ */
+const HEIGHT_BAR_SCALE = 50;
 
 /**
  * The scale of the health bar.
@@ -131,18 +143,17 @@ class BattleDisplay {
         this.mobInitialHealth = this.myBattleSystem.mob.myHitPoints;
         this.playerInitialStamina = this.myBattleSystem.player.myStamina;
         this.createClones();
-   
         this.randomIndexes = [];
         for (let i = 0; i < DISPLAY_SCALE; i++) {
             this.randomIndexes.push(Math.floor(Math.random() * 5))
         }
+        window.dispatchEvent(new Event("e-transition"))
     }
 
     /**
      * Display the battle.
      */
     displayBattle(){
-        //window.dispatchEvent(new Event("e-transition"))
         push()
         fill('black')
         rect(0, 0, width, height)
@@ -220,7 +231,7 @@ class BattleDisplay {
      */
     drawButtons() {
         push()
-
+        textSize(width / TEXT_SCALE)
         //Button Size
         const buttonWidth = width/BUTTON_WIDTH_SCALE;
         const buttonHeight = height/BUTTON_HEIGHT_SCALE;
@@ -311,7 +322,7 @@ class BattleDisplay {
         push()
         // Health bar
         let barWidth = width / DISPLAY_SCALE; // Width of the bars
-        let barHeight = BAR_SCALE; // Height of the bars
+        let barHeight = height / HEIGHT_BAR_SCALE; // Height of the bars
 
         let playerHealthPercentage = this.myBattleSystem.player.getHitPoints() / this.playerMaxHealth;
         let playerHealthBarWidth = barWidth * playerHealthPercentage;
@@ -350,9 +361,9 @@ class BattleDisplay {
     drawHealthStaminaNumbers() {
         push()
         textAlign(RIGHT, CENTER);
+        textSize(width / TEXT_SCALE)
         strokeWeight(5);
         fill('white');
-
         // Player's health
         text(this.myBattleSystem.player.myHitPoints + ' / ' + this.playerMaxHealth, width / HP_PLAYER_NUMBER_WIDTH_NUM_SCALE, height - height / HP_NUMBER_HEIGHT_NUM_SCALE);
 
