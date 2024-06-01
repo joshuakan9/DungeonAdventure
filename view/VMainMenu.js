@@ -5,6 +5,7 @@
  */
 class VMainMenu {
     static myCurrentScreen = 'main';
+    static myLastHover = null
 
     /**
      * Handles mouse click events.
@@ -23,7 +24,7 @@ class VMainMenu {
                 mouseY <= height * 0.6
                 
             ) {
-                
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'character'
                 return
             }
@@ -34,6 +35,7 @@ class VMainMenu {
                 mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
                 mouseY <= height * 0.6 + 1 * height / 15
             ) {
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'load'
             }
         } else if (this.myCurrentScreen == 'load') {
@@ -43,6 +45,7 @@ class VMainMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 loadGame(0)
                 this.myCurrentScreen = 'none'
                 console.log('save 1')
@@ -54,6 +57,7 @@ class VMainMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 loadGame(1)
                 this.myCurrentScreen = 'none'
                 console.log('save 2')
@@ -65,6 +69,7 @@ class VMainMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 loadGame(2)
                 this.myCurrentScreen = 'none'
                 console.log('save 3')
@@ -77,6 +82,7 @@ class VMainMenu {
                 mouseY >= height * 0.6 - textHeight &&
                 mouseY <= height * 0.6
             ) {
+                Sound.play("S-button-clicked")
                 newGame()
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('assassin')}))
                 this.myCurrentScreen = 'none'
@@ -89,6 +95,7 @@ class VMainMenu {
                 mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
                 mouseY <= height * 0.6 + 1 * height / 15
             ) {
+                Sound.play("S-button-clicked")
                 newGame()
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('warrior')}))
                 this.myCurrentScreen = 'none'
@@ -100,6 +107,7 @@ class VMainMenu {
                 mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
                 mouseY <= height * 0.6 + 2 * height / 15
             ) {
+                Sound.play("S-button-clicked")
                 newGame()
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('priest')}))
                 this.myCurrentScreen = 'none'
@@ -111,7 +119,7 @@ class VMainMenu {
                 mouseY >= height * 0.6 + 3 * height / 15 - textHeight &&
                 mouseY <= height * 0.6 + 3 * height / 15 
             ) {
-
+                Sound.play("S-button-clicked")
                 newGame()
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('dino')}))
                 this.myCurrentScreen = 'none'
@@ -125,6 +133,7 @@ class VMainMenu {
                 mouseY >= height * 0.6 + 4 * height / 15 - textHeight &&
                 mouseY <= height * 0.6 + 4 * height / 15 
             ) {
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'main'
             }
         }
@@ -307,6 +316,7 @@ class VMainMenu {
             mouseY >= height * 0.6 - textHeight &&
             mouseY <= height * 0.6 
         ) {
+
             fill(239,255,255)
         }
         text("New Game", 0, 0)
@@ -318,6 +328,7 @@ class VMainMenu {
             mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 1 * height / 15
         ) {
+
             fill(239,255,255)
         }
         text("Load Game", 0, height / 15)
@@ -463,6 +474,7 @@ class VMainMenu {
             mouseY >= height * 0.6 + 4 * height / 15 - width / 30 &&
             mouseY <= height * 0.6 + 4 * height / 15 
         ) {
+
             fill(239,255,255)
         }
         text("Return to Main Menu", 0, 4 * height / 15)

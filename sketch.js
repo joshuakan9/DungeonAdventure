@@ -32,7 +32,7 @@ function preload() {
   WALL3_IMG = loadImage('./assets/images/backgroundLThree.png')
   WALL4_IMG = loadImage('./assets/images/backgroundLFour.png')
   WALL5_IMG = loadImage('./assets/images/backgroundLFive.png')
-
+  Sound.setup()
   if (!window.localStorage.getItem("save")) {
     window.localStorage.setItem("save", JSON.stringify([]))
   }

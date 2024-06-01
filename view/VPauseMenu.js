@@ -24,6 +24,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.0 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2
             ) {
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'none'
             }
 
@@ -34,7 +35,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.4 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.6
             ) {
-                console.log('load')
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'load'
 
             }
@@ -46,7 +47,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.6 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.8
             ) {
-                console.log('save')
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'save'
 
             }
@@ -57,6 +58,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0
             ) {
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'none'
                 VMainMenu.setMainMenu()
             }
@@ -68,6 +70,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(0)
                 } else {
@@ -83,6 +86,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(1)
                 } else {
@@ -98,6 +102,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(2)
                 } else {
