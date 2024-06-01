@@ -54,6 +54,8 @@ let instanceTextBox = new TextBox();
 let instanceBattleDisplay = null
 let instanceBagSystem = null
 let instanceBagDisplay = null
+let instanceVictoryDisplay = null;
+let instanceDefeatDisplay = null;
 
 let pillarDrop = {
   boolean: false,
@@ -153,7 +155,7 @@ window.addEventListener("e-game-over-victory", (E) => {
     instancePlayer = CharacterFactory.createCharacter("priest");
     instanceBagSystem = new BagSystem(instancePlayer);
     instanceBagDisplay = new BagDisplay(instancePlayer);
-    VictoryDisplay.isRunning = true;
+    instanceVictoryDisplay.isRunning = true;
     VMainMenu.setMainMenu();
   }
 })
@@ -162,7 +164,7 @@ window.addEventListener("e-player-die", (E) => {
   instancePlayer = CharacterFactory.createCharacter("priest");
   instanceBagSystem = new BagSystem(instancePlayer);
   instanceBagDisplay = new BagDisplay(instancePlayer);
-  DefeatDisplay.isRunning = true;
+  instanceDefeatDisplay.isRunning = true;
   VMainMenu.setMainMenu();
 });
 
@@ -272,7 +274,7 @@ window.addEventListener("e-not-enough-stamina", (E) => {
 })
 
 window.addEventListener("e-assassin-buff", (E) => {
-  instanceTextBox.add({ text: "You have used buff and increased your basic attack damage by 5 and your special attack damage by 10!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: "You have used buff and increased your basic attack damage by 5 and your special attack damage by 10!", x: 1, y: .2, width: 0, height: .2, textSize: .02 });
 })
 
 window.addEventListener("e-warrior-buff", (E) => {
@@ -375,6 +377,12 @@ function newGame() {
   if (!instanceGameLoop) {
     instanceGameLoop = new GameLoop();
   }
+  if (!instanceVictoryDisplay) {
+    instanceVictoryDisplay = new VictoryDisplay();
+  }
+  if (!instanceDefeatDisplay) {
+    instanceDefeatDisplay = new DefeatDisplay();
+  }
   if (instanceGameLoop) {
     instanceGameLoop.stop()
   }
@@ -475,6 +483,13 @@ function newGame() {
           instanceTextBox.tickTextBox(time);
         }
 
+        if (instanceVictoryDisplay.isRunning) {
+          instanceVictoryDisplay.characterRendering(time);
+        }
+        if(instanceDefeatDisplay.isRunning) {
+          instanceDefeatDisplay.characterRendering(time);
+        }
+
 
 
 
@@ -520,8 +535,12 @@ function newGame() {
         VPauseMenu.draw();
         VMainMenu.draw();
 
-        if(VictoryDisplay.isRunning)VictoryDisplay.draw();
-        if(DefeatDisplay.isRunning)DefeatDisplay.draw();
+        if(instanceVictoryDisplay.isRunning) {
+          instanceVictoryDisplay.draw();
+        }
+        if(instanceDefeatDisplay.isRunning) {
+          instanceDefeatDisplay.draw();
+        }
 
 //=======================================================================================================================
         if (instanceBattle && instanceBattle.inCombat) {
@@ -559,9 +578,9 @@ function mouseClicked() {
     instanceBattle.mouseClicked();
   }
   if (instanceTextBox.isEmpty()) {
-    DefeatDisplay.mouseClicked();
+    instanceDefeatDisplay.mouseClicked();
   }
-  VictoryDisplay.mouseClicked();
+  instanceVictoryDisplay.mouseClicked();
   instanceTextBox.nextText();
   VPauseMenu.mouseClicked();
   VMainMenu.mouseClicked();
