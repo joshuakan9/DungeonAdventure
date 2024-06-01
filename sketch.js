@@ -284,7 +284,7 @@ let TILEMAP_GREMLIN
 let TILEMAP_POTION_HEALTH
 let TILEMAP_EXIT
 let hasCompleteInitial = false
-
+let IMG_NOISE
 /**
  * Setup function to initialize the game
  */
@@ -333,9 +333,12 @@ function setup() {
   M = CELLSIZE / 16
   textFont(FONT['REGULAR'])
 
+
   setUpMonsterDatabase()
   setUpHeroDatabase()
   setUpPickUpDatabase()
+
+  
 
   if (!hasCompleteInitial) {
     newGame()
@@ -471,6 +474,7 @@ function newGame() {
   instanceGameLoop.setRenderFunction(
       () => {
         background(0);
+
         noCursor()
 
         push()
@@ -797,6 +801,7 @@ function loadGame(theSlot) {
 
     instanceFactory.load(save["factory"])
     instanceBagSystem.setPlayer(instancePlayer)
+    instanceBagDisplay = new BagDisplay(instancePlayer)
 
     return true
   }
