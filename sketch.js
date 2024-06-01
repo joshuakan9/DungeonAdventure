@@ -153,18 +153,12 @@ window.addEventListener("e-player-unfreeze", (E) => {
 
 window.addEventListener("e-game-over-victory", (E) => {
   if (instancePlayer.hasPillars()) {
-    instancePlayer = CharacterFactory.createCharacter("priest");
-    instanceBagSystem = new BagSystem(instancePlayer);
-    instanceBagDisplay = new BagDisplay(instancePlayer);
     instanceVictoryDisplay.isRunning = true;
     VMainMenu.setMainMenu();
   }
 })
 
 window.addEventListener("e-player-die", (E) => {
-  instancePlayer = CharacterFactory.createCharacter("priest");
-  instanceBagSystem = new BagSystem(instancePlayer);
-  instanceBagDisplay = new BagDisplay(instancePlayer);
   instanceDefeatDisplay.isRunning = true;
   VMainMenu.setMainMenu();
 });
@@ -373,6 +367,10 @@ function setup() {
  * Function to start a new game
  */
 function newGame() {
+  instancePlayer = null;
+  instanceBagSystem = null
+  instanceBagDisplay = null
+
   randomSeed(new Date().getTime())
 
   if (!instanceGameLoop) {
@@ -399,6 +397,8 @@ function newGame() {
   //   // instancePlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
   //   // instancePlayer.addBag(EntityFactory.createEntity("pillar of encapsulation"));
   }
+
+
   //
   // console.log(instanceFactory)
   //
