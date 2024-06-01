@@ -609,7 +609,7 @@ function keyPressed() {
     if (keyCode === 32) { // space keyba
       instanceTextBox.nextText();
     }
-    if (!instancePlayer.getIsFrozen()) {
+    if (!instancePlayer.getIsFrozen() && !VMainMenu.getIsPaused()) {
       if (keyCode === 32) { // space keyba
         if (instancePlayer.getHitPoints() > 0) {
           instanceFactory.interact(instancePlayer)
@@ -619,10 +619,11 @@ function keyPressed() {
         VPauseMenu.keyPressed()
 
       }
+      if (instanceBagDisplay && VPauseMenu.getIsPaused() === false) {
+        instanceBagDisplay.keyPressed()
+      }
     }
-    if (instanceBagDisplay && VPauseMenu.getIsPaused() === false) {
-      instanceBagDisplay.keyPressed()
-    }
+
     //text, x, y, width, height, textSize
   }
 }
