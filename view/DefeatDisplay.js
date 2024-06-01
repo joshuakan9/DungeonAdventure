@@ -1,9 +1,23 @@
+const DD_GREMLIN_VECTOR_X = 5.5;
+const DD_OGRE_VECTOR_X = 7.5;
+const DD_SKELETON_VECTOR_X = 9.5;
+const DD_VECTOR_Y = 9.5;
+
+
+const DD_SCALE_BY_TWO = 2;
+const DD_SCALE_BY_FOUR = 4;
+const DD_SCALE_BY_EIGHT = 8;
+const DD_SCALE_BY_TWENTY = 20;
+
+const DD_MAIN_TEXT_SIZE = .05;
+const DD_SMALL_TEXT_SIZE = .025;
+
 class DefeatDisplay {
     constructor() {
         this.isRunning = false;
-        this.gremlinDisplay = EntityFactory.createEntity("gremlin", createVector(5.5,9.5));
-        this.ogreDisplay = EntityFactory.createEntity("ogre", createVector(7.5,9.5));
-        this.skeletonDisplay = EntityFactory.createEntity("skeleton", createVector(9.5,9.5));
+        this.gremlinDisplay = EntityFactory.createEntity("gremlin", createVector(DD_GREMLIN_VECTOR_X, DD_VECTOR_Y));
+        this.ogreDisplay = EntityFactory.createEntity("ogre", createVector(DD_OGRE_VECTOR_X, DD_VECTOR_Y));
+        this.skeletonDisplay = EntityFactory.createEntity("skeleton", createVector(DD_SKELETON_VECTOR_X, DD_VECTOR_Y));
 
     }
 
@@ -13,10 +27,10 @@ class DefeatDisplay {
         rect(0, 0, width, height)
         fill("red")
         textAlign(CENTER, CENTER);
-        textSize(width * .05);
-        text("You Have Died...", width/2 - width/4, height/2 - height/8, width/2, height/4)
-        textSize(width * .025);
-        text("Click Screen to Main Menu", width/2 - width/4, height/2 + height/20, width/2, height/4)
+        textSize(width * DD_MAIN_TEXT_SIZE);
+        text("You Have Died...", width/DD_SCALE_BY_TWO - width/DD_SCALE_BY_FOUR, height/DD_SCALE_BY_TWO - height/DD_SCALE_BY_EIGHT, width/DD_SCALE_BY_TWO, height/4)
+        textSize(width * DD_SMALL_TEXT_SIZE);
+        text("Click Screen to Main Menu", width/DD_SCALE_BY_TWO - width/DD_SCALE_BY_FOUR, height/DD_SCALE_BY_TWO + height/DD_SCALE_BY_TWENTY, width/DD_SCALE_BY_TWO, height/DD_SCALE_BY_FOUR)
         this.gremlinDisplay.draw();
         this.ogreDisplay.draw();
         this.skeletonDisplay.draw();
