@@ -110,6 +110,17 @@ class VPauseMenu {
         }
 
     }
+    static step(theTime) {
+        if (this.myCharacterSave0) {
+            this.myCharacterSave0.step(theTime)
+        }
+        if (this.myCharacterSave1) {
+            this.myCharacterSave1.step(theTime)
+        }
+        if (this.myCharacterSave2) {
+            this.myCharacterSave2.step(theTime)
+        }
+    }
 
     /**
      * Handles key press events.
@@ -214,7 +225,7 @@ class VPauseMenu {
         }
 
 
-        if (this.myCurrentScreen == 'load') {
+        if (this.myCurrentScreen == 'load' || this.myCurrentScreen == 'save') {
             push()
             textFont(FONT["REGULAR"])
             textSize(width / 30)
@@ -266,6 +277,11 @@ class VPauseMenu {
                 textSize(width / 45)
                 text(date.toLocaleTimeString('en-US'), width * 0.19, height * 0.675 - width / 35)
                 pop()
+                if ((this.myCharacterSave0 && this.myCharacterSave0.getName().toLowerCase() != save[0]["player"]["name"]) || !this.myCharacterSave0 ) {
+                    this.myCharacterSave0 = CharacterFactory.createCharacter(save[0]["player"]["name"])
+                    this.myCharacterSave0.setPos(createVector(3.5,7.5))
+                }
+                this.myCharacterSave0.draw()
             }
             if (save[1] && save[1]["data"]) {
                 let date = new Date(save[1]["data"]['timestamp'])
@@ -275,6 +291,11 @@ class VPauseMenu {
                 textSize(width / 45)
                 text(date.toLocaleTimeString('en-US'), width * 0.44, height * 0.675 - width / 35)
                 pop()
+                if ((this.myCharacterSave1 && this.myCharacterSave1.getName().toLowerCase() != save[1]["player"]["name"]) || !this.myCharacterSave1) {
+                    this.myCharacterSave1 = CharacterFactory.createCharacter(save[1]["player"]["name"])
+                    this.myCharacterSave1.setPos(createVector(7.5,7.5))
+                }
+                this.myCharacterSave1.draw()
             }
             if (save[2] && save[2]["data"]) {
                 let date = new Date(save[2]["data"]['timestamp'])
@@ -284,56 +305,61 @@ class VPauseMenu {
                 textSize(width / 45)
                 text(date.toLocaleTimeString('en-US'), width * 0.69, height * 0.675 - width / 35)
                 pop()
+                if ((this.myCharacterSave2 && this.myCharacterSave2.getName().toLowerCase() != save[2]["player"]["name"]) || !this.myCharacterSave2) {
+                    this.myCharacterSave2 = CharacterFactory.createCharacter(save[2]["player"]["name"])
+                    this.myCharacterSave2.setPos(createVector(11.5,7.5))
+                }
+                this.myCharacterSave2.draw()
             }
 
             pop()
         }
     
-        if (this.myCurrentScreen == 'save') {
-            push()
-            textFont(FONT["REGULAR"])
-            textSize(width / 30)
-            noStroke()
-            fill(0, 0, 0, 100)
-            if (
-                mouseX >= width * 0.15 &&
-                mouseX <= width * 0.15 + width / 5 &&
-                mouseY >= height / 2 - width / 10 &&
-                mouseY <= height / 2 - width / 10 + width / 5
-            ) {
-                fill(0, 0, 0, 125)   
-            }
-            rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+        // if (this.myCurrentScreen == 'save') {
+        //     push()
+        //     textFont(FONT["REGULAR"])
+        //     textSize(width / 30)
+        //     noStroke()
+        //     fill(0, 0, 0, 100)
+        //     if (
+        //         mouseX >= width * 0.15 &&
+        //         mouseX <= width * 0.15 + width / 5 &&
+        //         mouseY >= height / 2 - width / 10 &&
+        //         mouseY <= height / 2 - width / 10 + width / 5
+        //     ) {
+        //         fill(0, 0, 0, 125)   
+        //     }
+        //     rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
 
-            fill(0, 0, 0, 100)
-            if (
-                mouseX >= width * 0.4 &&
-                mouseX <= width * 0.4 + width / 5 &&
-                mouseY >= height / 2 - width / 10 &&
-                mouseY <= height / 2 - width / 10 + width / 5
-            ) {
-                fill(0, 0, 0, 125)   
-            }
-            rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+        //     fill(0, 0, 0, 100)
+        //     if (
+        //         mouseX >= width * 0.4 &&
+        //         mouseX <= width * 0.4 + width / 5 &&
+        //         mouseY >= height / 2 - width / 10 &&
+        //         mouseY <= height / 2 - width / 10 + width / 5
+        //     ) {
+        //         fill(0, 0, 0, 125)   
+        //     }
+        //     rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
 
-            fill(0, 0, 0, 100)
-            if (
-                mouseX >= width * 0.65 &&
-                mouseX <= width * 0.65 + width / 5 &&
-                mouseY >= height / 2 - width / 10 &&
-                mouseY <= height / 2 - width / 10 + width / 5
-            ) {
-                fill(0, 0, 0, 125)   
-            }
-            rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
+        //     fill(0, 0, 0, 100)
+        //     if (
+        //         mouseX >= width * 0.65 &&
+        //         mouseX <= width * 0.65 + width / 5 &&
+        //         mouseY >= height / 2 - width / 10 &&
+        //         mouseY <= height / 2 - width / 10 + width / 5
+        //     ) {
+        //         fill(0, 0, 0, 125)   
+        //     }
+        //     rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
 
-            fill(177,188,184)
-            text("Save 1", width * 0.2, height * 0.675 - width / 10)
-            text("Save 2", width * 0.45, height * 0.675 - width / 10)
-            text("Save 3", width * 0.7, height * 0.675 - width / 10)
+        //     fill(177,188,184)
+        //     text("Save 1", width * 0.2, height * 0.675 - width / 10)
+        //     text("Save 2", width * 0.45, height * 0.675 - width / 10)
+        //     text("Save 3", width * 0.7, height * 0.675 - width / 10)
 
-            pop()
-        }
+        //     pop()
+        // }
     }
 
     /**

@@ -448,6 +448,7 @@ function newGame() {
 
 
         VMainMenu.step(time)
+        VPauseMenu.step(time)
         if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
           instanceBattleDisplay.mobClone.step(time);
           instanceBattleDisplay.playerClone.step(time);
