@@ -391,10 +391,38 @@ class VMainMenu {
         }
         rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
 
+        let save = JSON.parse(window.localStorage.getItem("save"))
         fill(177,188,184)
-        text("Save 1", width * 0.2, height * 0.675 - width / 10)
-        text("Save 2", width * 0.45, height * 0.675 - width / 10)
-        text("Save 3", width * 0.7, height * 0.675 - width / 10)
+        if (save[0] && save[0]["data"]) {
+            let date = new Date(save[0]["data"]['timestamp'])
+            push()
+            textSize(width / 40)
+            text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.185, height * 0.675 - width / 20)
+            textSize(width / 45)
+            text(date.toLocaleTimeString('en-US'), width * 0.19, height * 0.675 - width / 35)
+            pop()
+        }
+        if (save[1] && save[1]["data"]) {
+            let date = new Date(save[1]["data"]['timestamp'])
+            push()
+            textSize(width / 40)
+            text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.435, height * 0.675 - width / 20)
+            textSize(width / 45)
+            text(date.toLocaleTimeString('en-US'), width * 0.44, height * 0.675 - width / 35)
+            pop()
+        }
+        if (save[2] && save[2]["data"]) {
+            let date = new Date(save[2]["data"]['timestamp'])
+            push()
+            textSize(width / 40)
+            text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.685, height * 0.675 - width / 20)
+            textSize(width / 45)
+            text(date.toLocaleTimeString('en-US'), width * 0.69, height * 0.675 - width / 35)
+            pop()
+        }
+        text("Save 1", width * 0.195, height * 0.675 - width / 10)
+        text("Save 2", width * 0.445, height * 0.675 - width / 10)
+        text("Save 3", width * 0.695, height * 0.675 - width / 10)
 
         textAlign(RIGHT)
         translate(width * 0.95, height * 0.6)

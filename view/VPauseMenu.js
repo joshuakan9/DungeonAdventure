@@ -257,6 +257,35 @@ class VPauseMenu {
             text("Save 2", width * 0.45, height * 0.675 - width / 10)
             text("Save 3", width * 0.7, height * 0.675 - width / 10)
 
+            let save = JSON.parse(window.localStorage.getItem("save"))
+            if (save[0] && save[0]["data"]) {
+                let date = new Date(save[0]["data"]['timestamp'])
+                push()
+                textSize(width / 40)
+                text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.185, height * 0.675 - width / 20)
+                textSize(width / 45)
+                text(date.toLocaleTimeString('en-US'), width * 0.19, height * 0.675 - width / 35)
+                pop()
+            }
+            if (save[1] && save[1]["data"]) {
+                let date = new Date(save[1]["data"]['timestamp'])
+                push()
+                textSize(width / 40)
+                text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.435, height * 0.675 - width / 20)
+                textSize(width / 45)
+                text(date.toLocaleTimeString('en-US'), width * 0.44, height * 0.675 - width / 35)
+                pop()
+            }
+            if (save[2] && save[2]["data"]) {
+                let date = new Date(save[2]["data"]['timestamp'])
+                push()
+                textSize(width / 40)
+                text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.685, height * 0.675 - width / 20)
+                textSize(width / 45)
+                text(date.toLocaleTimeString('en-US'), width * 0.69, height * 0.675 - width / 35)
+                pop()
+            }
+
             pop()
         }
     

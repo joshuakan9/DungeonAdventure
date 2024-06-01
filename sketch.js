@@ -770,6 +770,9 @@ function saveGame(theSlot) {
       dungeonIndex: [instanceFactory.myDungeonIndex.x, instanceFactory.myDungeonIndex.y],
       initialMobCount: instanceFactory.myInitialMobCount,
       mobCount: instanceFactory.myMobCount,
+    },
+    data: {
+      timestamp: Date.now()
     }
   }
   window.localStorage.setItem("save", JSON.stringify(saveArray))
