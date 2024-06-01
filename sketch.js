@@ -3,7 +3,7 @@ p5.disableFriendlyErrors = true; // disables FES uncomment to increase performan
 let FONT = {}
 let CELLSIZE
 let TILEMAP
-let CURSOR
+let IMG_CURSOR
 let cellNumber = 16
 let WALL_IMG
 let FLOOR_IMG
@@ -13,6 +13,7 @@ let WALL2_IMG
 let WALL3_IMG
 let WALL4_IMG
 let WALL5_IMG
+let TICK = 0
 
 /**
  * Preload function to load all the assets before the game starts
@@ -22,7 +23,7 @@ function preload() {
   FONT['REGULAR'] = loadFont('./assets/fonts/MinecraftRegular.otf')
   FONT['SEMIBOLD'] = loadFont('./assets/fonts/LeagueSpartan-SemiBold.ttf')
   FONT['BOLD'] = loadFont('./assets/fonts/LeagueSpartan-Bold.ttf')
-  CURSOR = loadImage('./assets/images/cursor.png')
+  IMG_CURSOR = loadImage('./assets/images/cursor.png')
   TILEMAP = loadImage('./assets/images/tilemap.png')
   WALL_IMG = loadImage('./assets/images/background.png')
   FLOOR_IMG = loadImage('./assets/images/floor.png')
@@ -32,7 +33,7 @@ function preload() {
   WALL3_IMG = loadImage('./assets/images/backgroundLThree.png')
   WALL4_IMG = loadImage('./assets/images/backgroundLFour.png')
   WALL5_IMG = loadImage('./assets/images/backgroundLFive.png')
-
+  Sound.setup()
   if (!window.localStorage.getItem("save")) {
     window.localStorage.setItem("save", JSON.stringify([]))
   }
@@ -350,7 +351,7 @@ function setup() {
       var index = (x + y * width)*4;
       IMG_NOISE.pixels[index+0] =
       IMG_NOISE.pixels[index+1] = 
-      IMG_NOISE.pixels[index+2] = map(noise(x/2,y), 0, 1, 0,30)
+      IMG_NOISE.pixels[index+2] = map(noise(x/2,y), 0, 1, 0,40)
       IMG_NOISE.pixels[index+3] = 255;      
     }
   }
@@ -364,7 +365,7 @@ function setup() {
 
   if (!hasCompleteInitial) {
     newGame()
-    hasCompleteInitial = true
+
   }
 }
 
@@ -471,7 +472,7 @@ function newGame() {
   instanceGameLoop.setTickFunction(
       (time) => {
 
-
+        TICK++;
 
         VMainMenu.step(time)
         VPauseMenu.step(time)
@@ -554,11 +555,30 @@ function newGame() {
         }
 
 //=======================================================================================================================
-        if (instanceTransition.drawerStatus()) instanceTransition.drawer();
-        image(CURSOR,mouseX,mouseY, 8 * M, 8 * M)
+        if (instanceTransition.drawerStatus()) {
+          instanceTransition.drawer();
+        }
+
+
+        if (!hasCompleteInitial) {
+          push()
+          let color = map(noise(TICK / 50, 0), 0, 1, -50, 50)
+          fill(177 + color,188 + color,184 + color)
+          background(0)
+          textAlign(CENTER)
+          textSize(width / 30)
+          text("Click to start", width / 2, height * 0.75)
+          pop()
+        }
+        image(IMG_CURSOR,mouseX,mouseY, 8 * M, 8 * M)
+
+          
+
       }
   )
   instanceGameLoop.start()
+
+
 }
 
 /**
@@ -585,37 +605,41 @@ function mouseClicked() {
   VPauseMenu.mouseClicked();
   VMainMenu.mouseClicked();
   
-
-  if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
-    instanceBagDisplay.mouseClicked()
-  }
-  if (instanceBagSystem && instanceTextBox.isEmpty() && instanceBagDisplay.getIsPaused()) {
-    instanceBagSystem.mouseClicked()
-  }
+    if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
+      instanceBagDisplay.mouseClicked()
+    }
+    if (instanceBagSystem && instanceTextBox.isEmpty() && instanceBagDisplay.getIsPaused()) {
+      instanceBagSystem.mouseClicked()
+    }
 }
+  
 
 /**
  * Function to handle key press events
  */
 function keyPressed() {
-  if (keyCode === 32) { // space keyba
-    instanceTextBox.nextText();
-  }
-  if (!instancePlayer.getIsFrozen()) {
+  if (hasCompleteInitial) {
+
     if (keyCode === 32) { // space keyba
-      if (instancePlayer.getHitPoints() > 0) {
-        instanceFactory.interact(instancePlayer)
+      instanceTextBox.nextText();
+    }
+    if (!instancePlayer.getIsFrozen() && !VMainMenu.getIsPaused()) {
+      if (keyCode === 32) { // space keyba
+        if (instancePlayer.getHitPoints() > 0) {
+          instanceFactory.interact(instancePlayer)
+        }
+      }
+      if (instanceBagDisplay.getIsPaused() === false) {
+        VPauseMenu.keyPressed()
+
+      }
+      if (instanceBagDisplay && VPauseMenu.getIsPaused() === false) {
+        instanceBagDisplay.keyPressed()
       }
     }
-    if (instanceBagDisplay.getIsPaused() === false) {
-      VPauseMenu.keyPressed()
 
-    }
+    //text, x, y, width, height, textSize
   }
-  if (instanceBagDisplay && VPauseMenu.getIsPaused() === false) {
-    instanceBagDisplay.keyPressed()
-  }
-  //text, x, y, width, height, textSize
 }
 
 

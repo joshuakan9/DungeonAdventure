@@ -9,6 +9,7 @@ class VPauseMenu {
      * Current screen state. It can be 'none', 'paused', 'load', or 'save'.
      */
     static myCurrentScreen = 'none';
+    static myLastHover = null
 
     /**
      * Handles mouse click events.
@@ -24,6 +25,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.0 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2
             ) {
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'none'
             }
 
@@ -34,7 +36,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.4 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.6
             ) {
-                console.log('load')
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'load'
 
             }
@@ -46,7 +48,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.6 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.8
             ) {
-                console.log('save')
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'save'
 
             }
@@ -57,6 +59,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0
             ) {
+                Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'none'
                 VMainMenu.setMainMenu()
             }
@@ -68,6 +71,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(0)
                 } else {
@@ -83,6 +87,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(1)
                 } else {
@@ -98,6 +103,7 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(2)
                 } else {
@@ -161,6 +167,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2
             ) {
+                if (this.myLastHover != "Resume") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Resume"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0,0 , menuWidth, menuHeight * 0.2, 5 * M)
@@ -173,6 +183,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.2 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.4
             ) {
+                if (this.myLastHover != "Options") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Options"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0, menuHeight * 0.2, menuWidth, menuHeight * 0.2, 5 * M)
@@ -185,6 +199,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.4 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.6
             ) {
+                if (this.myLastHover != "Load") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Load"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0, menuHeight * 0.40, menuWidth, menuHeight * 0.2, 5 * M)
@@ -197,6 +215,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.6 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.8
             ) {
+                if (this.myLastHover != "Save") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Save"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0, menuHeight * 0.6, menuWidth, menuHeight * 0.2, 5 * M)
@@ -209,6 +231,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0
             ) {
+                if (this.myLastHover != "Exit to Main Menu") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Exit to Main Menu"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0, menuHeight * 0.8, menuWidth, menuHeight * 0.2, 5 * M)
@@ -237,6 +263,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myLastHover != "Save 0") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Save 0"
+                }
                 fill(0, 0, 0, 125)   
             }
             rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
@@ -248,6 +278,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myLastHover != "Save 1") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Save 1"
+                }
                 fill(0, 0, 0, 125)   
             }
             rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
@@ -259,6 +293,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myLastHover != "Save 2") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Save 2"
+                }
                 fill(0, 0, 0, 125)   
             }
             rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
@@ -275,7 +313,9 @@ class VPauseMenu {
                 textSize(width / 40)
                 text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.185, height * 0.675 - width / 20)
                 textSize(width / 45)
-                text(date.toLocaleTimeString('en-US'), width * 0.19, height * 0.675 - width / 35)
+                let timeString = date.toLocaleTimeString('en-US')
+                timeString = timeString.charAt(2) != ':' ? timeString = '0' + timeString : timeString
+                text(timeString, width * 0.19, height * 0.675 - width / 35)
                 pop()
                 if ((this.myCharacterSave0 && this.myCharacterSave0.getName().toLowerCase() != save[0]["player"]["name"]) || !this.myCharacterSave0 ) {
                     this.myCharacterSave0 = CharacterFactory.createCharacter(save[0]["player"]["name"])
@@ -289,7 +329,9 @@ class VPauseMenu {
                 textSize(width / 40)
                 text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.435, height * 0.675 - width / 20)
                 textSize(width / 45)
-                text(date.toLocaleTimeString('en-US'), width * 0.44, height * 0.675 - width / 35)
+                let timeString = date.toLocaleTimeString('en-US')
+                timeString = timeString.charAt(2) != ':' ? timeString = '0' + timeString : timeString
+                text(timeString, width * 0.44, height * 0.675 - width / 35)
                 pop()
                 if ((this.myCharacterSave1 && this.myCharacterSave1.getName().toLowerCase() != save[1]["player"]["name"]) || !this.myCharacterSave1) {
                     this.myCharacterSave1 = CharacterFactory.createCharacter(save[1]["player"]["name"])
@@ -303,7 +345,9 @@ class VPauseMenu {
                 textSize(width / 40)
                 text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.685, height * 0.675 - width / 20)
                 textSize(width / 45)
-                text(date.toLocaleTimeString('en-US'), width * 0.69, height * 0.675 - width / 35)
+                let timeString = date.toLocaleTimeString('en-US')
+                timeString = timeString.charAt(2) != ':' ? timeString = '0' + timeString : timeString
+                text(timeString, width * 0.69, height * 0.675 - width / 35)
                 pop()
                 if ((this.myCharacterSave2 && this.myCharacterSave2.getName().toLowerCase() != save[2]["player"]["name"]) || !this.myCharacterSave2) {
                     this.myCharacterSave2 = CharacterFactory.createCharacter(save[2]["player"]["name"])
