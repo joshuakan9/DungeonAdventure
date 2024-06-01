@@ -151,6 +151,9 @@ window.addEventListener("e-player-unfreeze", (E) => {
 window.addEventListener("e-game-over-victory", (E) => {
   if (instancePlayer.hasPillars())
     instanceTextBox.add({ text: "You have completed the game!" })
+    //window.dispatchEvent(new Event('e-player-unfreeze'))
+    //instanceBagSystem = new BagSystem(instancePlayer);
+    //VMainMenu.setMainMenu();
 })
 
 window.addEventListener("e-player-die", (E) => {
@@ -770,9 +773,6 @@ function saveGame(theSlot) {
       dungeonIndex: [instanceFactory.myDungeonIndex.x, instanceFactory.myDungeonIndex.y],
       initialMobCount: instanceFactory.myInitialMobCount,
       mobCount: instanceFactory.myMobCount,
-    },
-    data: {
-      timestamp: Date.now()
     }
   }
   window.localStorage.setItem("save", JSON.stringify(saveArray))
