@@ -777,6 +777,9 @@ function saveGame(theSlot) {
       dungeonIndex: [instanceFactory.myDungeonIndex.x, instanceFactory.myDungeonIndex.y],
       initialMobCount: instanceFactory.myInitialMobCount,
       mobCount: instanceFactory.myMobCount,
+    },
+    data: {
+      timestamp: Date.now()
     }
   }
   window.localStorage.setItem("save", JSON.stringify(saveArray))
@@ -800,7 +803,7 @@ function loadGame(theSlot) {
     instancePlayer.setTargetPos(instancePlayer.getPos())
 
     instanceFactory.load(save["factory"])
-    instanceBagSystem.setPlayer(instancePlayer)
+    instanceBagSystem = new BagSystem(instancePlayer)
     instanceBagDisplay = new BagDisplay(instancePlayer)
 
     return true

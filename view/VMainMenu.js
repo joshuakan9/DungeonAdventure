@@ -474,7 +474,7 @@ class VMainMenu {
             translate(width * 0.95, height * 0.6)
             textSize(width / 60)
             fill(177,188,184)
-            text("Ver. 5/24/2024", 0, height * 0.375)
+            text("Ver. 5/31/2024", 0, height * 0.375)
 
             // textSize(width / 20)
             // text("Dungeon Adventure", 0, -height / 5)
