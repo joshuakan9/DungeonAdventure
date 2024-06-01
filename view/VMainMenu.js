@@ -208,6 +208,10 @@ class VMainMenu {
             mouseY >= height * 0.6 - textHeight &&
             mouseY <= height * 0.6 
         ) {
+            if (this.myLastHover != "New Game Assassin") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "New Game Assassin"
+            }
             if (!(this.myCurrentCharacter instanceof Assassin)) {
                 this.myCurrentCharacter = CharacterFactory.createCharacter('assassin')
             }
@@ -222,6 +226,10 @@ class VMainMenu {
             mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 1 * height / 15
         ) {
+            if (this.myLastHover != "New Game Warrior") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "New Game Warrior"
+            }
             if (!(this.myCurrentCharacter instanceof Warrior)) {
                 this.myCurrentCharacter = CharacterFactory.createCharacter('warrior')
             }
@@ -238,6 +246,10 @@ class VMainMenu {
             mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 2 * height / 15
         ) {
+            if (this.myLastHover != "New Game Priest") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "New Game Priest"
+            }
             if (!(this.myCurrentCharacter instanceof Priest)) {
                 this.myCurrentCharacter = CharacterFactory.createCharacter('priest')
             }
@@ -253,6 +265,10 @@ class VMainMenu {
             mouseY >= height * 0.6 + 3 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 3 * height / 15 
         ) {
+            if (this.myLastHover != "New Game Dino") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "New Game Dino"
+            }
             if (!(this.myCurrentCharacter instanceof Dino)) {
                 this.myCurrentCharacter = CharacterFactory.createCharacter('dino')
             }
@@ -267,7 +283,10 @@ class VMainMenu {
             mouseY >= height * 0.6 + 4 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 4 * height / 15 
         ) {
-
+            if (this.myLastHover != "New Game Return to Main Menu") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "New Game Return to Main Menu"
+            }
             fill(239,255,255)
         }
         text("Return to Main Menu", 0, 4 * height / 15)
@@ -316,7 +335,10 @@ class VMainMenu {
             mouseY >= height * 0.6 - textHeight &&
             mouseY <= height * 0.6 
         ) {
-
+            if (this.myLastHover != "New Game") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "New Game"
+            }
             fill(239,255,255)
         }
         text("New Game", 0, 0)
@@ -328,7 +350,10 @@ class VMainMenu {
             mouseY >= height * 0.6 + 1 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 1 * height / 15
         ) {
-
+            if (this.myLastHover != "Load Game") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "Load Game"
+            }
             fill(239,255,255)
         }
         text("Load Game", 0, height / 15)
@@ -340,6 +365,10 @@ class VMainMenu {
             mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 2 * height / 15
         ) {
+            if (this.myLastHover != "Options") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "Options"
+            }
             fill(239,255,255)
         }
         text("Options", 0, 2 * height / 15)
@@ -352,6 +381,10 @@ class VMainMenu {
             mouseY >= height * 0.6 + 3 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 3 * height / 15 
         ) {
+            if (this.myLastHover != "About") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "About"
+            }
             fill(239,255,255)
         }
         text("About", 0, 3 * height / 15)
@@ -385,6 +418,10 @@ class VMainMenu {
             mouseY >= height / 2 - width / 10 &&
             mouseY <= height / 2 - width / 10 + width / 5
         ) {
+            if (this.myLastHover != "Save 1") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "Save 1"
+            }
             fill(0, 0, 0, 125)   
         }
         rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
@@ -396,6 +433,10 @@ class VMainMenu {
             mouseY >= height / 2 - width / 10 &&
             mouseY <= height / 2 - width / 10 + width / 5
         ) {
+            if (this.myLastHover != "Save 2") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "Save 2"
+            }
             fill(0, 0, 0, 125)   
         }
         rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
@@ -407,6 +448,10 @@ class VMainMenu {
             mouseY >= height / 2 - width / 10 &&
             mouseY <= height / 2 - width / 10 + width / 5
         ) {
+            if (this.myLastHover != "Save 3") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "Save 3"
+            }
             fill(0, 0, 0, 125)   
         }
         rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
@@ -474,7 +519,10 @@ class VMainMenu {
             mouseY >= height * 0.6 + 4 * height / 15 - width / 30 &&
             mouseY <= height * 0.6 + 4 * height / 15 
         ) {
-
+            if (this.myLastHover != "Load Return to Main Menu") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "Load Return to Main Menu"
+            }
             fill(239,255,255)
         }
         text("Return to Main Menu", 0, 4 * height / 15)

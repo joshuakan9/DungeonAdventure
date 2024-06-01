@@ -9,6 +9,7 @@ class VPauseMenu {
      * Current screen state. It can be 'none', 'paused', 'load', or 'save'.
      */
     static myCurrentScreen = 'none';
+    static myLastHover = null
 
     /**
      * Handles mouse click events.
@@ -166,6 +167,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.2
             ) {
+                if (this.myLastHover != "Resume") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Resume"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0,0 , menuWidth, menuHeight * 0.2, 5 * M)
@@ -178,6 +183,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.2 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.4
             ) {
+                if (this.myLastHover != "Options") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Options"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0, menuHeight * 0.2, menuWidth, menuHeight * 0.2, 5 * M)
@@ -190,6 +199,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.4 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.6
             ) {
+                if (this.myLastHover != "Load") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Load"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0, menuHeight * 0.40, menuWidth, menuHeight * 0.2, 5 * M)
@@ -202,6 +215,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.6 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.8
             ) {
+                if (this.myLastHover != "Save") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Save"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0, menuHeight * 0.6, menuWidth, menuHeight * 0.2, 5 * M)
@@ -214,6 +231,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.8 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 1.0
             ) {
+                if (this.myLastHover != "Exit to Main Menu") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Exit to Main Menu"
+                }
                 fill(0, 0, 0, 100)   
             }
             rect(0, menuHeight * 0.8, menuWidth, menuHeight * 0.2, 5 * M)
@@ -242,6 +263,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myLastHover != "Save 0") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Save 0"
+                }
                 fill(0, 0, 0, 125)   
             }
             rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
@@ -253,6 +278,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myLastHover != "Save 1") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Save 1"
+                }
                 fill(0, 0, 0, 125)   
             }
             rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
@@ -264,6 +293,10 @@ class VPauseMenu {
                 mouseY >= height / 2 - width / 10 &&
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
+                if (this.myLastHover != "Save 2") {
+                    Sound.play("S-button-hover")
+                    this.myLastHover = "Save 2"
+                }
                 fill(0, 0, 0, 125)   
             }
             rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
