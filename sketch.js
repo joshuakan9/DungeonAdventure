@@ -13,6 +13,7 @@ let WALL2_IMG
 let WALL3_IMG
 let WALL4_IMG
 let WALL5_IMG
+let TICK = 0
 
 /**
  * Preload function to load all the assets before the game starts
@@ -362,7 +363,7 @@ function setup() {
 
   if (!hasCompleteInitial) {
     newGame()
-    hasCompleteInitial = true
+
   }
 }
 
@@ -463,7 +464,8 @@ function newGame() {
   instanceGameLoop.setTickFunction(
       (time) => {
 
-
+        TICK++;
+        console.log(TICK)
 
         VMainMenu.step(time)
         VPauseMenu.step(time)
@@ -535,11 +537,26 @@ function newGame() {
         }
 
 //=======================================================================================================================
-        if (instanceTransition.drawerStatus()) instanceTransition.drawer();
+        // if (instanceTransition.drawerStatus()) instanceTransition.drawer();
+        if (!hasCompleteInitial) {
+          push()
+          let color = map(noise(TICK / 50, 0), 0, 1, -50, 50)
+          fill(177 + color,188 + color,184 + color)
+          background(0)
+          textAlign(CENTER)
+          textSize(width / 30)
+          text("Click to start", width / 2, height * 0.75)
+          pop()
+        }
         image(CURSOR,mouseX,mouseY, 8 * M, 8 * M)
+
+          
+
       }
   )
   instanceGameLoop.start()
+
+
 }
 
 /**
@@ -555,48 +572,56 @@ function windowResized() {
  * Function to handle mouse click events
  */
 function mouseClicked() {
-  if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
-    instanceBattle.mouseClicked();
-  }
-  if (instanceTextBox.isEmpty()) {
-    DefeatDisplay.mouseClicked();
-  }
-  VictoryDisplay.mouseClicked();
-  instanceTextBox.nextText();
-  VPauseMenu.mouseClicked();
-  VMainMenu.mouseClicked();
+  if (!hasCompleteInitial) {
+    hasCompleteInitial = true
+  } else {
+    if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
+      instanceBattle.mouseClicked();
+    }
+    if (instanceTextBox.isEmpty()) {
+      DefeatDisplay.mouseClicked();
+    }
+    VictoryDisplay.mouseClicked();
+    instanceTextBox.nextText();
+    VPauseMenu.mouseClicked();
+    VMainMenu.mouseClicked();
+    
   
-
-  if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
-    instanceBagDisplay.mouseClicked()
+    if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
+      instanceBagDisplay.mouseClicked()
+    }
+    if (instanceBagSystem && instanceTextBox.isEmpty() && instanceBagDisplay.getIsPaused()) {
+      instanceBagSystem.mouseClicked()
+    }
   }
-  if (instanceBagSystem && instanceTextBox.isEmpty() && instanceBagDisplay.getIsPaused()) {
-    instanceBagSystem.mouseClicked()
-  }
+  
 }
 
 /**
  * Function to handle key press events
  */
 function keyPressed() {
-  if (keyCode === 32) { // space keyba
-    instanceTextBox.nextText();
-  }
-  if (!instancePlayer.getIsFrozen()) {
+  if (hasCompleteInitial) {
+
     if (keyCode === 32) { // space keyba
-      if (instancePlayer.getHitPoints() > 0) {
-        instanceFactory.interact(instancePlayer)
+      instanceTextBox.nextText();
+    }
+    if (!instancePlayer.getIsFrozen()) {
+      if (keyCode === 32) { // space keyba
+        if (instancePlayer.getHitPoints() > 0) {
+          instanceFactory.interact(instancePlayer)
+        }
+      }
+      if (instanceBagDisplay.getIsPaused() === false) {
+        VPauseMenu.keyPressed()
+
       }
     }
-    if (instanceBagDisplay.getIsPaused() === false) {
-      VPauseMenu.keyPressed()
-
+    if (instanceBagDisplay && VPauseMenu.getIsPaused() === false) {
+      instanceBagDisplay.keyPressed()
     }
+    //text, x, y, width, height, textSize
   }
-  if (instanceBagDisplay && VPauseMenu.getIsPaused() === false) {
-    instanceBagDisplay.keyPressed()
-  }
-  //text, x, y, width, height, textSize
 }
 
 
