@@ -335,7 +335,18 @@ function setup() {
   createCanvas(CELLSIZE * cellNumber, CELLSIZE * cellNumber);
   M = CELLSIZE / 16
   textFont(FONT['REGULAR'])
-
+  IMG_NOISE = createGraphics(width, height)
+  IMG_NOISE.loadPixels();
+  for (var y = 0; y < height; y++) {
+    for (var x = 0; x < width; x++) {
+      var index = (x + y * width)*4;
+      IMG_NOISE.pixels[index+0] =
+      IMG_NOISE.pixels[index+1] = 
+      IMG_NOISE.pixels[index+2] = map(noise(x/2,y), 0, 1, 0,30)
+      IMG_NOISE.pixels[index+3] = 255;      
+    }
+  }
+  IMG_NOISE.updatePixels();
 
   setUpMonsterDatabase()
   setUpHeroDatabase()
@@ -354,6 +365,7 @@ function setup() {
  */
 function newGame() {
   randomSeed(new Date().getTime())
+
   if (!instanceGameLoop) {
     instanceGameLoop = new GameLoop();
   }
@@ -478,7 +490,7 @@ function newGame() {
   instanceGameLoop.setRenderFunction(
       () => {
         background(0);
-
+        image(IMG_NOISE,0,0,width * 2,height * 4)
         noCursor()
 
         push()
