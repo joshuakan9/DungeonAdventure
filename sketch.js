@@ -3,7 +3,7 @@ p5.disableFriendlyErrors = true; // disables FES uncomment to increase performan
 let FONT = {}
 let CELLSIZE
 let TILEMAP
-let CURSOR
+let IMG_CURSOR
 let cellNumber = 16
 let WALL_IMG
 let FLOOR_IMG
@@ -23,7 +23,7 @@ function preload() {
   FONT['REGULAR'] = loadFont('./assets/fonts/MinecraftRegular.otf')
   FONT['SEMIBOLD'] = loadFont('./assets/fonts/LeagueSpartan-SemiBold.ttf')
   FONT['BOLD'] = loadFont('./assets/fonts/LeagueSpartan-Bold.ttf')
-  CURSOR = loadImage('./assets/images/cursor.png')
+  IMG_CURSOR = loadImage('./assets/images/cursor.png')
   TILEMAP = loadImage('./assets/images/tilemap.png')
   WALL_IMG = loadImage('./assets/images/background.png')
   FLOOR_IMG = loadImage('./assets/images/floor.png')
@@ -465,7 +465,6 @@ function newGame() {
       (time) => {
 
         TICK++;
-        console.log(TICK)
 
         VMainMenu.step(time)
         VPauseMenu.step(time)
@@ -537,7 +536,11 @@ function newGame() {
         }
 
 //=======================================================================================================================
-        // if (instanceTransition.drawerStatus()) instanceTransition.drawer();
+        if (instanceTransition.drawerStatus()) {
+          instanceTransition.drawer();
+        }
+
+
         if (!hasCompleteInitial) {
           push()
           let color = map(noise(TICK / 50, 0), 0, 1, -50, 50)
@@ -548,7 +551,7 @@ function newGame() {
           text("Click to start", width / 2, height * 0.75)
           pop()
         }
-        image(CURSOR,mouseX,mouseY, 8 * M, 8 * M)
+        image(IMG_CURSOR,mouseX,mouseY, 8 * M, 8 * M)
 
           
 
