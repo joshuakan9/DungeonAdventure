@@ -594,6 +594,11 @@ function windowResized() {
  * Function to handle mouse click events
  */
 function mouseClicked() {
+  if (!hasCompleteInitial) {
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+      hasCompleteInitial = true;
+    }
+  }
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
     instanceBattle.mouseClicked();
   }
