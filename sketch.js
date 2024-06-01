@@ -149,15 +149,21 @@ window.addEventListener("e-player-unfreeze", (E) => {
 })
 
 window.addEventListener("e-game-over-victory", (E) => {
-  if (instancePlayer.hasPillars())
-    instanceTextBox.add({ text: "You have completed the game!" })
-    //window.dispatchEvent(new Event('e-player-unfreeze'))
-    //instanceBagSystem = new BagSystem(instancePlayer);
-    //VMainMenu.setMainMenu();
+  if (instancePlayer.hasPillars()) {
+    instancePlayer = CharacterFactory.createCharacter("priest");
+    instanceBagSystem = new BagSystem(instancePlayer);
+    instanceBagDisplay = new BagDisplay(instancePlayer);
+    VictoryDisplay.isRunning = true;
+    VMainMenu.setMainMenu();
+  }
 })
 
 window.addEventListener("e-player-die", (E) => {
-  instanceTextBox.add({ text: "You died!" })
+  instancePlayer = CharacterFactory.createCharacter("priest");
+  instanceBagSystem = new BagSystem(instancePlayer);
+  instanceBagDisplay = new BagDisplay(instancePlayer);
+  DefeatDisplay.isRunning = true;
+  VMainMenu.setMainMenu();
 });
 
 window.addEventListener("e-player-battle-win", (E) => {
@@ -509,11 +515,13 @@ function newGame() {
         textSize(width / 10);
         text(round(frameRate()), 0, width / 10)
 
-        pop()
+        pop();
 
+        VPauseMenu.draw();
+        VMainMenu.draw();
 
-        VPauseMenu.draw()
-        VMainMenu.draw()
+        if(VictoryDisplay.isRunning)VictoryDisplay.draw();
+        if(DefeatDisplay.isRunning)DefeatDisplay.draw();
 
 //=======================================================================================================================
         if (instanceBattle && instanceBattle.inCombat) {
@@ -525,6 +533,7 @@ function newGame() {
         if (instanceTextBox && !instanceTextBox.isEmpty()) {
           instanceTextBox.renderTextBox();
         }
+
 //=======================================================================================================================
         if (instanceTransition.drawerStatus()) instanceTransition.drawer();
         image(CURSOR,mouseX,mouseY, 8 * M, 8 * M)
@@ -547,11 +556,17 @@ function windowResized() {
  */
 function mouseClicked() {
   if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
-    instanceBattle.mouseClicked()
+    instanceBattle.mouseClicked();
   }
+  if (instanceTextBox.isEmpty()) {
+    DefeatDisplay.mouseClicked();
+  }
+  VictoryDisplay.mouseClicked();
   instanceTextBox.nextText();
-  VPauseMenu.mouseClicked()
-  VMainMenu.mouseClicked()
+  VPauseMenu.mouseClicked();
+  VMainMenu.mouseClicked();
+  
+
   if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
     instanceBagDisplay.mouseClicked()
   }
