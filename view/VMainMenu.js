@@ -408,7 +408,9 @@ class VMainMenu {
             textSize(width / 40)
             text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.185, height * 0.675 - width / 20)
             textSize(width / 45)
-            text(date.toLocaleTimeString('en-US'), width * 0.19, height * 0.675 - width / 35)
+            let timeString = date.toLocaleTimeString('en-US')
+            timeString = timeString.charAt(0) != '0' ? timeString = '0' + timeString : timeString
+            text(timeString, width * 0.19, height * 0.675 - width / 35)
             pop()
             if ((this.myCharacterSave0 && this.myCharacterSave0.getName().toLowerCase() != save[0]["player"]["name"]) || !this.myCharacterSave0) {
                 this.myCharacterSave0 = CharacterFactory.createCharacter(save[0]["player"]["name"])
@@ -422,7 +424,9 @@ class VMainMenu {
             textSize(width / 40)
             text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.435, height * 0.675 - width / 20)
             textSize(width / 45)
-            text(date.toLocaleTimeString('en-US'), width * 0.44, height * 0.675 - width / 35)
+            let timeString = date.toLocaleTimeString('en-US')
+            timeString = timeString.charAt(0) != '0' ? timeString = '0' + timeString : timeString
+            text(timeString, width * 0.44, height * 0.675 - width / 35)
             pop()
             if ((this.myCharacterSave1 && this.myCharacterSave1.getName().toLowerCase() != save[1]["player"]["name"]) || !this.myCharacterSave1) {
                 this.myCharacterSave1 = CharacterFactory.createCharacter(save[1]["player"]["name"])
@@ -436,7 +440,9 @@ class VMainMenu {
             textSize(width / 40)
             text(date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear(), width * 0.685, height * 0.675 - width / 20)
             textSize(width / 45)
-            text(date.toLocaleTimeString('en-US'), width * 0.69, height * 0.675 - width / 35)
+            let timeString = date.toLocaleTimeString('en-US')
+            timeString = timeString.charAt(0) != '0' ? timeString = '0' + timeString : timeString
+            text(timeString, width * 0.69, height * 0.675 - width / 35)
             pop()
             if ((this.myCharacterSave2 && this.myCharacterSave2.getName().toLowerCase() != save[2]["player"]["name"]) || !this.myCharacterSave2) {
                 this.myCharacterSave2 = CharacterFactory.createCharacter(save[2]["player"]["name"])

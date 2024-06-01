@@ -348,7 +348,7 @@ function setup() {
       var index = (x + y * width)*4;
       IMG_NOISE.pixels[index+0] =
       IMG_NOISE.pixels[index+1] = 
-      IMG_NOISE.pixels[index+2] = map(noise(x/2,y), 0, 1, 0,30)
+      IMG_NOISE.pixels[index+2] = map(noise(x/2,y), 0, 1, 0,40)
       IMG_NOISE.pixels[index+3] = 255;      
     }
   }
