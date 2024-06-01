@@ -175,7 +175,6 @@ class VMainMenu {
         let textHeight = width /30
         push()
 
-        background(0)
         for (let a = 5.5; a < 10; a++) {
             for (let b = 5.5; b < 10; b++) {
                 image(random(this.myGroundImages), getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
@@ -276,7 +275,7 @@ class VMainMenu {
         push()
 
      
-        background(0)
+
 
         for (let a = 5.5; a < 10; a++) {
             for (let b = 5.5; b < 10; b++) {
@@ -357,7 +356,7 @@ class VMainMenu {
      */
     static drawLoadScreen() {
         push()
-        background(0)
+
         for (let a = 5.5; a < 10; a++) {
             for (let b = 1.5; b < 14; b++) {
                 image(random(this.myGroundImages), getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
@@ -483,7 +482,8 @@ class VMainMenu {
         }
         if (this.myCurrentScreen != 'none') {
 
-
+            background(0)
+            image(IMG_NOISE,0,0,width * 2,height * 4)
             if (this.myCurrentScreen == 'character') {
                 this.drawCharacterSelection()
             } else if (this.myCurrentScreen == 'load') {
