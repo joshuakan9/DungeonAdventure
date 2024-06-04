@@ -17,17 +17,23 @@ const VD_MAIN_TEXT_SIZE = .05;
 const VD_SMALL_TEXT_SIZE = .025;
 
 class VictoryDisplay {
-    constructor() {
-        this.isRunning = false;
-        this.priestDisplay = CharacterFactory.createCharacter("priest");
-        this.warriorDisplay = CharacterFactory.createCharacter("warrior");
-        this.assassinDisplay = CharacterFactory.createCharacter("assassin");
-        this.dinoDisplay = CharacterFactory.createCharacter("dino");
 
-        this.priestDisplay.setPos(createVector(VD_PRIEST_VECTOR_X, VD_VECTOR_Y_ONE));
-        this.warriorDisplay.setPos(createVector(VD_WARRIOR_VECTOR_X, VD_VECTOR_Y_ONE));
-        this.assassinDisplay.setPos(createVector(VD_ASSASSIN_VECTOR_X, VD_VECTOR_Y_ONE));
-        this.dinoDisplay.setPos(createVector(VD_DINO_VECTOR_X, VD_VECTOR_Y_ONE));
+    myPriestDisplay;
+    myWarriorDisplay;
+    myAssassinDisplay;
+    myDinoDisplay;
+
+    constructor() {
+        this.myIsRunning = false;
+        this.myPriestDisplay = CharacterFactory.createCharacter("priest");
+        this.myWarriorDisplay = CharacterFactory.createCharacter("warrior");
+        this.myAssassinDisplay = CharacterFactory.createCharacter("assassin");
+        this.myDinoDisplay = CharacterFactory.createCharacter("dino");
+
+        this.myPriestDisplay.setPos(createVector(VD_PRIEST_VECTOR_X, VD_VECTOR_Y_ONE));
+        this.myWarriorDisplay.setPos(createVector(VD_WARRIOR_VECTOR_X, VD_VECTOR_Y_ONE));
+        this.myAssassinDisplay.setPos(createVector(VD_ASSASSIN_VECTOR_X, VD_VECTOR_Y_ONE));
+        this.myDinoDisplay.setPos(createVector(VD_DINO_VECTOR_X, VD_VECTOR_Y_ONE));
     }
 
 
@@ -64,7 +70,7 @@ class VictoryDisplay {
             
         ) {
             
-            this.isRunning = false;
+            this.myIsRunning = false;
             return
         }
     }

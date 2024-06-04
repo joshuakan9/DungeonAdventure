@@ -154,7 +154,7 @@ window.addEventListener("e-player-unfreeze", (E) => {
 window.addEventListener("e-game-over-victory", (E) => {
   if (instancePlayer.hasPillars()) {
     window.dispatchEvent(new Event("e-transition"))
-    instanceVictoryDisplay.isRunning = true;
+    instanceVictoryDisplay.myIsRunning = true;
     
     VMainMenu.setMainMenu();
   } else {
@@ -164,7 +164,7 @@ window.addEventListener("e-game-over-victory", (E) => {
 
 window.addEventListener("e-player-die", (E) => {
   window.dispatchEvent(new Event("e-transition"))
-  instanceDefeatDisplay.isRunning = true;
+  instanceDefeatDisplay.myIsRunning = true;
   VMainMenu.setMainMenu();
 });
 
@@ -560,10 +560,10 @@ function newGame() {
           VPauseMenu.draw();
           VMainMenu.draw();
 
-          if(instanceVictoryDisplay.isRunning) {
+          if(instanceVictoryDisplay.myIsRunning) {
             instanceVictoryDisplay.draw();
           }
-          if(instanceDefeatDisplay.isRunning) {
+          if(instanceDefeatDisplay.myIsRunning) {
             instanceDefeatDisplay.draw();
           }
 
