@@ -38,6 +38,18 @@ class VMainMenu {
                 Sound.play("S-button-clicked")
                 this.myCurrentScreen = 'load'
             }
+
+            if (
+                mouseX >= width * 0.95 - textWidth("Controls") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
+                mouseY <= height * 0.6 + 2 * height / 15
+            ) {
+                Sound.play("S-button-clicked")
+
+                this.myCurrentScreen = 'controls'
+
+            }
         } else if (this.myCurrentScreen == 'load') {
             if (
                 mouseX >= width * 0.15 &&
@@ -134,7 +146,7 @@ class VMainMenu {
             }
         }
 
-        if (this.myCurrentScreen == 'character' || this.myCurrentScreen == 'load') {
+        if (this.myCurrentScreen == 'character' || this.myCurrentScreen == 'load' || this.myCurrentScreen == 'controls') {
             if (
                 mouseX >= width * 0.95 - textWidth("Return to Main Menu") &&
                 mouseX <= width * 0.95 &&
@@ -368,18 +380,18 @@ class VMainMenu {
 
         fill(177,188,184)
         if (
-            mouseX >= width * 0.95 - textWidth("Options") &&
+            mouseX >= width * 0.95 - textWidth("Controls") &&
             mouseX <= width * 0.95 &&
             mouseY >= height * 0.6 + 2 * height / 15 - textHeight &&
             mouseY <= height * 0.6 + 2 * height / 15
         ) {
-            if (this.myLastHover != "Options") {
+            if (this.myLastHover != "Controls") {
                 Sound.play("S-button-hover")
-                this.myLastHover = "Options"
+                this.myLastHover = "Controls"
             }
             fill(239,255,255)
         }
-        text("Options", 0, 2 * height / 15)
+        text("Controls", 0, 2 * height / 15)
 
 
         fill(177,188,184)
@@ -537,6 +549,51 @@ class VMainMenu {
         pop()
     }
 
+    static drawControlsScreen() {
+        push()
+
+        // for (let a = 5.5; a < 10; a++) {
+        //     for (let b = 1.5; b < 14; b++) {
+        //         image(random(this.myGroundImages), getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
+
+         
+        //     }
+        // }
+        textFont(FONT["REGULAR"])
+
+        noStroke()
+        fill(177,188,184)
+        push()
+        textSize(width / 35)
+        translate(width/2,height * 0.425)
+        textAlign(CENTER)
+        text("Defeat monsters until you find all four Pillars of OO", 0,0)
+        text("Use the WASD or arrow keys to move your character", 0, 1 * height / 20)
+        text("Use the Space Bar to interact with pickups and monsters", 0, 2 * height / 20)
+        text("Use the B button to open your inventory", 0, 3 * height / 20)
+        text("Use the Escape button to open the pause menu", 0, 4 * height / 20)
+
+        pop()
+        textSize(width / 30)
+        textAlign(RIGHT)
+        translate(width * 0.95, height * 0.6)
+        fill(177,188,184)
+        if (
+            mouseX >= width * 0.95 - textWidth("Return to Main Menu") &&
+            mouseX <= width * 0.95 &&
+            mouseY >= height * 0.6 + 4 * height / 15 - width / 30 &&
+            mouseY <= height * 0.6 + 4 * height / 15 
+        ) {
+            if (this.myLastHover != "Controls Return to Main Menu") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "Controls Return to Main Menu"
+            }
+            fill(239,255,255)
+        }
+        text("Return to Main Menu", 0, 4 * height / 15)
+        pop()
+    }
+
     /**
      * Draws the current screen.
      * Depending on the current screen, it calls the appropriate draw method.
@@ -562,6 +619,8 @@ class VMainMenu {
                 this.drawCharacterSelection()
             } else if (this.myCurrentScreen == 'load') {
                 this.drawLoadScreen()
+            } else if (this.myCurrentScreen =='controls') {
+                this.drawControlsScreen()
             } else {
                 this.drawMainMenu()
             }
@@ -573,7 +632,7 @@ class VMainMenu {
             translate(width * 0.95, height * 0.6)
             textSize(width / 60)
             fill(177,188,184)
-            text("Ver. 6/03/2024", 0, height * 0.375)
+            text("Ver. 6/04/2024", 0, height * 0.375)
 
             // textSize(width / 20)
             // text("Dungeon Adventure", 0, -height / 5)
