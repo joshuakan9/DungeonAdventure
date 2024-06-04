@@ -29,6 +29,18 @@ class VPauseMenu {
                 this.myCurrentScreen = 'none'
             }
 
+            //controls
+            if (
+                mouseX >= width / 2 - menuWidth / 2 &&
+                mouseX <= width / 2 - menuWidth / 2 + menuWidth &&
+                mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.2 &&
+                mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.4
+            ) {
+                Sound.play("S-button-clicked")
+                this.myCurrentScreen = 'controls'
+
+            }
+
             //load
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
@@ -178,7 +190,7 @@ class VPauseMenu {
             }
             rect(0,0 , menuWidth, menuHeight * 0.2, 5 * M)
     
-            // OPTIONS
+            // CONTROLS
             fill(0, 0, 0, 25)
             if (
                 mouseX >= width / 2 - menuWidth / 2 &&
@@ -186,9 +198,9 @@ class VPauseMenu {
                 mouseY >= height / 2 - menuHeight / 2 + menuHeight * 0.2 &&
                 mouseY <= height / 2 - menuHeight / 2 + menuHeight * 0.4
             ) {
-                if (this.myLastHover != "Options") {
+                if (this.myLastHover != "Controls") {
                     Sound.play("S-button-hover")
-                    this.myLastHover = "Options"
+                    this.myLastHover = "Controls"
                 }
                 fill(0, 0, 0, 100)   
             }
@@ -246,7 +258,7 @@ class VPauseMenu {
             textAlign(CENTER,CENTER);
     
             text("Resume", menuWidth / 2, menuHeight * 0.1)
-            text("Options", menuWidth / 2, menuHeight * 0.3)
+            text("Controls", menuWidth / 2, menuHeight * 0.3)
             text("Load", menuWidth / 2, menuHeight * 0.5)
             text("Save", menuWidth / 2, menuHeight * 0.7)
             text("Exit to Main Menu", menuWidth / 2, menuHeight * 0.9)
@@ -362,51 +374,43 @@ class VPauseMenu {
             pop()
         }
     
-        // if (this.myCurrentScreen == 'save') {
-        //     push()
-        //     textFont(FONT["REGULAR"])
-        //     textSize(width / 30)
-        //     noStroke()
-        //     fill(0, 0, 0, 100)
-        //     if (
-        //         mouseX >= width * 0.15 &&
-        //         mouseX <= width * 0.15 + width / 5 &&
-        //         mouseY >= height / 2 - width / 10 &&
-        //         mouseY <= height / 2 - width / 10 + width / 5
-        //     ) {
-        //         fill(0, 0, 0, 125)   
+        if (this.myCurrentScreen == 'controls') {
+            this.drawControlsScreen()
+        }
+    }
+
+    
+    static drawControlsScreen() {
+        push()
+
+        // for (let a = 5.5; a < 10; a++) {
+        //     for (let b = 1.5; b < 14; b++) {
+        //         image(random(this.myGroundImages), getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
+
+         
         //     }
-        //     rect(width * 0.15, height / 2 - width / 10, width / 5, width / 5, 5 * M)
-
-        //     fill(0, 0, 0, 100)
-        //     if (
-        //         mouseX >= width * 0.4 &&
-        //         mouseX <= width * 0.4 + width / 5 &&
-        //         mouseY >= height / 2 - width / 10 &&
-        //         mouseY <= height / 2 - width / 10 + width / 5
-        //     ) {
-        //         fill(0, 0, 0, 125)   
-        //     }
-        //     rect(width * 0.4, height / 2 - width / 10, width / 5, width / 5, 5 * M)
-
-        //     fill(0, 0, 0, 100)
-        //     if (
-        //         mouseX >= width * 0.65 &&
-        //         mouseX <= width * 0.65 + width / 5 &&
-        //         mouseY >= height / 2 - width / 10 &&
-        //         mouseY <= height / 2 - width / 10 + width / 5
-        //     ) {
-        //         fill(0, 0, 0, 125)   
-        //     }
-        //     rect(width * 0.65, height / 2 - width / 10, width / 5, width / 5, 5 * M)
-
-        //     fill(177,188,184)
-        //     text("Save 1", width * 0.2, height * 0.675 - width / 10)
-        //     text("Save 2", width * 0.45, height * 0.675 - width / 10)
-        //     text("Save 3", width * 0.7, height * 0.675 - width / 10)
-
-        //     pop()
         // }
+        textFont(FONT["REGULAR"])
+
+
+
+        noStroke()
+
+        push()
+        textSize(width / 45)
+        fill(0,0,0,100)
+        rect(width/2 - textWidth("Use the Space Bar to interact with pickups and monsters")/1.9, height*0.395, textWidth("Use the Space Bar to interact with pickups and monsters") * 1.05, 5 * height / 20, 5*M)
+        fill(177,188,184)
+        translate(width/2,height * 0.425)
+        textAlign(CENTER)
+        text("Defeat monsters until you find all four Pillars of OO", 0,0)
+        text("Use the WASD or arrow keys to move your character", 0, 1 * height / 20)
+        text("Use the Space Bar to interact with pickups and monsters", 0, 2 * height / 20)
+        text("Use the B button to open your inventory", 0, 3 * height / 20)
+        text("Use the Escape button to open the pause menu", 0, 4 * height / 20)
+
+        pop()
+        
     }
 
     /**
