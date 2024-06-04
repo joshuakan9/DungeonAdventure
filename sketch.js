@@ -498,10 +498,10 @@ function newGame() {
           instanceTextBox.tickTextBox(time);
         }
 
-        if (instanceVictoryDisplay.isRunning) {
+        if (instanceVictoryDisplay.myIsRunning) {
           instanceVictoryDisplay.characterRendering(time);
         }
-        if(instanceDefeatDisplay.isRunning) {
+        if(instanceDefeatDisplay.myIsRunning) {
           instanceDefeatDisplay.characterRendering(time);
         }
 
