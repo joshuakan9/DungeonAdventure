@@ -47,6 +47,7 @@ class VMainMenu {
             ) {
                 Sound.play("S-button-clicked")
                 loadGame(0)
+                window.dispatchEvent(new Event("e-transition"))
                 this.myCurrentScreen = 'none'
                 console.log('save 1')
             }
@@ -59,6 +60,7 @@ class VMainMenu {
             ) {
                 Sound.play("S-button-clicked")
                 loadGame(1)
+                window.dispatchEvent(new Event("e-transition"))
                 this.myCurrentScreen = 'none'
                 console.log('save 2')
             }
@@ -71,6 +73,7 @@ class VMainMenu {
             ) {
                 Sound.play("S-button-clicked")
                 loadGame(2)
+                window.dispatchEvent(new Event("e-transition"))
                 this.myCurrentScreen = 'none'
                 console.log('save 3')
             }
@@ -82,8 +85,10 @@ class VMainMenu {
                 mouseY >= height * 0.6 - textHeight &&
                 mouseY <= height * 0.6
             ) {
+
                 Sound.play("S-button-clicked")
                 newGame()
+                window.dispatchEvent(new Event("e-transition"))
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('assassin')}))
                 this.myCurrentScreen = 'none'
     
@@ -97,6 +102,7 @@ class VMainMenu {
             ) {
                 Sound.play("S-button-clicked")
                 newGame()
+                window.dispatchEvent(new Event("e-transition"))
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('warrior')}))
                 this.myCurrentScreen = 'none'
             }
@@ -109,6 +115,7 @@ class VMainMenu {
             ) {
                 Sound.play("S-button-clicked")
                 newGame()
+                window.dispatchEvent(new Event("e-transition"))
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('priest')}))
                 this.myCurrentScreen = 'none'
             }
@@ -121,6 +128,7 @@ class VMainMenu {
             ) {
                 Sound.play("S-button-clicked")
                 newGame()
+                window.dispatchEvent(new Event("e-transition"))
                 window.dispatchEvent(new CustomEvent('e-player-set-character', {detail: CharacterFactory.createCharacter('dino')}))
                 this.myCurrentScreen = 'none'
             }

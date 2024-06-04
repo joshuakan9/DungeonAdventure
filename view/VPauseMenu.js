@@ -77,6 +77,7 @@ class VPauseMenu {
                 } else {
                     loadGame(0)
                 }
+                window.dispatchEvent(new Event("e-transition"))
                 this.myCurrentScreen = 'none'
                 console.log('save 1')
             }
@@ -93,6 +94,7 @@ class VPauseMenu {
                 } else {
                     loadGame(1)
                 }
+                window.dispatchEvent(new Event("e-transition"))
                 this.myCurrentScreen = 'none'
                 console.log('save 2')
             }
@@ -109,6 +111,7 @@ class VPauseMenu {
                 } else {
                     loadGame(2)
                 }
+                window.dispatchEvent(new Event("e-transition"))
                 this.myCurrentScreen = 'none'
                 console.log('save 3')
             }

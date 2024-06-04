@@ -129,6 +129,7 @@ window.addEventListener("e-textbox-add", (E) => {
 window.addEventListener('e-transition', (E) => {
   instanceTransition.transition();
   console.log("here")
+
 })
 
 window.addEventListener("e-pickup", (E) => {
@@ -151,7 +152,9 @@ window.addEventListener("e-player-unfreeze", (E) => {
 
 window.addEventListener("e-game-over-victory", (E) => {
   if (instancePlayer.hasPillars()) {
+    window.dispatchEvent(new Event("e-transition"))
     instanceVictoryDisplay.isRunning = true;
+    
     VMainMenu.setMainMenu();
   } else {
     instanceTextBox.add({ text: "You need to find all four Pillars of OO before escaping!"})
@@ -159,6 +162,7 @@ window.addEventListener("e-game-over-victory", (E) => {
 })
 
 window.addEventListener("e-player-die", (E) => {
+  window.dispatchEvent(new Event("e-transition"))
   instanceDefeatDisplay.isRunning = true;
   VMainMenu.setMainMenu();
 });
