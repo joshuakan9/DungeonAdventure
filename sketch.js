@@ -21,8 +21,6 @@ let TICK = 0
 function preload() {
   // FONT['REGULAR'] = loadFont('./assets/fonts/LeagueSpartan-Regular.ttf')
   FONT['REGULAR'] = loadFont('./assets/fonts/MinecraftRegular.otf')
-  FONT['SEMIBOLD'] = loadFont('./assets/fonts/LeagueSpartan-SemiBold.ttf')
-  FONT['BOLD'] = loadFont('./assets/fonts/LeagueSpartan-Bold.ttf')
   IMG_CURSOR = loadImage('./assets/images/cursor.png')
   TILEMAP = loadImage('./assets/images/tilemap.png')
   WALL_IMG = loadImage('./assets/images/background.png')
