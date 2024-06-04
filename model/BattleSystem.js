@@ -170,7 +170,7 @@ class BattleSystem {
                 let basicOrSpecial = random(0, 100);
                 if (basicOrSpecial < 75) {
                     this.player.setHitPoints(this.player.getHitPoints() - mobBasicDamage);
-                    
+
                     console.log("player hit by basic");
                     window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "basic" }}))
                 } else {
@@ -244,7 +244,7 @@ class BattleSystem {
                     window.dispatchEvent(new Event("e-bag"))
                 }
 
-                if (this.stamina === 0) {
+                if (this.stamina === 0 && this.mob.getHitPoints() > 0) {
                     this.mobAttack();
                     this.isOutOfBattleCheck();
                     this.stamina = this.player.getStamina();

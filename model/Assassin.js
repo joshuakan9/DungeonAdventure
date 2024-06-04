@@ -51,7 +51,7 @@ class Assassin extends Character {
      */
     buff() {
         this.myAttack.setDamage(this.myAttack.getDamage() + 5);
-        this.mySpecialAttack.setDamage(this.myAttack.getDamage() + 10);
+        this.mySpecialAttack.setDamage(this.mySpecialAttack.getDamage() + 10);
     }
 
     /**
