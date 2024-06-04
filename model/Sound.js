@@ -1,5 +1,5 @@
 class Sound {
-
+    static mySounds;
     static setup() {
         this.mySounds = {
             "S-button-clicked": loadSound('assets/sounds/ui/button-clicked.ogg'),

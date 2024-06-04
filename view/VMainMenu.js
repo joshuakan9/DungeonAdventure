@@ -4,6 +4,7 @@
  * It also manages the current screen of the game.
  */
 class VMainMenu {
+    static myCurrentCharacter;
     static myCurrentScreen = 'main';
     static myLastHover = null
 

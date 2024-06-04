@@ -20,16 +20,17 @@ const RATE_OF_TRANSITION = 20;
  * Class representing a TransitionEffect.
  */
 class TransitionEffect {
-
+    myDrawer;
+    myInterval
     /**
      * Clear the TransitionEffect.
      * This stops the transition and removes the drawing function.
      */
     clear() {
-        // clears setinterval
-        clearInterval(this.interval);
+        // clears setmyInterval
+        clearInterval(this.myInterval);
         // sketch line 235 (might change) if statement for transition is done
-        this.drawer = null;
+        this.myDrawer = null;
     }
 
     /**
@@ -40,12 +41,12 @@ class TransitionEffect {
         let alpha = 255;
         let rate = RATE_OF_TRANSITION; // how fast the rendering is (based off of background color number line 22)
         this.clear();
-        const handler = () => { // anonymous function that is put into the setInterval
+        const handler = () => { // anonymous function that is put into the setmyInterval
             if (alpha < 0) { // the break out case
                 this.clear();
                 return;
             }
-            this.drawer = () => { // draws function draws effect
+            this.myDrawer = () => { // draws function draws effect
                 fill(0, 0, 0, alpha);
                 rect(0, 0, width, height);
             }
@@ -53,14 +54,14 @@ class TransitionEffect {
             rate += rate;
         }
         handler();
-        this.interval = setInterval(handler, HANDLER_TIME); // handler function and the time it takes for handler to be finished
+        this.myInterval = setInterval(handler, HANDLER_TIME); // handler function and the time it takes for handler to be finished
     }
 
     /**
-     * Check if the TransitionEffect has a drawing function.
-     * @returns {boolean} Whether the TransitionEffect has a drawing function.
+     * Check if the TransitionEffect has a drawing function and run it if so.
      */
-    drawerStatus() {
-        return this.drawer != null
+    draw() {
+        if (this.myDrawer)
+            this.myDrawer();
     }
 }

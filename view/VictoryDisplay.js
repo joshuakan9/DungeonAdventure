@@ -17,7 +17,7 @@ const VD_MAIN_TEXT_SIZE = .05;
 const VD_SMALL_TEXT_SIZE = .025;
 
 class VictoryDisplay {
-
+    myIsRunning;
     myPriestDisplay;
     myWarriorDisplay;
     myAssassinDisplay;
@@ -54,11 +54,11 @@ class VictoryDisplay {
         pop();
     }
 
-    characterRendering(time) {
-        this.priestDisplay.step(time);
-        this.warriorDisplay.step(time);
-        this.assassinDisplay.step(time);
-        this.dinoDisplay.step(time);
+    characterRendering(theTime) {
+        this.priestDisplay.step(theTime);
+        this.warriorDisplay.step(theTime);
+        this.assassinDisplay.step(theTime);
+        this.dinoDisplay.step(theTime);
     }
 
     mouseClicked() {

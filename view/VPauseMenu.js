@@ -11,6 +11,11 @@ class VPauseMenu {
     static myCurrentScreen = 'none';
     static myLastHover = null
 
+    static myCharacterSave0;
+    static myCharacterSave1;
+    static myCharacterSave2;
+
+
     /**
      * Handles mouse click events.
      * Depending on the current screen state and the mouse position, it performs different actions.

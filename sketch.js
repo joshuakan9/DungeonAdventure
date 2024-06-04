@@ -579,9 +579,7 @@ function newGame() {
           }
 
   //=======================================================================================================================
-          if (instanceTransition.drawerStatus()) {
-            instanceTransition.drawer();
-          }
+          instanceTransition.draw();
         }
 
 
