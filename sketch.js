@@ -178,7 +178,7 @@ window.addEventListener("e-bag", (E) => {
   console.log("bag event")
 })
 window.addEventListener("e-player-use-health-potion", (E) => {
-  if (instanceBattle && instanceBattle.inCombat) {
+  if (instanceBattle && instanceBattle.getInCombat()) {
     instanceTextBox.add({
       text: instancePlayer.getName() + " has used a potion and has healed for " + E.detail + " health!",
       x: 1,
@@ -203,7 +203,7 @@ window.addEventListener("e-attack", (E) => {
     damage = E.detail.entity.getSpecialAttack().getDamage()
   }
 
-  if (instanceBattle && instanceBattle.inCombat) {
+  if (instanceBattle && instanceBattle.getInCombat()) {
     instanceTextBox.add({ text: E.detail.entity.getName() + " has used " + E.detail.attack + " attack and dealt " + damage + " damage!" , x: 1, y: .2, width: 0, height: .2, textSize: .02 });
     console.log("working")
   }
@@ -211,12 +211,12 @@ window.addEventListener("e-attack", (E) => {
 
 window.addEventListener("e-special-attack", (E) => {
     if (instancePlayer.getClass() === "Assassin") {
-      if (instanceBattle && instanceBattle.inCombat) {
+      if (instanceBattle && instanceBattle.getInCombat()) {
         instanceTextBox.add({
           text: instancePlayer.getName() + " has used quick attack and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!",
           x: 1,
           y: .2,
-          width: .5,
+          width: 0,
           height: .2,
           textSize: .02
         });
@@ -224,11 +224,11 @@ window.addEventListener("e-special-attack", (E) => {
         instanceTextBox.add({ text: instancePlayer.getName() + " has used quick attack and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!" });
       }
     } else if (instancePlayer.getClass() === "Warrior") {
-        if (instanceBattle && instanceBattle.inCombat) {
+        if (instanceBattle && instanceBattle.getInCombat()) {
           instanceTextBox.add({text: instancePlayer.getName() + " has used crushing blow and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!",
             x: 1,
             y: .2,
-            width: .5,
+            width: 0,
             height: .2,
             textSize: .02
           });
@@ -236,11 +236,11 @@ window.addEventListener("e-special-attack", (E) => {
             instanceTextBox.add({text: instancePlayer.getName() + " has used crushing blow and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!"});
         }
     } else if (instancePlayer.getClass() === "Dino") {
-      if (instanceBattle && instanceBattle.inCombat) {
+      if (instanceBattle && instanceBattle.getInCombat()) {
         instanceTextBox.add({text: instancePlayer.getName() + " has used bite and dealt " + instancePlayer.getSpecialAttack().getDamage() + " damage!",
           x: 1,
           y: .2,
-          width: .5,
+          width: 0,
           height: .2,
           textSize: .02
         });
@@ -260,8 +260,8 @@ window.addEventListener("e-mob-heal", (E) => {
 })
 
 window.addEventListener("e-player-already-full-health", (E) => {
-  if (instanceBattle && instanceBattle.inCombat) {
-    instanceTextBox.add({text: "You are already at full health!", x: 1, y: .2, width: .5, height: .2, textSize: .02});
+  if (instanceBattle && instanceBattle.getInCombat()) {
+    instanceTextBox.add({text: "You are already at full health!", x: 1, y: .2, width: 0, height: .2, textSize: .02});
   } else {
     instanceTextBox.add({text: "You are already at full health!"});
 
@@ -269,7 +269,7 @@ window.addEventListener("e-player-already-full-health", (E) => {
 })
 
 window.addEventListener("e-not-enough-stamina", (E) => {
-  instanceTextBox.add({ text: "You do not have enough stamina!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: "You do not have enough stamina!", x: 1, y: .2, width: 0, height: .2, textSize: .02 });
 })
 
 window.addEventListener("e-assassin-buff", (E) => {
@@ -277,11 +277,11 @@ window.addEventListener("e-assassin-buff", (E) => {
 })
 
 window.addEventListener("e-warrior-buff", (E) => {
-  instanceTextBox.add({ text: "You have used buff and increased your block chance by 5%!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: "You have used buff and increased your block chance by 5%!", x: 1, y: .2, width: 0, height: .2, textSize: .02 });
 })
 
 window.addEventListener("e-priest-buff", (E) => {
-  instanceTextBox.add({ text: "You have used buff and increased your heal amount by 25!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+  instanceTextBox.add({ text: "You have used buff and increased your heal amount by 25!", x: 1, y: .2, width: 0, height: .2, textSize: .02 });
 })
 
 let TILEMAP_ASSASSIN
@@ -481,7 +481,7 @@ function newGame() {
 
         VMainMenu.step(time)
         VPauseMenu.step(time)
-        if (instanceBattle && instanceBattle.inCombat && !instanceBattle.outOfText) {
+        if (instanceBattle && instanceBattle.getInCombat() && !instanceBattle.outOfText) {
           instanceBattleDisplay.mobClone.step(time);
           instanceBattleDisplay.playerClone.step(time);
         }
@@ -560,7 +560,7 @@ function newGame() {
           }
 
   //=======================================================================================================================
-          if (instanceBattle && instanceBattle.inCombat) {
+          if (instanceBattle && instanceBattle.getInCombat()) {
               instanceBattleDisplay.displayBattle();
           }
           if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
@@ -607,7 +607,7 @@ function mouseClicked() {
       hasCompleteInitial = true;
     }
   }
-  if (instanceBattle && instanceBattle.inCombat && instanceTextBox.isEmpty()) {
+  if (instanceBattle && instanceBattle.getInCombat() && instanceTextBox.isEmpty()) {
     instanceBattle.mouseClicked();
   }
   if (instanceTextBox.isEmpty()) {

@@ -7,63 +7,61 @@ class BattleSystem {
      * Constructs a new BattleSystem instance.
      *
      * @param {Object} thePlayer - The player.
-     * @param {Object} theMob - The mob.
+     * @param {Object} themyMob - The myMob.
      * @param {Object} thePillarDrop - The pillar drop.
      */
-    constructor(thePlayer, theMob, thePillarDrop) {
-        this.player = thePlayer;
-        this.mob = theMob;
-        this.pillarDropBoolean = thePillarDrop.boolean;
-        this.pillarDropCount = thePillarDrop.count;
-        this.outOfText = false;
-
-        console.log("battle started");
-        console.log(thePillarDrop.boolean);
-        console.log(thePillarDrop.count);
-        this.turnCounter = 0;
-        this.inCombat = true;
-        this.stamina = this.player.getStamina();
-        // this.random = Math.floor(Math.random() * 100);
+    constructor(thePlayer, themyMob, thePillarDrop) {
+        this.myPlayer = thePlayer;
+        this.myMob = themyMob;
+        this.myPillarDropBoolean = thePillarDrop.boolean;
+        this.myPillarDropCount = thePillarDrop.count;
+        this.myTurnCounter = 0;
+        this.myInCombat = true;
+        this.myStamina = this.myPlayer.getStamina();
         window.dispatchEvent(new Event("e-player-freeze"))
 
+    }
+
+    getInCombat() {
+        return this.myInCombat
     }
 
     /**
      * Checks if the battle is over.
      */
     isOutOfBattleCheck() {
-        if (this.player.getHitPoints() <= 0 ) {
+        if (this.myPlayer.getHitPoints() <= 0 ) {
             window.dispatchEvent(new Event("e-player-die"))
-            this.inCombat = false;
-            //window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
+            this.myInCombat = false;
+            //window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.myMob}))
             window.dispatchEvent(new Event("e-battle-end"))
         }
-        if (this.mob.getHitPoints() <= 0) {
+        if (this.myMob.getHitPoints() <= 0) {
             console.log("YOU HAVE WON");
-            window.dispatchEvent(new CustomEvent("e-player-battle-win", {detail: this.mob}))
+            window.dispatchEvent(new CustomEvent("e-player-battle-win", {detail: this.myMob}))
 
-            if (this.pillarDropBoolean) {
-                switch(this.pillarDropCount) {
+            if (this.myPillarDropBoolean) {
+                switch(this.myPillarDropCount) {
                     case 0:
-                        this.player.addBag(EntityFactory.createEntity("pillar of abstraction"));
+                        this.myPlayer.addBag(EntityFactory.createEntity("pillar of abstraction"));
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Abstraction"}))
                         break;
                     case 1:
-                        this.player.addBag(EntityFactory.createEntity("pillar of encapsulation"));
+                        this.myPlayer.addBag(EntityFactory.createEntity("pillar of encapsulation"));
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Encapsulation"}))
                         break;
                     case 2:
-                        this.player.addBag(EntityFactory.createEntity("pillar of inheritance"));
+                        this.myPlayer.addBag(EntityFactory.createEntity("pillar of inheritance"));
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Inheritance"}))
                         break;
                     case 3:
-                        this.player.addBag(EntityFactory.createEntity("pillar of polymorphism"));
+                        this.myPlayer.addBag(EntityFactory.createEntity("pillar of polymorphism"));
                         window.dispatchEvent(new CustomEvent("e-pillar-drop", {detail: "Pillar of Polymorphism"}))
                         break;
                 }
             }
-            this.inCombat = false;
-            window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.mob}))
+            this.myInCombat = false;
+            window.dispatchEvent(new CustomEvent("e-entity-remove", {detail: this.myMob}))
             window.dispatchEvent(new Event("e-battle-end"))
         }
 
@@ -73,29 +71,29 @@ class BattleSystem {
      * Performs a basic attack by the player.
      */
     playerBasicAttack() {
-        let playerDamage = this.player.getAttack().getDamage();
-        let playerHitPercentage = this.player.getAttack().getHitPercentage();
+        let playerDamage = this.myPlayer.getAttack().getDamage();
+        let playerHitPercentage = this.myPlayer.getAttack().getHitPercentage();
         let playerRandom = random(0, 100);
 
         if (playerRandom < playerHitPercentage) {
-            this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
+            this.myMob.setHitPoints(this.myMob.getHitPoints() - playerDamage);
 
-            if (this.mob.getHitPoints() <= 0) {
-                this.inCombat = false;
+            if (this.myMob.getHitPoints() <= 0) {
+                this.myInCombat = false;
             }
-            window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.player, attack: "basic" }}))
+            window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.myPlayer, attack: "basic" }}))
 
-            let mobHealPercentage = this.mob.getHeal().getHealPercentage();
-            let mobHealRandom = random(0, 100);
+            let myMobHealPercentage = this.myMob.getHeal().getHealPercentage();
+            let myMobHealRandom = random(0, 100);
 
-            if (mobHealRandom < mobHealPercentage && this.mob.getHitPoints() - playerDamage > 0) {
-                console.log("mob healed")
-                window.dispatchEvent(new CustomEvent("e-mob-heal", {detail: this.mob}))
-                this.mob.heal();
+            if (myMobHealRandom < myMobHealPercentage && this.myMob.getHitPoints() - playerDamage > 0) {
+                console.log("myMob healed")
+                window.dispatchEvent(new CustomEvent("e-myMob-heal", {detail: this.myMob}))
+                this.myMob.heal();
             }
         } else {
             console.log("player missed")
-            window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.player}))
+            window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.myPlayer}))
         }
     }
 
@@ -103,85 +101,85 @@ class BattleSystem {
      * Performs a special attack by the player.
      */
     playerSpecialAttack() {
-        if (this.player.getClass() === "Priest") {
-            let healAmount = this.player.getHeal().getHealAmount();
+        if (this.myPlayer.getClass() === "Priest") {
+            let healAmount = this.myPlayer.getHeal().getHealAmount();
             console.log("heal amount = " + healAmount);
-            if (this.player.getHitPoints() + this.player.getHeal().getHealAmount() > this.player.getMaxHitPoints()) {
-                healAmount = this.player.getMaxHitPoints() - this.player.getHitPoints();
+            if (this.myPlayer.getHitPoints() + this.myPlayer.getHeal().getHealAmount() > this.myPlayer.getMaxHitPoints()) {
+                healAmount = this.myPlayer.getMaxHitPoints() - this.myPlayer.getHitPoints();
 
-                this.player.setHitPoints(this.player.getMaxHitPoints());
-                window.dispatchEvent(new CustomEvent("e-priest-heal", {detail: {player: this.player, healAmount: healAmount}}))
+                this.myPlayer.setHitPoints(this.myPlayer.getMaxHitPoints());
+                window.dispatchEvent(new CustomEvent("e-priest-heal", {detail: {player: this.myPlayer, healAmount: healAmount}}))
             } else {
-                this.player.heal();
-                window.dispatchEvent(new CustomEvent("e-priest-heal",  {detail: {player: this.player, healAmount: healAmount}}))
+                this.myPlayer.heal();
+                window.dispatchEvent(new CustomEvent("e-priest-heal",  {detail: {player: this.myPlayer, healAmount: healAmount}}))
             }
         } else {
-            let playerDamage = this.player.getSpecialAttack().getDamage();
-            let playerHitPercentage = this.player.getSpecialAttack().getHitPercentage();
+            let playerDamage = this.myPlayer.getSpecialAttack().getDamage();
+            let playerHitPercentage = this.myPlayer.getSpecialAttack().getHitPercentage();
             let playerRandom = random(0, 100);
 
             if (playerRandom < playerHitPercentage) {
-                this.mob.setHitPoints(this.mob.getHitPoints() - playerDamage);
+                this.myMob.setHitPoints(this.myMob.getHitPoints() - playerDamage);
 
-                if (this.mob.getHitPoints() <= 0) {
-                    this.inCombat = false;
+                if (this.myMob.getHitPoints() <= 0) {
+                    this.myInCombat = false;
                 }
-                if (this.player.getHitPoints() <= 0) {
-                    this.inCombat = false;
+                if (this.myPlayer.getHitPoints() <= 0) {
+                    this.myInCombat = false;
                 }
                 window.dispatchEvent(new CustomEvent("e-special-attack"))
 
-                let mobHealPercentage = this.mob.getHeal().getHealPercentage();
-                let mobHealRandom = random(0, 100);
+                let myMobHealPercentage = this.myMob.getHeal().getHealPercentage();
+                let myMobHealRandom = random(0, 100);
 
-                if (mobHealRandom < mobHealPercentage && this.mob.getHitPoints() - playerDamage > 0) {
-                    console.log("mob healed")
-                    window.dispatchEvent(new CustomEvent("e-mob-heal", {detail: this.mob}))
-                    this.mob.heal();
+                if (myMobHealRandom < myMobHealPercentage && this.myMob.getHitPoints() - playerDamage > 0) {
+                    console.log("myMob healed")
+                    window.dispatchEvent(new CustomEvent("e-myMob-heal", {detail: this.myMob}))
+                    this.myMob.heal();
 
                 }
             } else {
                 console.log("player missed")
-                window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.player}))
+                window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.myPlayer}))
             }
         }
     }
 
     /**
-     * Performs an attack by the mob.
+     * Performs an attack by the myMob.
      */
-    mobAttack() {
-        let mobBasicDamage = this.mob.getAttack().getDamage();
-        let mobSpecialDamage = this.mob.getSpecialAttack().getDamage();
-        let mobHitPercentage = this.mob.getAttack().getHitPercentage();
-        let mobRandom = random(0, 100); // random int 0 - 99
+    myMobAttack() {
+        let myMobBasicDamage = this.myMob.getAttack().getDamage();
+        let myMobSpecialDamage = this.myMob.getSpecialAttack().getDamage();
+        let myMobHitPercentage = this.myMob.getAttack().getHitPercentage();
+        let myMobRandom = random(0, 100); // random int 0 - 99
 
-        if (mobRandom < mobHitPercentage) {
+        if (myMobRandom < myMobHitPercentage) {
 
-            let playerBlockPercentage = this.player.getBlockPercentage();
+            let playerBlockPercentage = this.myPlayer.getBlockPercentage();
             console.log("block chance = " + playerBlockPercentage);
             let playerBlockRandom = random(0, 100);
 
             if (playerBlockRandom < playerBlockPercentage) {
                 console.log("player blocked");
-                window.dispatchEvent(new CustomEvent("e-player-block", {detail: this.mob}));
+                window.dispatchEvent(new CustomEvent("e-player-block", {detail: this.myMob}));
             } else {
 
                 let basicOrSpecial = random(0, 100);
                 if (basicOrSpecial < 75) {
-                    this.player.setHitPoints(this.player.getHitPoints() - mobBasicDamage);
-
+                    this.myPlayer.setHitPoints(this.myPlayer.getHitPoints() - myMobBasicDamage);
+                    
                     console.log("player hit by basic");
-                    window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "basic" }}))
+                    window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.myMob, attack: "basic" }}))
                 } else {
-                    this.player.setHitPoints(this.player.getHitPoints() - mobSpecialDamage);
+                    this.myPlayer.setHitPoints(this.myPlayer.getHitPoints() - myMobSpecialDamage);
                     console.log("player hit by special");
-                    window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.mob, attack: "special" }}))
+                    window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.myMob, attack: "special" }}))
                 }
             }
         } else {
-            console.log("mob missed")
-            window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.mob}))
+            console.log("myMob missed")
+            window.dispatchEvent(new CustomEvent("e-miss-attack", {detail: this.myMob}))
         }
     }
 
@@ -191,41 +189,41 @@ class BattleSystem {
      * @param {string} theMove - The move to perform in the turn.
      */
     turn(theMove) {
-        if (this.inCombat) {
-            console.log('stamina = ' + this.stamina);
-            if (this.stamina > 0) {
+        if (this.myInCombat) {
+            console.log('stamina = ' + this.myStamina);
+            if (this.myStamina > 0) {
                 if (theMove === 'move_basic') {
-                    if (this.stamina >= 2) {
-                        this.stamina -= 2;
+                    if (this.myStamina >= 2) {
+                        this.myStamina -= 2;
                         this.playerBasicAttack();
                         this.isOutOfBattleCheck();
                         console.log('player used basic attack');
-                        console.log('stamina = ' + this.stamina);
+                        console.log('stamina = ' + this.myStamina);
                     } else {
                         console.log("not enough stamina");
                         window.dispatchEvent(new Event("e-not-enough-stamina"));
                     }
 
                 } else if (theMove === 'move_special') {
-                    if (this.stamina >= 6) {
-                        if (this.player.getClass() === "Priest" && this.player.getHitPoints() === this.player.getMaxHitPoints()) {
+                    if (this.myStamina >= 6) {
+                        if (this.myPlayer.getClass() === "Priest" && this.myPlayer.getHitPoints() === this.myPlayer.getMaxHitPoints()) {
                             console.log("player is already at full health");
                             window.dispatchEvent(new Event("e-player-already-full-health"));
                             return;
                         }
-                        this.stamina -= 6;
+                        this.myStamina -= 6;
                         this.playerSpecialAttack();
                         this.isOutOfBattleCheck();
                         console.log('player used special attack');
-                        console.log('stamina = ' + this.stamina);
+                        console.log('stamina = ' + this.myStamina);
                     } else {
                         console.log("not enough stamina");
                         window.dispatchEvent(new Event("e-not-enough-stamina"));
                     }
                 } else if (theMove === 'move_buff') {
-                    if (this.stamina >= 4) {
-                        this.stamina -= 4;
-                        this.player.buff();
+                    if (this.myStamina >= 4) {
+                        this.myStamina -= 4;
+                        this.myPlayer.buff();
                         if (instancePlayer.getClass() === "Assassin") {
                             window.dispatchEvent(new Event("e-assassin-buff"))
                         } else if (instancePlayer.getClass() === "Warrior") {
@@ -240,19 +238,19 @@ class BattleSystem {
                         window.dispatchEvent(new Event("e-not-enough-stamina"));
                     }
                 } else if (theMove === 'move_bag') {
-                    console.log(this.player.getBag());
+                    console.log(this.myPlayer.getBag());
                     window.dispatchEvent(new Event("e-bag"))
                 }
 
-                if (this.stamina === 0 && this.mob.getHitPoints() > 0) {
-                    this.mobAttack();
+                if (this.myStamina === 0) {
+                    this.myMobAttack();
                     this.isOutOfBattleCheck();
-                    this.stamina = this.player.getStamina();
+                    this.myStamina = this.myPlayer.getStamina();
                 }
 
-                console.log('player health = ' + this.player.getHitPoints())
-                console.log('mob health = ' + this.mob.getHitPoints())
-                this.turnCounter++;
+                console.log('player health = ' + this.myPlayer.getHitPoints())
+                console.log('mob health = ' + this.myMob.getHitPoints())
+                this.myTurnCounter++;
             }
         }
     }
