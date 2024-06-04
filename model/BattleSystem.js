@@ -242,10 +242,12 @@ class BattleSystem {
                     window.dispatchEvent(new Event("e-bag"))
                 }
 
-                if (this.myStamina === 0) {
-                    this.myMobAttack();
-                    this.isOutOfBattleCheck();
-                    this.myStamina = this.myPlayer.getStamina();
+                if (this.myMob.getHitPoints() > 0) {
+                    if (this.myStamina === 0) {
+                        this.myMobAttack();
+                        this.isOutOfBattleCheck();
+                        this.myStamina = this.myPlayer.getStamina();
+                    }
                 }
 
                 console.log('player health = ' + this.myPlayer.getHitPoints())

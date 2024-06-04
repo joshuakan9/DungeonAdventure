@@ -554,7 +554,6 @@ function newGame() {
           push()
           fill('red')
           textSize(width / 10);
-          text(round(frameRate()), 0, width / 10)
 
           pop();
 
@@ -652,7 +651,7 @@ function keyPressed() {
           instanceFactory.interact(instancePlayer)
         }
       }
-      if (instanceBagDisplay.getIsPaused() === false) {
+      if (instanceBagDisplay && instanceBagDisplay.getIsPaused() === false) {
         VPauseMenu.keyPressed()
 
       }
@@ -815,7 +814,7 @@ function setUpHeroDatabase() {
     theStamina: 10,
     theBlockPercentage: 10,
     theMaxHitPoints: 1000,
-    theSpecialAttack: {damage: 500, hitChance: 50},
+    theSpecialAttack: {damage: 2000, hitChance: 100},
   }))
 }
 
