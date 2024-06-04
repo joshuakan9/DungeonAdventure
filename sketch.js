@@ -32,6 +32,7 @@ function preload() {
   WALL4_IMG = loadImage('./assets/images/backgroundLFour.png')
   WALL5_IMG = loadImage('./assets/images/backgroundLFive.png')
   Sound.setup()
+
   if (!window.localStorage.getItem("save")) {
     window.localStorage.setItem("save", JSON.stringify([]))
   }
@@ -604,6 +605,7 @@ function windowResized() {
 function mouseClicked() {
   if (!hasCompleteInitial) {
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+      Sound.loop("S-music-menu")
       hasCompleteInitial = true;
     }
   }
