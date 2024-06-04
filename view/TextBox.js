@@ -86,6 +86,7 @@ class TextBox {
         if (this.timeCurrent >= this.timeTarget && this.children[0] && this.currentTextEnd < this.children[0].text.length) {
             this.children[0].text = this.children[0].text;
             this.currentTextEnd += 1;
+            Sound.play("S-textbox-typing")
         } else {
             this.timeCurrent += delta
         }
