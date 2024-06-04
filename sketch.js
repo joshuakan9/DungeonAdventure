@@ -63,7 +63,7 @@ let pillarDrop = {
 
 window.addEventListener("e-battle-start", (E) => {
 
-  instanceTextBox.add({ text: E['detail'].getName() + " battle", x: 1, y: .2, width: 0, height: .2, textSize: .02 })
+  instanceTextBox.add({ text: "A dangerous " + E['detail'].getName() + " appears!", x: 1, y: .2, width: 0, height: .2, textSize: .02 })
 
   let initialMobCount = instanceFactory.getInitialMobCount();
   let currentMobCount = instanceFactory.getMobCount();
