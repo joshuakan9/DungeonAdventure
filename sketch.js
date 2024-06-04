@@ -295,6 +295,7 @@ let IMG_NOISE
  * Setup function to initialize the game
  */
 function setup() {
+
   //=================================================================JS Test==================================================================================
   // Test.animationsTest()
   // Test.assassinTest() // problem
@@ -511,55 +512,8 @@ function newGame() {
   )
   instanceGameLoop.setRenderFunction(
       () => {
-        background(0);
         image(IMG_NOISE,0,0,width * 2,height * 4)
         noCursor()
-
-        push()
-
-        translate(round(width / 2 - getCellToPos(instancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(instancePlayer.getPos().y) - CELLSIZE / 2));
-
-        instanceFactory.drawDungeon(instancePlayer)
-        instanceFactory.draw(instancePlayer)
-        instancePlayer.draw()
-
-        pop()
-
-
-        push()
-        fill('red')
-        textSize(width / 10);
-        text(round(frameRate()), 0, width / 10)
-
-        pop();
-
-        VPauseMenu.draw();
-        VMainMenu.draw();
-
-        if(instanceVictoryDisplay.isRunning) {
-          instanceVictoryDisplay.draw();
-        }
-        if(instanceDefeatDisplay.isRunning) {
-          instanceDefeatDisplay.draw();
-        }
-
-//=======================================================================================================================
-        if (instanceBattle && instanceBattle.inCombat) {
-            instanceBattleDisplay.displayBattle();
-        }
-        if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
-          instanceBagDisplay.draw(instancePlayer);
-        }
-        if (instanceTextBox && !instanceTextBox.isEmpty()) {
-          instanceTextBox.renderTextBox();
-        }
-
-//=======================================================================================================================
-        if (instanceTransition.drawerStatus()) {
-          instanceTransition.drawer();
-        }
-
-
         if (!hasCompleteInitial) {
           push()
           let color = map(noise(TICK / 50, 0), 0, 1, -50, 50)
@@ -569,7 +523,57 @@ function newGame() {
           textSize(width / 30)
           text("Click to start", width / 2, height * 0.75)
           pop()
+        } else {
+          background(0);
+
+
+          push()
+
+          translate(round(width / 2 - getCellToPos(instancePlayer.getPos().x) - CELLSIZE / 2), round(height / 2 - getCellToPos(instancePlayer.getPos().y) - CELLSIZE / 2));
+
+          instanceFactory.drawDungeon(instancePlayer)
+          instanceFactory.draw(instancePlayer)
+          instancePlayer.draw()
+
+          pop()
+
+
+          push()
+          fill('red')
+          textSize(width / 10);
+          text(round(frameRate()), 0, width / 10)
+
+          pop();
+
+          VPauseMenu.draw();
+          VMainMenu.draw();
+
+          if(instanceVictoryDisplay.isRunning) {
+            instanceVictoryDisplay.draw();
+          }
+          if(instanceDefeatDisplay.isRunning) {
+            instanceDefeatDisplay.draw();
+          }
+
+  //=======================================================================================================================
+          if (instanceBattle && instanceBattle.inCombat) {
+              instanceBattleDisplay.displayBattle();
+          }
+          if (instanceBagDisplay && instanceBagDisplay.getIsPaused()) {
+            instanceBagDisplay.draw(instancePlayer);
+          }
+          if (instanceTextBox && !instanceTextBox.isEmpty()) {
+            instanceTextBox.renderTextBox();
+          }
+
+  //=======================================================================================================================
+          if (instanceTransition.drawerStatus()) {
+            instanceTransition.drawer();
+          }
         }
+
+
+
         image(IMG_CURSOR,mouseX,mouseY, 8 * M, 8 * M)
 
           
