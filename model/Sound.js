@@ -20,4 +20,9 @@ class Sound {
         this.mySounds[theSound].loop()
 
     }
+
+    static stop(theSound) {
+        this.mySounds[theSound].stop()
+
+    }
 }

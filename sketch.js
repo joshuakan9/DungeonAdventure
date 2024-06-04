@@ -863,6 +863,10 @@ function saveGame(theSlot) {
     },
     data: {
       timestamp: Date.now()
+    },
+    pillarDrop: {
+      boolean: pillarDrop['boolean'],
+      count: pillarDrop['count']
     }
   }
   window.localStorage.setItem("save", JSON.stringify(saveArray))
@@ -888,6 +892,7 @@ function loadGame(theSlot) {
     instanceFactory.load(save["factory"])
     instanceBagSystem = new BagSystem(instancePlayer)
     instanceBagDisplay = new BagDisplay(instancePlayer)
+    pillarDrop = save['pillarDrop']
 
     return true
   }
