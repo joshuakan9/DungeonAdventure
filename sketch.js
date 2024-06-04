@@ -377,6 +377,10 @@ function setup() {
  * Function to start a new game
  */
 function newGame() {
+  pillarDrop = {
+    boolean: false,
+    count: -1
+  }
   instancePlayer = null;
   instanceBagSystem = null
   instanceBagDisplay = null
@@ -854,6 +858,7 @@ function saveGame(theSlot) {
       name: instancePlayer.getName().toLowerCase(),
       pos: [instancePlayer.getPos().x, instancePlayer.getPos().y],
       bag: JSON.stringify(Array.from(instancePlayer.getBag().entries())),
+      health: instancePlayer.getHitPoints()
     },
     factory: {
       dungeon: JSON.stringify(saveMyDungeon),
@@ -888,6 +893,7 @@ function loadGame(theSlot) {
     instancePlayer.setBag(new Map(JSON.parse(save["player"]["bag"])))
     instancePlayer.setPos(createVector(JSON.parse(save["player"]["pos"][0]), JSON.parse(save["player"]["pos"][1])))
     instancePlayer.setTargetPos(instancePlayer.getPos())
+    instancePlayer.setHitPoints(save["player"]["health"])
 
     instanceFactory.load(save["factory"])
     instanceBagSystem = new BagSystem(instancePlayer)
