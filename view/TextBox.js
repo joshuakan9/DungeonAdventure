@@ -46,7 +46,7 @@ class TextBox {
         this.timeCurrent = 0
         this.timeTarget = TEXT_SPEED;
         this.currentTextEnd = 0;
-        this.myIsLoopSound = false;
+
         this.children = []
         this.render = () => {
             
@@ -88,10 +88,7 @@ class TextBox {
         if (this.timeCurrent >= this.timeTarget && this.children[0] && this.currentTextEnd < this.children[0].text.length) {
             this.children[0].text = this.children[0].text;
             this.currentTextEnd += 1;
-            if (!this.myIsLoopSound) {
-                Sound.loop("S-textbox-typing")
-                this.myIsLoopSound = true;
-            }
+
         } else {
             this.timeCurrent += delta
         }
@@ -118,8 +115,7 @@ class TextBox {
             Sound.play("S-textbox-next")
             
             if (this.isEmpty()) {
-                // this.myIsLoopSound = false;
-                // Sound.stop("S-textbox-typing")
+ 
                 window.dispatchEvent(new Event("e-no-text"))
             } else {
 
