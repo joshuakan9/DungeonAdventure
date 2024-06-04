@@ -47,18 +47,18 @@ class VictoryDisplay {
         text("You Have Won!", width/VD_SCALE_BY_TWO - width/VD_SCALE_BY_FOUR, height/VD_SCALE_BY_TWO - height/VD_SCALE_BY_EIGHT, width/VD_SCALE_BY_TWO, height/VD_SCALE_BY_FOUR)
         textSize(width * VD_SMALL_TEXT_SIZE);
         text("Click Screen to Main Menu", width/VD_SCALE_BY_TWO - width/VD_SCALE_BY_FOUR, height/VD_SCALE_BY_TWO + height/VD_SCALE_BY_TWENTY, width/VD_SCALE_BY_TWO, height/VD_SCALE_BY_FOUR)
-        this.priestDisplay.draw();
-        this.warriorDisplay.draw();
-        this.assassinDisplay.draw();
-        this.dinoDisplay.draw();
+        this.myPriestDisplay.draw();
+        this.myWarriorDisplay.draw();
+        this.myAssassinDisplay.draw();
+        this.myDinoDisplay.draw();
         pop();
     }
 
-    characterRendering(theTime) {
-        this.priestDisplay.step(theTime);
-        this.warriorDisplay.step(theTime);
-        this.assassinDisplay.step(theTime);
-        this.dinoDisplay.step(theTime);
+    characterRendering(time) {
+        this.myPriestDisplay.step(time);
+        this.myWarriorDisplay.step(time);
+        this.myAssassinDisplay.step(time);
+        this.myDinoDisplay.step(time);
     }
 
     mouseClicked() {
