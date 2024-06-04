@@ -50,6 +50,18 @@ class VMainMenu {
                 this.myCurrentScreen = 'controls'
 
             }
+
+            if (
+                mouseX >= width * 0.95 - textWidth("About") &&
+                mouseX <= width * 0.95 &&
+                mouseY >= height * 0.6 + 3 * height / 15 - textHeight &&
+                mouseY <= height * 0.6 + 3 * height / 15
+            ) {
+                Sound.play("S-button-clicked")
+
+                this.myCurrentScreen = 'about'
+
+            }
         } else if (this.myCurrentScreen == 'load') {
             if (
                 mouseX >= width * 0.15 &&
@@ -146,7 +158,7 @@ class VMainMenu {
             }
         }
 
-        if (this.myCurrentScreen == 'character' || this.myCurrentScreen == 'load' || this.myCurrentScreen == 'controls') {
+        if (this.myCurrentScreen == 'character' || this.myCurrentScreen == 'load' || this.myCurrentScreen == 'controls' || this.myCurrentScreen == 'about') {
             if (
                 mouseX >= width * 0.95 - textWidth("Return to Main Menu") &&
                 mouseX <= width * 0.95 &&
@@ -594,6 +606,50 @@ class VMainMenu {
         pop()
     }
 
+    static drawAboutScreen() {
+        push()
+
+        // for (let a = 5.5; a < 10; a++) {
+        //     for (let b = 1.5; b < 14; b++) {
+        //         image(random(this.myGroundImages), getCellToPos(b), getCellToPos(a), CELLSIZE, CELLSIZE)
+
+         
+        //     }
+        // }
+        textFont(FONT["REGULAR"])
+
+        noStroke()
+        fill(177,188,184)
+        push()
+        textSize(width / 35)
+        translate(width/2,height * 0.425)
+        textAlign(CENTER)
+        text("Created by", 0,0)
+        text("Jonathan Kim", 0, 1 * height / 20)
+        text("Duy-Hung Cong Le", 0, 2 * height / 20)
+        text("Josh Kang", 0, 3 * height / 20)
+
+        pop()
+        textSize(width / 30)
+        textAlign(RIGHT)
+        translate(width * 0.95, height * 0.6)
+        fill(177,188,184)
+        if (
+            mouseX >= width * 0.95 - textWidth("Return to Main Menu") &&
+            mouseX <= width * 0.95 &&
+            mouseY >= height * 0.6 + 4 * height / 15 - width / 30 &&
+            mouseY <= height * 0.6 + 4 * height / 15 
+        ) {
+            if (this.myLastHover != "About Return to Main Menu") {
+                Sound.play("S-button-hover")
+                this.myLastHover = "About Return to Main Menu"
+            }
+            fill(239,255,255)
+        }
+        text("Return to Main Menu", 0, 4 * height / 15)
+        pop()
+    }
+
     /**
      * Draws the current screen.
      * Depending on the current screen, it calls the appropriate draw method.
@@ -621,6 +677,8 @@ class VMainMenu {
                 this.drawLoadScreen()
             } else if (this.myCurrentScreen =='controls') {
                 this.drawControlsScreen()
+            } else if (this.myCurrentScreen =='about') { 
+                this.drawAboutScreen()
             } else {
                 this.drawMainMenu()
             }
