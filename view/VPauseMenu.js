@@ -86,12 +86,17 @@ class VPauseMenu {
                 Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(0)
+                    window.dispatchEvent(new Event("e-transition"))
+                    this.myCurrentScreen = 'none'
+                    console.log('save 1')
                 } else {
-                    loadGame(0)
+                    if (loadGame(0)) {
+                        window.dispatchEvent(new Event("e-transition"))
+                        this.myCurrentScreen = 'none'
+                        console.log('save 1')
+                    }
                 }
-                window.dispatchEvent(new Event("e-transition"))
-                this.myCurrentScreen = 'none'
-                console.log('save 1')
+
             }
 
             if (
@@ -103,8 +108,15 @@ class VPauseMenu {
                 Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(1)
+                    window.dispatchEvent(new Event("e-transition"))
+                    this.myCurrentScreen = 'none'
+                    console.log('save 1')
                 } else {
-                    loadGame(1)
+                    if (loadGame(1)) {
+                        window.dispatchEvent(new Event("e-transition"))
+                        this.myCurrentScreen = 'none'
+                        console.log('save 2')
+                    }
                 }
                 window.dispatchEvent(new Event("e-transition"))
                 this.myCurrentScreen = 'none'
@@ -120,8 +132,15 @@ class VPauseMenu {
                 Sound.play("S-button-clicked")
                 if (this.myCurrentScreen == 'save') {
                     saveGame(2)
+                    window.dispatchEvent(new Event("e-transition"))
+                    this.myCurrentScreen = 'none'
+                    console.log('save 3')
                 } else {
-                    loadGame(2)
+                    if (loadGame(2)) {
+                        window.dispatchEvent(new Event("e-transition"))
+                        this.myCurrentScreen = 'none'
+                        console.log('save 3')
+                    }
                 }
                 window.dispatchEvent(new Event("e-transition"))
                 this.myCurrentScreen = 'none'

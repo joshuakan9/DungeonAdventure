@@ -70,10 +70,11 @@ class VMainMenu {
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
                 Sound.play("S-button-clicked")
-                loadGame(0)
-                window.dispatchEvent(new Event("e-transition"))
-                this.myCurrentScreen = 'none'
-                console.log('save 1')
+                if (loadGame(0)) {
+                    window.dispatchEvent(new Event("e-transition"))
+                    this.myCurrentScreen = 'none'
+                    console.log('save 1')
+                }
             }
 
             if (
@@ -83,10 +84,11 @@ class VMainMenu {
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
                 Sound.play("S-button-clicked")
-                loadGame(1)
-                window.dispatchEvent(new Event("e-transition"))
-                this.myCurrentScreen = 'none'
-                console.log('save 2')
+                if (loadGame(1)) {
+                    window.dispatchEvent(new Event("e-transition"))
+                    this.myCurrentScreen = 'none'
+                    console.log('save 2')
+                }
             }
 
             if (
@@ -96,10 +98,11 @@ class VMainMenu {
                 mouseY <= height / 2 - width / 10 + width / 5
             ) {
                 Sound.play("S-button-clicked")
-                loadGame(2)
-                window.dispatchEvent(new Event("e-transition"))
-                this.myCurrentScreen = 'none'
-                console.log('save 3')
+                if (loadGame(2)) {
+                    window.dispatchEvent(new Event("e-transition"))
+                    this.myCurrentScreen = 'none'
+                    console.log('save 3')
+                }
             }
         } else if (this.myCurrentScreen == 'character') {
 
