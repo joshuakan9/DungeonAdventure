@@ -10,9 +10,9 @@ class BattleSystem {
      * @param {Object} themyMob - The myMob.
      * @param {Object} thePillarDrop - The pillar drop.
      */
-    constructor(thePlayer, themyMob, thePillarDrop) {
+    constructor(thePlayer, theMob, thePillarDrop) {
         this.myPlayer = thePlayer;
-        this.myMob = themyMob;
+        this.myMob = theMob;
         this.myPillarDropBoolean = thePillarDrop.boolean;
         this.myPillarDropCount = thePillarDrop.count;
         this.myTurnCounter = 0;
@@ -249,7 +249,7 @@ class BattleSystem {
                 }
 
                 console.log('player health = ' + this.myPlayer.getHitPoints())
-                console.log('mob health = ' + this.myMob.getHitPoints())
+                console.log('myMob health = ' + this.myMob.getHitPoints())
                 this.myTurnCounter++;
             }
         }
