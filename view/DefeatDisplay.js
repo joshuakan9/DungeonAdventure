@@ -13,11 +13,17 @@ const DD_MAIN_TEXT_SIZE = .05;
 const DD_SMALL_TEXT_SIZE = .025;
 
 class DefeatDisplay {
+    myIsRunning;
+    myGremlinDisplay;
+    myOgreDisplay;
+    mySkeletonDisplay;
+
+
     constructor() {
-        this.isRunning = false;
-        this.gremlinDisplay = EntityFactory.createEntity("gremlin", createVector(DD_GREMLIN_VECTOR_X, DD_VECTOR_Y));
-        this.ogreDisplay = EntityFactory.createEntity("ogre", createVector(DD_OGRE_VECTOR_X, DD_VECTOR_Y));
-        this.skeletonDisplay = EntityFactory.createEntity("skeleton", createVector(DD_SKELETON_VECTOR_X, DD_VECTOR_Y));
+        this.myIsRunning = false;
+        this.myGremlinDisplay = EntityFactory.createEntity("gremlin", createVector(DD_GREMLIN_VECTOR_X, DD_VECTOR_Y));
+        this.myOgreDisplay = EntityFactory.createEntity("ogre", createVector(DD_OGRE_VECTOR_X, DD_VECTOR_Y));
+        this.mySkeletonDisplay = EntityFactory.createEntity("skeleton", createVector(DD_SKELETON_VECTOR_X, DD_VECTOR_Y));
 
     }
 
@@ -31,16 +37,16 @@ class DefeatDisplay {
         text("You Have Died...", width/DD_SCALE_BY_TWO - width/DD_SCALE_BY_FOUR, height/DD_SCALE_BY_TWO - height/DD_SCALE_BY_EIGHT, width/DD_SCALE_BY_TWO, height/4)
         textSize(width * DD_SMALL_TEXT_SIZE);
         text("Click Screen to Main Menu", width/DD_SCALE_BY_TWO - width/DD_SCALE_BY_FOUR, height/DD_SCALE_BY_TWO + height/DD_SCALE_BY_TWENTY, width/DD_SCALE_BY_TWO, height/DD_SCALE_BY_FOUR)
-        this.gremlinDisplay.draw();
-        this.ogreDisplay.draw();
-        this.skeletonDisplay.draw();
+        this.myGremlinDisplay.draw();
+        this.myOgreDisplay.draw();
+        this.mySkeletonDisplay.draw();
         pop()
     }
 
-    characterRendering(time) {
-        this.gremlinDisplay.step(time);
-        this.ogreDisplay.step(time);
-        this.skeletonDisplay.step(time);
+    characterRendering(theTime) {
+        this.myGremlinDisplay.step(theTime);
+        this.myOgreDisplay.step(theTime);
+        this.mySkeletonDisplay.step(theTime);
     }
 
 
@@ -48,7 +54,7 @@ class DefeatDisplay {
         if (
             mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height
         ) { 
-            this.isRunning = false;
+            this.myIsRunning = false;
             return
         }
     }

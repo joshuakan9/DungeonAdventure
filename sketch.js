@@ -491,8 +491,8 @@ function newGame() {
         VMainMenu.step(time)
         VPauseMenu.step(time)
         if (instanceBattle && instanceBattle.getInCombat() && !instanceBattle.outOfText) {
-          instanceBattleDisplay.mobClone.step(time);
-          instanceBattleDisplay.playerClone.step(time);
+          instanceBattleDisplay.myMobClone.step(time);
+          instanceBattleDisplay.myPlayerClone.step(time);
         }
         if (instanceTextBox && !instanceTextBox.isEmpty()) {
           instanceTextBox.tickTextBox(time);

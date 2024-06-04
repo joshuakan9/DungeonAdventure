@@ -3,7 +3,7 @@
  */
 class BagDisplay {
     myBag;
-    myIsPaused
+    myIsPaused;
     constructor(thePlayer) {
         this.myBag = thePlayer.getBag();
         this.myIsPaused = false;

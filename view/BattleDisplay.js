@@ -128,24 +128,34 @@ const HP_MOB_NUMBER_WIDTH_NUM_SCALE = 11.3;
  */
 
 const STAMINA_MOB_NUMBER_WIDTH_NUM_SCALE = 5.3;
+
 /**
  * Class representing a BattleDisplay.
  */
 
 class BattleDisplay {
+    myBattleSystem;
+    myPlayerMaxHealth;
+    myMobInitialHealth;
+    myPlayerInitialStamina;
+    myPlayerClone;
+    myMobClone;
+    myRandomIndexes;
+
+
     /**
      * Create a BattleDisplay.
      * @param {Object} theBattleSystem - The battle system for the BattleDisplay.
      */
     constructor(theBattleSystem) {
         this.myBattleSystem = theBattleSystem;
-        this.playerMaxHealth = this.myBattleSystem.myPlayer.getMaxHitPoints();
-        this.mobInitialHealth = this.myBattleSystem.myMob.myHitPoints;
-        this.playerInitialStamina = this.myBattleSystem.myPlayer.myStamina;
+        this.myPlayerMaxHealth = this.myBattleSystem.myPlayer.getMaxHitPoints();
+        this.myMobInitialHealth = this.myBattleSystem.myMob.myHitPoints;
+        this.myPlayerInitialStamina = this.myBattleSystem.myPlayer.myStamina;
         this.createClones();
-        this.randomIndexes = [];
+        this.myRandomIndexes = [];
         for (let i = 0; i < DISPLAY_SCALE; i++) {
-            this.randomIndexes.push(Math.floor(Math.random() * 5))
+            this.myRandomIndexes.push(Math.floor(Math.random() * 5))
         }
         window.dispatchEvent(new Event("e-transition"))
     }
@@ -176,10 +186,10 @@ class BattleDisplay {
         // this.drawButtonsText()
 
         //player spot
-        this.playerClone.draw()
+        this.myPlayerClone.draw()
 
         //monster spot
-        this.mobClone.draw()
+        this.myMobClone.draw()
 
         this.drawHealthStaminaBars()
 
@@ -207,7 +217,7 @@ class BattleDisplay {
         for (let i = 0; i < DISPLAY_SCALE; i++) {
             let x = Math.floor(Math.random() * WALL_IMG_ARRAY.length);
             if(i % 2 == 0) {
-                image(WALL_IMG_ARRAY[this.randomIndexes[i]], (width * i/DISPLAY_SCALE), (height)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
+                image(WALL_IMG_ARRAY[this.myRandomIndexes[i]], (width * i/DISPLAY_SCALE), (height)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
             } else {
                 image(WALL0_IMG, (width * i/DISPLAY_SCALE), (height)/DISPLAY_SCALE, width/DISPLAY_SCALE, height/DISPLAY_SCALE);
             }
@@ -327,11 +337,11 @@ class BattleDisplay {
         let barWidth = width / DISPLAY_SCALE; // Width of the bars
         let barHeight = height / HEIGHT_BAR_SCALE; // Height of the bars
 
-        let playerHealthPercentage = this.myBattleSystem.myPlayer.getHitPoints() / this.playerMaxHealth;
+        let playerHealthPercentage = this.myBattleSystem.myPlayer.getHitPoints() / this.myPlayerMaxHealth;
         let playerHealthBarWidth = barWidth * playerHealthPercentage;
-        let mobHealthPercentage = this.myBattleSystem.myMob.getHitPoints() / this.mobInitialHealth;
+        let mobHealthPercentage = this.myBattleSystem.myMob.getHitPoints() / this.myMobInitialHealth;
         let mobHealthBarWidth = barWidth * mobHealthPercentage;
-        let playerStaminaPercentage = this.myBattleSystem.myStamina / this.playerInitialStamina;
+        let playerStaminaPercentage = this.myBattleSystem.myStamina / this.myPlayerInitialStamina;
         let playerStaminaBarWidth = barWidth * playerStaminaPercentage;
 
         // Draw player's health bar
@@ -368,13 +378,13 @@ class BattleDisplay {
         strokeWeight(5);
         fill('white');
         // Player's health
-        text(this.myBattleSystem.myPlayer.myHitPoints + ' / ' + this.playerMaxHealth, width / HP_PLAYER_NUMBER_WIDTH_NUM_SCALE, height - height / HP_NUMBER_HEIGHT_NUM_SCALE);
+        text(this.myBattleSystem.myPlayer.myHitPoints + ' / ' + this.myPlayerMaxHealth, width / HP_PLAYER_NUMBER_WIDTH_NUM_SCALE, height - height / HP_NUMBER_HEIGHT_NUM_SCALE);
 
         // Mob's health
-        text(this.myBattleSystem.myMob.myHitPoints + ' / ' + this.mobInitialHealth, width - width / HP_MOB_NUMBER_WIDTH_NUM_SCALE, height - height / HP_NUMBER_HEIGHT_NUM_SCALE);
+        text(this.myBattleSystem.myMob.myHitPoints + ' / ' + this.myMobInitialHealth, width - width / HP_MOB_NUMBER_WIDTH_NUM_SCALE, height - height / HP_NUMBER_HEIGHT_NUM_SCALE);
 
         // Stamina numbers
-        text(this.myBattleSystem.myStamina + ' / ' + this.playerInitialStamina, width / STAMINA_MOB_NUMBER_WIDTH_NUM_SCALE, height - height / 2);
+        text(this.myBattleSystem.myStamina + ' / ' + this.myPlayerInitialStamina, width / STAMINA_MOB_NUMBER_WIDTH_NUM_SCALE, height - height / 2);
         pop()
     }
 
@@ -384,7 +394,7 @@ class BattleDisplay {
     createClones() {
         const playerConst = this.myBattleSystem.myPlayer.constructor;
         const mobConst = this.myBattleSystem.myMob.constructor;
-        this.playerClone = new playerConst({
+        this.myPlayerClone = new playerConst({
             thePos: createVector((1.5), (8)),
             theSize: createVector(2, 4),
             theImage: this.myBattleSystem.myPlayer.myImage,
@@ -405,7 +415,7 @@ class BattleDisplay {
               walk: new FramePattern(ANIM_WALK)
             }),
         })
-        this.mobClone = new mobConst ({
+        this.myMobClone = new mobConst ({
             thePos: createVector((13.5), (8)),
             theSize: createVector(2, 4),
             theImage: this.myBattleSystem.myMob.myImage,
@@ -427,7 +437,7 @@ class BattleDisplay {
             }),
             
         })
-        this.mobClone.setDirection('west')
+        this.myMobClone.setDirection('west')
         
     }
 
