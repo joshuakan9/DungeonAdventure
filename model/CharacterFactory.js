@@ -88,7 +88,6 @@ class CharacterFactory {
                     theStamina: priestData.theStamina,
                     theBlockPercentage: priestData.theBlockPercentage,
                     theMaxHitPoints: priestData.theMaxHitPoints,
-                    theSpecialAttack: new Attack(priestData.theSpecialAttack.damage, priestData.theSpecialAttack.hitChance),
                     theHeal: new Heal(priestData.theHeal.healAmount, priestData.theHeal.healChance),
                     theAnimation: new Animations({
                       stand: new FramePattern(ANIM_STAND),

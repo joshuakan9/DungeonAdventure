@@ -73,7 +73,7 @@ class BattleSystem {
     playerBasicAttack() {
         let playerDamage = this.myPlayer.getAttack().getDamage();
         let playerHitPercentage = this.myPlayer.getAttack().getHitPercentage();
-        let playerRandom = random(0, 100);
+        let playerRandom = Math.random() * 100;
 
         if (playerRandom < playerHitPercentage) {
             this.myMob.setHitPoints(this.myMob.getHitPoints() - playerDamage);
@@ -84,11 +84,11 @@ class BattleSystem {
             window.dispatchEvent(new CustomEvent("e-attack" , {detail:{ entity: this.myPlayer, attack: "basic" }}))
 
             let myMobHealPercentage = this.myMob.getHeal().getHealPercentage();
-            let myMobHealRandom = random(0, 100);
+            let myMobHealRandom = Math.random() * 100;
 
             if (myMobHealRandom < myMobHealPercentage && this.myMob.getHitPoints() - playerDamage > 0) {
-                console.log("myMob healed")
-                window.dispatchEvent(new CustomEvent("e-myMob-heal", {detail: this.myMob}))
+                console.log("mob healed")
+                window.dispatchEvent(new CustomEvent("e-mob-heal", {detail: this.myMob}))
                 this.myMob.heal();
             }
         } else {
@@ -116,7 +116,7 @@ class BattleSystem {
         } else {
             let playerDamage = this.myPlayer.getSpecialAttack().getDamage();
             let playerHitPercentage = this.myPlayer.getSpecialAttack().getHitPercentage();
-            let playerRandom = random(0, 100);
+            let playerRandom = Math.random() * 100;
 
             if (playerRandom < playerHitPercentage) {
                 this.myMob.setHitPoints(this.myMob.getHitPoints() - playerDamage);
@@ -130,11 +130,11 @@ class BattleSystem {
                 window.dispatchEvent(new CustomEvent("e-special-attack"))
 
                 let myMobHealPercentage = this.myMob.getHeal().getHealPercentage();
-                let myMobHealRandom = random(0, 100);
+                let myMobHealRandom = Math.random() * 100;
 
                 if (myMobHealRandom < myMobHealPercentage && this.myMob.getHitPoints() - playerDamage > 0) {
-                    console.log("myMob healed")
-                    window.dispatchEvent(new CustomEvent("e-myMob-heal", {detail: this.myMob}))
+                    console.log("mob healed")
+                    window.dispatchEvent(new CustomEvent("e-mob-heal", {detail: this.myMob}))
                     this.myMob.heal();
 
                 }
@@ -152,20 +152,20 @@ class BattleSystem {
         let myMobBasicDamage = this.myMob.getAttack().getDamage();
         let myMobSpecialDamage = this.myMob.getSpecialAttack().getDamage();
         let myMobHitPercentage = this.myMob.getAttack().getHitPercentage();
-        let myMobRandom = random(0, 100); // random int 0 - 99
+        let myMobRandom = Math.random() * 100; // random int 0 - 99
 
         if (myMobRandom < myMobHitPercentage) {
 
             let playerBlockPercentage = this.myPlayer.getBlockPercentage();
             console.log("block chance = " + playerBlockPercentage);
-            let playerBlockRandom = random(0, 100);
+            let playerBlockRandom = Math.random() * 100;
 
             if (playerBlockRandom < playerBlockPercentage) {
                 console.log("player blocked");
                 window.dispatchEvent(new CustomEvent("e-player-block", {detail: this.myMob}));
             } else {
 
-                let basicOrSpecial = random(0, 100);
+                let basicOrSpecial = Math.random() * 100;
                 if (basicOrSpecial < 75) {
                     this.myPlayer.setHitPoints(this.myPlayer.getHitPoints() - myMobBasicDamage);
                     

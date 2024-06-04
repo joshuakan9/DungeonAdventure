@@ -38,7 +38,7 @@ class Dino extends Character {
     }
 
     /**
-     * Returns the special attack of the assassin.
+     * Returns the special attack of the dino.
      *
      * @returns {Object} The special attack of the assassin.
      */
@@ -47,17 +47,16 @@ class Dino extends Character {
     }
 
     /**
-     * Buffs the assassin by increasing the damage of its attack and special attack.
+     * Buffs the dino by increasing the damage of its special attack.
      */
     buff() {
-        this.myAttack.setDamage(this.myAttack.getDamage() + 5);
         this.mySpecialAttack.setDamage(this.myAttack.getDamage() + 10);
     }
 
     /**
-     * Returns the class of the assassin.
+     * Returns the class of the dino.
      *
-     * @returns {string} The class of the assassin.
+     * @returns {string} The class of the dino.
      */
     getClass() {
         return "Dino";
