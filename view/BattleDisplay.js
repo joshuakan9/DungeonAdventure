@@ -231,6 +231,8 @@ class BattleDisplay {
      */
     drawButtons() {
         push()
+        stroke(0);
+
         textSize(width / TEXT_SCALE)
         //Button Size
         const buttonWidth = width/BUTTON_WIDTH_SCALE;
@@ -256,6 +258,7 @@ class BattleDisplay {
 
         textAlign(CENTER, CENTER);
         fill('black');
+        noStroke();
 
         text("Basic Attack", rect1X, rect1Y, buttonWidth, buttonHeight);
         switch (this.myBattleSystem.myPlayer.getClass()) {
