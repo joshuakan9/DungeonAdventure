@@ -554,7 +554,6 @@ function newGame() {
           push()
           fill('red')
           textSize(width / 10);
-          text(round(frameRate()), 0, width / 10)
 
           pop();
 
@@ -652,7 +651,7 @@ function keyPressed() {
           instanceFactory.interact(instancePlayer)
         }
       }
-      if (instanceBagDisplay.getIsPaused() === false) {
+      if (instanceBagDisplay && instanceBagDisplay.getIsPaused() === false) {
         VPauseMenu.keyPressed()
 
       }
