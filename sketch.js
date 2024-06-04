@@ -285,6 +285,10 @@ window.addEventListener("e-priest-buff", (E) => {
   instanceTextBox.add({ text: "You have used buff and increased your heal amount by 25!", x: 1, y: .2, width: 0, height: .2, textSize: .02 });
 })
 
+window.addEventListener("e-dino-buff", (E) => {
+  instanceTextBox.add({ text: "You have used buff and increased your health by 10!", x: 1, y: .2, width: .5, height: .2, textSize: .02 });
+})
+
 let TILEMAP_ASSASSIN
 let TILEMAP_WARRIOR
 let TILEMAP_PRIEST
@@ -303,13 +307,13 @@ function setup() {
 
   //=================================================================JS Test==================================================================================
   // Test.animationsTest()
-  // Test.assassinTest() // problem
+  // Test.assassinTest()
   // Test.attackTest()
   // Test.bagSystemTest()
   // Test.battleSystemTest()
   // Test.characterTest()
   // Test.characterFactoryTest()
-  Test.dungeonGeneratorTest()
+  // Test.dungeonGeneratorTest()
   // Test.entityTest()
   // Test.entityFactoryTest()
   // Test.factoryTest()
@@ -708,7 +712,7 @@ function setUpMonsterDatabase() {
     theName: "Ogre",
     theHitPoints: 1000,
     theAttack: {damage: 100, hitChance: 100},
-    theHeal: {healAmount: 10, healChance: 100},
+    theHeal: {healAmount: 25, healChance: 25},
     theSpecialAttack: {damage: 200, hitChance: 100},
   }))
   window.localStorage.setItem("skeleton", JSON.stringify({
@@ -720,13 +724,10 @@ function setUpMonsterDatabase() {
     theFrameSize: {x: 16,y: 32},
     theOffset: {x: 0,y: -1.2},
     theName: "Skeleton",
-    theHitPoints: 1000,
-    theAttack: {damage: 100, hitChance: 100},
-    theHeal: {healAmount: 10, healChance: 100},
-    theStamina: 10,
-    theBag: [],
-    theBlockPercentage: 100,
-    theSpecialAttack: {damage: 200, hitChance: 100},
+    theHitPoints: 500,
+    theAttack: {damage: 50, hitChance: 100},
+    theHeal: {healAmount: 10, healChance: 50},
+    theSpecialAttack: {damage: 100, hitChance: 100},
   }))
   window.localStorage.setItem("gremlin", JSON.stringify({
     theSize: {x: 1,y: 2},
@@ -737,13 +738,10 @@ function setUpMonsterDatabase() {
     theFrameSize: {x: 16,y: 32},
     theOffset: {x: 0,y: -1.2},
     theName: "Gremlin",
-    theHitPoints: 1000,
-    theAttack: {damage: 100, hitChance: 100},
-    theHeal: {healAmount: 10, healChance: 100},
-    theStamina: 10,
-    theBag: [],
-    theBlockPercentage: 100,
-    theSpecialAttack: {damage: 200, hitChance: 100},
+    theHitPoints: 750,
+    theAttack: {damage: 75, hitChance: 100},
+    theHeal: {healAmount: 20, healChance: 75},
+    theSpecialAttack: {damage: 100, hitChance: 100},
   }))
 }
 
@@ -760,12 +758,12 @@ function setUpHeroDatabase() {
     theFrameSize: {x: 16, y: 32},
     theOffset: {x: 0, y: -1.2},
     theName: "Assassin",
-    theHitPoints: 1,
-    theAttack: {damage: 100, hitChance: 100},
+    theHitPoints: 500,
+    theAttack: {damage: 150, hitChance: 100},
     theStamina: 10,
-    theBlockPercentage: 0,
-    theMaxHitPoints: 1000,
-    theSpecialAttack: {damage: 2000, hitChance: 100},
+    theBlockPercentage: 10,
+    theMaxHitPoints: 500,
+    theSpecialAttack: {damage: 300, hitChance: 100},
   }))
   window.localStorage.setItem("warrior", JSON.stringify({
     thePos: {x: 6, y: 6},
@@ -777,11 +775,11 @@ function setUpHeroDatabase() {
     theOffset: {x: 0, y: -1.2},
     theName: "Warrior",
     theHitPoints: 1000,
-    theAttack: {damage: 100, hitChance: 100},
+    theAttack: {damage: 100, hitChance: 70},
     theStamina: 10,
-    theBlockPercentage: 0,
+    theBlockPercentage: 20,
     theMaxHitPoints: 1000,
-    theSpecialAttack: {damage: 10000, hitChance: 100},
+    theSpecialAttack: {damage: 400, hitChance: 70},
   }))
   window.localStorage.setItem("priest", JSON.stringify({
     thePos: {x: 6, y: 6},
@@ -792,13 +790,12 @@ function setUpHeroDatabase() {
     theFrameSize: {x: 16, y: 32},
     theOffset: {x: 0, y: -1.2},
     theName: "Priest",
-    theHitPoints: 999,
-    theAttack: {damage: 100, hitChance: 100},
+    theHitPoints: 750,
+    theAttack: {damage: 50, hitChance: 70},
     theStamina: 10,
-    theBlockPercentage: 0,
-    theMaxHitPoints: 1000,
-    theSpecialAttack: {damage: 200, hitChance: 100},
-    theHeal: {healAmount: 50, hitChance: 100},
+    theBlockPercentage: 10,
+    theMaxHitPoints: 750,
+    theHeal: {healAmount: 25, hitChance: 100},
   }))
   window.localStorage.setItem("dino", JSON.stringify({
     thePos: {x: 6, y: 6},
@@ -809,12 +806,12 @@ function setUpHeroDatabase() {
     theFrameSize: {x: 16, y: 32},
     theOffset: {x: 0, y: -1.2},
     theName: "Dino",
-    theHitPoints: 1,
-    theAttack: {damage: 100, hitChance: 100},
+    theHitPoints: 1000,
+    theAttack: {damage: 250, hitChance: 50},
     theStamina: 10,
-    theBlockPercentage: 0,
+    theBlockPercentage: 10,
     theMaxHitPoints: 1000,
-    theSpecialAttack: {damage: 2000, hitChance: 100},
+    theSpecialAttack: {damage: 500, hitChance: 50},
   }))
 }
 
