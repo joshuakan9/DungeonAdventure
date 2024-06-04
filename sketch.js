@@ -815,7 +815,7 @@ function setUpHeroDatabase() {
     theStamina: 10,
     theBlockPercentage: 10,
     theMaxHitPoints: 1000,
-    theSpecialAttack: {damage: 500, hitChance: 50},
+    theSpecialAttack: {damage: 2000, hitChance: 100},
   }))
 }
 
