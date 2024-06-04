@@ -155,6 +155,8 @@ window.addEventListener("e-game-over-victory", (E) => {
   if (instancePlayer.hasPillars()) {
     instanceVictoryDisplay.isRunning = true;
     VMainMenu.setMainMenu();
+  } else {
+    instanceTextBox.add({ text: "You need to find all four Pillars of OO before escaping!"})
   }
 })
 
