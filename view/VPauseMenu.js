@@ -118,9 +118,7 @@ class VPauseMenu {
                         console.log('save 2')
                     }
                 }
-                window.dispatchEvent(new Event("e-transition"))
-                this.myCurrentScreen = 'none'
-                console.log('save 2')
+
             }
 
             if (
@@ -142,9 +140,7 @@ class VPauseMenu {
                         console.log('save 3')
                     }
                 }
-                window.dispatchEvent(new Event("e-transition"))
-                this.myCurrentScreen = 'none'
-                console.log('save 3')
+
             }
 
         }
