@@ -531,13 +531,13 @@ function newGame() {
           push()
           let color = map(noise(TICK / 50, 0), 0, 1, -50, 50)
           fill(177 + color,188 + color,184 + color)
-          background(0)
+          // background(0)
           textAlign(CENTER)
           textSize(width / 30)
           text("Click to start", width / 2, height * 0.75)
           pop()
         } else {
-          background(0);
+          // background(0);
 
 
           push()
