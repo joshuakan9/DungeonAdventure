@@ -50,7 +50,8 @@ class Dino extends Character {
      * Buffs the dino by increasing the damage of its special attack.
      */
     buff() {
-        this.mySpecialAttack.setDamage(this.myAttack.getDamage() + 10);
+        this.myAttack.setDamage(this.myAttack.getDamage() + 5);
+        this.mySpecialAttack.setDamage(this.mySpecialAttack.getDamage() + 10);
     }
 
     /**

@@ -230,6 +230,8 @@ class BattleSystem {
                             window.dispatchEvent(new Event("e-warrior-buff"))
                         } else if (instancePlayer.getClass() === "Priest") {
                             window.dispatchEvent(new Event("e-priest-buff"))
+                        } else if (instancePlayer.getClass() === "Dino") {
+                            window.dispatchEvent(new Event("e-assassin-buff"))
                         } else {
                             console.log("invalid class at buff");
                         }
