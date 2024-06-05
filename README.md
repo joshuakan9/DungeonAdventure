@@ -3,7 +3,7 @@
 https://kimjonauw.github.io/dungeon-adventure-game/
 
 ## Overview
-Welcome to the Dungeon Adventure Game! This is an exciting adventure game where a hero is randomly placed within a randomly generated dungeon. The adventurer needs to find the four Pillars of OO (Abstraction, Encapsulation, Inheritance, and Polymorphism) and take them to the exit to win the game. The dungeon contains various features such as pits, healing potions, and vision potions that will either hinder or help the adventurer's progress.
+Welcome to the Dungeon Adventure Game! This is an exciting adventure game where a hero is randomly placed within a randomly generated dungeon. The adventurer needs to find the four Pillars of OO (Abstraction, Encapsulation, Inheritance, and Polymorphism) and take them to the exit to win the game. The dungeon contains various features that will either hinder or help the adventurer's progress.
 
 ## Features
 - Random Dungeon Generation: Each game creates a new, unique dungeon layout.
