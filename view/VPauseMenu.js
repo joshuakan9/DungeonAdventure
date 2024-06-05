@@ -151,6 +151,11 @@ class VPauseMenu {
         }
 
     }
+
+    /**
+     * Updates the game state.
+     * @param theTime
+     */
     static step(theTime) {
         if (this.myCharacterSave0) {
             this.myCharacterSave0.step(theTime)
@@ -399,7 +404,9 @@ class VPauseMenu {
         }
     }
 
-    
+    /**
+     * Draws the controls screen on the pause menu.
+     */
     static drawControlsScreen() {
         push()
 

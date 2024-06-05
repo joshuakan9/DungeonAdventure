@@ -565,6 +565,9 @@ class VMainMenu {
         pop()
     }
 
+    /**
+     * Draws the controls screen.
+     */
     static drawControlsScreen() {
         push()
 
@@ -610,6 +613,9 @@ class VMainMenu {
         pop()
     }
 
+    /**
+     * Draws the about screen.
+     */
     static drawAboutScreen() {
         push()
 

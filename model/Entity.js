@@ -29,6 +29,13 @@ class Entity extends Sprite {
         this.setDirection(this.myDirection)
     }
 
+    /**
+     * Draws the entity on the screen.
+     *
+     * This method first gets the current frame of the entity's animation. It then translates the drawing context to the entity's position, taking into account the entity's offset.
+     * If the entity's last horizontal direction was 'west', it further translates the context and scales it for a mirrored drawing (entity looking to the left).
+     * Finally, it draws the entity's image on the screen, using the entity's size and the current frame's position and size.
+     */
     draw() {
 
         let frame = this.myFrameMap.get(this.myFrame)

@@ -16,6 +16,10 @@ const VD_SCALE_BY_TWENTY = 20;
 const VD_MAIN_TEXT_SIZE = .05;
 const VD_SMALL_TEXT_SIZE = .025;
 
+/**
+ * The VictoryDisplay class is responsible for managing and displaying the victory screen.
+ * It provides methods to draw the screen, render characters, and handle mouse clicks.
+ */
 class VictoryDisplay {
     myIsRunning;
     myPriestDisplay;
@@ -23,6 +27,9 @@ class VictoryDisplay {
     myAssassinDisplay;
     myDinoDisplay;
 
+    /**
+     * The constructor initializes the victory screen with characters.
+     */
     constructor() {
         this.myIsRunning = false;
         this.myPriestDisplay = CharacterFactory.createCharacter("priest");
@@ -36,7 +43,10 @@ class VictoryDisplay {
         this.myDinoDisplay.setPos(createVector(VD_DINO_VECTOR_X, VD_VECTOR_Y_ONE));
     }
 
-
+    /**
+     * The draw method is used to draw the victory screen.
+     * It displays a black background, text messages, and characters.
+     */
     draw(){
         push()
         fill('black')
@@ -54,6 +64,10 @@ class VictoryDisplay {
         pop();
     }
 
+    /**
+     * The characterRendering method is used to update the characters' states.
+     * @param {number} time - The current time or tick.
+     */
     characterRendering(time) {
         this.myPriestDisplay.step(time);
         this.myWarriorDisplay.step(time);
@@ -61,6 +75,10 @@ class VictoryDisplay {
         this.myDinoDisplay.step(time);
     }
 
+    /**
+     * The mouseClicked method is used to handle mouse click events.
+     * It checks if the mouse click is within the screen bounds and stops the victory screen if it is.
+     */
     mouseClicked() {
         if (
             mouseX >= 0 &&
